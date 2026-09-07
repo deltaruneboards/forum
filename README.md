@@ -1,6 +1,6 @@
 # DUMB forum files
 
-This repository hosts forum files for the Deltarune Unofficial Message Boards revival.
+This repository hosts forum files for the Deltarune Unofficial Message Boards revival. All commits to this repository are automatically synchronized to the server hosting the forum.
 
 ## Installation
 
