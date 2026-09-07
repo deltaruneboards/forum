@@ -25,6 +25,10 @@ Clone this repository into `/srv/dumb` on your system. (If you'd like to clone i
 git clone https://github.com/deltaruneboards/forum.git /srv/dumb
 ```
 
+### Configure the forum
+
+Copy `Settings_private.template.php` to `Settings_private.php`. The settings should work out of the box, aside from potential directory changes you might want to do.
+
 ### Set up the database
 
 In the MariaDB CLI (e.g. `sudo mariadb`) run:
