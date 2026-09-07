@@ -662,7 +662,7 @@ function validateUsername($memID, $username, $return_error = false, $check_reser
 	$errors = array();
 
 	// Don't use too long a name.
-	if ($smcFunc['strlen']($username) > 25)
+	if ($smcFunc['strlen']($username) > 32)
 		$errors[] = array('lang', 'error_long_name');
 
 	// No name?!  How can you register with no name?
