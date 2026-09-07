@@ -1,0 +1,10 @@
+/* Styles for the personalizedBBC modification.
+------------------------------------------------- */
+.pbbc_bubbleInfo {
+    position: relative;
+}
+
+.pbbc_popup {
+    position: absolute;
+    display: none;
+}
