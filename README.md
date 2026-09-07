@@ -23,6 +23,9 @@ Clone this repository into `/srv/dumb` on your system. (If you'd like to clone i
 
 ```
 git clone https://github.com/deltaruneboards/forum.git /srv/dumb
+cd /srv/dumb
+git lfs install
+git lfs pull
 ```
 
 ### Configure the forum
