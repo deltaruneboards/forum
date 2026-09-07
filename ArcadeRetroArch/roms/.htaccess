@@ -1,0 +1,40 @@
+<IfModule mod_headers.c>
+	<FilesMatch "\.(html)$">
+		Header always set X-Frame-Options SAMEORIGIN
+	</FilesMatch>
+</IfModule>
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{REQUEST_URI} arcade_score\.php
+	RewriteRule ./* ../arcade/arcade_score.php?act=arcade&scoreprep=prepscore
+	RewriteCond %{REQUEST_URI} highscore=1
+	RewriteRule ./* ../arcade/arcade_score.php?scoreprep=1&gameid=45&highscore=1
+	RewriteCond %{QUERY_STRING} ^act=Arcade&do=(.*)$
+	RewriteRule ./* ../index.php?act=Arcade&do=newscore
+</IfModule>
+<IfModule mod_security.c>
+	<FilesMatch ".(zip|tar|rar|gz)$">
+		SecFilterEngine Off
+		SecFilterScanPOST Off
+	</FilesMatch>
+</IfModule>
+<Files ^(*.php|*.html)>
+	Order Deny,Allow
+	Deny from all
+	Allow from localhost
+</Files>
+AddCharset UTF-8 .php
+AddCharset UTF-8 .html
+AddCharset UTF-8 .htm
+AddCharset UTF-8 .js
+RemoveHandler .php3 .phtml .cgi .fcgi .pl .fpl .shtml
+<Files *>
+	Order Deny,Allow
+	Deny from all
+	Allow from localhost
+</Files>
+<FilesMatch ".(json|zip|7z|jpg|jpeg|gif|png|bmp|svg|gd3|gd7|dx2|bsx|cgb|ss|gdi|scd|sgg|al|a52|dat|lst|pcfx|mame|bin|adf|adz|dms|fdi|ipf|raw|hdf|hdz|lha|slave|info|cue|ccd|chd|nrg|mds|iso|uae|m3u|nds|fds|nes|unif|unf|gb|gbc|dmg|col|cv|rom|mdx|md|smd|gen|bms|sms|gg|sg|68k|sgd|lnx|ngp|ngc|pce|img|toc|exe|pbp|ws|wsc|pc2|vb|vboy|gba|n64|v64|z64|u1|ndd|mdf|cbn|32x|elf|cso|prx|a78|smc|sfc|swc|fig|bs|st|a26|d64|d6z|d71|d7z|d80|d81|d82|d8z|g64|g6z|g41|g4z|x64|x6z|nib|nbz|d2m|d4m|t64|tap|tcrt|prg|p00|crt|cmd|vfl|vsf|gz|20|40|60|a0|b0|j64|jag|abs|cof)$">
+	Order Deny,Allow
+    Allow from all
+</FilesMatch>
+RemoveHandler .exe .php .php3 .phtml .cgi .fcgi .pl .fpl .shtml

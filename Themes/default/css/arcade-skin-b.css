@@ -1,0 +1,164 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ************************************* */
+/* styles for Defiant Template           */
+/* ************************************* */
+.maintour
+{
+	width: 400px;
+	text-align: center;
+}
+.lefty
+{
+	text-align: right;
+	float: left;
+	width: 200px;
+}
+.righty
+{
+	text-align: left;
+	float: right;
+	width: 200px;
+}
+.left
+{
+	line-height: 26px;
+}
+.right
+{
+	line-height: 25px;
+	padding: 3px;
+}
+#arcadehiddeninfo div
+{
+	padding: 0px;
+}
+#arcade_shoutbox a
+{
+	text-decoration: none;
+}
+#arcade_shoutbox a:hover
+{
+	text-decoration: underline;
+}
+.arcade-dropdown {
+    position: relative;
+    display: inline-block;
+	width: 15%;
+	height: 40px;
+}
+
+.arcade-dropdown-content {
+    display: none;
+    position: absolute;
+    border: 1px solid;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 9;
+}
+
+.arcade-dropdown:hover .arcade-dropdown-content {
+    display: block;
+}
+
+.arcade_skinc_border {
+	border-bottom-left-radius: 0.5rem !important;
+	border-bottom-right-radius: 0.5rem !important;
+	border-color: gray !important;
+	border-width: thin !important;
+	border: double 0.015em linear-gradient(
+		rgba(0, 0, 0, 0.003),
+		rgba(0, 0, 0, 0.003)
+	) !important;
+	border-top: none;
+}
+
+.arcade_skinc_ic_border {
+	border-right: 0rem !important;
+	border-left: 0rem !important;
+	border-top: 0rem !important;
+	border-bottom: 0rem !important;
+	border-style: none !important;
+	background-color: gray;
+	background:
+		linear-gradient(
+		rgba(0, 0, 0, 0.085),
+		rgba(0, 0, 0, 0.085)
+	) !important;
+}
+
+.arcade_cats_border {
+	border-radius: 0.5rem !important;
+	border-color: gray !important;
+	border-width: thin !important;
+	border: double 0.015em linear-gradient(
+		rgba(0, 0, 0, 0.003),
+		rgba(0, 0, 0, 0.003)
+	) !important;
+}
+
+.arcade_border_split_side {
+	border-right: 0rem !important;
+	border-left: 0rem !important;
+	border-top: 0rem !important;
+	border-bottom: 0rem !important;
+	border-style: none !important;
+	background-color: gray;
+	background:
+		linear-gradient(
+		rgba(0, 0, 0, 0.04),
+		rgba(0, 0, 0, 0.04)
+	) !important;
+}
+
+.arcade_border_split_center {
+	border-right: 0rem !important;
+	border-left: 0rem !important;
+	border-top: 0rem !important;
+	border-bottom: 0rem !important;
+	border-style: none !important;
+	background-color: gray;
+	background:
+		linear-gradient(
+		rgba(0, 0, 0, 0.08),
+		rgba(0, 0, 0, 0.08)
+	) !important;
+}
+
+.arcade_game_cell {
+	border-radius: 0.5rem !important;
+	border-color: gray !important;
+	border-width: thin !important;
+	border: double 0.015em linear-gradient(
+		rgba(0, 0, 0, 0.003),
+		rgba(0, 0, 0, 0.003)
+	) !important;
+}
+
+.arcade_games_table {
+	border-right: 0rem !important;
+	border-left: 0rem !important;
+	border-top: 0rem !important;
+	border-bottom: 0rem !important;
+	border-style: none !important;
+	background-color: gray;
+	background:
+		linear-gradient(
+		rgba(0, 0, 0, 0.085),
+		rgba(0, 0, 0, 0.085)
+	) !important;
+}
+
+.arcade_games_row {
+	display: table-row;
+	padding: 0rem;
+	min-width: 100%;
+	width: 100%;
+	position: relative;
+}

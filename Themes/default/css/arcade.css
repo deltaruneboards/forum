@@ -1,0 +1,276 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ************************************* */
+/* styles from Arcade.template           */
+/* ************************************* */
+.game_suggest
+{
+	border: 1px solid black;
+	position: absolute;
+	visibility: hidden;
+}
+
+/* An auto suggest item */
+.game_suggest_item
+{
+	background-color: #DDDDDD;
+}
+
+.game_suggest_item a
+{
+	color: black;
+	display: block;
+}
+
+/* hovered auto suggest item */
+.game_suggest_item a:hover
+{
+	background-color: #888888;
+	cursor: pointer;
+	color: #EEEEEE;
+	text-decoration: none;
+}
+
+.arcade_up_contain {
+	overflow: hidden;
+	box-sizing: border-box;
+	border: 1px solid #DDD;
+	margin-bottom: 3px;
+	margin-top: -1px;
+}
+
+/* ************************************* */
+/* styles from ArcadeList.template       */
+/* ************************************* */
+.game_table table
+{
+	width: 100%;
+}
+.game_table td.icon
+{
+	padding: 5px 7px;
+	width: 8%;
+}
+.game_table td.icon img
+{
+	width: 60px;
+}
+.game_table td.info
+{
+	vertical-align: top;
+}
+.game_table td.info h4
+{
+	padding: 0.4em 0.4em 0 0.4em;
+	margin: 0;
+}
+.game_table td.info h4 a
+{
+	float: left;
+}
+.game_table td.info h4 span
+{
+	float: right;
+}
+.game_table td.info p
+{
+	padding: 0 0.4em 0.5em 0.4em;
+	margin: 0;
+}
+.game_table td.info p span.game_left
+{
+	float: left;
+	text-align: left;
+}
+div.game_list_left
+{
+	float: left;
+	text-align: left;
+}
+div.game_buttons
+{
+	display: block;
+}
+.game_table td.info p span.game_right
+{
+	float: right;
+	text-align: right;
+}
+.game_table td.score
+{
+	width: 15%;
+	text-align: center;
+	vertical-align: middle;
+}
+.game_table td.score2
+{
+	width: 30%;
+	text-align: center;
+	vertical-align: middle;
+}
+.roundframe ul
+{
+	padding: 0.5em;
+}
+
+/* ************************************* */
+/* styles from ArcadeGame.template       */
+/* ************************************* */
+#game_panel img.thumb
+{
+	width: 60px;
+	margin-left: 10px;
+}
+#game_panel div.scores
+{
+	margin-left: 10px;
+}
+#game_panel div.rating
+{
+	margin-right: 10px;
+}
+.score_table table
+{
+	width: 100%;
+	font-size: small;
+}
+.score_table td
+{
+	padding: 0.5em;
+}
+.arcade_edit {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	background: url(../images/arc_icons/arcade_edit.gif) no-repeat;
+	vertical-align: middle;
+}
+.arcade_own_score
+{
+	font-style: oblique;
+}
+#gamearea
+{
+	text-align: center;
+	padding: 0.5em 0.7em;
+}
+.escgamediv {
+	position: absolute;
+	top: 30px;
+	right: 15px;
+	z-index: 100;
+}
+.escgame {
+    background-color: #920205;
+    border: 0px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+	position: static;
+}
+.escgame:hover {
+    background-color:  	#FF6347;
+    color: red;
+	position: static;
+}
+/* ************************************* */
+/* styles from ArcadeArena.template      */
+/* ************************************* */
+.arc_button
+{
+	padding: 5px;
+	margin: 5px;
+	text-decoration: none;
+}
+.arc_button:hover
+{
+	text-decoration: none;
+}
+.arc_button span
+{
+	padding-right: 10px;
+}
+
+table.playerlist
+{
+	width: 100%;
+}
+table.playerlist th.catbg3
+{
+	text-align: left;
+}
+table.playerlist td
+{
+	padding: 0.5em;
+}
+
+table.gameslist
+{
+	width: 100%;
+}
+table.gameslist th.catbg3
+{
+	text-align: left;
+}
+table.gameslist td
+{
+	padding: 0.5em;
+}
+
+/* general styles */
+.arcade_vert_mid
+{
+	vertical-align: middle;
+}
+.arcade_gamesearch
+{
+	width: 440px;
+}
+.arcade_div_stats
+{
+	clear: right;
+	padding:8px 7px 0px 0px;
+	float: right;
+	display: inline;
+}
+.arcade_above
+{
+	clear: both;
+	padding-top: 25px;
+}
+.arcade_login_container
+{
+	border: 1px solid;
+	padding: 5px;
+	border-radius: 3px;
+	width: 30%;
+}
+.arcade_login_table
+{
+	display: table;
+	border: 0px;
+	width: 100%;
+}
+.arcade_login_row
+{
+	display: table-row;
+}
+.arcade_login_cell
+{
+	display: table-cell;
+	text-align: right;	
+}
+.arcade_login_cell_padding
+{
+	padding-top: 5px;
+}

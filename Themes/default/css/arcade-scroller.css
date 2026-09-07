@@ -1,0 +1,53 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+ /* Container DIV - automatically generated */
+.module {
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #ccc;
+}
+.module > p {
+	padding: 0 20px;
+}
+.module > h2 {
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 0 20px;
+}
+.section {
+	padding: 20px;
+}
+.section_bg {
+	background: #f0f0f0;
+}
+.section p {
+	padding: 0;
+}
+.section h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+.section .item + .item {
+	margin-top: 40px;
+}
+.section .item h3 {
+	font-weight: bold;
+}
+.section .item dl {
+	display: flex;
+	margin: 10px 0;
+}
+.section .item dl > * {
+	flex: 1;
+	background: #fff;
+	padding: 10px;
+	font-family: Arial,Helvetica,sans-serif;
+}
+.section .item dl > dt {
+	background: #ddd;
+}

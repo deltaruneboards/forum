@@ -1,0 +1,54 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ************************************* */
+/* styles for admin templates            */
+/* ************************************* */
+select {
+	display: inline-block;
+}
+
+input.arcade_admin_checkbox[type="checkbox"] {
+    transform: scale(0.93);
+	mix-blend-mode: difference;
+	appearance: none;
+	display: inline-block;
+	filter: invert(1);
+	border: 0rem;
+	border-radius: 50%;
+	width: 0.65rem;
+	height: 0.85rem;
+	outline-style: ridge;
+	outline-color: invert;
+	outline-width: 0.05rem;
+	--grad: linear-gradient(90deg, rgba(2,0,131,1) 0%, rgba(9,9,196,1) 35%, rgba(0,212,255,1) 100%);
+	transform: rotate(-180deg);
+	transition-duration: 0.05s;
+}
+
+input.arcade_admin_checkbox[type="checkbox"]:checked {
+	filter: invert(0.7);
+	/*background-color: rgb(0 0 0 / 40%);*/
+	background: var(--grad);
+	transform: rotate(90deg);
+	transition-duration: 0.05s;
+}
+
+.arcade_admin_guide_code {
+	position: relative;
+	width: 90%;
+	height: 100%;
+	display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+	overflow-wrap: anywhere !important;
+	word-break: normal;
+	white-space: pre-line;
+	font-size:0.9rem;
+	padding: 1rem;
+	font-weight: bold;
+}

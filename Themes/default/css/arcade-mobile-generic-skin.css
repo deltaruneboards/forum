@@ -1,0 +1,196 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ***************************************/
+/* mobile styles for arcade generic skin */
+/* ***************************************/
+body {
+	padding: 0rem;
+	margin: 0rem;
+	text-indent: 0.2rem;
+}
+
+#wrapper {
+	min-width: 100% !important;
+}
+
+#top_section {
+	min-width: 100% !important;
+	width: 100% !important;
+	max-width: 100%;
+	background: initial !important;
+}
+
+#inner_section {
+	background: initial !important;
+}
+
+.inner_wrap {
+	background: initial !important;
+}
+
+#content_section ~ *:not(#arctoplist) {
+	background: initial !important;
+}
+#sp_main {
+	all: unset !important;
+}
+#sp_footer {
+	all: unset !important;
+}
+.navigate_section {
+	background: initial !important;
+	border: 0px;	
+}
+
+.arcade_select {
+	min-height: 3em;
+	height: 3em;
+	display: block;
+	font-size: 16px;
+	font-family: sans-serif;
+	font-weight: 700;
+	color: #444;
+	line-height: 1.3;
+	padding: .6em 1.4em .5em .8em;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	border: 1px solid #aaa;
+	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+	border-radius: .5em;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: #fff;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+	  linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+	background-repeat: no-repeat, repeat;
+	background-position: right .7em top 50%, 0 0;
+	background-size: .65em auto, 100%;
+}
+.arcade_select::-ms-expand {
+	display: none;
+}
+.arcade_select:hover {
+	border-color: #888;
+	background: initial !important;
+}
+.arcade_select:focus {
+	border-color: #aaa;
+	box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+	box-shadow: 0 0 0 3px -moz-mac-focusring;
+	color: #222;
+	outline: none;
+}
+.arcade_select option {
+	font-weight:normal;
+}
+*[dir="rtl"] .arcade_select, :root:lang(ar) .arcade_select, :root:lang(iw) .arcade_select {
+	background-position: left .7em top 50%, 0 0;
+	padding: .6em .8em .5em 1.4em;
+}
+.arcade_select:disabled, select[aria-disabled=true] {
+	color: graytext;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22graytext%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+	  linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+}
+.arcade_select:disabled:hover, .arcade_select[aria-disabled=true] {
+	border-color: #aaa;
+}
+
+#footer {
+	height: 100%;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+#footer * {
+	position: relative;
+	width: 100%;
+	left: 0rem;
+	right: 0rem;
+	margin: 0 auto;
+	padding-left: 0rem;
+}
+
+#footer .inner_wrap {
+	width: 100%;
+	padding: 0px !important;
+	margin: 0px;
+}
+
+#footer > .inner_wrap {
+	filter: invert(1);	
+}
+
+#footer > .inner_wrap > ul > li {
+	position: relative;
+	width: 100%;
+	min-width: 100% !important;
+	line-height: 0.8rem;
+}
+
+div#footer > div.inner_wrap ul li {
+	position: relative;
+	font-weight: 300 !important;
+	opacity: 0.7 !important;
+}
+
+div#footer > div.inner_wrap ul li:last-child {
+	padding-bottom: 0.3rem;
+}
+
+div:has(.arcade_buttons_margin) {
+	padding-top: 0.25rem !important;
+}
+
+.arcade_generic_stats_box {
+	padding-left: 1rem !important;
+}
+
+form:has(.arcade_up_contain_generic_gamesearch) {
+	padding-left: 1.7rem !important;
+}
+
+.arcade_generic_stats_box {
+	width: 100%;
+	display: flex;
+	padding-left: 1.2rem !important;;
+}
+
+.arcade_generic_stats_buttonsbox {
+	width: 95%;
+	position: relative;
+	margin: 0 auto;	
+	font-size: x-large;
+}
+
+#arcade_panel {
+	padding-left: 1.25rem;
+}
+
+.arcade_generic_select {
+	padding-left: 1.25rem !important;
+}
+
+.arcade_up_contain {
+	display: flex !important;
+	width: 100% !important;
+	overflow: hidden !important;
+}
+
+.arcade_generic_search_extra {
+	clear: both !important;
+	left: 1.1em !important;
+	padding-top: 0.3em !important;
+	display: flex-block !important;
+}

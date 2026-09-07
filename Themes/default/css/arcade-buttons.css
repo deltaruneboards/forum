@@ -1,0 +1,82 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ************************************* */
+/* styles for css buttons	             */
+/* ************************************* */
+:root {
+	--current-bg-oklch: oklch(80% 0.15 240);
+}
+#arcade_randombg {
+	filter: brightness(1);
+}
+.arcade_games {
+	background: url(../images/icons/arcade_games.png) no-repeat;
+	border:none;
+}
+.arcade_pushable {
+	position: relative;
+	border: none;
+	background: transparent;
+	padding: 0;
+	cursor: pointer;
+	outline-offset: 4px;
+	border-radius: 50%;
+}
+
+.arcade_shadow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 50%;
+	border: 0px;
+	transform: translateY(2px);
+}
+
+.arcade_front {
+	display: flex;
+	position: relative;
+	padding: 2px 7px;
+	border-radius: 50%;
+	font-size: 1.arcade_25rem;
+	background-color: oklch(50% 0.1 200);
+	color: oklch(100% 0.1 200);
+	transform: translateY(-4px);
+	transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.arcade_pushable:hover .arcade_front {
+	transform: translateY(-1px);
+	transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.arcade_pushable:active .arcade_front {
+	transform: translateY(-2px);
+	transition: transform 34ms;
+}
+
+/* Optional: Add a simple glow effect on hover */
+.arcade_pushable:hover .arcade_shadow {
+	box-shadow: 0 0 15px hsl(340deg 100% 32% / 0.5);
+}
+
+a:has(.arcade_category_selector) {
+	border: 0;
+	background: none;
+	outline: none;
+	padding: 0;
+	outline-width: 0px;
+	margin: 0px !important;
+	padding: 0px !important;
+}
+
+#arcade_randgame {
+	background-color: transparent;
+	mix-blend-mode: color;
+}

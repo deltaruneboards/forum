@@ -1,0 +1,5 @@
+#<!-- Apache File Created by SMF Arcade -->
+<IfModule mod_mime.c>
+	AddType application/wasm .wasm
+</IfModule>
+AddCharset UTF-8 .js

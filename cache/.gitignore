@@ -1,0 +1,4 @@
+*
+!.gitignore
+!.htaccess
+!db_last_error.php

@@ -1,0 +1,31 @@
+#<!-- Apache File Created by SMF Arcade 2.7.0.8 -->
+<IfModule mod_headers.c>
+	<FilesMatch "\.(html)$">
+		Header always set X-Frame-Options SAMEORIGIN
+	</FilesMatch>
+</IfModule>
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{REQUEST_URI} arcade_score\.php
+	RewriteRule ./* ../arcade/arcade_score.php?act=arcade&scoreprep=prepscore
+	RewriteCond %{REQUEST_URI} highscore=1
+	RewriteRule ./* ../arcade/arcade_score.php?scoreprep=1&gameid=45&highscore=1
+	RewriteCond %{QUERY_STRING} ^act=Arcade&do=(.*)$
+	RewriteRule ./* ../index.php?act=Arcade&do=newscore
+</IfModule>
+<IfModule mod_security.c>
+	<FilesMatch ".(zip|tar|rar|gz)$">
+		SecFilterEngine Off
+		SecFilterScanPOST Off
+	</FilesMatch>
+</IfModule>
+#<Files ^(*.jpeg|*.jpg|*.png|*.gif|*.tiff|*.bmp|*.php|*.html)>
+#	Order Deny,Allow
+#	Deny from all
+#	Allow from localhost
+#</Files>
+AddCharset UTF-8 .php
+AddCharset UTF-8 .html
+AddCharset UTF-8 .htm
+AddCharset UTF-8 .js
+RemoveHandler .php3 .phtml .cgi .fcgi .pl .fpl .shtml

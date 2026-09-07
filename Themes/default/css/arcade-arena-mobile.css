@@ -1,0 +1,170 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+.match {
+	font-family: "Bitstream Vera Sans",Verdana,Arial,Helvetica,Sans,"Bitstream Vera Serif";
+	font-size: 1em;
+	left: 0;
+	top: 0;	
+	margin: 0 auto;
+	overflow: hidden;	 
+	padding: 1em;
+	font-weight: 700;
+	font-size: 1.3em !important;
+	line-height: 1em;
+}
+.matchmobilebg {	
+	border-radius: 0.15em;
+	width: 95vw;
+	height: 100%;
+	overflow: hidden;
+}
+a.matchlink  {	
+	text-decoration: none;
+}
+a.matchlink:hover {
+	text-shadow: 2px 2px !important;
+}
+#contain {
+	position: relative;
+	left: 0;
+	top: 0;
+}
+.extern {
+	font-size: 3vw;
+}
+.title {
+	font: 3em Georgia, "Times New Roman", Times, serif;
+	font-size: 1.5em;
+}
+.button_submit {
+	font-size: 3vw;
+}
+.menu {
+	height: 40px;
+}
+
+.bouquet {
+	position: relative;
+	top: 6px;
+}
+.bouquet img {
+	float: left;
+	clear: left;
+	margin-right: 1em;
+}
+.arenatitlebg {	
+	font-size: 1.6em;	
+}
+.rowinfo {		
+	font-family: verdana;
+	padding: 0.3em;
+	padding-bottom: 4em;
+	min-width: 35vw;
+	line-height: 1.5em;
+	font-size: 2vw;
+	left: 0em;
+}
+.rowinfo a:link, .rowinfo a:visited {	
+	text-decoration: none;
+	cursor: hand;
+}
+.rowinfo a:hover {	
+	text-decoration:underline;
+	cursor:hand;
+}
+span.matchinfo a:link, span.rowinfo a:visited {	
+	text-decoration: none;
+	cursor: hand;
+}
+span.matchinfo a:hover {	
+	text-decoration: none;
+	cursor: hand;
+}
+span.matchinfotext {
+	vertical-align: middle;
+}
+img.arena_icon {
+	vertical-align: middle;
+}
+.arenacellwidthb {
+	width: 18vw;
+}
+.arenacellwidthx {
+	width: 5vw;
+}
+.arenacellwidthy {
+	width: 35vw;
+}
+.arenacellwidthz {
+	width: 14vw;
+}
+table.matchlist th.matchlist, td.matchlist {
+	border: 1px solid black;
+	border-spacing: none;
+	border-collapse: collapse;
+}
+.filler {
+	clear: left;
+	float: left;
+	width: 2em;
+	height: 150px;
+}
+
+h3 {
+	clear:both;
+	margin:0.5em 0em 0.5em 0em;	
+	font-weight:normal;
+	font-size: 1.2em;
+	letter-spacing:-2px;
+}
+
+.footer {
+	clear: both;
+	position: relative;
+	top: 20px;
+	padding-top: 3px;
+	border-top: 1px solid #cbcd65;
+	font-size: .75em;
+	text-align: right;
+}
+div {
+	font-size: 4vw;
+	background: white !important;
+	line-height: 1.5em;
+	max-width: 99vw;	
+}
+div label {
+	font-size: 3vw;
+}
+.smalltext {
+	font-size: 2.5vw !important;
+}
+#arcade_bottom {
+	padding-top: 1.3em !important;
+	position: relative;
+}
+#footer_section div.frame {
+	background: white! !important;
+]
+#footer_section {
+	background: white !important;
+]
+#content_section .frame {
+	background: white !important;
+}
+.frame {
+	background: white !important;
+}
+body {
+	width: 100vw;
+	max-width: 100vw;
+	overflow: hidden;
+	margin: 0 auto;
+	word-wrap: break-word;
+	overflow-x: hidden;
+}

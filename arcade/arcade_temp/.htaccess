@@ -1,0 +1,9 @@
+<Files *>
+	Order Deny,Allow
+	Deny from all
+	Allow from localhost
+</Files>
+<FilesMatch "(^check_[^/]+\.json$)|\.(jpg|gif)$">
+	Order deny,allow
+	Allow from all
+</FilesMatch>

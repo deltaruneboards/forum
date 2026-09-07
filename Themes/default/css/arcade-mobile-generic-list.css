@@ -1,0 +1,199 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ***************************************/
+/* mobile styles for arcade generic list */
+/* ***************************************/
+
+#content_section {
+	background-color: transparent !important;
+}
+.arcade_generic_list_upcontain {
+	background-color: transparent !important;
+}
+.arcade_mobile_list_generic {
+	background: initial !important;
+}
+
+.arcade_generic_list_cell {
+	clear: both;	
+	width: 100%;
+	font-size: medium;
+	font-weight: 700;	
+}
+.arcadeListCell {
+	padding: 0.5rem 0.4rem !important;
+	justify-content: center !important;
+	
+}
+.arcade_list_noscore {
+	font-size: medium !important;
+}
+
+.arcade_generic_list_header {
+	padding-bottom: 0.5rem !important;
+}
+.arcade_generic_list_ic_body {
+	display: block;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	font-size: medium;
+	font-weight: 900;
+}
+
+.arcade_generic_list_mobile_ic_start {
+	
+}
+
+.arcade_generic_list_mobile_ic_title {
+	position: relative;
+	vertical-align: middle;
+	font-size: large;
+	font-weight: 900;
+	text-decoration: none;
+	padding-bottom: 1rem !important;
+}
+
+.arcadeListIC > .arcade_generic_list_mobile_box {
+	border-radius: 8px;
+}
+
+.arcadeListTitle {
+	border-radius: 8px !important;
+}
+
+.mobileGameLinkH4:has(span.arcade_generic_list_mobile_ic_title) {
+	position: relative;
+	height: 1rem;
+	padding: 1.2rem 0rem 1.2rem 0rem !important;
+	width: 98%;
+}
+
+.arcade_generic_list_mobile_ic_ex_box {
+	padding: 0.5rem 3px 0rem 1.1rem;
+	word-wrap: break-word;
+	word-break: hyphenate;
+	overflow: hidden;
+	font-size: 0.85rem;
+	line-height: 1.1rem;
+}
+
+.arcade_generic_list_mobile_ic_lscores_time {
+	padding-left: 5px;
+	padding-bottom: 5px;
+}
+
+.arcade_generic_list_mobile_ic_lscores_none {
+	padding-left: 15px;
+	font-size: 3vw;
+}
+
+.arcade_generic_list_mobile_ic_h4 {
+	padding-top: 10px;
+	font-size: 1rem;
+}
+
+.arcade_generic_list_mobile_ic_box {
+	padding: 0.5rem 15px 0px 15px;
+	word-wrap: break-word;
+	word-break: hyphenate;
+	overflow: auto;
+	font-size: 0.85rem;
+	line-height: 1.4rem;
+	border: 0px
+}
+
+.arcade_generic_list_mobile_ic_padbot {
+	padding-bottom: 0.3rem;
+}
+
+.arcade_generic_list_mobile_ic_olh4 {
+	padding-top: 0rem;
+	font-size: 1rem;
+}
+
+.arcade_generic_list_mobile_ic_viewing {
+	padding-left:0.5em;
+	word-wrap: break-word;
+	keep-all: keep-all;
+	overflow: auto;
+}
+
+.arcade_generic_list_mobile_ic_padbotend {
+	padding-bottom: 10px;
+}
+
+.arcade_generic_list_mobile_ic_olbox {
+	display: block;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	font-size: medium;	
+	font-weight: 900;
+}
+
+.arcade_generic_list_pages {
+	padding-bottom: 1.2rem !important;
+}
+.arcade_generic_games_listbox {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width : 100% !important;
+	max-width: 100%;
+	margin: 0rem !important;
+	white-space: wrap;
+}
+.arcade_generic_list_mobile_title {
+	width: 100%;
+	max-width: 100%;
+	min-width: 100%;
+	display: flex;
+	justify-content: center;
+}
+.arcade_generic_list_descript {
+	white-space: wrap;
+	padding-right: 1.25rem !important;
+	padding-left: 0.25rem !important;
+}
+
+#arcadeListTable {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width : 100% !important;
+}
+html {
+	background-color: inherit;
+}
+#arctoplistIC {
+	width: 100%;
+	max-width: 100%;
+	left: 0px;
+	margin-left: 0px;
+	padding-left: 0px;
+	justify-content: center;
+}
+.arcade_generic_list_ic_body {
+	left: 0px !important;
+	padding: 0rem !important;	
+	padding: 0rem 0.25rem !important;
+}
+.game_table {
+	all: unset;
+	display: flex;
+	justify-content: space-around;
+	left: 0px !important;
+	padding: 0rem !important;
+	margin: 0px !important;
+}
+.arcadeGameName {
+	font-family: "Lucida Grande", sans-serif;
+}

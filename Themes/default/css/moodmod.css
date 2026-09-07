@@ -1,0 +1,452 @@
+/* MoodMod — Stylesheet */
+
+/* Badge — shown in post sidebars and on profile pages */
+
+.moodmod-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	margin: 4px 0 0 0;
+	padding: 8px 8px;
+	border-radius: 12px;
+	background: hsl(0 0% 0% / 0.15);
+	border: 1px solid hsl(0 0% 0% / 0.50);
+	font-size: 0.9em;
+	font-weight: 700;
+	line-height: 1.4em;
+	color: inherit;
+	max-width: 100%;
+	box-sizing: border-box;
+	cursor: default;
+}
+.moodmod-badge:hover {
+	background: hsl(0 0% 0% / 0.10);
+}
+
+.moodmod-badge .moodmod-badge-emoji {
+	font-size: 1.15em;
+	flex-shrink: 0;
+}
+
+.moodmod-badge .moodmod-badge-name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Inside Post Sidebar — Sit Below The Group Badge */
+.poster .moodmod-badge,
+.poster_details .moodmod-badge {
+	display: flex;
+	width: fit-content;
+	margin: 4px 0 0 0;
+	text-align: left;
+}
+
+#profile_left .moodmod-badge,
+.profile_details .moodmod-badge,
+#basicinfo .moodmod-badge {
+	display: inline-flex;
+	margin-top: 6px;
+}
+
+/* Profile Picker — Flexy  */
+
+.moodmod-picker {
+	padding: 12px 0 8px;
+}
+
+.moodmod-instructions {
+	margin: 0 0 14px;
+	font-size: 0.9em;
+}
+
+.moodmod-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	padding: 4px 0;
+}
+
+.moodmod-option {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 88px;
+	padding: 10px 6px 8px;
+	border-radius: 10px;
+	border: 2px solid hsl(0 59% 60%);
+	background: hsl(0 0% 100% / 0.05);
+	cursor: pointer;
+	transition: all 0.15s ease;
+	position: relative;
+}
+
+.moodmod-option:hover {
+	background: hsl(0 0% 100% / 0.10);
+	border-color: hsl(209 59% 60%);
+	transform: translateY(-2px);
+}
+
+.moodmod-option.moodmod-selected {
+	border-color: hsl(209 59% 60%);
+	background: hsl(209 59% 60% / 0.12);
+}
+
+.moodmod-option.moodmod-selected:hover {
+	border-color: hsl(209 59% 60%);
+	background: hsl(209 59% 60% / 0.20);
+}
+
+.moodmod-option input[type="radio"] {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.moodmod-option .moodmod-emoji {
+	font-size: 2em;
+	line-height: 1.2;
+	display: block;
+	margin-bottom: 4px;
+}
+
+.moodmod-option .moodmod-none {
+	font-size: 1.6em;
+}
+
+.moodmod-option .moodmod-label {
+	font-size: 0.72em;
+	text-align: center;
+	word-break: break-word;
+	hyphens: auto;
+	max-width: 100%;
+}
+
+.moodmod-option.moodmod-selected .moodmod-label {
+	color: hsl(209 59 60);
+	font-weight: bold;
+}
+
+
+/* Profile Picker — Badge Colour Swatches */
+
+.moodmod-color {
+	margin-top: 8px;
+	padding-top: 4px;
+}
+
+.moodmod-swatches {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+}
+
+.moodmod-swatch {
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	border-radius: 50%;
+	border: 2px solid hsl(0 0% 50% / 0.6);
+	cursor: pointer;
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.moodmod-swatch:hover {
+	transform: scale(1.12);
+}
+
+.moodmod-swatch.moodmod-swatch-active {
+	box-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(209 59% 60%);
+}
+
+/* Keyboard focus ring — matches the active-swatch look so tab users
+   can see which swatch is focused. */
+.moodmod-swatch:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(209 59% 60% / 0.8);
+}
+
+/* Fallback for browsers without :focus-visible support. */
+.moodmod-swatch-custom:focus {
+	outline: none;
+	box-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(209 59% 60% / 0.8);
+}
+
+.moodmod-swatch-none {
+	background: hsl(0 0% 100% / 0.05);
+	font-size: 1em;
+	line-height: 1;
+	color: inherit;
+}
+
+/* Custom colour swatch — opens the in-page HSL picker below */
+.moodmod-swatch-custom {
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient(135deg, #e74c3c, #f1c40f, #2ecc71, #3498db, #9b59b6);
+}
+
+.moodmod-swatch-custom-icon {
+	font-size: 0.95em;
+	line-height: 1;
+	pointer-events: none;
+}
+
+/* Custom HSL colour picker popover — replaces the limited native
+   <input type="color"> so the experience is identical on mobile. */
+.moodmod-cp {
+	margin-top: 12px;
+	max-width: 320px;
+	padding: 12px;
+	border: 1px solid hsl(0 0% 0% / 0.2);
+	border-radius: 10px;
+	background: hsl(0 0% 100% / 0.06);
+}
+
+.moodmod-cp[hidden] {
+	display: none;
+}
+
+.moodmod-cp-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 12px;
+}
+
+.moodmod-cp-label {
+	flex: 0 0 70px;
+	font-size: 0.85em;
+}
+
+.moodmod-cp-slider {
+	flex: 1 1 auto;
+	width: 100%;
+	min-width: 0;
+	height: 18px;
+	margin: 0;
+	-webkit-appearance: none;
+	appearance: none;
+	background: transparent;
+	cursor: pointer;
+	/* Let vertical page scrolling pass through; horizontal drags the thumb. */
+	touch-action: pan-y;
+}
+
+.moodmod-cp-slider:focus {
+	outline: none;
+}
+
+.moodmod-cp-slider::-webkit-slider-runnable-track {
+	height: 14px;
+	border-radius: 7px;
+	border: 1px solid hsl(0 0% 0% / 0.25);
+}
+
+.moodmod-cp-slider::-moz-range-track {
+	height: 14px;
+	border-radius: 7px;
+	border: 1px solid hsl(0 0% 0% / 0.25);
+}
+
+.moodmod-cp-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	margin-top: -4px;
+	border-radius: 50%;
+	background: #fff;
+	border: 2px solid hsl(0 0% 25%);
+	box-shadow: 0 1px 3px hsl(0 0% 0% / 0.45);
+}
+
+.moodmod-cp-slider::-moz-range-thumb {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fff;
+	border: 2px solid hsl(0 0% 25%);
+	box-shadow: 0 1px 3px hsl(0 0% 0% / 0.45);
+}
+
+.moodmod-cp-slider:focus-visible::-webkit-slider-thumb {
+	border-color: hsl(209 59% 60%);
+}
+
+.moodmod-cp-slider:focus-visible::-moz-range-thumb {
+	border-color: hsl(209 59% 60%);
+}
+
+/* Hue: static rainbow. Sat/Light depend on the current colour and are
+   fed in from JS via CSS custom properties (which reach pseudo-elements). */
+.moodmod-cp-hue::-webkit-slider-runnable-track {
+	background: linear-gradient(to right,
+		hsl(0,100%,50%), hsl(60,100%,50%), hsl(120,100%,50%),
+		hsl(180,100%,50%), hsl(240,100%,50%), hsl(300,100%,50%), hsl(360,100%,50%));
+}
+.moodmod-cp-hue::-moz-range-track {
+	background: linear-gradient(to right,
+		hsl(0,100%,50%), hsl(60,100%,50%), hsl(120,100%,50%),
+		hsl(180,100%,50%), hsl(240,100%,50%), hsl(300,100%,50%), hsl(360,100%,50%));
+}
+
+.moodmod-cp-sat {
+	--mm-sat-grad: linear-gradient(to right, hsl(0 0% 60%), hsl(209 100% 50%));
+}
+.moodmod-cp-light {
+	--mm-light-grad: linear-gradient(to right, #000, hsl(209 100% 50%), #fff);
+}
+.moodmod-cp-sat::-webkit-slider-runnable-track   { background: var(--mm-sat-grad); }
+.moodmod-cp-sat::-moz-range-track                { background: var(--mm-sat-grad); }
+.moodmod-cp-light::-webkit-slider-runnable-track { background: var(--mm-light-grad); }
+.moodmod-cp-light::-moz-range-track              { background: var(--mm-light-grad); }
+
+.moodmod-cp-foot {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.moodmod-cp-preview {
+	flex: 0 0 auto;
+	width: 30px;
+	height: 30px;
+	border-radius: 6px;
+	border: 1px solid hsl(0 0% 0% / 0.3);
+	background: #3498db;
+}
+
+.moodmod-cp-hex {
+	flex: 1 1 auto;
+	min-width: 0;
+	font-family: monospace;
+	text-transform: lowercase;
+}
+
+.moodmod-cp-apply {
+	flex: 0 0 auto;
+}
+
+/* Admin Edit Mood — Emoji Picker */
+
+.moodmod-emoji-picker {
+	margin-top: 10px;
+	max-width: 360px;
+	border: 1px solid hsl(0 0% 0% / 0.2);
+	border-radius: 8px;
+	background: hsl(0 0% 100% / 0.06);
+	padding: 6px;
+}
+
+.moodmod-emoji-tabs {
+	display: flex;
+	gap: 4px;
+	margin-bottom: 6px;
+	border-bottom: 1px solid hsl(0 0% 0% / 0.12);
+	padding-bottom: 6px;
+}
+
+.moodmod-emoji-tab {
+	font-size: 1.2em;
+	line-height: 1;
+	padding: 4px 6px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background: transparent;
+	cursor: pointer;
+}
+
+.moodmod-emoji-tab:hover {
+	background: hsl(0 0% 0% / 0.08);
+}
+
+.moodmod-emoji-tab.moodmod-emoji-tab-active {
+	border-color: hsl(209 59% 60%);
+	background: hsl(209 59% 60% / 0.15);
+}
+
+.moodmod-emoji-grid {
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	gap: 2px;
+	max-height: 180px;
+	overflow-y: auto;
+}
+
+.moodmod-emoji-cell {
+	font-size: 1.3em;
+	line-height: 1;
+	padding: 5px 0;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	cursor: pointer;
+}
+
+.moodmod-emoji-cell:hover {
+	background: hsl(209 59% 60% / 0.2);
+}
+
+/* Submit Button Row */
+
+.moodmod-submit {
+	margin: 16px 0 6px;
+	padding-top: 12px;
+	border-top: 1px solid hsl(0 0% 0% / 0.08);
+	display: block;
+	width: 100%;
+}
+
+.moodmod-submit .button,
+.moodmod-submit input[type="submit"] {
+	margin-right: 6px;
+}
+
+/* Admin Mood List — Table Layout */
+
+.moodmod-table {
+	width: 100%;
+}
+
+.moodmod-th-emoji  { width: 60px; }
+.moodmod-th-order  { width: 70px; }
+.moodmod-th-active { width: 70px; }
+.moodmod-th-actions { width: 120px; }
+
+.moodmod-td-emoji {
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.moodmod-td-center {
+	text-align: center;
+}
+
+/* Admin Mood List — Active/Inactive Status Indicators */
+
+.moodmod-status-active {
+	color: hsl(120 100% 25%);
+}
+
+.moodmod-status-inactive {
+	color: hsl(0 0% 60%);
+}
+
+/* Admin Mood List — Delete Button */
+
+.moodmod-btn-delete {
+	background: hsl(6 63% 46%);
+	min-width: 60px;
+  	text-align: center;
+	color: hsl(0 0% 90%);
+}
+

@@ -1,0 +1,225 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ***************************************/
+/* mobile styles for arcade light list */
+/* ***************************************/
+
+#arctoplist > * {
+	background: whitesmoke !important;
+	color: black !important;
+	padding: 0rem;
+	margin: 0rem;
+	text-indent: 0.2rem;
+}
+.arcade_light_list_upcontain {
+	background: whitesmoke !important;
+}
+.mobile_title {
+	/*background: #121212 !important;*/
+	color: #D5D0CA !important;
+}
+.arcade_mobile_list_light {
+	background: initial !important;
+}
+
+.arcade_light_list_cell {
+	padding: 1.2rem 0rem 0rem 0.5rem !important;
+	width: 100%;
+	font-size: medium;
+	font-weight: 700;
+}
+
+.arcade_list_noscore {
+	font-size: medium !important;
+}
+
+.arcade_light_list_header {
+	padding-bottom: 0.5rem !important;
+	background: whitesmoke !important;
+	color: black !important;
+}
+.arcade_light_list_playlink {
+	font-style: italic;
+	color: inherit;
+}
+.arcade_light_list_ic_body {
+	display: block;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	font-size: medium;
+	font-weight: 900;
+}
+
+.arcade_light_list_mobile_ic_start {
+	padding-left: 1.5rem;
+}
+
+.arcade_light_list_mobile_ic_title {
+	position: relative;
+	vertical-align: middle;
+	font-size: large;
+	font-weight: 900;
+	text-decoration: none;
+	padding-bottom: 1rem !important;
+}
+
+.arcadeListIC {
+	padding-right: 0.5rem !important;
+}
+
+.arcadeListIC > .arcade_light_list_mobile_box {
+	border-radius: 8px;
+}
+
+.arcadeListTitle {
+	border-radius: 8px !important;
+}
+
+.mobileGameLinkH4:has(span.arcade_light_list_mobile_ic_title) {
+	position: relative;
+	height: 1rem;
+	padding: 1.2rem 0rem 1.2rem 0rem !important;
+	width: 98%;
+}
+
+.arcade_light_list_mobile_ic_ex_box {
+	padding: 0.5rem 3px 0rem 1.1rem;
+	word-wrap: break-word;
+	word-break: hyphenate;
+	overflow: hidden;
+	font-size: 0.85rem;
+	line-height: 1.1rem;
+}
+
+.arcade_light_list_mobile_ic_lscores_time {
+	padding-left: 5px;
+	padding-bottom: 5px;
+}
+
+.arcade_light_list_mobile_ic_lscores_none {
+	padding-left: 15px;
+	font-size: 3vw;
+}
+
+.arcade_light_list_mobile_ic_h4 {
+	padding-top: 10px;
+	font-size: 1rem;
+}
+.arcade_light_list_h4 > span > a {
+	color: black !important;
+}
+.arcade_light_list_mobile_ic_box {
+	padding: 0.5rem 15px 0px 15px;
+	word-wrap: break-word;
+	word-break: hyphenate;
+	overflow: auto;
+	font-size: 0.85rem;
+	line-height: 1.4rem;
+	border: 0px
+}
+
+.arcade_light_list_mobile_ic_padbot {
+	padding-bottom: 0.3rem;
+}
+
+.arcade_light_list_mobile_ic_olh4 {
+	padding-top: 0rem;
+	font-size: 1rem;
+}
+
+.arcade_light_list_mobile_ic_viewing {
+	padding-left:0.5em;
+	word-wrap: break-word;
+	keep-all: keep-all;
+	overflow: auto;
+}
+
+.arcade_light_list_mobile_ic_padbotend {
+	padding-bottom: 10px;
+}
+
+.arcade_light_list_mobile_ic_olbox {
+	display: block;
+	width: 94%;
+	position: relative;
+	overflow: hidden;
+	font-size: medium;
+	padding-left: 2.0em;
+	font-weight: 900;
+}
+
+.arcade_light_list_pages {
+	padding-bottom: 1.2rem !important;
+}
+.arcade_light_games_listbox {
+	display: flex;
+	flex-direction: column;	
+	align-items: center;
+	width : 100% !important;
+	max-width: 100%;
+	margin: 0rem !important;
+	white-space: wrap;
+	background: whitesmoke !important;
+	color: black !important;
+}
+.arcade_light_list_mobile_title {
+	width: 100%;
+	max-width: 100%;
+	min-width: 100%;
+	display: flex;
+	justify-content: center;
+}
+.arcade_light_list_descript {
+	white-space: wrap;
+	padding-right: 0.5rem !important;
+	padding-left: 0.25rem !important;
+}
+#arcadeListTable {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width : 100% !important;
+}
+html {
+	background-color: inherit;
+}
+#arctoplistIC {
+	width: 99%;
+	max-width: 99%;
+	left: 0px;
+	margin-left: 0px;
+	padding-left: 0px;
+	justify-content: center;
+}
+.arcade_light_list_ic_body {
+	left: 0px !important;
+	padding: 0rem !important;	
+	margin-right: 0rem !important;
+	right: 0rem !important;
+}
+.game_table {
+	color: black !important;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	left: 0px !important;
+	padding: 0rem 0.5rem 0rem 0.15rem !important;
+	margin: 0px !important;	
+}	
+.arcadeGameName {
+	font-family: "Lucida Grande", sans-serif;
+}
+.arcade_light_list_title {
+	padding-right: 0.5rem;
+}
+.arcade_light_gameslist {
+	padding-left: 0.3em !important;
+}

@@ -1,0 +1,90 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/*
+
+.file-name {
+	margin-top: 2rem;
+}
+
+.corePickButton {
+	background-color: blue;
+}
+
+<!-- HTML !-->
+<button class="emulatorCoreInput" role="button">Button 29</button>
+
+/* CSS */
+.emulatorCoreInput {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.emulatorCoreInput:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.emulatorCoreInput:hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.emulatorCoreInput:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+.emulatorCoreTextBoxes {
+	padding: 2px;
+	border-radius: 5px;
+	font-family:Garamond, serif;
+	line-height:1em;
+	-webkit-filter: invert(100%);
+    filter: invert(100%);
+	font-weight:bold;
+	font-size:31px;
+	text-shadow:0px 0px 0 rgb(186,202,215),1px 1px 0 rgb(168,184,197),2px 2px 0 rgb(151,167,180),3px 3px 0 rgb(133,149,162),4px 4px 0 rgb(116,132,145), 5px 5px 0 rgb(99,115,128),6px 6px 5px rgba(0,0,0,0.6),6px 6px 1px rgba(0,0,0,0.5),0px 0px 5px rgba(0,0,0,.2);
+}
+
+.emulatorCoreTextBoxesSmall {
+	line-height: 2rem;
+	padding: 2px;
+	border-radius: 5px;
+	font-family:Garamond, serif;
+	line-height:1em;
+	-webkit-filter: invert(100%);
+    filter: invert(100%);
+	font-weight:bold;
+	font-size: 12pt;
+	text-shadow:0px 0px 0 rgb(186,202,215);
+}

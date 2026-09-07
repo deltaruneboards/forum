@@ -1,0 +1,133 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ************************************* */
+/* styles for the maintenance template   */
+/* ************************************* */
+
+button.arcade_task_button {
+	border: 0.03rem double !important;
+    border-radius: 0.2rem;
+	vertical-align: middle;
+}
+
+.arcade_task_box {
+	flex: 33%;
+	text-overflow: ellipsis;
+	max-height: 2rem;
+	height: 2rem;
+	min-height: 2rem;
+}
+#arcade_maintenance_tasks {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+	flex-direction: row;
+    justify-content: center;
+    align-items: center;
+	width: 100%;
+	background: transparent;
+}
+
+.arcade_task_button {
+	min-width: 100%;
+	max-width: 100%;
+	width: 100%;
+	margin: 0 auto;
+	border: 0.03rem double !important;
+    border-radius: 0.2rem;
+	text-overflow: ellipsis !important;
+	overflow: hidden;
+	white-space: nowrap;
+	font-weight: 700;
+	font: small-caps 16px/2 Garamond;
+	letter-spacing: .02rem;
+	background: #276897;
+	color: #f2f0ef;
+	filter: contrast(1);
+	align-self: center;
+	padding: 0rem 0.5rem 0rem 0.5rem;
+	overflow: hidden;
+	height: auto;
+}
+
+.arcade_task_button:link, .arcade_task_button:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    display: inline-block;
+	border: 0.03rem double !important;
+    border-radius: 0.2rem;
+    transition: all .4s;
+    position: absolute;
+	text-overflow: ellipsis;
+}
+
+.arcade_task_button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	border: 0.08rem double;
+	background: #898989;
+}
+
+.arcade_task_button:focus {
+	transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	border: 0.08rem double;
+	background: #008080;
+}
+
+.arcade_task_button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	border: 0.03rem double !important;
+}
+
+.arcade_task_button-bright {
+    align-self: center;
+}
+
+.arcade_task_button::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    border: 0.03rem double !important;
+    border-radius: 0.2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+	align-self: center;
+	height: auto;
+}
+
+.arcade_task_button-bright::after {
+    backdrop-filter: brightness(80%);
+}
+
+.arcade_task_button:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+.arcade_task_button-animated {
+    animation: moveInBottom 5s ease-out;
+    animation-fill-mode: backwards;
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}

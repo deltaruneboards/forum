@@ -1,0 +1,117 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ************************************* */
+/* styles for retro arch template        */
+/* ************************************* */
+body, html {
+	height: 100%;
+}
+
+body {
+	font-family: monospace;
+	font-weight: bold;
+	font-size: 20px;
+	margin: 0;
+	overflow: hidden;
+	background-color: #222
+}
+
+body, #box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+body, html {
+	height: 100%;
+}
+
+body {
+	font-family: monospace;
+	font-weight: bold;
+	font-size: 20px;
+	margin: 0;
+	overflow: hidden;
+	background-color: #222
+}
+
+body, #box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#box {
+	color: #aaa;
+	height: 20em;
+	width: 30em;
+	max-width: 80%;
+	max-height: 80%;
+	background-color: #333;
+	border-radius: 0.4em;
+	border: 2px solid #555;
+	position: relative;
+	flex-direction: column;
+	transition-duration: 0.2s;
+	overflow: hidden
+}
+
+#box:hover, #box[drag] {
+	border-color: #38f;
+	color: #ddd
+}
+
+#input {
+	cursor: pointer;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0
+}
+
+#display {
+	width: 100%;
+	height: 100%
+}
+
+select, button {
+	padding: 0.6em 0.4em;
+	margin: 0.5em;
+	width: 15em;
+	max-width: 100%;
+	font-family: monospace;
+	font-weight: bold;
+	font-size: 16px;
+	background-color: #444;
+	color: #aaa;
+	border-radius: 0.4em;
+	border: 1px solid #555;
+	cursor: pointer;
+	transition-duration: 0.2s
+}
+
+select:hover, button:hover {
+	background-color: #666;
+	color: #ddd
+}
+
+.clickSlide{
+	overflow-y: auto;
+	overflow-x: hidden;
+	scrollbar-width: thin;
+	font-size: 95%;
+	text-overflow: ellipsis;
+	margin-right: 0.3rem;
+}
+.clickSlide ::-webkit-scrollbar-track {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+	margin-left: 1rem;
+}

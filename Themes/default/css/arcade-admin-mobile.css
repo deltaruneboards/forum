@@ -1,0 +1,13 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ************************************* */
+/* styles for admin templates            */
+/* ************************************* */
+select {
+	display: inline-block;
+}

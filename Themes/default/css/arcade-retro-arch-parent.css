@@ -1,0 +1,26 @@
+/*
+ * SMF Arcade
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+/* ************************************* */
+/* styles for retro arch parent template */
+/* ************************************* */
+#iframe_smfarcaderoms {
+	position: fixed;
+	margin 0 auto;
+	width: 100vw;
+	height: 100vh;
+	left: 0rem;
+	top: 0rem;
+	z-index: 999;
+}
+
+#inner_iframe_smfarcaderoms {
+	position: relative;
+	margin 0 auto;	
+	overflow: hidden;
+	z-index: 999;
+}
