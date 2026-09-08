@@ -19,7 +19,7 @@ Install these things before you continue:
 
 ### Clone the repository
 
-Clone this repository into `/srv/dumb` on your system. (If you'd like to clone it into a different directory, make sure to change references to `/srv/dumb` in `Settings_private.php` and `dump.sql`.)
+Clone this repository into `/srv/dumb` on your system. (If you'd like to clone it into a different directory, make sure to change references to `/srv/dumb` in `dump.sql`.)
 
 ```
 git clone https://github.com/deltaruneboards/forum.git /srv/dumb

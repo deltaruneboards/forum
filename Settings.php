@@ -162,7 +162,7 @@ $cache_memcached = '';
  *
  * @var string
  */
-$cachedir = $dumb_is_dev ? '/srv/dumb/cache' : '/home/public/smf/cache';
+$cachedir = __DIR__ . '/cache';
 
 ########## Image Proxy ##########
 # This is done entirely in Settings.php to avoid loading the DB while serving the images
@@ -186,26 +186,26 @@ $image_proxy_maxsize = 5192;
  *
  * @var string
  */
-$boarddir = $dumb_is_dev ? '/srv/dumb' : '/home/public/smf';
+$boarddir = __DIR__;
 /**
  * Path to the Sources directory.
  *
  * @var string
  */
-$sourcedir = $dumb_is_dev ? '/srv/dumb/Sources' : '/home/public/smf/Sources';
+$sourcedir = __DIR__ . '/Sources';
 /**
  * Path to the Packages directory.
  *
  * @var string
  */
-$packagesdir = $dumb_is_dev ? '/srv/dumb/Packages' : '/home/public/smf/Packages';
+$packagesdir = __DIR__ . '/Packages';
 /**
  * Path to the tasks directory.
  *
  * @var string
  */
-$tasksdir = $dumb_is_dev ? '/srv/dumb/Sources/tasks' : '/home/public/smf/Sources/tasks';
-$cachedir_sqlite = $dumb_is_dev ? '/srv/dumb/cache' : '/home/public/smf/cache';
+$tasksdir = __DIR__ . '/Sources/tasks';
+$cachedir_sqlite = __DIR__ . '/cache';
 
 # Make sure the paths are correct... at least try to fix them.
 if (!is_dir(realpath($boarddir)) && file_exists(dirname(__FILE__) . '/agreement.txt'))
