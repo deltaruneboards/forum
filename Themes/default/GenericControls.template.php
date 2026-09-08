@@ -181,7 +181,7 @@ function template_control_verification($verify_id, $display_type = 'all', $reset
 		$verify_context['tracking'] = 0;
 
 	// How many items are there to display in total.
-	$total_items = count($verify_context['questions']) + ($verify_context['show_visual'] || $verify_context['can_recaptcha'] ? 1 : 0);
+	$total_items = count($verify_context['questions']) + ($verify_context['show_visual'] || ($verify_context['can_recaptcha'] ? 1 : 0)  || ($verify_context['can_turnstile'] ? 1 : 0));
 
 	// If we've gone too far, stop.
 	if ($verify_context['tracking'] > $total_items)
@@ -207,8 +207,19 @@ function template_control_verification($verify_id, $display_type = 'all', $reset
 				</div>';
 
 		// Do the actual stuff
-		if ($i == 0 && ($verify_context['show_visual'] || $verify_context['can_recaptcha']))
+		if ($i == 0 && ($verify_context['show_visual'] || $verify_context['can_recaptcha'] || $verify_context['can_turnstile']))
 		{
+			if ($verify_context['can_turnstile'])
+			{
+				global $modSettings;
+
+				// Render the Turnstile widget. Also, add a hidden form element so we pass back the expected values.
+				echo '
+				<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+				<div class="cf-turnstile" data-sitekey="', $modSettings['turnstile_public_key'], '" data-theme="', $modSettings['turnstile_theme'] ,'" data-size="', $modSettings['turnstile_widget_size'] ,'"></div>
+				<input type="hidden" name="', $verify_id, '_vv[turnstile]" value="true">';
+			}
+
 			if ($verify_context['show_visual'])
 			{
 				if ($context['use_graphic_library'])
@@ -243,7 +254,7 @@ function template_control_verification($verify_id, $display_type = 'all', $reset
 		else
 		{
 			// Where in the question array is this question?
-			$qIndex = $verify_context['show_visual'] || $verify_context['can_recaptcha'] ? $i - 1 : $i;
+			$qIndex = $verify_context['show_visual'] || $verify_context['can_recaptcha'] || $verify_context['can_turnstile'] ? $i - 1 : $i;
 
 			if (isset($verify_context['questions'][$qIndex]))
 				echo '

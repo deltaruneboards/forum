@@ -2029,6 +2029,7 @@ function create_control_verification(&$verificationOptions, $do_test = false)
 			'text_value' => '',
 			'questions' => array(),
 			'can_recaptcha' => !empty($modSettings['recaptcha_enabled']) && !empty($modSettings['recaptcha_site_key']) && !empty($modSettings['recaptcha_secret_key']),
+			'can_turnstile' => !empty($modSettings['turnstile_enabled']) && !empty($modSettings['turnstile_public_key']) && !empty($modSettings['turnstile_private_key']),
 		);
 	$thisVerification = &$context['controls']['verification'][$verificationOptions['id']];
 
@@ -2036,7 +2037,7 @@ function create_control_verification(&$verificationOptions, $do_test = false)
 	call_integration_hook('integrate_create_control_verification_pre', array(&$verificationOptions, $do_test));
 
 	// Is there actually going to be anything?
-	if (empty($thisVerification['show_visual']) && empty($thisVerification['number_questions']) && empty($thisVerification['can_recaptcha']))
+	if (empty($thisVerification['show_visual']) && empty($thisVerification['number_questions']) && empty($thisVerification['can_recaptcha']) && empty($thisVerification['can_turnstile']))
 		return false;
 	elseif (!$isNew && !$do_test)
 		return true;

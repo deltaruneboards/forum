@@ -1,0 +1,9 @@
+div.cf-turnstile {
+    margin: .5rem 0;
+}
+
+#turnstile_public_key,
+#turnstile_private_key {
+    width: 75%;
+    max-width: 50ex;
+}
