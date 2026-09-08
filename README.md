@@ -14,8 +14,14 @@ Install these things before you continue:
 
 - [Git](https://git-scm.com/)
 - [Git LFS](https://git-lfs.github.com/)
-- [PHP](https://www.php.net/)
+- [PHP](https://www.php.net/) with `mbstring`, `mysqli` and `zip` extensions
 - [MariaDB](https://mariadb.com/) (or MySQL)
+
+For Debian-based distributions, you can install the dependencies with:
+
+```
+sudo apt-get install -y git git-lfs mariadb-server php php-mbstring php-mysql php-zip
+```
 
 ### Clone the repository
 
