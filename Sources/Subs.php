@@ -2044,6 +2044,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'after' => '</span>',
 			),
 			// Legacy (one of those things that should not be done)
+			/* DUMB change: you can't tell me what to do!
 			array(
 				'tag' => 'glow',
 				'type' => 'unparsed_commas',
@@ -2051,6 +2052,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'before' => '<span style="text-shadow: $1 1px 1px 1px">',
 				'after' => '</span>',
 			),
+			*/
 			// Legacy (alias of [color=green])
 			array(
 				'tag' => 'green',
