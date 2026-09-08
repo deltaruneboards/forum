@@ -37,7 +37,8 @@
 
 /**
  * Initialize the template... mainly little settings.
- */
+
+*/
 function template_init()
 {
 	global $settings, $txt;
@@ -78,7 +79,8 @@ function template_init()
 
 /**
  * The main sub template above the content.
- */
+
+*/
 function template_html_above()
 {
 	global $context, $scripturl, $txt, $modSettings;
@@ -193,7 +195,8 @@ function template_html_above()
 
 /**
  * The upper part of the main template layer. This is the stuff that shows above the main forum content.
- */
+
+*/
 function template_body_above()
 {
 	global $context, $settings, $scripturl, $txt, $modSettings, $maintenance;
@@ -321,7 +324,7 @@ function template_body_above()
 	{
 		echo '
 			<form id="search_form" class="floatright" action="', $scripturl, '?action=search2" method="post" accept-charset="', $context['character_set'], '">
-				<input type="search" name="search" value="">&nbsp;';
+				<input type="search" name="search" value=""> ';
 
 		// Using the quick search dropdown?
 		$selected = !empty($context['current_topic']) ? 'current_topic' : (!empty($context['current_board']) ? 'current_board' : 'all');
@@ -368,14 +371,9 @@ function template_body_above()
 		</div><!-- .inner_wrap -->
 	</div><!-- #top_section -->';
 
-	echo '
-	<div id="header">
-		<h1 class="forumtitle">
-			<a id="top" href="', $scripturl, '">', empty($context['header_logo_url_html_safe']) ? $context['forum_name_html_safe'] : '<img src="' . $context['header_logo_url_html_safe'] . '" alt="' . $context['forum_name_html_safe'] . '">', '</a>
-		</h1>';
-
-	echo '
-		', empty($settings['site_slogan']) ? '<img id="smflogo" src="' . $settings['images_url'] . '/smflogo.svg" alt="Simple Machines Forum" title="Simple Machines Forum">' : '<div id="siteslogan">' . $settings['site_slogan'] . '</div>', '';
+	echo '<div id="header">
+		<a id="top" href="', $scripturl, '">
+		', empty($settings['site_slogan']) ? '<img id="banner" src="' . $settings['images_url'] . '/temp-banner.png" alt="Simple Machines Forum" title="Simple Machines Forum">' : '<div id="siteslogan">' . $settings['site_slogan'] . '</div>', '</a>';
 
 	echo '
 	</div>
@@ -443,7 +441,8 @@ function template_body_above()
 
 /**
  * The stuff shown immediately below the main content, including the footer
- */
+
+*/
 function template_body_below()
 {
 	global $context, $txt, $scripturl, $modSettings;
@@ -462,7 +461,7 @@ function template_body_below()
 	// There is now a global "Go to top" link at the right.
 	echo '
 		<ul>
-			<li class="floatright"><a href="', $scripturl, '?action=help">', $txt['help'], '</a> ', (!empty($modSettings['requireAgreement'])) ? '| <a href="' . $scripturl . '?action=agreement">' . $txt['terms_and_rules'] . '</a>' : '', ' | <a href="#top_section">', $txt['go_up'], ' &#9650;</a></li>
+			<li class="floatright"><a href="', $scripturl, '?action=help">', $txt['help'], '</a> ', (!empty($modSettings['requireAgreement'])) ? '| <a href="' . $scripturl . '?action=agreement">' . $txt['terms_and_rules'] . '</a>' : '', ' | <a href="#top_section">', $txt['go_up'], ' ▲</a></li>
 			<li class="copyright">', theme_copyright(), '</li>
 		</ul>';
 
@@ -479,7 +478,8 @@ function template_body_below()
 
 /**
  * This shows any deferred JavaScript and closes out the HTML
- */
+
+*/
 function template_html_below()
 {
 	// Load in any javascipt that could be deferred to the end of the page
@@ -494,7 +494,8 @@ function template_html_below()
  * Show a linktree. This is that thing that shows "My Community | General Category | General Discussion"..
  *
  * @param bool $force_show Whether to force showing it even if settings say otherwise
- */
+
+*/
 function theme_linktree($force_show = false)
 {
 	global $context, $shown_linktree, $scripturl, $txt;
@@ -518,7 +519,7 @@ function theme_linktree($force_show = false)
 		// Picked a better looking HTML entity, and added support for RTL plus a span for styling.
 		if ($link_num != 0)
 			echo '
-							<span class="dividers">', $context['right_to_left'] ? ' &#9668; ' : ' &#9658; ', '</span>';
+							<span class="dividers">', $context['right_to_left'] ? ' ◄ ' : ' ► ', '</span>';
 
 		// Show something before the link?
 		if (isset($tree['extra_before']))
@@ -549,7 +550,8 @@ function theme_linktree($force_show = false)
 
 /**
  * Show the menu up top. Something like [home] [help] [profile] [logout]...
- */
+
+*/
 function template_menu()
 {
 	global $context;
@@ -617,7 +619,8 @@ function template_menu()
  * @param array $button_strip An array with info for displaying the strip
  * @param string $direction The direction
  * @param array $strip_options Options for the button strip
- */
+
+*/
 function template_button_strip($button_strip, $direction = '', $strip_options = array())
 {
 	global $context, $txt;
@@ -682,7 +685,8 @@ function template_button_strip($button_strip, $direction = '', $strip_options = 
  * @param string $list_class Used for integration hooks and as a class name
  * @param string $output_method The output method. If 'echo', simply displays the buttons, otherwise returns the HTML for them
  * @return void|string Returns nothing unless output_method is something other than 'echo'
- */
+
+*/
 function template_quickbuttons($list_items, $list_class = null, $output_method = 'echo')
 {
 	global $txt;
@@ -771,7 +775,8 @@ function template_quickbuttons($list_items, $list_class = null, $output_method =
 
 /**
  * The upper part of the maintenance warning box
- */
+
+*/
 function template_maint_warning_above()
 {
 	global $txt, $context, $scripturl;
@@ -791,6 +796,7 @@ function template_maint_warning_above()
 
 /**
  * The lower part of the maintenance warning box.
+
  */
 function template_maint_warning_below()
 {

@@ -1,24 +1,30 @@
-/* General */
+/* ---------------- General ---------------- */
 :root {
-	--main-bg-color: black;
-	--txt-color: white;
-	--selection-color: #99d4ff;
-	--wrapper-bg-color: #1E1E1E;
+	--main-bg-color: #000000;
+	--wrapper-bg-color: #222222;
+	--wrapper-bg-color2: #262626;
+	--wrapper-bg-color3: #232323;
+	--txt-color: #FFFFFF;
+	--txt-color-off: #888888;
+	--skeuomorphism: linear-gradient(180deg, #1E1E1E 45%, #0b0b0b 55%);
+
+	--pri-color: #00FFEA;
+	--sec-color: #0080c0;
+	--tri-color: #00347d;
 }
 
-/* Index */
 body {
 	background: var(--main-bg-color);
-	font: 83.33%/150% "Segoe UI", "Helvetica Neue", "Nimbus Sans L", Arial, "Liberation Sans", sans-serif;
+	background-image: url('https://dumb.kocka.tech/Themes/DUMBDefault/images/background.png');
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position-x: -50px;
+	font: 83.33%/150% Verdana, Tahoma, Arial, sans-serif;
 	color: var(--txt-color);
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-}
-::selection {
-	text-shadow: none;
-	background: var(--selection-color);
-	color: rgba(0, 0, 0, 0.6);
 }
 /* General reset */
 * {
@@ -40,7 +46,9 @@ abbr {
 	border-bottom: 0.1em dotted;
 }
 input, button, select, textarea {
-	background: #fff;
+	color: var(--txt-color);
+	font: 83.33%/150% "Segoe UI", "Helvetica Neue", "Nimbus Sans L", Arial, "Liberation Sans", sans-serif;
+	background: var(--wrapper-bg-color);
 	outline: none;
 	border: 1px solid #bbb;
 	vertical-align: middle;
@@ -53,12 +61,11 @@ input:hover, textarea:hover, button:hover, select:hover {
 	border-color: #82a2bc;
 }
 textarea:hover {
-	background: #fbfbfb;
+	background: var(--wrapper-bg-color);
 }
 input:focus, textarea:focus, button:focus, select:focus {
 	outline: none;
 	border-color: #7fb0d8;
-	background: #fff;
 }
 input, button, select {
 	padding: 0 0.4em;
@@ -136,7 +143,7 @@ fieldset {
 }
 fieldset legend {
 	font-weight: bold;
-	color: var(--txt-color);
+	color: #555;
 	box-shadow: none;
 	border: none;
 }
@@ -149,7 +156,7 @@ summary {
 /* This gives a better effect for those areas, and will default to bold for fonts which do not support numerical font-weight */
 strong, .strong {
 	font-weight: bold;
-	color: #444;
+	color: var(--pri-color);
 }
 .cat_bar strong {
 	color: #fff;
@@ -176,7 +183,7 @@ input[type="checkbox"], input[type="radio"] {
 /* Give disabled input elements a different style */
 input[disabled], textarea[disabled], select[disabled], .button.disabled, .button[disabled]:hover {
 	background: #eee;
-	color: var(--txt-color);
+	color: #999;
 	border-color: #b6b6b6;
 	opacity: 0.8;
 	cursor: default;
@@ -191,10 +198,11 @@ hr {
 }
 /* This is about links */
 a, a:visited {
-	color: var(--txt-color);
+	color: var(--sec-color);
 	text-decoration: none;
 }
 a:hover {
+	color: var(--pri-color);
 	text-decoration: underline;
 	cursor: pointer;
 }
@@ -460,7 +468,7 @@ a img {
 	width: 17px;
 	height: 17px;
 	display: inline-block;
-	background: #f7f7f7 url(../images/icons/toggle.png) no-repeat 0 0 / 17px;
+	background: var(--wrapper-bg-color) url(../images/icons/toggle.png) no-repeat 0 0 / 17px;
 	overflow: hidden;
 	content: "";
 	vertical-align: middle;
@@ -754,20 +762,19 @@ img.sort, .sort {
 	padding: 0 7px 0 7px;
 	display: block;
 	border: 1px solid transparent;
-	border-radius: 4px;
 }
 /* Level 1 active button. */
 .dropmenu a.active, #top_info a.active {
 	color: #fff;
 	font-weight: bold;
-	border-color: #f49a3a;
-	background: linear-gradient(#ffae14, #f5a100);
+	border-color: var(--tri-color);
+	background: var(--tri-color);
 	text-shadow: 0 0 2px #000;
 }
 /* Level 1 hover effects. */
 .dropmenu > li:hover > a, .dropmenu > li > a:focus,
 #top_info > li:hover > a, #top_info > li > a:focus, #top_info > li > a.open {
-	background: #597b9f;
+	background: var(--sec-color);
 	border: 1px solid #4a6b8c;
 	color: #fff;
 	cursor: pointer;
@@ -777,8 +784,8 @@ img.sort, .sort {
 }
 /* Level 1 active button. */
 .dropmenu li a.active:hover, .dropmenu li:hover a.active {
-	background: orange;
-	border: 1px solid #f49a3a;
+	background: var(--pri-color);
+	border: 1px solid var(--pri-color);
 	color: #444;
 	box-shadow: 0 5px 5px rgba(255, 255, 255, 0.2) inset;
 	text-shadow: none;
@@ -907,7 +914,6 @@ a[class^="mobile_generic_menu_"] {
 	border: solid 1px #999;
 	border-left: solid 1px #bbb;
 	border-top: solid 1px #ccc;
-	border-radius: 4px;
 	box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.3);
 	background: #fff;
 }
@@ -924,7 +930,7 @@ a[class^="mobile_generic_menu_"] {
 .dropmenu li:hover li a, .dropmenu li li a {
 	background: none;
 	padding: 0 9px;
-	color: #346;
+	color: var(--txt-color);
 	border: none;
 	line-height: 2.2em;
 }
@@ -963,7 +969,7 @@ a[class^="mobile_generic_menu_"] {
 }
 
 .dropmenu li li:hover > a, .dropmenu li li a:focus, .dropmenu li li a:hover {
-	color: var(--txt-color);
+	color: var(--pri-color);
 	text-decoration: none;
 	border: 1px solid #cfcfcf;
 	border-top: 1px solid #d4dee6;
@@ -1007,7 +1013,7 @@ a[class^="mobile_generic_menu_"] {
 .button, .quickbuttons > li > a, .inline_mod_check {
 	display: inline-block;
 	padding: 0 8px;
-	color: var(--txt-color);
+	color: var(--pri-color);
 	font-size: 0.7rem;
 	line-height: 2em;
 	text-transform: uppercase;
@@ -1015,7 +1021,6 @@ a[class^="mobile_generic_menu_"] {
 	min-height: calc(2em + 2em * (0.9 - 0.85)); /* "input" font size minus ".button" font size */
 	border: 1px solid;
 	border-color: #ddd #bbb #aaa #ddd;
-	border-radius: 3px;
 	box-shadow: 1px 1px 1px rgba(221, 221, 221, 0.57);
 	box-sizing: border-box;
 	vertical-align: middle;
@@ -1036,7 +1041,7 @@ html[lang="el-GR"] .inline_mod_check {
 	text-decoration: none;
 }
 .button:hover, .button:focus {
-	color: #af6700;
+	color: var(--txt-color-off);
 }
 /* the active one */
 .button.active {
@@ -1080,15 +1085,13 @@ html[lang="el-GR"] .inline_mod_check {
 /* Box-shadow only on this one. */
 #wrapper {
 	clear: both;
-	background: var(--wrapper-bg-color);
 	border: 1px solid #b8b8b8;
-	border-radius: 8px;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.14);
 }
 
 /* Set maximum width limit for content */
 #top_section .inner_wrap, #wrapper, #header, #footer .inner_wrap {
-	max-width: 1200px;
+	max-width: 1000px;
 	margin: 0 auto;
 	width: 90%;
 }
@@ -1136,11 +1139,10 @@ html[lang="el-GR"] .inline_mod_check {
 #languages_form {
 	margin: 0 0 0 10px;
 }
-/* The logo and slogan. */
+
 #header {
-	padding: 2px 2px 12px 2px;
 	display: flex;
-	align-items: flex-end;
+	justify-content: center;
 }
 #header::after {
 	content: "";
@@ -1156,17 +1158,12 @@ h1.forumtitle {
 	flex: 1 1 auto;
 }
 h1.forumtitle a {
-	color: #a85400;
+	color: var(--pri-color);
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 /* Float these items to the right */
-#siteslogan, img#smflogo {
-	padding-right: 2px;
-	font-size: 1.4em;
-}
-/* Tweak the SMF logo */
-img#smflogo {
-	margin: 16px 0 0 0;
+#banner {
+	margin: auto;
 }
 /* Even guests need to be aligned */
 .welcome {
@@ -1177,11 +1174,9 @@ img#smflogo {
 /* The user info, news, etc.*/
 #upper_section {
 	padding: 2px 2px 0 2px;
-	background-color: var(--wrapper-bg-color);
 }
 #inner_section {
 	padding: 12px 10px 2px 10px;
-	border-radius: 6px 6px 0 0;
 }
 #inner_section::after {
 	content: "";
@@ -1258,7 +1253,6 @@ ul li.greeting {
 	font-size: 0.9em;
 	overflow: hidden;
 	border: 1px solid #ddd;
-	border-radius: 2px;
 	box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.08);
 }
 .navigate_section ul li {
@@ -1266,7 +1260,6 @@ ul li.greeting {
 	padding-bottom: 3px;
 	line-height: 1.1em;
 	color: #444;
-	text-shadow: 1px 1px 0 #fff;
 }
 .navigate_section ul li a, .navigate_section ul li em {
 	padding: 4px 0 4px;
@@ -1294,6 +1287,7 @@ ul li.greeting {
 #content_section {
 	margin: 0 auto;
 	clear: both;
+	background: var(--wrapper-bg-color);
 }
 #main_content_section {
 	padding: 5px 12px 16px 12px;
@@ -2537,8 +2531,6 @@ dl {
 ------------------------------------------------- */
 #statistics .roundframe {
 	margin: 0;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
 }
 dl.stats dt {
 	width: 50%;
@@ -2716,7 +2708,6 @@ dl.addrules dt.floatleft {
 	border: none;
 }
 #searchform .roundframe {
-	border-radius: 0;
 	margin: 0;
 	padding: 32px;
 }
@@ -2872,7 +2863,7 @@ dl.addrules dt.floatleft {
 }
 
 .generic_list_wrapper, .windowbg, .approvebg, .approvebg2 {
-	background: #f0f4f7;
+	background: var(--wrapper-bg-color2);
 	margin: 12px 0 0 0;
 	padding: 12px 16px;
 	border: 1px solid #ddd;
@@ -2882,10 +2873,10 @@ dl.addrules dt.floatleft {
 }
 /* Here comes the glory... */
 .windowbg:nth-of-type(even), .bg.even {
-	background: var(--wrapper-color);
+	background: var(--wrapper-bg-color2);
 }
 .windowbg:nth-of-type(odd), .bg.odd {
-	background: var(--bg-color);
+	background: var(--wrapper-bg-color3);
 }
 
 /* Highlight the target item */
@@ -3040,7 +3031,7 @@ h3 .collapse {
 .info .subject {
 	font-weight: 600;
 	font-size: 1.1em;
-	color: #a85400;
+	color: var(--pri-color);
 }
 .board_stats {
 	width: 15%;
@@ -3220,7 +3211,6 @@ span.postby {
 }
 #topic_icons .information {
 	font-size: .9em;
-	border-radius: 4px;
 }
 #topic_icons p {
 	padding: 0 12px 0 4px;
@@ -3411,7 +3401,7 @@ img.avatar {
 	flex: 1 1 auto;
 }
 .keyinfo .postinfo .modified {
-	color: var(--txt-color);
+	color: #333;
 	font-weight: normal;
 	font-style: italic;
 	padding: 2px 4px 0 4px;
@@ -3427,14 +3417,14 @@ img.avatar {
 }
 .subject_title a {
 	font-size: 0.9em;
-	color: var(--txt-color);
+	color: #333;
 	font-weight: bold;
 }
 .subject_hidden a {
 	display: none;
 }
 .page_number {
-	color: var(--txt-color);
+	color: #ad6825;
 	font-weight: bold;
 	padding: 4px 0 0 4px;
 	line-height: 1.5em;
@@ -3489,8 +3479,6 @@ img.smiley {
 #quickreply_options .roundframe {
 	margin: 0;
 	padding: 8px 10% 12px 10%;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
 }
 #quickReplyExpand {
 	float: right;
@@ -3570,7 +3558,7 @@ ul.post_options li {
 	border-top: none; /* Some people are OCD, like me. :P */
 }
 #post_draft_options .settings strong {
-	color: var(--txt-color);
+	color: #555;
 }
 #post_confirm_buttons {
 	display: flex;
@@ -3682,11 +3670,10 @@ ul.post_options li {
 /* General Classes */
 /* Cat_bar / catbg */
 div.cat_bar {
-	background: #557ea0;
+	background: var(--skeuomorphism);
 	border-bottom: 1px solid #777;
 	padding: 0;
-	border-radius: 6px 6px 0 0;
-	box-shadow: 0 16px 20px rgba(255, 255, 255, 0.15) inset;
+=
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.2);
 }
 .cat_bar.collapsed,
@@ -3735,19 +3722,14 @@ h3.catbg .main_icons::before, h3.catbg .icon {
 .roundframe {
 	margin: 10px 0 0 0;
 	padding: 12px 16px;
-	background: var(--wrapper-color);
+	background: var(--wrapper-bg-color);
 	border: 1px solid #c5c5c5;
-	border-radius: 7px;
 	box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.1);
 	overflow: auto;
 }
 /* TitleBar & SubBar */
 .title_bar {
-	border: 1px solid #ddd;
-	border-top: 2px solid #ff9400;
-	border-bottom: 2px solid #bf6900;
-	background: var(--wrapper-color);
-	color: var(--txt-color);
+	background: var(--skeuomorphism);
 	border-radius: 2px 2px 0 0;
 	margin: 5px 0 0 0;
 }
@@ -3760,7 +3742,6 @@ h3.catbg .main_icons::before, h3.catbg .icon {
 }
 h3.titlebg, h4.titlebg, .titlebg, h3.subbg, h4.subbg, .subbg {
 	background: none;
-	color: var(--txt-color);
 	font-family: "Tahoma", sans-serif;
 	font-weight: bold;
 	overflow: hidden;
@@ -3769,7 +3750,6 @@ h3.titlebg, h4.titlebg, .titlebg, h3.subbg, h4.subbg, .subbg {
 }
 .titlebg a, .subbg a {
 	background: none;
-	color: var(--txt-color);
 	text-decoration: none;
 }
 .title_bar + .windowbg, .title_bar + .roundframe {
@@ -3781,12 +3761,11 @@ h3.titlebg, h4.titlebg, .titlebg, h3.subbg, h4.subbg, .subbg {
 /* Other */
 /* Information */
 .information {
-	background: #f8f8f8;
+	background: var(--wrapper-bg-color);
 	overflow: auto;
 	padding-bottom: .5em;
 	border: 1px solid #ddd;
 	border-top: none;
-	border-radius: 0 0 7px 7px;
 	margin: 0 0 10px 0;
 	padding: 12px 9px 8px 9px;
 }
@@ -3824,7 +3803,7 @@ p.information img {
 	left: 0;
 	display: none;
 	margin-top: 18px;
-	background: #fff;
+	background: var(--wrapper-bg-color);
 	border: 1px solid #ddd;
 	border-radius: 3px;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -3931,6 +3910,28 @@ h3.profile_hd::before,
 	padding: 25px 6px 25px 18px;
 }
 
+/* Background of buttons */
+.dropmenu li ul, .top_menu, .dropmenu li li:hover, .button,
+.dropmenu li li:hover > a, .dropmenu li li a:focus, .dropmenu li li a:hover,
+#top_section, .quickbuttons > li,
+.quickbuttons li ul, .quickbuttons li ul li a:hover, .quickbuttons ul li a:focus,
+.inline_mod_check, .popup_window, #inner_section, .post_options ul,
+.post_options ul a:hover, .post_options ul a:focus, .notify_dropdown a:hover, .notify_dropdown a:focus {
+	background: var(--wrapper-bg-color); 
+	border-left: 1px solid #484848;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-top: 1px solid #666666;
+}
+/* Well some of them has different gradient effect on hover */
+.button:hover, #search_form .button:hover, .quickbuttons li:hover {
+	background: var(--main-bg-color);
+}
+/* If it fits I sits... */
+.navigate_section ul, .popup_content, .up_contain {
+	background: var(--wrapper-bg-color);
+}
+
 /* Topic/Board follow-alert menu */
 .notify_dropdown strong {
 	font-size: 1.1em;
@@ -3955,7 +3956,7 @@ h3.profile_hd::before,
 	margin: -7px 0 15px 0;
 }
 #display_head p {
-	color: var(--txt-color);
+	color: #959595;
 }
 #display_head span {
 	margin: -4px 0 0 0;
@@ -4200,3 +4201,22 @@ img.theme_thumbnail {
 #lang_main_files_list .name, #member_list .email, #approve_list .email {
 	word-break: break-word;
 }
+
+/* BBCode */
+.spoilertxt, .spoilertxt a{ 
+color: #b1b1b1 !important;
+  background-color: #b1b1b1 !important;
+}
+
+
+.spoilertxt:hover, .spoilertxt:hover a { 
+color: inherit !important;
+  background-color: inherit !important;
+}
+
+.spoilertxt > img {display: none;}
+.spoilertxt:hover > img {display: inline;}
+
+.vertical-align-top img{vertical-align: top!important;}
+.vertical-align-bottom img{vertical-align: bottom!important;}
+.vertical-align-middle img{vertical-align: middle!important;}
