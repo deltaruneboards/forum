@@ -47,7 +47,7 @@ function PersonalizedBBC_CheckUpload($name, $file)
 		$check = PersonalizedBBC_imageResize($settings['default_theme_dir'] . '/images/bbc/personalizedBBC/' . $newFile, $settings['default_theme_dir'] . '/images/bbc/personalizedBBC/' . $newFile, 20, 20, 1);
 		if (!empty($check)) {
 			$val = PersonalizedBBC_CheckImage(array($name => trim($newFile)));
-			$val = preg_replace('/\.[^.]*$/', '', $val);
+			$val = 'personalizedBBC/' . preg_replace('/\.[^.]*$/', '', $val);
 			createPersonalizedBBC_setting('personalized_bbc', 'image', $val, $name);
 			redirectexit($scripturl . '?action=admin;area=PersonalizedBBC;sa=personalizedBBC_Entry;name=' . $name . ';#persoanlized_bbc_settings');
 		}
