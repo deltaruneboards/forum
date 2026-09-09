@@ -14,6 +14,11 @@
 	--pri-color: #00FFEA;
 	--sec-color: #0080c0;
 	--ter-color: #00347d;
+
+	--info-color: #00FFEA;
+	--alert-color: #00FFEA;
+	--valid-color: #00FFEA;
+	--invalid-color: #00FFEA;
 }
 body {
 	background: black;
@@ -182,9 +187,8 @@ input[type="checkbox"], input[type="radio"] {
 }
 /* Give disabled input elements a different style */
 input[disabled], textarea[disabled], select[disabled], .button.disabled, .button[disabled]:hover {
-	background: #eee;
-	color: #999;
-	border-color: #b6b6b6;
+	background: var(--ter-bg-color);
+	color: var(--txt-color-off);
 	opacity: 0.8;
 	cursor: default;
 }
@@ -193,8 +197,7 @@ hr {
 	border: none;
 	margin: 12px 0;
 	height: 2px;
-	background: #fff;
-	box-shadow: 0 1px 0 #bbb inset;
+	background: var(--txt-color-off);
 }
 /* This is about links */
 a, a:visited {
@@ -588,14 +591,13 @@ strong[id^='child_list_']::after {
 a.moderation_link, a.moderation_link:visited {
 	font-weight: bold;
 	padding: 0px 8px;
-	background: #f59e00;
+	background: var(--ter-bg-color);
 }
 /* AJAX notification bar
 ------------------------------------------------------- */
 #ajax_in_progress {
-	background: #fff;
-	border-bottom: 4px solid #f96f00;
-	color: #f96f00;
+	background: var(--ter-bg-color);
+	color: var(--txt-color);
 	text-align: center;
 	font-size: 1.6em;
 	padding: 8px;
@@ -607,7 +609,7 @@ a.moderation_link, a.moderation_link:visited {
 }
 
 #ajax_in_progress a {
-	color: orange;
+	color: var(--pri-color);
 	text-decoration: underline;
 	font-size: 0.9em;
 	float: right;
@@ -713,13 +715,13 @@ img.sort, .sort {
 	z-index: 100;
 }
 .auto_suggest_item {
-	background: #ddd;
+	background: var(--pri-bg-color);
 	padding: 1px 4px;
 }
 .auto_suggest_item_hover {
-	background: #888;
+	background: var(--ter-bg-color);
 	cursor: pointer;
-	color: #eee;
+	color: var(--pri-color);
 	padding: 1px 4px;
 }
 
@@ -743,8 +745,8 @@ img.sort, .sort {
 .amt {
 	margin-left: 3px;
 	padding: 0 5px;
-	color: #fff;
-	background: #6d90ad;
+	color: black;
+	background: var(--pri-color);
 }
 .dropmenu li .active .amt, #top_info li .active .amt {
 	background: rgba(0, 0, 0, 0.2);
@@ -851,7 +853,7 @@ a[class^="mobile_generic_menu_"] {
 	text-align: center;
 }
 .unread_notify:hover {
-	background: #eee;
+	background: var(--ter-bg-color);
 	text-decoration: none;
 }
 .unread_notify:last-child {
@@ -1042,7 +1044,7 @@ html[lang="el-GR"] .inline_mod_check {
 }
 .button.active:hover, .button.active:focus {
 	color: #ffc187;
-	background: #557ea0;
+	background: var(--sec-color);
 	box-shadow: none;
 }
 .cat_bar .button {
@@ -1079,12 +1081,6 @@ html[lang="el-GR"] .inline_mod_check {
 
 /* The framing graphics */
 /* The top bar. */
-#top_section {
-	border-bottom: 1px solid #bbb;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16);
-	background: #fff;
-	clear: both;
-}
 #top_section::after {
 	content: "";
 	display: block;
@@ -1139,10 +1135,6 @@ h1.forumtitle {
 h1.forumtitle a {
 	color: var(--pri-color);
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-}
-/* Float these items to the right */
-#banner {
-	margin: auto;
 }
 /* Even guests need to be aligned */
 .welcome {
@@ -1235,14 +1227,11 @@ ul li.greeting {
 	padding: 0 10px;
 	font-size: 0.9em;
 	overflow: hidden;
-	border: 1px solid #ddd;
-	box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.08);
 }
 .navigate_section ul li {
 	float: left;
 	padding-bottom: 3px;
 	line-height: 1.1em;
-	color: #444;
 }
 .navigate_section ul li a, .navigate_section ul li em {
 	padding: 4px 0 4px;
@@ -1272,10 +1261,10 @@ ul li.greeting {
 	clear: both;
 	background: var(--transparent-bg);
 }
-#main_content_section::after {
-	content: "";
-	display: block;
-	clear: both;
+#above_footer {
+	background: var(--transparent-bg);
+	text-align: center;
+	padding: 2em;
 }
 /* The footer with copyright links etc. */
 #footer .inner_wrap {
@@ -1358,7 +1347,6 @@ ul li.greeting {
 	right: -1px;
 	z-index: 90;
 	padding: 6px;
-	background: #fff;
 	font-weight: normal;
 	text-align: left;
 	border: solid 1px #999;
@@ -1635,10 +1623,9 @@ dl.register_form dd {
 .coppa_contact {
 	padding: 4px;
 	width: 32ex;
-	background: #fff;
-	color: #222;
+	background: var(--pri-bg-color);
+	color: var(--txt-color);
 	margin-left: 5ex;
-	border: 1px solid #222;
 }
 .valid_input {
 	background: #f5fff0;
@@ -2121,10 +2108,10 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 	border-bottom: 1px solid #ffd324;
 }
 .infobox {
-	color: #222;
-	background: #cfc;
-	border-top: 1px solid green;
-	border-bottom: 1px solid green;
+	color: var(--txt-color);
+	background: var(--info-color);
+	border-top: 1px solid var(--pri-color);
+	border-bottom: 1px solid var(--pri-color);
 }
 .descbox {
 	padding: 7px 10px 7px 10px;
@@ -2259,7 +2246,7 @@ dl {
 	width: 35%;
 	margin: 0 0 3px 0;
 	font-weight: bold;
-	color: #444;
+	color: var(--txt-color);
 }
 #detailedinfo dd, #tracking dd {
 	width: 65%;
@@ -2781,17 +2768,15 @@ dl.addrules dt.floatleft {
 }
 .popup_heading {
 	padding: 10px 8px;
-	color: #bf6900;
+	color: var(--pri-color);
 }
 .popup_content {
-	color: #222;
+	color: var(--txt-color);
 	line-height: 1.6em;
 	max-height: 30em;
 	overflow: auto;
 	padding: 10px 8px;
-	border: 1px solid #bbb;
-	border-bottom: 1px solid #ddd;
-	box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(255, 255, 255, 0.2);
+	background: var(--pri-bg-color);
 }
 #main_menu .popup_heading,
 #genericmenu .popup_heading,
@@ -3854,7 +3839,7 @@ h3.profile_hd::before,
 	background: var(--ter-bg-color);
 }
 /* If it fits I sits... */
-.navigate_section ul, .popup_content, .up_contain {
+.popup_content, .up_contain {
 	background: var(--pri-bg-color);
 }
 

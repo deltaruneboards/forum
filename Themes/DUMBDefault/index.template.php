@@ -374,7 +374,8 @@ function template_body_above()
 
 	echo '<div id="header">
 		<a id="top" href="', $scripturl, '">
-		', empty($settings['site_slogan']) ? '<img id="banner" src="' . $settings['images_url'] . '/temp-banner.png" alt="Simple Machines Forum" title="Simple Machines Forum">' : '<div id="siteslogan">' . $settings['site_slogan'] . '</div>', '</a>';
+		', '<img id="banner" src="' , $settings['images_url'] , '/temp-banner.png" alt="Deltarune Unofficial Message Boards" title="Deltarune Unofficial Message Boards">
+			 ', '</a>';
 
 	echo '
 	</div>
@@ -450,8 +451,15 @@ function template_body_below()
 
 	echo '
 			</div><!-- #main_content_section -->
-		</div><!-- #content_section -->
-	</div><!-- #wrapper -->';
+		</div><!-- #content_section -->';
+
+  // Space above footer
+  echo '
+	  <section id="above_footer">
+		  <a href="', $scripturl,'">Go Home</a>
+	  </section>
+	 </div><!-- #wrapper -->
+  ';
 
 	// Show the footer with copyright, terms and help links.
 	echo '
