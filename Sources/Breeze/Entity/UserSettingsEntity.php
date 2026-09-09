@@ -1,0 +1,206 @@
+<?php
+
+declare(strict_types=1);
+
+
+namespace Breeze\Entity;
+
+use DateTimeImmutable;
+
+class UserSettingsEntity extends Entity implements EntityInterface
+{
+	public const string IDENTIFIER = 'user_settings';
+	public const string WALL = 'wall';
+	public const string GENERAL_WALL = 'generalWall';
+	public const string PAGINATION_NUM = 'paginationNumber';
+	public const string BLOCK_LIST = 'blockList';
+	public const string ENABLE_BUDDIES_TAB = 'enableBuddiesTab';
+	public const string BUDDIES = 'buddies';
+	public const string ABOUT_ME = 'aboutMe';
+	public const string USER_ID = 'userId';
+	public const string CONFIRM_POST = 'confirmPost';
+
+	/* DUMB change: we want walls enabled by default for all users
+	protected int $wall = 0;
+	*/
+	protected int $wall = 1;
+
+	protected int $generalWall = 0;
+
+	protected int $paginationNumber = 5;
+
+	protected int $enableBuddiesTab = 0;
+
+	protected int $confirmPost = 0;
+
+	protected string $aboutMe = '';
+
+	protected array $buddies = [];
+
+	protected array $blockList = [];
+
+	public static function from(array $data = []): self
+	{
+		$class = self::class;
+
+		return new $class($data);
+	}
+
+	public static function getColumns(): array
+	{
+		return [
+			self::WALL => SettingsEntity::TYPE_CHECK,
+			self::GENERAL_WALL => SettingsEntity::TYPE_CHECK,
+			self::PAGINATION_NUM => SettingsEntity::TYPE_TEXT,
+			self::ENABLE_BUDDIES_TAB => SettingsEntity::TYPE_CHECK,
+			self::CONFIRM_POST => SettingsEntity::TYPE_CHECK,
+			self::ABOUT_ME => SettingsEntity::TYPE_TEXTAREA,
+		];
+	}
+
+	public static function getDefaultValues(): array
+	{
+		return [
+			/* DUMB change: we want walls enabled by default for all users
+			self::WALL => 0,
+			*/
+			self::WALL => 1,
+			self::GENERAL_WALL => 0,
+			self::PAGINATION_NUM => 5,
+			self::ENABLE_BUDDIES_TAB => 0,
+			self::CONFIRM_POST => 0,
+			self::ABOUT_ME => '',
+		];
+	}
+
+	public static function getInts(): array
+	{
+		return array_filter(self::getDefaultValues(), function (string $part): bool {
+			return (bool) strlen($part);
+		});
+	}
+
+	public static function getStrings(): array
+	{
+		return array_filter(self::getDefaultValues(), function ($value): bool {
+			return is_string($value);
+		});
+	}
+
+	public static function getTableName(): string
+	{
+		return '';
+	}
+
+	public function getWall(): int
+	{
+		return $this->wall;
+	}
+
+	public function setWall(int $wall): void
+	{
+		$this->wall = $wall;
+	}
+
+	public function getGeneralWall(): int
+	{
+		return $this->generalWall;
+	}
+
+	public function setGeneralWall(int $generalWall): void
+	{
+		$this->generalWall = $generalWall;
+	}
+
+	public function getEnableBuddiesTab(): int
+	{
+		return $this->enableBuddiesTab;
+	}
+
+	public function setEnableBuddiesTab(int $enableBuddiesTab): void
+	{
+		$this->enableBuddiesTab = $enableBuddiesTab;
+	}
+
+	public function getConfirmPost(): int
+	{
+		return $this->confirmPost;
+	}
+
+	public function setConfirmPost(int $confirmPost): void
+	{
+		$this->confirmPost = $confirmPost;
+	}
+
+	public function getAboutMe(): string
+	{
+		return $this->aboutMe;
+	}
+
+	public function setAboutMe(string $aboutMe): void
+	{
+		$this->aboutMe = $aboutMe;
+	}
+
+	public function getPaginationNumber(): int
+	{
+		return $this->paginationNumber;
+	}
+
+	public function setPaginationNumber(int $paginationNumber): void
+	{
+		$this->paginationNumber = $paginationNumber;
+	}
+
+	/**
+	 * @return array [int]
+	 */
+	public function getBuddies(): array
+	{
+		return $this->buddies;
+	}
+
+	public function setBuddies(array $buddies): void
+	{
+		$this->buddies = array_map('intval', array_filter($buddies));
+	}
+
+	/**
+	 * @return array [int]
+	 */
+	public function getBlockList(): array
+	{
+		return $this->blockList;
+	}
+
+	public function setBlockList(array $blockList): void
+	{
+		$this->blockList = array_map('intval', array_filter($blockList));
+	}
+
+	public function castValue(string $columnName, mixed $value): int|string|array|DateTimeImmutable
+	{
+		return match ($columnName) {
+			self::WALL,
+			self::GENERAL_WALL,
+			self::ENABLE_BUDDIES_TAB,
+			self::CONFIRM_POST,
+			self::PAGINATION_NUM,
+			MemberEntity::ID => (int) $value,
+			self::BLOCK_LIST, self::BUDDIES => explode(',', $value),
+			default => (string) $value,
+		};
+	}
+
+	public function jsonSerialize(): array
+	{
+		return [
+			'wall' => $this->getWall(),
+			'generalWall' => $this->getGeneralWall(),
+			'paginationNumber' => $this->getPaginationNumber(),
+			'aboutMe' => $this->getAboutMe(),
+			'enableBuddiesTab' => $this->getEnableBuddiesTab(),
+			'confirmPost' => $this->getConfirmPost(),
+		];
+	}
+}

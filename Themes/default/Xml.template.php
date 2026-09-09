@@ -46,6 +46,7 @@ function template_modifyfast()
 	echo '<', '?xml version="1.0" encoding="', $context['character_set'], '"?', '>
 <smf>
 	<subject><![CDATA[', cleanXml($context['message']['subject']), ']]></subject>
+	<description><![CDATA[' . cleanXml($context['message']['description']) . ']]></description>
 	<message id="msg_', $context['message']['id'], '"><![CDATA[', cleanXml($context['message']['body']), ']]></message>
 	<reason time="', $context['message']['reason']['time'], '" name="', $context['message']['reason']['name'], '"><![CDATA[', cleanXml($context['message']['reason']['text']), ']]></reason>
 </smf>';
@@ -71,6 +72,7 @@ function template_modifydone()
 		echo '
 		<modified><![CDATA[', empty($modified) ? '' : cleanXml($modified), ']]></modified>
 		<subject is_first="', $context['message']['first_in_topic'] ? '1' : '0', '"><![CDATA[', cleanXml($context['message']['subject']), ']]></subject>
+	<description><![CDATA[' . cleanXml($context['message']['description']) . ']]></description>
 		<body><![CDATA[', $context['message']['body'], ']]></body>
 		<success><![CDATA[', $txt['quick_modify_message'], ']]></success>';
 	}
@@ -103,7 +105,8 @@ function template_modifytopicdone()
 
 		if (!empty($context['message']['subject']))
 			echo '
-		<subject><![CDATA[', cleanXml($context['message']['subject']), ']]></subject>';
+		<subject><![CDATA[', cleanXml($context['message']['subject']), ']]></subject>
+	<description><![CDATA[' . cleanXml($context['message']['description']) . ']]></description>';
 	}
 	else
 		echo '

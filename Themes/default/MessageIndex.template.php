@@ -211,17 +211,25 @@ function template_main()
 			echo '
 							</div>';
 
+			if (!empty($modSettings['topic_descriptions_enable']) && !empty($topic['description']))
+			{
+				$topicDescriptionWhere = empty($modSettings['topic_descriptions_where']) ? 'below' : 'right';
+				$topicDescription = '<small id="topicdesc_' . $topic['first_post']['id'] . '" class="em"> &nbsp;(' . $topic['description'] . ')</small>';
+			}
+			else
+				$topicDescriptionWhere = '';
+
 			echo '
 							<div class="message_index_title">
 								', $topic['new'] && $context['user']['is_logged'] ? '<a href="' . $topic['new_href'] . '" id="newicon' . $topic['first_post']['id'] . '" class="new_posts">' . $txt['new'] . '</a>' : '', '
 								<span class="preview', $topic['is_sticky'] ? ' bold_text' : '', '" title="', $topic[(empty($modSettings['message_index_preview_first']) ? 'last_post' : 'first_post')]['preview'], '">
-									<span id="msg_', $topic['first_post']['id'], '">', $topic['first_post']['link'], (!$topic['approved'] ? '&nbsp;<em>(' . $txt['awaiting_approval'] . ')</em>' : ''), '</span>
+									<span id="msg_', $topic['first_post']['id'], '">', $topic['first_post']['link'], (!$topic['approved'] ? '&nbsp;<em>(' . $txt['awaiting_approval'] . ')</em>' : ''), '</span>' . ($topicDescriptionWhere === 'right' ? $topicDescription : '') . '
 								</span>
 							</div>
 							<p class="floatleft">
 								', $txt['started_by'], ' ', $topic['first_post']['member']['link'], '
 							</p>
-							', !empty($topic['pages']) ? '<span id="pages' . $topic['first_post']['id'] . '" class="topic_pages">' . $topic['pages'] . '</span>' : '', '
+							', !empty($topic['pages']) ? '<span id="pages' . $topic['first_post']['id'] . '" class="topic_pages">' . $topic['pages'] . '</span>' : '', '' . ($topicDescriptionWhere === 'below' ? '<br>' . $topicDescription : '') . '
 						</div><!-- #topic_[first_post][id] -->
 					</div><!-- .info -->
 					<div class="board_stats centertext">

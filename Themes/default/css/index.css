@@ -1424,7 +1424,7 @@ ul li.greeting {
 	margin: 0;
 }
 /* Fixes for quickbuttons
-   Fix for quote on reply box */
+	Fix for quote on reply box */
 #post_modify {
 	border-radius: 4px;
 }
@@ -4051,7 +4051,7 @@ h3.profile_hd::before,
 	margin-top: 12px;
 }
 #attachment_previews {
-    display: none;
+	 display: none;
 }
 #attachment_previews div.descbox > div,
 #attachment_previews div.errorbox > div,
@@ -4220,3 +4220,22 @@ img.theme_thumbnail {
 #lang_main_files_list .name, #member_list .email, #approve_list .email {
 	word-break: break-word;
 }
+
+/* BBCode */
+.spoilertxt, .spoilertxt a{ 
+color: #b1b1b1 !important;
+  background-color: #b1b1b1 !important;
+}
+
+
+.spoilertxt:hover, .spoilertxt:hover a { 
+color: inherit !important;
+  background-color: inherit !important;
+}
+
+.spoilertxt > img {display: none;}
+.spoilertxt:hover > img {display: inline;}
+
+.vertical-align-top img{vertical-align: top!important;}
+.vertical-align-bottom img{vertical-align: bottom!important;}
+.vertical-align-middle img{vertical-align: middle!important;}

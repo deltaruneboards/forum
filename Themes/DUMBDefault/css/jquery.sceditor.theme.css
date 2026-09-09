@@ -1,0 +1,48 @@
+div.sceditor-grip {
+	filter: invert(1);
+}
+.sceditor-container {
+	background: var(--pri-bg-color);
+	border: 2px groove var(--ter-bg-color);
+	color: var(--txt-color);
+	border-radius: 0;
+}
+.sceditor-container textarea {
+	font-size: medium;
+	color: var(--txt-color);
+	background: var(--pri-bg-color);
+}
+div.sceditor-smileyPopup,
+div.sceditor-dropdown,
+div.sceditor-dropdown input,
+div.sceditor-dropdown textarea,
+div.sceditor-dropdown .button {
+	border-radius: 0;
+}
+div.sceditor-toolbar {
+	background: var(--wrapper-bg-color);
+	border-radius: 0;
+}
+div.sceditor-group {
+	background: var(--ter-bg-color);
+	border: 1px solid var(--txt-color-off);
+	border-radius: 0;
+}
+.sceditor-button:hover,
+.sceditor-button:active,
+.sceditor-button.active {
+	border-radius: 0;
+}
+.sceditor-button:active {
+	background: var(--sec-color);
+}
+.sceditor-button,
+.sceditor-button div {
+	border-radius: 0;
+}
+.sceditor-button svg {
+	fill: var(--pri-color);
+}
+.sceditor-button.disabled svg {
+	fill: var(--txt-color-off);
+}

@@ -208,6 +208,7 @@ function Display()
 	$context['topic_poster_name'] = $context['topicinfo']['topic_started_name'];
 	$context['topic_first_message'] = $context['topicinfo']['id_first_msg'];
 	$context['topic_last_message'] = $context['topicinfo']['id_last_msg'];
+	$context['can_see_description'] = !empty($context['topicinfo']['description']) && !empty($modSettings['topic_descriptions_topics']) && !empty($modSettings['topic_descriptions_boards']) && in_array($board, explode(",", $modSettings['topic_descriptions_boards']));
 	$context['topic_unwatched'] = isset($context['topicinfo']['unwatched']) ? $context['topicinfo']['unwatched'] : 0;
 
 	// Add up unapproved replies to get real number of replies...

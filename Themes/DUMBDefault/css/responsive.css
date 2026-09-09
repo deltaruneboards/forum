@@ -1,7 +1,6 @@
 /* Some very big stuff? Dunno... */
 @media (min-width: 856px) and (max-width: 1024px) {
 	.lastpost {
-		width: 20%;
 		margin: 3px 0 0 5px;
 	}
 	#alerts .alert_time {
@@ -41,6 +40,10 @@
 	}
 	#member_list .ip, #member_list .last_active, #member_list .user_name {
 		display: none !important;
+	}
+
+	#topic_header, .topic_grid {
+		display: block;
 	}
 }
 

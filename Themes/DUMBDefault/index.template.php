@@ -189,8 +189,7 @@ function template_html_above()
 	echo '
 </head>
 <body id="', $context['browser_body_id'], '" class="action_', !empty($context['current_action']) ? $context['current_action'] : (!empty($context['current_board']) ?
-		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '', '">
-<div id="footerfix">';
+		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '', '">';
 }
 
 /**
@@ -450,8 +449,7 @@ function template_body_below()
 	echo '
 			</div><!-- #main_content_section -->
 		</div><!-- #content_section -->
-	</div><!-- #wrapper -->
-</div><!-- #footerfix -->';
+	</div><!-- #wrapper -->';
 
 	// Show the footer with copyright, terms and help links.
 	echo '
@@ -459,11 +457,11 @@ function template_body_below()
 		<div class="inner_wrap">';
 
 	// There is now a global "Go to top" link at the right.
-	echo '
+	echo "
 		<ul>
-			<li class="floatright"><a href="', $scripturl, '?action=help">', $txt['help'], '</a> ', (!empty($modSettings['requireAgreement'])) ? '| <a href="' . $scripturl . '?action=agreement">' . $txt['terms_and_rules'] . '</a>' : '', ' | <a href="#top_section">', $txt['go_up'], ' ▲</a></li>
-			<li class="copyright">', theme_copyright(), '</li>
-		</ul>';
+			<li class='floatright'><a href='$scripturl?action=pages;sa=view;id=4'>User help</a> | <a href='$scripturl?action=agreement'>Terms of use</a> | <a href='$scripturl?action=pages;sa=view;id=2'>Privacy policy</a> | <a href='#top_section'>Back to top ▲</a></li>
+			<li class='copyright'>", theme_copyright(), "</li>
+		</ul>";
 
 	// Show the load time?
 	if ($context['show_load_time'])

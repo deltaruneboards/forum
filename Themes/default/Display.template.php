@@ -37,6 +37,13 @@ function template_main()
 			<h2 class="display_title">
 				<span id="top_subject">', $context['subject'], '</span>', ($context['is_locked']) ? ' <span class="main_icons lock"></span>' : '', ($context['is_sticky']) ? ' <span class="main_icons sticky"></span>' : '', '
 			</h2>
+';
+
+	if ($context['can_see_description'])
+		 echo '
+			  <p>', $context['topicinfo']['description'], '</p>';
+
+	echo '
 			<p>', $txt['started_by'], ' ', $context['topic_poster_name'], ', ', $context['topic_started_time'], '</p>';
 
 	// Next - Prev

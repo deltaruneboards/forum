@@ -742,7 +742,7 @@ function UnreadTopics()
 		COALESCE(meml.real_name, ml.poster_name) AS last_poster_name, ml.subject AS last_subject,
 		ml.icon AS last_icon, ms.icon AS first_icon, t.id_poll, t.is_sticky, t.locked, ml.modified_time AS last_modified_time,
 		COALESCE(lt.id_msg, lmr.id_msg, -1) + 1 AS new_from, SUBSTRING(ml.body, 1, 385) AS last_body,
-		SUBSTRING(ms.body, 1, 385) AS first_body, ml.smileys_enabled AS last_smileys, ms.smileys_enabled AS first_smileys, t.id_first_msg, t.id_last_msg';
+		SUBSTRING(ms.body, 1, 385) AS first_body, ml.smileys_enabled AS last_smileys, ms.smileys_enabled AS first_smileys, t.id_first_msg, t.id_last_msg, COALESCE(t.description, "") AS description';
 
 	if ($context['showing_all_topics'])
 	{
@@ -1389,7 +1389,8 @@ function UnreadTopics()
 				'name' => $row['bname'],
 				'href' => $scripturl . '?board=' . $row['id_board'] . '.0',
 				'link' => '<a href="' . $scripturl . '?board=' . $row['id_board'] . '.0">' . $row['bname'] . '</a>'
-			)
+			),
+			'description' => $row['description'],
 		);
 		if (!empty($settings['avatars_on_indexes']))
 		{

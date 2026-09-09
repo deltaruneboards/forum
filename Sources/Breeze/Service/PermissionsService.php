@@ -1,0 +1,138 @@
+<?php
+
+declare(strict_types=1);
+
+
+namespace Breeze\Service;
+
+use Breeze\Breeze;
+use Breeze\Entity\SettingsEntity;
+use Breeze\Enums\PermissionsEnum;
+use Breeze\Traits\PermissionsTrait;
+use Breeze\Traits\SettingsTrait;
+use Breeze\Traits\TextTrait;
+
+class PermissionsService implements PermissionsServiceInterface
+{
+	use TextTrait;
+	use PermissionsTrait;
+	use SettingsTrait;
+
+	public function hookPermissions(&$permissionGroups, &$permissionList): void
+	{
+		$this->setLanguage(Breeze::NAME . self::IDENTIFIER);
+
+		$permissionGroups['membergroup']['simple'] = ['breeze_per_simple'];
+		$permissionGroups['membergroup']['classic'] = ['breeze_per_classic'];
+
+		foreach (PermissionsEnum::ALL_PERMISSIONS as $permissionName) {
+			$permissionList['membergroup']['breeze_' . $permissionName] = [
+				false,
+				'breeze_per_classic',
+				'breeze_per_simple',];
+		}
+	}
+
+	public function permissions(int $profileOwner = 0, int $userPoster = 0): array
+	{
+		$user_info = $this->global('user_info');
+
+		$perm = [
+			PermissionsEnum::TYPE_STATUS =>  [
+				'edit' => false,
+				'delete' => false,
+				'post' => false,
+			],
+			PermissionsEnum::TYPE_COMMENTS =>  [
+				'edit' => false,
+				'delete' => false,
+				'post' => false,
+			],
+			PermissionsEnum::IS_ENABLE => $this->isFeatureEnable(),
+			PermissionsEnum::FORUM => $this->forumPermissions(),
+		];
+
+		// Guests and calls without a known poster get no permissions.
+		// profileOwner may legitimately be 0 on the general wall, so we do NOT
+		// short-circuit on it — we simply treat $isProfileOwner as false.
+		if ($user_info['is_guest'] || !$userPoster) {
+			return $perm;
+		}
+
+		// Profile owner? A zero profileOwner means "no single owner" (general wall).
+		$isProfileOwner = $profileOwner !== 0 && $profileOwner === (int) $user_info['id'];
+
+		// Status owner?
+		$isPosterOwner = $userPoster === (int) $user_info['id'];
+
+		// Lets check the posing bit first. Profile owner can always post.
+		if ($isProfileOwner) {
+			$perm[PermissionsEnum::TYPE_STATUS]['post'] = true;
+			$perm[PermissionsEnum::TYPE_COMMENTS]['post'] = true;
+		} else {
+			$perm[PermissionsEnum::TYPE_STATUS]['post'] = $this->isAllowedTo(PermissionsEnum::POST_STATUS);
+			$perm[PermissionsEnum::TYPE_COMMENTS]['post'] =  $this->isAllowedTo(PermissionsEnum::POST_COMMENTS);
+		}
+
+		$perm[PermissionsEnum::TYPE_STATUS]['delete'] = $this->handleDelete(PermissionsEnum::TYPE_STATUS, $isPosterOwner, $isProfileOwner);
+		$perm[PermissionsEnum::TYPE_COMMENTS]['delete'] =  $this->handleDelete(PermissionsEnum::TYPE_COMMENTS, $isPosterOwner, $isProfileOwner);
+
+		return $perm;
+	}
+
+	public function isFeatureEnable(): array
+	{
+		return [
+			'enableLikes' => (bool) $this->modSetting(SettingsEntity::ENABLE_LIKES),
+		];
+	}
+
+	public function forumPermissions(): array
+	{
+		$isEnable = [];
+
+		foreach (PermissionsEnum::ALL_FORUM as $forumPermission) {
+			$isEnable[$this->snakeToCamel($forumPermission)] = $this->isAllowedTo($forumPermission);
+		}
+
+		return $isEnable;
+	}
+
+	public function canViewActivity(int $viewerId): bool
+	{
+		return $this->isAllowedTo(PermissionsEnum::VIEW_GENERAL_WALL);
+	}
+
+	public function canViewProfileWall(int $viewerId): bool
+	{
+		return $this->isAllowedTo(PermissionsEnum::PROFILE_VIEW);
+	}
+
+	public function canViewAllStatuses(): bool
+	{
+		return $this->isAllowedTo(PermissionsEnum::DELETE_PROFILE_COMMENTS);
+	}
+
+	protected function handleDelete(string $type, bool $isPosterOwner, $isProfileOwner) : bool
+	{
+		// It all starts with an empty vessel...
+		$allowed = [];
+
+		// Your own data?
+		if ($isPosterOwner && $this->isAllowedTo(PermissionsEnum::getDeletePermission($type, PermissionsEnum::OWN))) {
+			$allowed[] = 1;
+		}
+
+		// Nope? then is this your own profile?
+		if ($isProfileOwner && $this->isAllowedTo(PermissionsEnum::getDeletePermission($type, PermissionsEnum::PROFILE))) {
+			$allowed[] = 1;
+		}
+
+		// No poster and no profile owner, must be an admin/mod or something.
+		if ($this->isAllowedTo(PermissionsEnum::getDeletePermission($type))) {
+			$allowed[] = 1;
+		}
+
+		return in_array(1, $allowed, true);
+	}
+}
