@@ -20,3 +20,5 @@ jobs:
           script: |
             cd /home/public/smf
             git pull
+            find /home/public/smf -type d -exec chmod 777 {} \;
+            find /home/public/smf -type f -exec chmod 666 {} \;
