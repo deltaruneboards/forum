@@ -385,11 +385,13 @@ function Arcade_menu_buttons()
 					'href' => $scripturl . '?action=arcade' . $sort,
 					'show' => ($subs && $show ? true : false),
 				),
+				/* DUMB change: we don't have ROM games
 				'retro_arch' => [
 					'title' => $retroArchLink,
 					'href' => $scripturl . '?action=retro_arch' . $sortRom,
 					'show' => ($showRetroArch && empty($arcadeModSettings['arcadeRomToggle']) && !empty($arcadeModSettings['arcadeRetroArchEnabled'])),
 				],
+				*/
 				'profile' => array(
 					'title' => $txt['arcadeSettings'],
 					'href' => $scripturl . '?action=profile;area=arcadeSettings;u=' . $user_info['id'],
