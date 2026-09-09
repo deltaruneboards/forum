@@ -459,7 +459,7 @@ function template_body_below()
 	// There is now a global "Go to top" link at the right.
 	echo "
 		<ul>
-			<li class='floatright'><a href='$scripturl?action=pages;sa=view;id=4'>User help</a> | <a href='$scripturl?action=agreement'>Terms of use</a> | <a href='$scripturl?action=pages;sa=view;id=2'>Privacy policy</a> | <a href='#top_section'>Back to top ▲</a></li>
+			<li class='floatright'><a href='$scripturl?action=pages;sa=view;id=4'>User help</a> | <a href='$scripturl?action=agreement'>Terms of use</a> | <a href='#top_section'>Back to top ▲</a></li>
 			<li class='copyright'>", theme_copyright(), "</li>
 		</ul>";
 
