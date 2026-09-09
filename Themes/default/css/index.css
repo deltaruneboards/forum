@@ -4242,5 +4242,9 @@ color: inherit !important;
 
 .bgcolor {
 	padding: 5px;
-	background-color: attr(data-bgcolor);
+	/**
+	 * Warning: Experimental syntax: https://caniuse.com/mdn-css_types_attr_type_function
+	 * This color is set again in JavaScript just in case.
+	 */
+	background-color: attr(data-bgcolor type(<color>));
 }
