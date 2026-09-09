@@ -85,6 +85,8 @@ function template_html_above()
 {
 	global $context, $scripturl, $txt, $modSettings;
 
+	loadJavaScriptFile('randQuote.js', array('minimize' => false));
+
 	// Show right to left, the language code, and the character set for ease of translating.
 	echo '<!DOCTYPE html>
 <html', $context['right_to_left'] ? ' dir="rtl"' : '', !empty($txt['lang_locale']) ? ' lang="' . str_replace("_", "-", substr($txt['lang_locale'], 0, strcspn($txt['lang_locale'], "."))) . '"' : '', '>
@@ -453,14 +455,15 @@ function template_body_below()
 
 	// Show the footer with copyright, terms and help links.
 	echo '
-	<div id="footer">
+	<footer id="footer">
 		<div class="inner_wrap">';
 
 	// There is now a global "Go to top" link at the right.
 	echo "
 		<ul>
-			<li class='floatright'><a href='$scripturl?action=pages;sa=view;id=4'>User help</a> | <a href='$scripturl?action=agreement'>Terms of use</a> | <a href='#top_section'>Back to top ▲</a></li>
+			<li id='randomQuote'></li>
 			<li class='copyright'>", theme_copyright(), "</li>
+			<li class='floatright'><a href='$scripturl?action=pages;sa=view;id=4'>User help</a> | <a href='$scripturl?action=agreement'>Terms of use</a> | <a href='#top_section'>Back to top ▲</a></li>
 		</ul>";
 
 	// Show the load time?
@@ -470,7 +473,7 @@ function template_body_below()
 
 	echo '
 		</div>
-	</div><!-- #footer -->';
+	</footer><!-- #footer -->';
 
 }
 
