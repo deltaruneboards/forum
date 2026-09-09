@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Breeze\Service;
 
 use Breeze\Entity\CommentEntity;
+use Breeze\Enums\PermissionsEnum;
 use Breeze\Event\Comment\CommentCreatedEvent;
 use Breeze\Event\EventServiceProvider;
 use Breeze\Repository\CommentRepositoryInterface;
@@ -17,6 +18,7 @@ class CommentService extends BaseService implements CommentServiceInterface
 	public function __construct(
 		protected CommentRepositoryInterface $commentRepository,
 		protected StatusRepositoryInterface  $statusRepository,
+		protected PermissionsServiceInterface $permissionsService,
 		protected EventServiceProvider       $eventServiceProvider,
 		protected ?MentionServiceInterface   $mentionService = null
 	) {
@@ -82,6 +84,14 @@ class CommentService extends BaseService implements CommentServiceInterface
 
 	public function deleteById(int $commentId): bool
 	{
+		$status = $this->commentRepository->getById($commentId);
+		$currentUserInfo = $this->currentUserInfo();
+		$viewerId = (int) ($currentUserInfo['id'] ?? 0);
+		$wallOwnerId = $status->getWallId();
+		$perms = $this->permissionsService->permissions($wallOwnerId, $viewerId);
+		if (!$perms[PermissionsEnum::TYPE_STATUS]['delete']) {
+			throw new InvalidCommentException('error_no_permission');
+		}
 		return $this->commentRepository->deleteById($commentId);
 	}
 
@@ -98,5 +108,10 @@ class CommentService extends BaseService implements CommentServiceInterface
 	public function recountLikes(): void
 	{
 		$this->commentRepository->recountLikes();
+	}
+
+	public function currentUserInfo(): array
+	{
+		return  $this->global('user_info');
 	}
 }

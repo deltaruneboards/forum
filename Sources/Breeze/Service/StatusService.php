@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace Breeze\Service;
 
 use Breeze\Entity\StatusEntity;
+use Breeze\Enums\PermissionsEnum;
 use Breeze\Event\EventServiceProvider;
 use Breeze\Event\Status\StatusCreatedEvent;
 use Breeze\Repository\InvalidStatusException;
@@ -230,6 +231,14 @@ class StatusService extends BaseService implements StatusServiceInterface
 	 */
 	public function deleteById(int $statusId): void
 	{
+		$status = $this->statusRepository->getById($statusId);
+		$currentUserInfo = $this->currentUserInfo();
+		$viewerId = (int) ($currentUserInfo['id'] ?? 0);
+		$wallOwnerId = $status->getWallId();
+		$perms = $this->permissionsService->permissions($wallOwnerId, $viewerId);
+		if (!$perms[PermissionsEnum::TYPE_STATUS]['delete']) {
+			throw new InvalidStatusException('error_no_permission');
+		}
 		$this->statusRepository->deleteById($statusId);
 	}
 
