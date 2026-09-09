@@ -453,6 +453,19 @@ class Items extends Dashboard
 			Database::Update('stshop_items', $this->_fields_data, $this->_fields_type, 'WHERE itemid = ' . $this->_fields_data['itemid']);
 		}
 
+        // DUMBie extension: implements postUserInput
+        // copied code from above
+        // i hate Database module with a passion but im too tired to rewrite this properly
+        $ctx_shopitem = Database::Get('', '', '', 'stshop_items AS s', array_merge(Database::$items, ['sm.file']), 'WHERE s.itemid = {int:itemid}', true, 'LEFT JOIN {db_prefix}stshop_modules AS sm ON (sm.id = s.module)', ['itemid' => (int) (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0)]);
+        $this->_item_module .= $ctx_shopitem['file'];
+
+        if (class_exists($this->_item_module))
+        {
+            // Create a new object (why do i have to do this again
+            $itemModel = new $this->_item_module;
+            $itemModel->postAddInput();
+        }
+
 		redirectexit('action=admin;area=shopitems;sa=index;'.$status);
 	}
 

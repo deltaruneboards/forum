@@ -145,6 +145,16 @@ abstract class Module
 	{
 	}
 
+    /**
+     * Module::postAddInput (DUMBie extension)
+     *
+     * Called after saving when editing or adding an item
+     * $_REQUESTS is set from the input fields
+     */
+    function postAddInput()
+    {
+    }
+
 	/**
 	 * Module::getUseInput()
 	 * 
@@ -166,6 +176,7 @@ abstract class Module
 	function getUseInput()
 	{
 	}
+
 
 	/**
 	 * Module::onUse()

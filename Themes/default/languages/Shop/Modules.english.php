@@ -132,3 +132,15 @@ $txt['Shop_si_success1'] = 'You successfully stole from %2$s, you robbed the ite
 $txt['Shop_si_error'] = 'That user does not exist or is not carrying any items!';
 $txt['Shop_si_notification_pm'] = 'We are sorry to inform you that you just have been robbed!' . "\n" . '[url=%1$s]%2$s[/url] has stripped you of the item [i]%3$s[/i] from your inventory.' . "\n\n" . 'This is an automatic notification, have a good day.' . "\n" .'- Forum Shop';
 $txt['alert_shop_module_steal_item'] = '{member_link} just robbed you the item "{item}" from your inventory!';
+// DUMB Badge
+$txt['Shop_dumbb_name'] = 'Default badge';
+$txt['Shop_dumbb_desc'] = 'you probably shouldnt see this';
+$txt['Shop_dumbb_success'] = 'You have successfully added %d!';
+$txt['Shop_dumbb_setting1'] = 'Badge order';
+$txt['Shop_dumbb_setting2'] = 'Hover text';
+// DUMB Badge Remover
+$txt['Shop_dumbbrm_name'] = 'Badge Remover';
+$txt['Shop_dumbbrm_desc'] = 'Removes any number of duplicate badges and refunds them';
+$txt['Shop_dumbbrm_nobadges'] = 'You don\'t have any badges!';
+$txt['Shop_dumbbrm_choose_badge'] = 'Select a badge and number to remove';
+$txt['Shop_dumbbrm_success'] = 'You have successfully removed %d badges';

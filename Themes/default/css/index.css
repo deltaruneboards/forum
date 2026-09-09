@@ -4239,3 +4239,8 @@ color: inherit !important;
 .vertical-align-top img{vertical-align: top!important;}
 .vertical-align-bottom img{vertical-align: bottom!important;}
 .vertical-align-middle img{vertical-align: middle!important;}
+
+.bgcolor {
+	padding: 5px;
+	background-color: attr(data-bgcolor);
+}
