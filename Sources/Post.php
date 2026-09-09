@@ -441,6 +441,7 @@ function Post($post_errors = array())
 		cache_put_data('response_prefix', $context['response_prefix'], 600);
 	}
 
+	$form_description = '';
 	// Previewing, modifying, or posting?
 	// Do we have a body, but an error happened.
 	if (isset($_REQUEST['message']) || isset($_REQUEST['quickReply']) || !empty($context['post_error']))
@@ -904,7 +905,6 @@ function Post($post_errors = array())
 		else
 		{
 			$form_subject = isset($_GET['subject']) ? $_GET['subject'] : '';
-	$form_description = '';
 			$form_message = '';
 		}
 	}
