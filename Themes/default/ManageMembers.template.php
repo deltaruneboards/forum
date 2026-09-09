@@ -100,7 +100,7 @@ function template_search_members()
 					<div class="msearch_details floatright">
 						<dl class="settings right">
 							<dt class="righttext">
-								<strong><label for="membername">', $txt['username'], ':</label></strong>
+								<strong><label for="membername">', $txt['internal_name'], ':</label></strong>
 							</dt>
 							<dd>
 								<input type="text" name="membername" id="membername" value="">

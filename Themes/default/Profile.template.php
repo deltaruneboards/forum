@@ -293,9 +293,9 @@ function template_summary()
 		<div id="detailedinfo">
 			<dl class="settings">';
 
-	if ($context['user']['is_owner'] || $context['user']['is_admin'])
+	if ($context['user']['is_admin'])
 		echo '
-				<dt>', $txt['username'], ': </dt>
+				<dt>', $txt['internal_name'], ': </dt>
 				<dd>', $context['member']['username'], '</dd>';
 
 	if (!isset($context['disabled_fields']['posts']))

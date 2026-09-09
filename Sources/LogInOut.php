@@ -304,15 +304,34 @@ function Login2()
 
 	// Load the data up!
 	$request = $smcFunc['db_query']('', '
-		SELECT passwd, id_member, id_group, lngfile, is_activated, email_address, additional_groups, member_name, password_salt,
+		SELECT passwd, id_member, id_group, lngfile, is_activated, email_address, additional_groups, member_name, real_name, password_salt,
 			passwd_flood, tfa_secret
 		FROM {db_prefix}members
-		WHERE ' . ($smcFunc['db_case_sensitive'] ? 'LOWER(member_name) = LOWER({string:user_name})' : 'member_name = {string:user_name}') . '
+		WHERE ' . ($smcFunc['db_case_sensitive'] ? 'LOWER(real_name) = LOWER({string:user_name})' : 'real_name = {string:user_name}') . '
 		LIMIT 1',
 		array(
 			'user_name' => $smcFunc['db_case_sensitive'] ? strtolower($_POST['user']) : $_POST['user'],
 		)
 	);
+
+	// DUMB Change: Let them retry with their actual username
+	if ($smcFunc['db_num_rows']($request) == 0)
+	{
+		$smcFunc['db_free_result']($request);
+		
+		// Load the data up!
+		$request = $smcFunc['db_query']('', '
+			SELECT passwd, id_member, id_group, lngfile, is_activated, email_address, additional_groups, member_name, real_name, password_salt,
+				passwd_flood, tfa_secret
+			FROM {db_prefix}members
+			WHERE ' . ($smcFunc['db_case_sensitive'] ? 'LOWER(member_name) = LOWER({string:user_name})' : 'member_name = {string:user_name}') . '
+			LIMIT 1',
+			array(
+				'user_name' => $smcFunc['db_case_sensitive'] ? strtolower($_POST['user']) : $_POST['user'],
+			)
+		);
+	}
+
 	// Probably mistyped or their email, try it as an email address. (member_name first, though!)
 	if ($smcFunc['db_num_rows']($request) == 0 && strpos($_POST['user'], '@') !== false)
 	{

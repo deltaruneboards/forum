@@ -491,6 +491,28 @@ function deleteMembers($users, $check_not_admin = false)
 	logActions($log_changes);
 }
 
+function compareUsernamesSpecifically($checkName) 
+{
+	global $smcFunc;
+	$request = $smcFunc['db_query']('', '
+		SELECT id_member
+		FROM {db_prefix}members
+		WHERE ({raw:member_name} {raw:operator} LOWER({string:check_name}))
+		LIMIT 1',
+		array(
+			'real_name' => $smcFunc['db_case_sensitive'] ? 'LOWER(real_name)' : 'real_name',
+			'member_name' => $smcFunc['db_case_sensitive'] ? 'LOWER(member_name)' : 'member_name',
+			'check_name' => $checkName,
+			'operator' => strpos($checkName, '%') || strpos($checkName, '_') ? 'LIKE' : '=',
+		)
+	);
+	if ($smcFunc['db_num_rows']($request) > 0)
+	{
+		$smcFunc['db_free_result']($request);
+		return true;
+	}
+}
+
 /**
  * Registers a member to the forum.
  * Allows two types of interface: 'guest' and 'admin'. The first
@@ -550,6 +572,14 @@ function registerMember(&$regOptions, $return_errors = false)
 	$username_validation_errors = validateUsername(0, $regOptions['username'], true, !empty($regOptions['check_reserved_name']));
 	if (!empty($username_validation_errors))
 		$reg_errors = array_merge($reg_errors, $username_validation_errors);
+
+	$DisplayName = $regOptions['username'];
+	$suffix = 0;
+	while (compareUsernamesSpecifically($regOptions['username'] . ":" . $suffix)) {
+		$suffix = $suffix + 1;
+	}
+		
+	$regOptions['username'] = $regOptions['username'] . ":" . $suffix;
 
 	// Generate a validation code if it's supposed to be emailed.
 	$validation_code = '';
@@ -674,7 +704,7 @@ function registerMember(&$regOptions, $return_errors = false)
 		'member_ip' => $regOptions['interface'] == 'admin' ? '127.0.0.1' : $user_info['ip'],
 		'member_ip2' => $regOptions['interface'] == 'admin' ? '127.0.0.1' : $_SERVER['BAN_CHECK_IP'],
 		'validation_code' => $validation_code,
-		'real_name' => $regOptions['username'],
+		'real_name' => $DisplayName,
 		'personal_text' => $modSettings['default_personal_text'],
 		'id_theme' => 0,
 		'id_post_group' => 4,
@@ -786,8 +816,8 @@ function registerMember(&$regOptions, $return_errors = false)
 		$column_names[$var] = $type;
 		$values[$var] = $val;
 	}
-
 	// Register them into the database.
+	
 	$memberID = $smcFunc['db_insert']('',
 		'{db_prefix}members',
 		$column_names,
@@ -996,11 +1026,10 @@ function isReservedName($name, $current_id_member = 0, $is_name = true, $fatal =
 		SELECT id_member
 		FROM {db_prefix}members
 		WHERE ' . (empty($current_id_member) ? '' : 'id_member != {int:current_member}
-			AND ') . '({raw:real_name} {raw:operator} LOWER({string:check_name}) OR {raw:member_name} {raw:operator} LOWER({string:check_name}))
+			AND ') . '({raw:real_name} {raw:operator} LOWER({string:check_name}))
 		LIMIT 1',
 		array(
 			'real_name' => $smcFunc['db_case_sensitive'] ? 'LOWER(real_name)' : 'real_name',
-			'member_name' => $smcFunc['db_case_sensitive'] ? 'LOWER(member_name)' : 'member_name',
 			'current_member' => $current_id_member,
 			'check_name' => $checkName,
 			'operator' => strpos($checkName, '%') || strpos($checkName, '_') ? 'LIKE' : '=',

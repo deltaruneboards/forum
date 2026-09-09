@@ -595,8 +595,8 @@ function GroupRequests()
 					'db' => 'member_link',
 				),
 				'sort' => array(
-					'default' => 'mem.member_name',
-					'reverse' => 'mem.member_name DESC',
+					'default' => 'mem.real_name',
+					'reverse' => 'mem.real_name DESC',
 				),
 			),
 			'group' => array(

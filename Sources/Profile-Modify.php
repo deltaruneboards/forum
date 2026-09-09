@@ -273,7 +273,7 @@ function loadProfileFields($force_reload = false)
 		// The username is not always editable - so adjust it as such.
 		'member_name' => array(
 			'type' => allowedTo('admin_forum') && isset($_GET['changeusername']) ? 'text' : 'label',
-			'label' => $txt['username'],
+			'label' => $txt['internal_name'],
 			'subtext' => allowedTo('admin_forum') && !isset($_GET['changeusername']) ? '[<a href="' . $scripturl . '?action=profile;u=' . $context['id_member'] . ';area=account;changeusername" style="font-style: italic;">' . $txt['username_change'] . '</a>]' : '',
 			'log_change' => true,
 			'permission' => 'profile_identity',
@@ -404,8 +404,7 @@ function loadProfileFields($force_reload = false)
 		),
 		'real_name' => array(
 			'type' => allowedTo('profile_displayed_name_own') || allowedTo('profile_displayed_name_any') || allowedTo('moderate_forum') ? 'text' : 'label',
-			'label' => $txt['name'],
-			'subtext' => $txt['display_name_desc'],
+			'label' => $txt['username'],
 			'log_change' => true,
 			'input_attr' => array('maxlength="60"'),
 			'permission' => 'profile_displayed_name',
@@ -1831,7 +1830,7 @@ function account($memID)
 
 	setupProfileContext(
 		array(
-			'member_name', 'real_name', 'date_registered', 'posts', 'lngfile', 'hr',
+			'real_name', 'member_name', 'date_registered', 'posts', 'lngfile', 'hr',
 			'id_group', 'hr',
 			'email_address', 'show_online', 'hr',
 			'tfa', 'hr',
