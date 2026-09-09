@@ -2958,9 +2958,6 @@ h3 .collapse {
 .boardindex_table .board_icon {
 	width: 80px;
 }
-.boardindex_table .info {
-	width: calc(55% - 80px);
-}
 .boardindex_table .board_stats {
 	padding: 13px 10px 10px;
 }

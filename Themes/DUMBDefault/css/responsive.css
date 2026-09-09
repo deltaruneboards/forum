@@ -208,8 +208,9 @@
 	.board_stats {
 		display: none;
 	}
-	.info {
-		width: calc(100% - 65px);
+	.info,
+	.boardindex_table .info {
+		width: calc(100% - 84px);
 	}
 	.lastpost {
 		width: 100%;
