@@ -1,0 +1,150 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Breeze\Repository;
+
+use Breeze\Database\ClientInterface;
+use Breeze\Entity\AlertEntity as AlertEntity;
+
+class AlertRepository extends BaseRepository implements AlertRepositoryInterface
+{
+	public function __construct(
+		ClientInterface $dbClient
+	) {
+		parent::__construct($dbClient);
+	}
+
+	public function getTableName(): string
+	{
+		return AlertEntity::TABLE;
+	}
+
+	public function getColumnId(): string
+	{
+		return AlertEntity::ID;
+	}
+
+	public function getColumnPosterId(): string
+	{
+		return AlertEntity::ID_MEMBER_STARTED;
+	}
+
+	public function getColumns(): array
+	{
+		return AlertEntity::getColumns();
+	}
+
+	public function insert(AlertEntity $alertEntity): int
+	{
+		$this->dbClient->insert(AlertEntity::TABLE, [
+			AlertEntity::ALERT_TIME => 'int',
+			AlertEntity::ID_MEMBER => 'int',
+			AlertEntity::ID_MEMBER_STARTED => 'int',
+			AlertEntity::MEMBER_NAME => 'string',
+			AlertEntity::CONTENT_TYPE => 'string',
+			AlertEntity::CONTENT_ID => 'int',
+			AlertEntity::CONTENT_ACTION => 'string',
+			AlertEntity::IS_READ => 'int',
+			AlertEntity::EXTRA => 'string',
+		], $alertEntity->toInsert(), AlertEntity::ID);
+
+		return $this->dbClient->getInsertedId(AlertEntity::TABLE, AlertEntity::ID);
+	}
+
+	public function update(AlertEntity $alertEntity): AlertEntity
+	{
+		$updateString = $this->buildSetUpdate($alertEntity);
+		$id = $alertEntity->getIdAlert();
+
+		$this->dbClient->update(
+			AlertEntity::TABLE,
+			'SET ' . ($updateString) . '
+			WHERE ' . AlertEntity::ID . ' = {int:id}',
+			['id' => $id]
+		);
+
+		return $this->getById($id);
+	}
+
+	public function getById(int $id): AlertEntity
+	{
+		$request = $this->dbClient->query(
+			'
+			SELECT ' . implode(', ', AlertEntity::getColumns()) . '
+			FROM {db_prefix}' . AlertEntity::TABLE . '
+			WHERE ' . AlertEntity::ID . ' = {int:alertId}',
+			[
+				'alertId' => $id,
+			]
+		);
+		$result = $this->dbClient->fetchAssoc($request);
+
+		$this->dbClient->freeResult($request);
+
+		return AlertEntity::from($result);
+	}
+
+	public function checkAlert($alertEntity): bool
+	{
+		$userId = $alertEntity->getIdMember();
+		$alertType = $alertEntity->getContentType();
+		$alertId = $alertEntity->getContentId();
+		$alertSender = $alertEntity->getIdMemberStarted();
+		$alertSenderQuery = empty($alertSender) ? '' : 'AND ' . AlertEntity::ID_MEMBER_STARTED . ' = {int:alertSender}';
+
+		if (empty($userId) || empty($alertType)) {
+			return false;
+		}
+
+		$request = $this->dbClient->query(
+			'
+			SELECT ' . AlertEntity::ID . '
+			FROM {db_prefix}' . AlertEntity::TABLE . '
+			WHERE ' . AlertEntity::ID_MEMBER . ' = {int:userId}
+				AND ' . AlertEntity::IS_READ . ' = 0
+				AND ' . AlertEntity::CONTENT_TYPE . ' = {string:alertType}
+				' . ($alertId !== 0 ? 'AND ' . AlertEntity::CONTENT_ID . ' = {int:alertId}' : '') . '
+				' . ($alertSenderQuery),
+			[
+				'userId' => $userId,
+				'alertType' => $alertType,
+				'alertId' => $alertId,
+				'alertSender' => $alertSender,
+			]
+		);
+
+		$result = $this->dbClient->fetchAssoc($request);
+
+		$this->dbClient->freeResult($request);
+
+		return (bool) $result;
+	}
+
+	public function getPendingBuddyAlerts(int $userId): array
+	{
+		$request = $this->dbClient->query(
+			'
+			SELECT ' . implode(', ', AlertEntity::getColumns()) . '
+			FROM {db_prefix}' . AlertEntity::TABLE . '
+			WHERE ' . AlertEntity::ID_MEMBER . ' = {int:userId}
+				AND ' . AlertEntity::CONTENT_TYPE . ' = {string:contentType}
+				AND ' . AlertEntity::CONTENT_ACTION . ' = {string:contentAction}
+				AND ' . AlertEntity::IS_READ . ' = 0',
+			[
+				'userId' => $userId,
+				'contentType' => 'Breeze_buddy',
+				'contentAction' => 'Breeze_invite',
+			]
+		);
+
+		$alerts = [];
+		while ($row = $this->dbClient->fetchAssoc($request)) {
+			$alerts[] = AlertEntity::from($row);
+		}
+
+		$this->dbClient->freeResult($request);
+
+		return $alerts;
+	}
+}
