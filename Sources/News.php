@@ -2004,8 +2004,8 @@ function getXmlProfile($xml_format)
 			),
 			array(
 				'tag' => 'email',
-				'attributes' => !empty($profile['show_email']) || $user_info['is_admin'] || $user_info['id'] == $profile['id'] ? array('label' => $txt['user_email_address']) : null,
-				'content' => !empty($profile['show_email']) || $user_info['is_admin'] || $user_info['id'] == $profile['id'] ? $profile['email'] : null,
+				'attributes' => !empty($profile['show_email']) || $user_info['is_admin'] ? array('label' => $txt['user_email_address']) : null,  // DUMB change: dont show your own email actually
+				'content' => !empty($profile['show_email']) || $user_info['is_admin'] ? $profile['email'] : null,  // DUMB change: dont show your own email actually
 				'cdata' => true,
 			),
 			array(

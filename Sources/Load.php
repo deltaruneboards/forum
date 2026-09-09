@@ -1749,7 +1749,7 @@ function loadMemberContext($user, $display_custom_fields = false)
 		'href' => $scripturl . '?action=profile;u=' . $profile['id_member'],
 		'link' => '<a href="' . $scripturl . '?action=profile;u=' . $profile['id_member'] . '" title="' . sprintf($txt['view_profile_of_username'], $profile['real_name']) . '">' . $profile['real_name'] . '</a>',
 		'email' => $profile['email_address'],
-		'show_email' => !$user_info['is_guest'] && ($user_info['id'] == $profile['id_member'] || allowedTo('moderate_forum')),
+		'show_email' => !$user_info['is_guest'] && allowedTo('moderate_forum'), // DUMB change: dont show your own email actually
 		'registered' => empty($profile['date_registered']) ? $txt['not_applicable'] : timeformat($profile['date_registered']),
 		'registered_timestamp' => empty($profile['date_registered']) ? 0 : $profile['date_registered'],
 	);
