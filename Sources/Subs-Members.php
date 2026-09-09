@@ -817,7 +817,6 @@ function registerMember(&$regOptions, $return_errors = false)
 		$values[$var] = $val;
 	}
 	// Register them into the database.
-	echo 'hi?';
 	
 	$memberID = $smcFunc['db_insert']('',
 		'{db_prefix}members',

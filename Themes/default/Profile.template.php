@@ -295,7 +295,7 @@ function template_summary()
 
 	if ($context['user']['is_admin'])
 		echo '
-				<dt>', $txt['id'], ': </dt>
+				<dt>', $txt['internal_name'], ': </dt>
 				<dd>', $context['member']['username'], '</dd>';
 
 	if (!isset($context['disabled_fields']['posts']))
