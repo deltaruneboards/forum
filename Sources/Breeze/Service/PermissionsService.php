@@ -63,7 +63,16 @@ class PermissionsService implements PermissionsServiceInterface
 		$isProfileOwner = $profileOwner !== 0 && $profileOwner === (int) $user_info['id'];
 
 		// Status owner?
+		/* DUMB change: this permission check is severely broken, because the
+		   poster is not always the current user. The poster is the user who
+		   posted the status, and the current user is the one viewing it.
+		   But because the frontend needs to be entirely reworked to separately
+		   account for "can delete own status" and "can delete any status", we
+		   will just disable this check for now and not let users delete their
+		   own statuses on other walls.
 		$isPosterOwner = $userPoster === (int) $user_info['id'];
+		*/
+		$isPosterOwner = false;
 
 		// Lets check the posing bit first. Profile owner can always post.
 		if ($isProfileOwner) {
