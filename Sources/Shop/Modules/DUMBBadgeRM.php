@@ -101,8 +101,6 @@ class DUMBBadgerm extends Module
             ));
         $refundCount = $smcFunc['db_affected_rows']();  // no negative values to get infinite items THIS TIME hopefully
 
-        $displayed = !$displayed;
-
         // look man the existing addItem function either requires an item to already exist
         // or removes from the shop stock
         // and i want neither

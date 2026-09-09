@@ -556,7 +556,6 @@ function template_single_post($message)
 									<a href="', $message['member']['href'], '">', $message['member']['avatar']['image'], '</a>
 								</li>';
 
-
 	// Are there any custom fields below the avatar?
 	if (!empty($message['custom_fields']['below_avatar']))
 		foreach ($message['custom_fields']['below_avatar'] as $custom)
@@ -566,12 +565,6 @@ function template_single_post($message)
 	// Don't show these things for guests.
 	if (!$message['member']['is_guest'])
 	{
-        // DUMBie extension: implementing badges on the default theme
-        // this probably wont stick once themes are finalized
-        if (!empty($message['member']['DUMB_Badge_render']))
-            echo '
-                <li class="dumb_badge">', $message['member']['DUMB_Badge_render'], '</li>';
-
 		// Show the post group icons
 		echo '
 								<li class="icons">', $message['member']['group_icons'], '</li>';

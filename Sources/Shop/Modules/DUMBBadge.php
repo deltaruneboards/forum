@@ -120,7 +120,6 @@ class DUMBBadge extends Module
         $smcFunc['db_free_result']($requestDUMBthisisDUMB);
 
         checkSession();
-        $displayed = !$displayed;
 
         $smcFunc['db_query']('', '
             INSERT INTO {db_prefix}awards
