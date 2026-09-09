@@ -1,20 +1,22 @@
 /* ---------------- General ---------------- */
 :root {
-	--main-bg-color: #000000;
-	--wrapper-bg-color: #222222;
-	--wrapper-bg-color2: #262626;
-	--wrapper-bg-color3: #232323;
+	--transparent-bg: rgba(22,22,22,0.8);
+	--pri-bg-color: #262626;
+	--sec-bg-color: #1E1E1E;
+	--ter-bg-color: #161616;
 	--txt-color: #FFFFFF;
 	--txt-color-off: #888888;
 	--skeuomorphism: linear-gradient(180deg, #1E1E1E 45%, #0b0b0b 55%);
 
+	--poll-color: #659ad6;
+	--border-color: #353535;
+
 	--pri-color: #00FFEA;
 	--sec-color: #0080c0;
-	--tri-color: #00347d;
+	--ter-color: #00347d;
 }
-
 body {
-	background: var(--main-bg-color);
+	background: black;
 	background-image: url('https://dumb.kocka.tech/Themes/DUMBDefault/images/background.png');
 	background-attachment: fixed;
 	background-repeat: no-repeat;
@@ -48,11 +50,10 @@ abbr {
 input, button, select, textarea {
 	color: var(--txt-color);
 	font: 83.33%/150% "Segoe UI", "Helvetica Neue", "Nimbus Sans L", Arial, "Liberation Sans", sans-serif;
-	background: var(--wrapper-bg-color);
+	background: var(--pri-bg-color);
 	outline: none;
 	border: 1px solid #bbb;
 	vertical-align: middle;
-	border-radius: 3px;
 	box-shadow: 1px 2px 1px rgba(160, 187, 221, 0.2) inset;
 	padding: 0.3em 0.4em;
 }
@@ -61,7 +62,7 @@ input:hover, textarea:hover, button:hover, select:hover {
 	border-color: #82a2bc;
 }
 textarea:hover {
-	background: var(--wrapper-bg-color);
+	background: var(--pri-bg-color);
 }
 input:focus, textarea:focus, button:focus, select:focus {
 	outline: none;
@@ -139,7 +140,6 @@ fieldset {
 	padding: 18px;
 	margin: 0 0 6px 0;
 	border: 1px solid #ddd;
-	border-radius: 3px;
 }
 fieldset legend {
 	font-weight: bold;
@@ -198,7 +198,7 @@ hr {
 }
 /* This is about links */
 a, a:visited {
-	color: var(--sec-color);
+	color: var(--txt-color);
 	text-decoration: none;
 }
 a:hover {
@@ -243,10 +243,9 @@ body#help_popup {
 	position: relative;
 	top: -2px;
 	padding: 0 4px;
-	background: linear-gradient(#f97b00,#884d00);
+	background: linear-gradient(var(--sec-color),var(--ter-color));
 	color: #fff;
 	font: 9px/15px verdana, sans-serif;
-	border-radius: 2px;
 	opacity: 0.8;
 }
 a.new_posts:visited {
@@ -255,6 +254,11 @@ a.new_posts:visited {
 .new_posts:hover, .new_posts:focus {
 	text-decoration: none;
 	opacity: 1;
+}
+
+.info_block {
+	border-left: 1px solid var(--border-color);
+	border-top: 1px solid var(--border-color);
 }
 
 /* Common classes to easy styling.
@@ -354,7 +358,7 @@ blockquote cite {
 	margin-bottom: 3px;
 }
 blockquote cite::before {
-	color: #aaa;
+	color: var(--txt-color-off);
 	font-size: 22px;
 	font-style: normal;
 	content: "\275D";
@@ -362,21 +366,20 @@ blockquote cite::before {
 	vertical-align: middle;
 }
 .bbc_standard_quote {
-	background-color: #e0e6f6;
+	background-color: var(--sec-bg-color);
 }
 .bbc_alternate_quote {
-	background-color: #ebf4f8;
+	background-color: var(--sec-bg-color);
 }
 
-/* A code block - maybe PHP ;). */
+/* A code block */
 .bbc_code {
 	display: block;
 	font-size: 0.78rem;
-	background: #f3f3f3;
+	background: var(--pri-bg-color);
 	border: 1px solid #dfdfdf;
 	border-top: 2px solid #bbb;
 	border-bottom: 3px solid #aaa;
-	border-radius: 2px;
 	margin: 1px 0 6px 0;
 	padding: 3px 12px;
 	overflow: auto;
@@ -468,13 +471,12 @@ a img {
 	width: 17px;
 	height: 17px;
 	display: inline-block;
-	background: var(--wrapper-bg-color) url(../images/icons/toggle.png) no-repeat 0 0 / 17px;
+	background: var(--pri-bg-color) url(../images/icons/toggle.png) no-repeat 0 0 / 17px;
 	overflow: hidden;
 	content: "";
 	vertical-align: middle;
 	margin: 0 5px 0 5px;
 	border: 1px solid #c5c5c5;
-	border-radius: 3px;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .2),
 		0 1px 1px #fff inset,
 		0 -5px 4px rgba(0,0,0,.1) inset;
@@ -540,7 +542,7 @@ strong[id^='child_list_']::after {
 }
 .current_page {
 	padding: 0 4px 0 2px;
-	color: #b46100;
+	color: var(--sec-color);
 	font-family: verdana, sans-serif;
 	font-weight: bold;
 }
@@ -706,7 +708,6 @@ img.sort, .sort {
 .auto_suggest_div {
 	position: absolute;
 	visibility: hidden;
-	border-radius: 3px;
 	outline: none !important;
 	border: 1px solid #bbb;
 	z-index: 100;
@@ -744,7 +745,6 @@ img.sort, .sort {
 	padding: 0 5px;
 	color: #fff;
 	background: #6d90ad;
-	border-radius: 8px;
 }
 .dropmenu li .active .amt, #top_info li .active .amt {
 	background: rgba(0, 0, 0, 0.2);
@@ -767,8 +767,8 @@ img.sort, .sort {
 .dropmenu a.active, #top_info a.active {
 	color: #fff;
 	font-weight: bold;
-	border-color: var(--tri-color);
-	background: var(--tri-color);
+	border-color: var(--ter-color);
+	background: var(--ter-color);
 	text-shadow: 0 0 2px #000;
 }
 /* Level 1 hover effects. */
@@ -801,6 +801,7 @@ a[class^="mobile_generic_menu_"] {
 }
 
 /* User information. */
+#profileview { padding: 1em;}
 #profile_menu_top::after {
 	content: " \25BC";
 }
@@ -915,7 +916,6 @@ a[class^="mobile_generic_menu_"] {
 	border-left: solid 1px #bbb;
 	border-top: solid 1px #ccc;
 	box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.3);
-	background: #fff;
 }
 /* Level 2 link background. */
 .dropmenu li li {
@@ -923,7 +923,6 @@ a[class^="mobile_generic_menu_"] {
 	padding: 0;
 	width: 17em;
 	font-size: 1em;
-	border-radius: 3px;
 	border: 1px solid transparent;
 }
 /* Necessary to allow highlighting of 1st level while hovering over submenu. */
@@ -1013,15 +1012,12 @@ a[class^="mobile_generic_menu_"] {
 .button, .quickbuttons > li > a, .inline_mod_check {
 	display: inline-block;
 	padding: 0 8px;
-	color: var(--pri-color);
+	color: var(--txt-color);
 	font-size: 0.7rem;
 	line-height: 2em;
 	text-transform: uppercase;
 	cursor: pointer;
 	min-height: calc(2em + 2em * (0.9 - 0.85)); /* "input" font size minus ".button" font size */
-	border: 1px solid;
-	border-color: #ddd #bbb #aaa #ddd;
-	box-shadow: 1px 1px 1px rgba(221, 221, 221, 0.57);
 	box-sizing: border-box;
 	vertical-align: middle;
 }
@@ -1030,26 +1026,19 @@ html[lang="el-GR"] .quickbuttons > li > a,
 html[lang="el-GR"] .inline_mod_check {
 	text-transform: capitalize;
 }
-.pagesection .button {
-	color: #346;
-}
 .button:hover, .button:focus,
 .quickbuttons > li:hover > a, .quickbuttons > li > a:focus {
-	color: #222;
 	border-color: #aaa #ddd #ddd #bbb;
-	box-shadow: -1px -1px 2px rgba(221, 221, 221, 0.7), -1px -2px 4px #ddd inset;
 	text-decoration: none;
 }
 .button:hover, .button:focus {
-	color: var(--txt-color-off);
+	color: var(--pri-color);
 }
 /* the active one */
 .button.active {
-	background: #557ea0;
-	color: #fff;
+	background: var(--pri-color);
+	color: #000;
 	font-weight: bold;
-	border: 1px solid #558080;
-	text-shadow: 0 0 1px #000;
 }
 .button.active:hover, .button.active:focus {
 	color: #ffc187;
@@ -1065,13 +1054,6 @@ html[lang="el-GR"] .inline_mod_check {
 }
 .buttonrow .button {
 	display: table-cell;
-	border-radius: 0;
-}
-.buttonrow .button:first-child {
-	border-radius: 3px 0 0 3px;
-}
-.buttonrow .button:last-child {
-	border-radius:  0 3px 3px 0;
 }
 /* in a titlebg, the buttonlist is of small height */
 .titlebg .buttonlist {
@@ -1085,12 +1067,11 @@ html[lang="el-GR"] .inline_mod_check {
 /* Box-shadow only on this one. */
 #wrapper {
 	clear: both;
-	border: 1px solid #b8b8b8;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.14);
 }
 
 /* Set maximum width limit for content */
-#top_section .inner_wrap, #wrapper, #header, #footer .inner_wrap {
+#top_section .inner_wrap, #wrapper, #header, #footer .inner_wrap, #top_section, #footer {
 	max-width: 1000px;
 	margin: 0 auto;
 	width: 90%;
@@ -1144,10 +1125,8 @@ html[lang="el-GR"] .inline_mod_check {
 	display: flex;
 	justify-content: center;
 }
-#header::after {
-	content: "";
-	display: block;
-	clear: both;
+#top {
+  margin-bottom: -5px;
 }
 /* The main title. */
 h1.forumtitle {
@@ -1172,11 +1151,8 @@ h1.forumtitle a {
 }
 /*
 /* The user info, news, etc.*/
-#upper_section {
-	padding: 2px 2px 0 2px;
-}
-#inner_section {
-	padding: 12px 10px 2px 10px;
+#inner_wrap {
+	padding: 10px 10px 2px 10px;
 }
 #inner_section::after {
 	content: "";
@@ -1188,8 +1164,15 @@ h1.forumtitle a {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 1px solid #bbb;
 	margin-bottom: 12px;
+	background: var(--pri-bg-color);
+}
+#upper_section {
+	background: var(--transparent-bg);
+}
+#upper_section::after {
+	content: "";
+	padding: 1em;
 }
 .user {
 	padding: 0 4px 8px 4px;
@@ -1287,23 +1270,17 @@ ul li.greeting {
 #content_section {
 	margin: 0 auto;
 	clear: both;
-	background: var(--wrapper-bg-color);
-}
-#main_content_section {
-	padding: 5px 12px 16px 12px;
+	background: var(--transparent-bg);
 }
 #main_content_section::after {
 	content: "";
 	display: block;
 	clear: both;
 }
-/* Footer is now full-width by default. */
 /* The footer with copyright links etc. */
 #footer {
-	margin: 4em 0 0 0;
 	padding: 10px 0;
-	background: #3e5a78;
-	border-top: 3px solid #b2b6bd;
+	background: var(--ter-bg-color);
 	flex: none;
 }
 #footer li, #footer p, #footer a {
@@ -1353,18 +1330,9 @@ ul li.greeting {
 	display: block;
 	height: auto;
 	padding: 0 4px;
-	color: #222;
 	line-height: 1.375rem;
-	border-radius: 0;
-}
-.quickbuttons > li:first-child > a {
-	border-radius: 4px 0 0 4px;
-}
-.quickbuttons > li:last-child > a, .inline_mod_check:last-child {
-	border-radius: 0 4px 4px 0;
 }
 .quickbuttons > li:only-child > a, .inline_mod_check:only-child {
-	border-radius: 4px;
 	margin: 2px;
 	height: 23px;
 }
@@ -1393,7 +1361,6 @@ ul li.greeting {
 	border: solid 1px #999;
 	border-left: solid 1px #aaa;
 	border-top: solid 1px #bbb;
-	border-radius: 4px 0 4px 4px;
 	box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.2);
 }
 .post_options:hover ul {
@@ -1406,7 +1373,6 @@ ul li.greeting {
 	line-height: 2.2em;
 	text-decoration: none;
 	border: 1px solid transparent;
-	border-radius: 3px;
 }
 .post_options ul a:hover, .post_options ul a:focus {
 	border-color: #c4cbd3;
@@ -1421,9 +1387,6 @@ ul li.greeting {
 }
 /* Fixes for quickbuttons
 	Fix for quote on reply box */
-#post_modify {
-	border-radius: 4px;
-}
 
 /* The jump to box */
 #display_jump_to {
@@ -2170,19 +2133,14 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .generic_bar, .progress_bar {
-	border: 1px solid #cecaca;
-	background: #fff;
 	min-height: 16px;
 	line-height: 1.4em;
-	border-radius: 2px;
 	position: relative;
 	overflow: hidden;
-	color: rgba(0, 0, 0, 0.6);
 }
 .generic_bar span, .progress_bar span {
 	position: relative;
 	z-index: 2;
-	text-shadow: 1px 1px rgba(255, 255, 255, .4);
 	display: inline-block;
 	padding: 0 5px;
 }
@@ -2192,11 +2150,8 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 	top: 0;
 	left: 0;
 	bottom: 0;
-	background: orange;
+	background: var(--poll-color);
 	transition: width .3s;
-	border-radius: 1px;
-	box-shadow: 4px -4px 8px rgba(0, 0, 0, 0.1) inset,
-		4px 4px 8px rgba(255,255,255,0.3) inset;
 	display: block;
 }
 .generic_bar.vertical {
@@ -2210,7 +2165,6 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 }
 
 .progress_bar {
-	border-radius: 4px;
 	text-align: center;
 	font-weight: bold;
 	color: rgba(0, 0, 0, 0.8);
@@ -2754,7 +2708,6 @@ dl.addrules dt.floatleft {
 	margin: 12px 0 0 0;
 	padding: 8px 20px 12px 20px;
 	border: 1px solid #ddd;
-	border-radius: 7px;
 	box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.1);
 	overflow: auto;
 }
@@ -2783,10 +2736,9 @@ dl.addrules dt.floatleft {
 	overflow-wrap: break-word;
 	max-width: 350px;
 	padding: 6px 9px;
-	color: #333;
-	background: #fff;
+	color: var(--txt-color);
+	background: var(--pri-bg-color);
 	border: 1px solid #aaa;
-	border-radius: 4px;
 	box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2), 0 0px 10px rgba(0, 0, 0, 0.05) inset;
 }
 
@@ -2816,7 +2768,6 @@ dl.addrules dt.floatleft {
 	z-index: 99;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
 	border: 1px solid #777;
-	border-radius: 7px 7px 3px 3px;
 	margin: 0 auto;
 	padding: 0;
 }
@@ -2837,7 +2788,6 @@ dl.addrules dt.floatleft {
 	padding: 10px 8px;
 	border: 1px solid #bbb;
 	border-bottom: 1px solid #ddd;
-	border-radius: 6px 6px 2px 2px;
 	box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 #main_menu .popup_heading,
@@ -2863,20 +2813,18 @@ dl.addrules dt.floatleft {
 }
 
 .generic_list_wrapper, .windowbg, .approvebg, .approvebg2 {
-	background: var(--wrapper-bg-color2);
+	background: var(--pri-bg-color);
 	margin: 12px 0 0 0;
 	padding: 12px 16px;
-	border: 1px solid #ddd;
-	border-radius: 6px;
 	box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.1);
 	overflow: auto;
 }
 /* Here comes the glory... */
 .windowbg:nth-of-type(even), .bg.even {
-	background: var(--wrapper-bg-color2);
+	background: var(--pri-bg-color);
 }
 .windowbg:nth-of-type(odd), .bg.odd {
-	background: var(--wrapper-bg-color3);
+	background: var(--pri-bg-color);
 }
 
 /* Highlight the target item */
@@ -2898,9 +2846,6 @@ tr.windowbg:hover {
 	background: #e7eaef;
 }
 /* Sticky topics get a different background */
-.windowbg.sticky {
-	background: #cfdce8;
-}
 /* Locked AND sticky are a bit more technical */
 .windowbg.sticky.locked {
 	background: #e8d8cf;
@@ -2916,7 +2861,6 @@ tr.windowbg:hover {
 .generic_list_wrapper .additional_row {
 	margin: 0;
 	padding: 5px 0;
-	border-radius: 0;
 }
 .generic_list_wrapper table.table_grid {
 	border-bottom: 1px solid #aaa;
@@ -2965,7 +2909,6 @@ div#manage_boards dl dd textarea[name=desc] {
 }
 #groups .windowbg {
 	box-shadow: none;
-	border-radius: 0;
 	border-top: 0;
 	margin: 0;
 }
@@ -3006,8 +2949,7 @@ h3 .collapse {
 .board_icon {
 	text-align: center;
 	padding: 8px 0 0 0;
-	width: 60px;
-	flex-shrink: 0;
+	width: 35px;
 }
 .boardindex_table .board_icon {
 	width: 80px;
@@ -3034,26 +2976,23 @@ h3 .collapse {
 	color: var(--pri-color);
 }
 .board_stats {
-	width: 15%;
 	font-size: 0.9em;
-	margin: 0 0 0 auto;
 	text-align: center;
 }
 .lastpost {
-	width: 30%;
 	font-size: 0.9em;
 	padding-top: 3px;
 }
 .board_icon, .info, .board_stats, .lastpost {
 	display: inline-block;
 	align-self: center;
+	justify-self: stretch;
 }
 .main_container {
 	margin-bottom: 20px;
 }
 .up_contain {
 	overflow: hidden;
-	border: 1px solid #ddd;
 	margin: 0 0 3px 0;
 	display: flex;
 	flex-wrap: wrap;
@@ -3083,9 +3022,6 @@ span.postby {
 /* Info Center */
 #info_center {
 	clear: both;
-}
-#info_center .sub_bar {
-	border-top: 1px solid #ddd;
 }
 #info_center .sub_bar:first-child {
 	border-top: none;
@@ -3148,7 +3084,6 @@ span.postby {
 /* Start with description and other things */
 #description_board, .filter_row {
 	padding: 8px 10px;
-	border-radius: 6px 6px 0 0;
 	border-bottom: none;
 	box-shadow: none;
 }
@@ -3161,8 +3096,6 @@ span.postby {
 /* Topic list */
 #topic_header {
 	margin: 0;
-	border-radius: 0;
-	display: flex;
 }
 #topic_header div {
 	font-weight: bold;
@@ -3172,18 +3105,23 @@ span.postby {
 #topic_header input {
 	margin-top: 5px !important;
 }
-#topic_container .windowbg {
-	border: 1px solid rgba(0, 0, 0, 0.13);
-	border-top: none;
+#topic_container {
 	display: flex;
-	box-shadow: none;
-	border-radius: 0;
+	flex-flow: column;
+}
+#topic_container .windowbg {
 	padding: 0;
 	margin: 0;
 	overflow: hidden;
 }
-#topic_container .lastpost, #topic_header .lastpost {
-	width: 20%;
+#topic_header, .topic_grid {
+	display: grid;
+	grid-template-columns: 4% 68% 10% 18%;
+	place-items: stretch;
+	place-content: stretch;
+}
+.preview {
+	font-weight: bold;
 }
 #topic_container .lastpost, #topic_container .board_stats {
 	flex-shrink: 0;
@@ -3259,6 +3197,7 @@ span.postby {
 #poll_options p {
 	margin: 0 18px 2px 18px;
 	padding: 0 6px 6px 6px;
+	text-align: center;
 }
 
 div#pollmoderation {
@@ -3324,7 +3263,6 @@ div#pollmoderation {
 .poster h4, .poster h4 a, .poster li:hover h4 a, .poster h4 a:hover .poster li h4 a, .poster h4 a:focus {
 	margin: 0;
 	padding: 0;
-	color: #c06002;
 }
 
 .poster .profile .profile_icons li, .poster .im_icons li {
@@ -3395,7 +3333,7 @@ img.avatar {
 	display: block;
 }
 .keyinfo .postinfo a, .keyinfo .postinfo a strong {
-	color: #ad6825;
+	color: var(--txt-color-off);
 }
 .keyinfo .postinfo .spacer {
 	flex: 1 1 auto;
@@ -3424,7 +3362,7 @@ img.avatar {
 	display: none;
 }
 .page_number {
-	color: #ad6825;
+	color: var(--txt-color-off);
 	font-weight: bold;
 	padding: 4px 0 0 4px;
 	line-height: 1.5em;
@@ -3546,7 +3484,6 @@ ul.post_options li {
 	border: 1px solid #aaa;
 	border-left: 1px solid #bbb;
 	border-top: none;
-	border-radius: 0 0 4px 4px;
 }
 #post_draft_options .settings dd, #post_draft_options .settings dt {
 	width: 50%;
@@ -3676,10 +3613,6 @@ div.cat_bar {
 =
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.2);
 }
-.cat_bar.collapsed,
-.cat_bar.cat_bar_round {
-	border-radius: 6px;
-}
 .cat_bar h3 {
 	padding: 8px 12px 6px 12px;
 }
@@ -3721,20 +3654,15 @@ h3.catbg .main_icons::before, h3.catbg .icon {
 /* Roundframe */
 .roundframe {
 	margin: 10px 0 0 0;
-	padding: 12px 16px;
-	background: var(--wrapper-bg-color);
-	border: 1px solid #c5c5c5;
-	box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.1);
+	background: var(--pri-bg-color);
 	overflow: auto;
 }
 /* TitleBar & SubBar */
 .title_bar {
 	background: var(--skeuomorphism);
-	border-radius: 2px 2px 0 0;
 	margin: 5px 0 0 0;
 }
 .sub_bar {
-	border-bottom: 1px solid #ddd;
 	text-shadow: none;
 	background: none;
 	box-shadow: 0 -1px 0 #999 inset;
@@ -3761,10 +3689,9 @@ h3.titlebg, h4.titlebg, .titlebg, h3.subbg, h4.subbg, .subbg {
 /* Other */
 /* Information */
 .information {
-	background: var(--wrapper-bg-color);
+	background: var(--pri-bg-color);
 	overflow: auto;
 	padding-bottom: .5em;
-	border: 1px solid #ddd;
 	border-top: none;
 	margin: 0 0 10px 0;
 	padding: 12px 9px 8px 9px;
@@ -3779,7 +3706,6 @@ p.information img {
 	vertical-align: middle;
 }
 #messageindex .information {
-	border-radius: 0;
 	margin: 0;
 }
 #topic_icons .information,
@@ -3803,9 +3729,8 @@ p.information img {
 	left: 0;
 	display: none;
 	margin-top: 18px;
-	background: var(--wrapper-bg-color);
+	background: var(--pri-bg-color);
 	border: 1px solid #ddd;
-	border-radius: 3px;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	min-width: 120px;
 	z-index: 11110 !important;
@@ -3845,7 +3770,6 @@ p.information img {
 	display: inline-block;
 	width: 14px;
 	height: 14px;
-	border-radius: 50%;
 	border: 1px solid transparent;
 	vertical-align: middle;
 }
@@ -3915,9 +3839,9 @@ h3.profile_hd::before,
 .dropmenu li li:hover > a, .dropmenu li li a:focus, .dropmenu li li a:hover,
 #top_section, .quickbuttons > li,
 .quickbuttons li ul, .quickbuttons li ul li a:hover, .quickbuttons ul li a:focus,
-.inline_mod_check, .popup_window, #inner_section, .post_options ul,
+.inline_mod_check, .popup_window, .post_options ul,
 .post_options ul a:hover, .post_options ul a:focus, .notify_dropdown a:hover, .notify_dropdown a:focus {
-	background: var(--wrapper-bg-color); 
+	background: var(--pri-bg-color); 
 	border-left: 1px solid #484848;
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
@@ -3929,7 +3853,7 @@ h3.profile_hd::before,
 }
 /* If it fits I sits... */
 .navigate_section ul, .popup_content, .up_contain {
-	background: var(--wrapper-bg-color);
+	background: var(--pri-bg-color);
 }
 
 /* Topic/Board follow-alert menu */
@@ -3941,7 +3865,6 @@ h3.profile_hd::before,
 	padding: 0.5em;
 	text-decoration: none;
 	border: 1px solid transparent;
-	border-radius: 3px;
 }
 .notify_dropdown a:hover, .notify_dropdown a:focus {
 	border-color: #ddd;
@@ -3962,8 +3885,8 @@ h3.profile_hd::before,
 	margin: -4px 0 0 0;
 }
 .display_title {
-	font-weight: normal;
-	font-size: 26px;
+	font-weight: bold;
+	font-size: x-large;
 	margin-bottom: 0.25em;
 	line-height: 1.05em;
 	overflow-wrap: break-word;
@@ -4115,7 +4038,6 @@ input[name="attachBBC"] {
 	margin: 0 0 10px 0 !important;
 }
 .information.noup {
-	border-radius: 0;
 	margin: 0 !important;
 	border-bottom: none;
 }

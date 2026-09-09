@@ -9,9 +9,9 @@
 <!-- Theme name, used purely for aesthetics. -->
 <name>DUMBDefault</name>
 <!-- Author: your email address or contact information. The name attribute is optional. -->
-<author name="Simple Machines">info@simplemachines.org</author>
+<author name="DUMB Users">Not yet.</author>
 <!-- Website... where to get updates and more information. -->
-<website>https://www.simplemachines.org/</website>
+<website>Not yet.</website>
 <!-- Template layers to use, defaults to "html,body". -->
 <layers>html,body</layers>
 <!-- Templates to load on startup. Default is "index". -->

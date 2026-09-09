@@ -189,8 +189,7 @@ function template_html_above()
 	echo '
 </head>
 <body id="', $context['browser_body_id'], '" class="action_', !empty($context['current_action']) ? $context['current_action'] : (!empty($context['current_board']) ?
-		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '', '">
-<div id="footerfix">';
+		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '', '">';
 }
 
 /**
@@ -450,8 +449,7 @@ function template_body_below()
 	echo '
 			</div><!-- #main_content_section -->
 		</div><!-- #content_section -->
-	</div><!-- #wrapper -->
-</div><!-- #footerfix -->';
+	</div><!-- #wrapper -->';
 
 	// Show the footer with copyright, terms and help links.
 	echo '
