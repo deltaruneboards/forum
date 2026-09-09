@@ -174,7 +174,8 @@ function template_unread()
 							<div class="recent_title">
 								<a href="', $topic['new_href'], '" id="newicon', $topic['first_post']['id'], '" class="new_posts">' . $txt['new'] . '</a>
 								', $topic['is_sticky'] ? '<strong>' : '', '<span class="preview" title="', $topic[(empty($modSettings['message_index_preview_first']) ? 'last_post' : 'first_post')]['preview'], '"><span id="msg_' . $topic['first_post']['id'] . '">', $topic['first_post']['link'], '</span></span>', $topic['is_sticky'] ? '</strong>' : '', '
-							</div>
+							</div>', !empty($modSettings['topic_descriptions_enable']) && $topic['description'] != "" ? '
+							<p><small>' . $topic['description'] . '</small></p>' : '', '
 							<p class="floatleft">
 								', $topic['first_post']['started_by'], '
 							</p>
@@ -361,7 +362,8 @@ function template_replies()
 							<div class="recent_title">
 								<a href="', $topic['new_href'], '" id="newicon', $topic['first_post']['id'], '" class="new_posts">' . $txt['new'] . '</a>
 								', $topic['is_sticky'] ? '<strong>' : '', '<span title="', $topic[(empty($modSettings['message_index_preview_first']) ? 'last_post' : 'first_post')]['preview'], '"><span id="msg_' . $topic['first_post']['id'] . '">', $topic['first_post']['link'], '</span>', $topic['is_sticky'] ? '</strong>' : '', '
-							</div>
+							</div>', !empty($modSettings['topic_descriptions_enable']) && $topic['description'] != "" ? '
+							<p><small>' . $topic['description'] . '</small></p>' : '', '
 							<p class="floatleft">
 								', $topic['first_post']['started_by'], '
 							</p>

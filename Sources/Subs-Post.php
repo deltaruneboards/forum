@@ -2298,6 +2298,18 @@ function modifyPost(&$msgOptions, &$topicOptions, &$posterOptions)
 		$update_parameters['var_' . $var] = $val;
 	}
 
+
+	if (isset($msgOptions['description']))
+		$smcFunc['db_query']('', '
+			UPDATE {db_prefix}topics
+			SET description = {string:description}
+			WHERE id_first_msg = {int:id_first_msg}',
+			array(
+				'id_first_msg' => $msgOptions['id'],
+				'description' => $msgOptions['description'],
+			)
+		);
+
 	// Nothing to do?
 	if (empty($messages_columns))
 		return true;

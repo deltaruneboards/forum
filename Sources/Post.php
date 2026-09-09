@@ -480,6 +480,8 @@ function Post($post_errors = array())
 		if ($smcFunc['strlen']($form_subject) > 100)
 			$form_subject = $smcFunc['substr']($form_subject, 0, 100);
 
+		$form_description = $smcFunc['htmlspecialchars']($_REQUEST['message'], ENT_QUOTES);
+
 		if (isset($_REQUEST['poll']))
 		{
 			$context['question'] = isset($_REQUEST['question']) ? $smcFunc['htmlspecialchars'](trim($_REQUEST['question'])) : '';
@@ -702,7 +704,7 @@ function Post($post_errors = array())
 				m.poster_name, m.poster_email, m.subject, m.icon, m.approved,
 				COALESCE(a.size, -1) AS filesize, a.filename, a.id_attach, a.mime_type, a.id_thumb,
 				a.approved AS attachment_approved, t.id_member_started AS id_member_poster,
-				m.poster_time, log.id_action, t.id_first_msg
+				m.poster_time, COALESCE(t.description, "") AS description, log.id_action, t.id_first_msg
 			FROM {db_prefix}messages AS m
 				INNER JOIN {db_prefix}topics AS t ON (t.id_topic = {int:current_topic})
 				LEFT JOIN {db_prefix}attachments AS a ON (a.id_msg = m.id_msg AND a.attachment_type = {int:attachment_type})
@@ -761,6 +763,8 @@ function Post($post_errors = array())
 		$form_subject = $row['subject'];
 		$form_message = un_preparsecode($row['body']);
 		censorText($form_message);
+		$form_description = $row['description'];
+		censorText($form_description);
 		censorText($form_subject);
 
 		// Check the boxes that should be checked.
@@ -900,6 +904,7 @@ function Post($post_errors = array())
 		else
 		{
 			$form_subject = isset($_GET['subject']) ? $_GET['subject'] : '';
+	$form_description = '';
 			$form_message = '';
 		}
 	}
@@ -1179,6 +1184,7 @@ function Post($post_errors = array())
 		);
 
 	$context['subject'] = addcslashes($form_subject, '"');
+	$context['description'] = addcslashes($form_description, '"');
 	$context['message'] = str_replace(array('"', '<', '>', '&nbsp;'), array('&quot;', '&lt;', '&gt;', ' '), $form_message);
 
 	// Are post drafts enabled?
@@ -2191,6 +2197,14 @@ function Post2()
 
 	// Add special html entities to the subject, name, and email.
 	$_POST['subject'] = strtr($smcFunc['htmlspecialchars']($_POST['subject']), array("\r" => '', "\n" => '', "\t" => ''));
+	$form_description = '';
+	$topic_desc_boards = !empty($modSettings['topic_descriptions_boards']) ? explode(",", $modSettings['topic_descriptions_boards']) : array();
+	if (isset($_POST['description']) && in_array($board, $topic_desc_boards))
+	{
+		$form_description = $_POST['description'];
+		censorText($form_description);
+	}
+
 	$_POST['guestname'] = $smcFunc['htmlspecialchars']($_POST['guestname']);
 	$_POST['email'] = $smcFunc['htmlspecialchars']($_POST['email']);
 	$_POST['modify_reason'] = empty($_POST['modify_reason']) ? '' : strtr($smcFunc['htmlspecialchars']($_POST['modify_reason']), array("\r" => '', "\n" => '', "\t" => ''));
@@ -2380,6 +2394,7 @@ function Post2()
 		'body' => $_POST['message'],
 		'icon' => preg_replace('~[\./\\\\*:"\'<>]~', '', $_POST['icon']),
 		'smileys_enabled' => !isset($_POST['ns']),
+		'description' => $form_description,
 		'attachments' => empty($attachIDs) ? array() : $attachIDs,
 		'approved' => $becomesApproved,
 	);
@@ -2939,7 +2954,7 @@ function QuoteFast()
 
 	$request = $smcFunc['db_query']('', '
 		SELECT COALESCE(mem.real_name, m.poster_name) AS poster_name, m.poster_time, m.body, m.id_topic, m.subject,
-			m.id_board, m.id_member, m.approved, m.modified_time, m.modified_name, m.modified_reason
+			m.id_board, m.id_member, m.approved, COALESCE(t.description, "") AS description, m.modified_time, m.modified_name, m.modified_reason
 		FROM {db_prefix}messages AS m
 			INNER JOIN {db_prefix}topics AS t ON (t.id_topic = m.id_topic)
 			LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = m.id_member)
@@ -2980,6 +2995,7 @@ function QuoteFast()
 				'id' => $_REQUEST['quote'],
 				'body' => $row['body'],
 				'subject' => addcslashes($row['subject'], '"'),
+				'description' => addcslashes($row['description'], '"'),
 				'reason' => array(
 					'name' => $row['modified_name'],
 					'text' => $row['modified_reason'],
@@ -3173,6 +3189,7 @@ function JavaScriptModify()
 			'subject' => isset($_POST['subject']) ? $_POST['subject'] : null,
 			'body' => isset($_POST['message']) ? $_POST['message'] : null,
 			'icon' => isset($_REQUEST['icon']) ? preg_replace('~[\./\\\\*\':"<>]~', '', $_REQUEST['icon']) : null,
+			'description' => isset($_POST['description']) ? $_POST['description'] : null,
 			'approved' => (isset($row['approved']) ? $row['approved'] : null),
 		);
 		$topicOptions = array(

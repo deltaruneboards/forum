@@ -10,20 +10,18 @@ function QuickModifyTopic(oOptions)
 	this.oTopicModHandle = document;
 	this.bInEditMode = false;
 	this.bMouseOnDiv = false;
-	this.init();
-}
 
-// Used to initialise the object event handlers
-QuickModifyTopic.prototype.init = function ()
-{
-	// Attach some events to it so we can respond to actions
-	this.oTopicModHandle.instanceRef = this;
-
-	// detect and act on keypress
-	this.oTopicModHandle.onkeydown = function (oEvent) {return this.instanceRef.modify_topic_keypress(oEvent);};
+	this.aTextFields = ['subject', 'description'];
+	this.aHidePrefixes.push('msg_');
+	this.aHidePrefixes.push('topicdesc_');
+	this.oSourceElments = {};
 
 	// Used to detect when we've stopped editing.
-	this.oTopicModHandle.onclick = function (oEvent) {return this.instanceRef.modify_topic_click(oEvent);};
+	this.oTopicModHandle.onclick = function (oEvent)
+	{
+		if (this.bInEditMode && oEvent.target.tagName != 'INPUT')
+			this.modify_topic_save(smf_session_id, smf_session_var);
+	}.bind(this);
 }
 
 // called from the double click in the div
@@ -45,12 +43,39 @@ QuickModifyTopic.prototype.modify_topic = function (topic_id, first_msg_id)
 	}
 
 	this.bInEditMode = true;
-	this.bMouseOnDiv = true;
+	
 	this.iCurTopicId = topic_id;
 
-	// Get the topics current subject
-	ajax_indicator(true);
-	sendXMLDocument.call(this, smf_prepareScriptUrl(smf_scripturl) + "action=quotefast;quote=" + first_msg_id + ";modify;xml", '', this.onDocReceived_modify_topic);
+	this.sCurMessageId = 'msg_' + first_msg_id;
+	this.oCurSubjectDiv = document.getElementById('msg_' + first_msg_id);
+	var oInput = document.createElement('input');
+	oInput.type = 'text';
+	oInput.name = 'subject';
+	oInput.value = this.oCurSubjectDiv.textContent;
+	oInput.size = '60';
+	oInput.style.width = '99%';
+	oInput.maxlength = '80';
+	oInput.onkeydown = this.modify_topic_keypress.bind(this);
+	this.oCurSubjectDiv.after(oInput);
+	oInput.focus();
+
+	const oCurDescDiv = document.getElementById('topicdesc_' + first_msg_id);
+	this.oSourceElments['description'] = oCurDescDiv;
+	if (oCurDescDiv)
+	{
+		oInput = document.createElement('input');
+		oInput.type = 'text';
+		oInput.name = 'description';
+		oInput.value = oCurDescDiv.textContent;
+		oInput.size = '60';
+		oInput.style.width = '99%';
+		oInput.maxlength = topic_descriptions_maxlen;
+		oInput.onkeydown = this.modify_topic_keypress.bind(this);
+		oCurDescDiv.after(oInput);
+	}
+
+	// Here we hide any other things they want hidden on edit.
+	this.set_hidden_topic_areas('none');
 }
 
 // callback function from the modify_topic ajax call
@@ -77,8 +102,11 @@ QuickModifyTopic.prototype.onDocReceived_modify_topic = function (XMLDoc)
 
 // Cancel out of an edit and return things to back to what they were
 QuickModifyTopic.prototype.modify_topic_cancel = function ()
-{
-	setInnerHTML(this.oCurSubjectDiv, this.sBuffSubject);
+{	for (var i of this.aTextFields)
+		if (i in document.forms.quickModForm)
+			document.forms.quickModForm[i].remove();
+
+
 	this.set_hidden_topic_areas('');
 	this.bInEditMode = false;
 
@@ -113,18 +141,14 @@ QuickModifyTopic.prototype.modify_topic_save = function (cur_session_id, cur_ses
 	if (!this.bInEditMode)
 		return true;
 
-	// Add backwards compatibility with old themes.
-	if (typeof(cur_session_var) == 'undefined')
-		cur_session_var = 'sesc';
-
-	var i, x = new Array();
-	x[x.length] = 'subject=' + document.forms.quickModForm['subject'].value.php_to8bit().php_urlencode();
-	x[x.length] = 'topic=' + parseInt(document.forms.quickModForm.elements['topic'].value);
-	x[x.length] = 'msg=' + parseInt(document.forms.quickModForm.elements['msg'].value);
+	let x = [];
+	for (var i of this.aTextFields)
+		if (i in document.forms.quickModForm)
+			x.push(i + '=' + document.forms.quickModForm[i].value.php_to8bit().php_urlencode());
 
 	// send in the call to save the updated topic subject
 	ajax_indicator(true);
-	sendXMLDocument.call(this, smf_prepareScriptUrl(smf_scripturl) + "action=jsmodify;topic=" + parseInt(document.forms.quickModForm.elements['topic'].value) + ";" + cur_session_var + "=" + cur_session_id + ";xml", x.join("&"), this.modify_topic_done);
+	sendXMLDocument.call(this, smf_prepareScriptUrl(smf_scripturl) + "action=jsmodify;topic=" + this.iCurTopicId + ";" + cur_session_var + "=" + cur_session_id + ";xml", x.join("&"), this.modify_topic_done);
 
 	return false;
 }
@@ -153,6 +177,15 @@ QuickModifyTopic.prototype.modify_topic_done = function (XMLDoc)
 	this.modify_topic_hide_edit(subject.childNodes[0].nodeValue);
 	this.set_hidden_topic_areas('');
 	this.bInEditMode = false;
+
+
+	{
+		if (this.oSourceElments[i])
+			setInnerHTML(this.oSourceElments[i], message.getElementsByTagName(i)[0].childNodes[0].nodeValue);
+
+		if (i in document.forms.quickModForm)
+			document.forms.quickModForm[i].remove();
+	}
 
 	// redo tips if they are on since we just pulled the rug out on this one
 	if ($.isFunction($.fn.SMFtooltip))

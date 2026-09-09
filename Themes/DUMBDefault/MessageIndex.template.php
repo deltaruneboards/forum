@@ -12,7 +12,8 @@
 
 /**
  * The main messageindex.
- */
+
+*/
 function template_main()
 {
 	global $context, $settings, $options, $scripturl, $modSettings, $txt;
@@ -176,7 +177,7 @@ function template_main()
 		foreach ($context['topics'] as $topic)
 		{
 			echo '
-				<div class="', $topic['css_class'], '">
+				<div class="topic_grid ', $topic['css_class'], '">
 					<div class="board_icon">
 						<img src="', $topic['first_post']['icon_url'], '" alt="">
 						', $topic['is_posted_in'] ? '<span class="main_icons profile_sm"></span>' : '', '
@@ -380,7 +381,8 @@ function template_main()
  * Outputs the board icon for a standard board.
  *
  * @param array $board Current board information.
- */
+
+*/
 function template_bi_board_icon($board)
 {
 	global $context, $scripturl;
@@ -393,7 +395,8 @@ function template_bi_board_icon($board)
  * Outputs the board icon for a redirect.
  *
  * @param array $board Current board information.
- */
+
+*/
 function template_bi_redirect_icon($board)
 {
 	global $context, $scripturl;
@@ -406,7 +409,8 @@ function template_bi_redirect_icon($board)
  * Outputs the board info for a standard board or redirect.
  *
  * @param array $board Current board information.
- */
+
+*/
 function template_bi_board_info($board)
 {
 	global $context, $scripturl, $txt;
@@ -434,7 +438,8 @@ function template_bi_board_info($board)
  * Outputs the board stats for a standard board.
  *
  * @param array $board Current board information.
- */
+
+*/
 function template_bi_board_stats($board)
 {
 	global $txt;
@@ -449,7 +454,8 @@ function template_bi_board_stats($board)
  * Outputs the board stats for a redirect.
  *
  * @param array $board Current board information.
- */
+
+*/
 function template_bi_redirect_stats($board)
 {
 	global $txt;
@@ -465,7 +471,8 @@ function template_bi_redirect_stats($board)
  * When on a mobile device, this may be hidden if no last post exists.
  *
  * @param array $board Current board information.
- */
+
+*/
 function template_bi_board_lastpost($board)
 {
 	if (!empty($board['last_post']['id']))
@@ -477,7 +484,8 @@ function template_bi_board_lastpost($board)
  * Outputs the board children for a standard board.
  *
  * @param array $board Current board information.
- */
+
+*/
 function template_bi_board_children($board)
 {
 	global $txt, $scripturl, $context;
@@ -512,6 +520,7 @@ function template_bi_board_children($board)
 
 /**
  * Shows a legend for topic icons.
+
  */
 function template_topic_legend()
 {

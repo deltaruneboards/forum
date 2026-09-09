@@ -530,6 +530,7 @@ function MessageIndex()
 			'views' => comma_format($row['num_views']),
 			'approved' => $row['approved'],
 			'unapproved_posts' => $row['unapproved_posts'],
+			'description' => $row['description'],
 			'css_class' => $colorClass,
 		));
 		if (!empty($settings['avatars_on_indexes']))

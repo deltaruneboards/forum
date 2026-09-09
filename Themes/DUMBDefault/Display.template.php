@@ -40,8 +40,8 @@ function template_main()
 ';
 
 	if ($context['can_see_description'])
-		 echo '
-			  <p>', $context['topicinfo']['description'], '</p>';
+		echo '
+			<p>', $context['topicinfo']['description'], '</p>';
 
 	echo '
 			<p>', $txt['started_by'], ' ', $context['topic_poster_name'], ', ', $context['topic_started_time'], '</p>';
@@ -647,7 +647,6 @@ function template_single_post($message)
 									<a href="', $scripturl, '?action=', !empty($message['member']['is_guest']) ? 'trackip' : 'profile;area=tracking;sa=ip;u=' . $message['member']['id'], ';searchip=', $message['member']['ip'], '" data-hover="', $message['member']['ip'], '" class="show_on_hover"><span>', $txt['show_ip'], '</span></a> <a href="', $scripturl, '?action=helpadmin;help=see_admin_ip" onclick="return reqOverlayDiv(this.href);" class="help">(?)</a>
 								</li>';
 
-	/* DUMB change: no reason to show this to regular users
 	// Or, should we show it because this is you?
 	elseif ($message['can_see_ip'])
 		echo '
@@ -666,7 +665,6 @@ function template_single_post($message)
 	else
 		echo '
 								<li class="poster_ip">', $txt['logged'], '</li>';
-	*/
 
 	// Are we showing the warning status?
 	// Don't show these things for guests.
