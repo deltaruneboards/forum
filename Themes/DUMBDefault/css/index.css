@@ -2952,6 +2952,7 @@ h3 .collapse {
 .board_icon {
 	text-align: center;
 	padding: 8px 0 0 0;
+	vertical-align: center;
 	width: 35px;
 }
 .boardindex_table .board_icon {
@@ -2997,7 +2998,8 @@ h3 .collapse {
 .up_contain {
 	overflow: hidden;
 	margin: 0 0 3px 0;
-	display: flex;
+	display: grid;
+	grid-template-columns: auto 50% 10% 25%;
 	flex-wrap: wrap;
 }
 /* Child boards */

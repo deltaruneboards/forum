@@ -217,6 +217,9 @@
 		display: block;
 		min-height: 2em;
 	}
+	.up_contain {
+		display: inline-block;
+	}
 	.up_contain .lastpost {
 		border-top: 1px solid #ddd;
 		min-height: initial;
