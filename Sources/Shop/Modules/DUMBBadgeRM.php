@@ -93,11 +93,12 @@ class DUMBBadgerm extends Module
 
         $smcFunc['db_query']('', '
             DELETE FROM {db_prefix}awards
-            WHERE ITEM_ID = {int:itemid}
+            WHERE ITEM_ID = {int:itemid} AND ID_AWARDED_MEMBER = {int:user_id}
             LIMIT {int:kc}',
             array(
                 'itemid' => $item_id,
-                'kc' => $_REQUEST['killcount']   // protecting against using someone elses item
+                'user_id' => $user_info['id'], // protecting against using someone elses item
+                'kc' => $_REQUEST['killcount'],
             ));
         $refundCount = $smcFunc['db_affected_rows']();  // no negative values to get infinite items THIS TIME hopefully
 
