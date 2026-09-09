@@ -1869,7 +1869,32 @@ function loadMemberContext($user, $display_custom_fields = false)
 		));
 
 		if (!empty($avatarData['image']))
-			$memberContext[$user]['avatar'] = $avatarData;
+			
+            $memberContext[$user]['avatar'] = $avatarData;
+
+        // DUMBie extension: loading badge data
+       $requestDUMBIE = $smcFunc['db_query']('', '
+        SELECT a.ID_AWARD, a.ITEM_ID, nfo.name, nfo.description, nfo.image, ext.hover_text
+        FROM {db_prefix}awards AS a
+        INNER JOIN {db_prefix}stshop_items nfo ON a.ITEM_ID = nfo.itemid
+        LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID
+        WHERE a.ID_AWARDED_MEMBER = {int:userid}
+        ORDER BY ext.sort_order ASC',
+        array(
+            'userid' => $profile['id_member'],
+        ));
+
+        $badgelist = $smcFunc['db_fetch_all']($requestDUMBIE);
+        $memberContext[$user]['DUMB_Badge'] = $badgelist;
+
+        $printlist = "";
+        foreach ($badgelist as $b) {
+            $printlist = $printlist . '<img src="/shop_items/items/' . $b["image"] .
+                '" title="' . $b["hover_text"] . '" loading=lazy >';
+        }
+        $memberContext[$user]['DUMB_Badge_render'] = $printlist;
+
+        $smcFunc['db_free_result']($requestDUMBIE);
 	}
 
 	// Are we also loading the members custom fields into context?
