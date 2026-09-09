@@ -307,8 +307,8 @@ function issueWarning($memID)
 					},
 				),
 				'sort' => array(
-					'default' => 'lc.member_name DESC',
-					'reverse' => 'lc.member_name',
+					'default' => 'lc.real_name DESC',
+					'reverse' => 'lc.real_name',
 				),
 			),
 			'log_time' => array(
