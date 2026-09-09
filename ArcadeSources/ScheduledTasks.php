@@ -312,7 +312,7 @@ function scheduled_daily_digest()
 	// Right - get all the notification data FIRST.
 	$request = $smcFunc['db_query']('', '
 		SELECT ln.id_topic, COALESCE(t.id_board, ln.id_board) AS id_board, mem.email_address, mem.member_name,
-			mem.lngfile, mem.id_member
+			mem.lngfile, mem.id_member mem.real_name
 		FROM {db_prefix}log_notify AS ln
 			JOIN {db_prefix}members AS mem ON (mem.id_member = ln.id_member)
 			LEFT JOIN {db_prefix}topics AS t ON (ln.id_topic != {int:empty_topic} AND t.id_topic = ln.id_topic)
@@ -332,6 +332,7 @@ function scheduled_daily_digest()
 			$members[$row['id_member']] = array(
 				'email' => $row['email_address'],
 				'name' => $row['member_name'],
+				'actualName' => $row['real_name'],
 				'id' => $row['id_member'],
 				'lang' => $row['lngfile'],
 			);
@@ -484,7 +485,7 @@ function scheduled_daily_digest()
 		// Do the start stuff!
 		$email = array(
 			'subject' => $mbname . ' - ' . $langtxt[$lang]['subject'],
-			'body' => $member['name'] . ',' . "\n\n" . $langtxt[$lang]['intro'] . "\n" . $scripturl . '?action=profile;area=notification;u=' . $member['id'] . "\n",
+			'body' => $member['actualName'] . ',' . "\n\n" . $langtxt[$lang]['intro'] . "\n" . $scripturl . '?action=profile;area=notification;u=' . $member['id'] . "\n",
 			'email' => $member['email'],
 		);
 
@@ -1484,7 +1485,7 @@ function scheduled_paid_subscriptions()
 	{
 		$replacements = array(
 			'PROFILE_LINK' => $scripturl . '?action=profile;area=subscriptions;u=' . $row['id_member'],
-			'REALNAME' => $row['member_name'],
+			'REALNAME' => $row['real_name'],
 			'SUBSCRIPTION' => $row['name'],
 			'END_DATE' => strip_tags(timeformat($row['end_time'])),
 		);
@@ -1504,7 +1505,7 @@ function scheduled_paid_subscriptions()
 				'alert_time' => time(),
 				'id_member' => $row['id_member'],
 				'id_member_started' => $row['id_member'],
-				'member_name' => $row['member_name'],
+				'member_name' => $row['real_name'],
 				'content_type' => 'paidsubs',
 				'content_id' => $row['id_sublog'],
 				'content_action' => 'expiring',

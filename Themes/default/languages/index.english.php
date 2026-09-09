@@ -89,6 +89,7 @@ $txt['remove_topic'] = 'Remove topic';
 $txt['topics'] = 'Topics';
 $txt['modify_msg'] = 'Modify message';
 $txt['name'] = 'Name';
+$txt['id'] = 'ID';
 $txt['email'] = 'Email';
 $txt['user_email_address'] = 'Email address';
 $txt['subject'] = 'Subject';

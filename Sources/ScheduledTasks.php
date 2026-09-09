@@ -1429,7 +1429,7 @@ function scheduled_paid_subscriptions()
 
 	// Get all those about to expire that have not had a reminder sent.
 	$request = $smcFunc['db_query']('', '
-		SELECT ls.id_sublog, m.id_member, m.member_name, m.email_address, m.lngfile, s.name, ls.end_time
+		SELECT ls.id_sublog, m.id_member, m.member_name, m.real_name, m.email_address, m.lngfile, s.name, ls.end_time
 		FROM {db_prefix}log_subscribed AS ls
 			JOIN {db_prefix}subscriptions AS s ON (s.id_subscribe = ls.id_subscribe)
 			JOIN {db_prefix}members AS m ON (m.id_member = ls.id_member)
@@ -1469,7 +1469,7 @@ function scheduled_paid_subscriptions()
 	{
 		$replacements = array(
 			'PROFILE_LINK' => $scripturl . '?action=profile;area=subscriptions;u=' . $row['id_member'],
-			'REALNAME' => $row['member_name'],
+			'REALNAME' => $row['real_name'],
 			'SUBSCRIPTION' => $row['name'],
 			'END_DATE' => strip_tags(timeformat($row['end_time'])),
 		);
