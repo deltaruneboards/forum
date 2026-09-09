@@ -396,20 +396,6 @@ function template_single_pm($message)
 						<a href="', $scripturl, '?action=', !empty($message['member']['is_guest']) ? 'trackip' : 'profile;area=tracking;sa=ip;u=' . $message['member']['id'], ';searchip=', $message['member']['ip'], '">', $message['member']['ip'], '</a> <a href="', $scripturl, '?action=helpadmin;help=see_admin_ip" onclick="return reqOverlayDiv(this.href);" class="help">(?)</a>
 					</li>';
 
-		// Or, should we show it because this is you?
-		elseif ($message['can_see_ip'])
-			echo '
-					<li class="poster_ip">
-						<a href="', $scripturl, '?action=helpadmin;help=see_member_ip" onclick="return reqOverlayDiv(this.href);" class="help">', $message['member']['ip'], '</a>
-					</li>';
-
-		// Okay, you are logged in, then we can show something about why IPs are logged...
-		else
-			echo '
-					<li class="poster_ip">
-						<a href="', $scripturl, '?action=helpadmin;help=see_member_ip" onclick="return reqOverlayDiv(this.href);" class="help">', $txt['logged'], '</a>
-					</li>';
-
 		// Show the profile, website, email address, and personal message buttons.
 		if ($message['member']['show_profile_buttons'])
 		{
