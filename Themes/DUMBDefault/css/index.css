@@ -2952,13 +2952,11 @@ h3 .collapse {
 .board_icon {
 	text-align: center;
 	padding: 8px 0 0 0;
+	vertical-align: center;
 	width: 35px;
 }
 .boardindex_table .board_icon {
 	width: 80px;
-}
-.boardindex_table .info {
-	width: calc(55% - 80px);
 }
 .boardindex_table .board_stats {
 	padding: 13px 10px 10px;
@@ -2997,7 +2995,8 @@ h3 .collapse {
 .up_contain {
 	overflow: hidden;
 	margin: 0 0 3px 0;
-	display: flex;
+	display: grid;
+	grid-template-columns: auto 50% 10% 25%;
 	flex-wrap: wrap;
 }
 /* Child boards */

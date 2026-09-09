@@ -555,7 +555,6 @@ function Arcade_load_theme()
 	$currentArcadeAction = isset($_REQUEST['action']) && $_REQUEST['action'] == 'retro_arch' ? 'retro_arch' : (!empty($_SESSION['arcade_rom_initiate']) ? 'retro_arch' : 'arcade');
 	$_SESSION['arcadeNewSessionCheck'] = !empty($_SESSION['arcadeNewSessionCheck']) && !empty($_SESSION['arcade_isMobilePlay']) ? 1 : 0;
 	$context['html_headers'] .= '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-special.css?' . $suffixVersion . '">
 	<script type="text/javascript" src="' . $settings['default_theme_url'] . '/arcade_scripts/arcade-func.js?' . $suffixVersion . '"></script>
 	<script type="text/javascript" src="' . $settings['default_theme_url'] . '/arcade_scripts/arcadeMobileDetect.js?' . $suffixVersion . '"></script>
 	<script type="text/javascript">

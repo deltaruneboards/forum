@@ -208,14 +208,18 @@
 	.board_stats {
 		display: none;
 	}
-	.info {
-		width: calc(100% - 65px);
+	.info,
+	.boardindex_table .info {
+		width: calc(100% - 84px);
 	}
 	.lastpost {
 		width: 100%;
 		padding: 0;
 		display: block;
 		min-height: 2em;
+	}
+	.up_contain {
+		display: inline-block;
 	}
 	.up_contain .lastpost {
 		border-top: 1px solid #ddd;

@@ -2,56 +2,33 @@
 	background: url('../images/bbc/spoiler.png');
 }
 
-body[contenteditable] .bbc_spoiler:first-child {
-	margin-top: 4px;
-}
-
-body[contenteditable] .bbc_spoiler {
-	background: #ebf4f8;
-	border: 8px solid #cfc;
-	padding: 0;
-}
-
-body[contenteditable] .bbc_spoiler[open] {
-	padding: 10px;
-}
-
-body[contenteditable] .bbc_spoiler > summary {
-	background: #cfc;
-	padding: 6px;
-}
-
-body[contenteditable] .bbc_spoiler[open] > summary {
-	margin: -10px -10px 10px -10px;
-}
-
-/* Default theme */
 .bbc_spoiler {
 	display: block;
 	box-sizing: border-box;
-	/* user-select: none; */
 	overflow: hidden;
-	background: #cfc;
-	color: #000;
-	border-radius: 6px;
-	box-shadow: 0 1px 5px 2px rgba(34, 60, 80, 0.2);
+	background: var(--ter-bg-color);
+	color: var(--txt-color);
 	margin-bottom: 4px;
-	padding: 6px 12px;
 }
 
 .bbc_spoiler summary {
+	background: var(--skeuomorphism);
+	border: 1px solid var(--sec-bg-color);
 	display: list-item;
+	font-weight: bold;
 	outline: 0;
 	cursor: pointer;
+	padding: 5px;
 	position: relative;
 	line-height: 19px;
+	margin: 0;
+	text-align: center;
 	white-space: nowrap;
 }
 
 .bbc_spoiler .spoiler_content {
-	background: #ebf4f8;
-	border-radius: 6px;
-	box-shadow: 0 1px 5px 2px rgba(34, 60, 80, 0.2) inset;
+	background: var(--ter-bg-color);
+	border: 1px solid var(--sec-bg-color);
 	line-height: 26px;
 	padding: 10px;
 }
@@ -72,20 +49,4 @@ body[contenteditable] .bbc_spoiler[open] > summary {
 /* Responsive images */
 .spoiler_content img {
 	max-width: 100% !important;
-}
-
-/* Fixes for other themes */
-
-/* SociWT */
-.art .bbc_spoiler {
-	background: #FFD39E;
-}
-
-/* Lunarfall */
-.nopad .bbc_spoiler {
-	background: #557ea0;
-	color: #fff;
-}
-.nopad .spoiler_content {
-	color: #000;
 }
