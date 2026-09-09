@@ -1278,6 +1278,9 @@ ul li.greeting {
 	clear: both;
 }
 /* The footer with copyright links etc. */
+#footer .inner_wrap {
+	text-align: center;
+}
 #footer {
 	padding: 10px 0;
 	background: var(--ter-bg-color);
@@ -1285,7 +1288,7 @@ ul li.greeting {
 }
 #footer li, #footer p, #footer a {
 	font-size: 0.9em;
-	color: #fff;
+	color: var(--txt-color-off);
 }
 #footer li.copyright {
 	display: block;
@@ -2829,12 +2832,12 @@ dl.addrules dt.floatleft {
 
 /* Highlight the target item */
 .windowbg:target {
-	background: #ffffe0;
+	background: var(--ter-bg-color);
 }
 
 /* Add some hover on table rows */
 tr.windowbg:hover {
-	background: #e2eef8;
+	background: var(--ter-color);
 }
 
 /* Special treatment for #forumposts area */
@@ -3849,7 +3852,7 @@ h3.profile_hd::before,
 }
 /* Well some of them has different gradient effect on hover */
 .button:hover, #search_form .button:hover, .quickbuttons li:hover {
-	background: var(--main-bg-color);
+	background: var(--ter-bg-color);
 }
 /* If it fits I sits... */
 .navigate_section ul, .popup_content, .up_contain {
