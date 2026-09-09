@@ -395,6 +395,7 @@ function template_single_pm($message)
 					<li class="poster_ip">
 						<a href="', $scripturl, '?action=', !empty($message['member']['is_guest']) ? 'trackip' : 'profile;area=tracking;sa=ip;u=' . $message['member']['id'], ';searchip=', $message['member']['ip'], '">', $message['member']['ip'], '</a> <a href="', $scripturl, '?action=helpadmin;help=see_admin_ip" onclick="return reqOverlayDiv(this.href);" class="help">(?)</a>
 					</li>';
+
 		/* DUMB change: no reason to show this to regular users
 		// Or, should we show it because this is you?
 		elseif ($message['can_see_ip'])
