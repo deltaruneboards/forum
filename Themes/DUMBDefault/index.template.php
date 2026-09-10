@@ -85,9 +85,9 @@ function template_html_above()
 {
 	global $context, $scripturl, $txt, $modSettings;
 
-	loadJavaScriptFile('randQuote.js', ['minimize' => true], 'smf_theme');
-	loadJavaScriptFile('randChar.js', ['minimize' => true], 'smf_theme');
-	loadJavaScriptFile('bbcode.js', ['minimize' => true], 'smf_theme');
+	loadJavaScriptFile('randQuote.js', ['minimize' => true]);
+	loadJavaScriptFile('randChar.js', ['minimize' => true]);
+	loadJavaScriptFile('bbcode.js', ['minimize' => true]);
 	loadCSSFile('bbcode.css', ['minimize' => true]);
 	loadCSSFile('randChar.css', ['minimize' => true]);
 
