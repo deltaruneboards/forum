@@ -3620,6 +3620,7 @@ div.cat_bar {
 	font-weight: 600;
 }
 h3.catbg {
+	align-items: center;
 	display: grid;
 	overflow: hidden;
 	font-size: 1.1em;
@@ -4144,5 +4145,3 @@ img.theme_thumbnail {
 #lang_main_files_list .name, #member_list .email, #approve_list .email {
 	word-break: break-word;
 }
-
-/* BBCode */
