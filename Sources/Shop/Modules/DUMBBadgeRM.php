@@ -102,7 +102,7 @@ class DUMBBadgerm extends Module
         $refundCount = $smcFunc['db_affected_rows']();  // no negative values to get infinite items THIS TIME hopefully
 
         if ($refundCount < 1) {
-            '<div class="infobox">
+            return '<div class="infobox">
                 ' . Shop::getText('dumbbrm_no_remove') .
             '</div>';
         }
