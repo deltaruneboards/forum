@@ -142,5 +142,6 @@ $txt['Shop_dumbb_setting2'] = 'Hover text';
 $txt['Shop_dumbbrm_name'] = 'Badge Remover';
 $txt['Shop_dumbbrm_desc'] = 'Removes any number of duplicate badges and refunds them';
 $txt['Shop_dumbbrm_nobadges'] = 'You don\'t have any badges!';
+$txt['Shop_dumbbrm_no_remove'] = 'No badges were removed';
 $txt['Shop_dumbbrm_choose_badge'] = 'Select a badge and number to remove';
 $txt['Shop_dumbbrm_success'] = 'You have successfully removed %d badges';

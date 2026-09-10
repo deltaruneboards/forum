@@ -44,20 +44,34 @@ class DUMBBadge extends Module
 
     function getAddInput()
     {
-        // todo hit the database for the current setting
+        global $smcFunc;
+
+        $requestDUMBIE = $smcFunc['db_query']('', '
+            SELECT ext.sort_order, ext.hover_text
+            FROM {db_prefix}stshop_items AS a
+            INNER JOIN {db_prefix}awards_extinfo ext ON a.itemid = ext.ITEM_ID
+            WHERE a.itemid = {int:instanceid}',
+            array(
+                'instanceid' => $_REQUEST['id'],
+            ));
+
+        $existing_info = $smcFunc['db_fetch_row']($requestDUMBIE);
+        $smcFunc['db_free_result']($requestDUMBIE);
+
+
         return '
             <dl class="settings">
                 <dt>
                     ' . Shop::getText("dumbb_setting1") . '
                 </dt>
                 <dd>
-                    <input type="number" id="info1" name="order" value="' . "SUPPOSED TO SHOW LAST VAL" . '" />
+                    <input type="number" id="info1" name="order" value="' . $existing_info[0] . '" />
                 </dd>
                 <dt>
                     ' . Shop::getText("dumbb_setting2") . '
                 </dt>
                 <dd>
-                    <input type="text" id="hover" name="hover" value="' . "SUPPOSED TO SHOW LAST VAL" . '" />
+                    <input type="text" id="hover" name="hover" value="' . $existing_info[1] . '" />
                 </dd>
 
             </dl>';
