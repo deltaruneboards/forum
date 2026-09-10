@@ -1890,7 +1890,7 @@ function loadMemberContext($user, $display_custom_fields = false)
         $printlist = "";
         foreach ($badgelist as $b) {
             $printlist = $printlist . '<img src="/shop_items/items/' . $b["image"] .
-                '" title="' . $b["hover_text"] . '" loading=lazy >';
+                '" title="' . htmlspecialchars($b["hover_text"]) . '" loading=lazy >';
         }
         $memberContext[$user]['DUMB_Badge_render'] = $printlist;
 

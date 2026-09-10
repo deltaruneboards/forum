@@ -71,7 +71,7 @@ class DUMBBadge extends Module
                     ' . Shop::getText("dumbb_setting2") . '
                 </dt>
                 <dd>
-                    <input type="text" id="hover" name="hover" value="' . $existing_info[1] . '" />
+                    <input type="text" id="hover" name="hover" value="' . htmlspecialchars($existing_info[1]) . '" />
                 </dd>
 
             </dl>';
