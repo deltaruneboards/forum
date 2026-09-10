@@ -477,24 +477,6 @@ function ViewMemberlist()
 						'format' => '<a href="' . strtr($scripturl, array('%' => '%%')) . '?action=profile;u=%1$d">%2$s</a>',
 						'params' => array(
 							'id_member' => false,
-							'member_name' => false,
-						),
-					),
-				),
-				'sort' => array(
-					'default' => 'member_name',
-					'reverse' => 'member_name DESC',
-				),
-			),
-			'display_name' => array(
-				'header' => array(
-					'value' => $txt['display_name'],
-				),
-				'data' => array(
-					'sprintf' => array(
-						'format' => '<a href="' . strtr($scripturl, array('%' => '%%')) . '?action=profile;u=%1$d">%2$s</a>',
-						'params' => array(
-							'id_member' => false,
 							'real_name' => false,
 						),
 					),
@@ -853,13 +835,13 @@ function MembersAwaitingActivation()
 						'format' => '<a href="' . strtr($scripturl, array('%' => '%%')) . '?action=profile;u=%1$d">%2$s</a>',
 						'params' => array(
 							'id_member' => false,
-							'member_name' => false,
+							'real_name' => false,
 						),
 					),
 				),
 				'sort' => array(
-					'default' => 'member_name',
-					'reverse' => 'member_name DESC',
+					'default' => 'real_name',
+					'reverse' => 'real_name DESC',
 				),
 			),
 			'email' => array(
