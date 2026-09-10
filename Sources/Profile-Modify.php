@@ -276,7 +276,7 @@ function loadProfileFields($force_reload = false)
 			'label' => $txt['internal_name'],
 			'subtext' => allowedTo('admin_forum') && !isset($_GET['changeusername']) ? '[<a href="' . $scripturl . '?action=profile;u=' . $context['id_member'] . ';area=account;changeusername" style="font-style: italic;">' . $txt['username_change'] . '</a>]' : '',
 			'log_change' => true,
-			'permission' => 'profile_identity',
+			'permission' => 'admin_forum',
 			'prehtml' => allowedTo('admin_forum') && isset($_GET['changeusername']) ? '<div class="alert">' . $txt['username_warning'] . '</div>' : '',
 			'input_validate' => function(&$value) use ($sourcedir, $context, $user_info, $cur_profile)
 			{
