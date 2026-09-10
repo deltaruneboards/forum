@@ -12,13 +12,12 @@
 	--border-color: #353535;
 
 	--pri-color: #00FFEA;
-	--sec-color: #0080c0;
-	--ter-color: #00347d;
+	--sec-color: #009EEE;
+	--ter-color: #3B33BB;
 
-	--info-color: #00FFEA;
-	--alert-color: #00FFEA;
-	--valid-color: #00FFEA;
-	--invalid-color: #00FFEA;
+	--info-color: #FFFF3C;
+	--valid-color: #25FA67;
+	--invalid-color: #FF3C3C;
 }
 body {
 	background: black;
@@ -1628,10 +1627,16 @@ dl.register_form dd {
 	margin-left: 5ex;
 }
 .valid_input {
-	background: #f5fff0;
+	color: var(--txt-color);
+	background: var(--sec-bg-color);
+	border-top: 1px solid var(--valid-color);
+	border-bottom: 1px solid var(--valid-color);
 }
 .invalid_input {
-	background: #fff0f0;
+	color: var(--txt-color);
+	background: var(--sec-bg-color);
+	border-top: 1px solid var(--invalid-color);
+	border-bottom: 1px solid var(--invalid-color);
 }
 
 /* Styles for maintenance mode.
@@ -1662,7 +1667,7 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 }
 
 .errorfile_table {
-	background: #f0f4f7;
+	background: var(--sec-bg-color);
 	border-collapse: collapse;
 }
 .errorfile_table .file_line {
@@ -2102,20 +2107,19 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 	background-position: -161px -83px;
 }
 .noticebox {
-	color: #666;
-	background: #fff6ca;
-	border-top: 1px solid #ffd324;
-	border-bottom: 1px solid #ffd324;
+	color: var(--txt-color);
+	background: var(--sec-bg-color);
+	border-top: 1px solid var(--info-color);
+	border-bottom: 1px solid var(--info-color);
 }
 .infobox {
 	color: var(--txt-color);
-	background: var(--info-color);
-	border-top: 1px solid var(--pri-color);
-	border-bottom: 1px solid var(--pri-color);
+	background: var(--sec-bg-color);
+	border-top: 1px solid var(--info-color);
+	border-bottom: 1px solid var(--info-color);
 }
 .descbox {
 	padding: 7px 10px 7px 10px;
-	border: 1px solid #c5c5c5;
 	margin: 6px 0;
 }
 
@@ -2433,7 +2437,7 @@ dl {
 	float: left;
 }
 #pick_theme .selected {
-	background: #cddbe6;
+	background: var(--ter-bg-color);
 }
 
 /* Signature preview */
@@ -4132,5 +4136,15 @@ color: inherit !important;
 
 .bgcolor {
 	padding: 5px;
-	background-color: attr(data-bgcolor);
+	/**
+	 * Warning: Experimental syntax: https://caniuse.com/mdn-css_types_attr_type_function
+	 * This color is set again in JavaScript just in case.
+	 */
+	background-color: attr(data-bgcolor type(<color>));
+}
+
+.glow {
+	/* Same as above */
+	text-shadow: attr(data-color, type(<color>)) 0px 0px 2px,
+				 attr(data-color, type(<color>)) 0px 0px 6px;
 }
