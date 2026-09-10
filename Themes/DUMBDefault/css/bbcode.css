@@ -1,0 +1,33 @@
+/* --- BBCode Styling --- */
+.spoilertxt, .spoilertxt a{ 
+color: #b1b1b1 !important;
+  background-color: #b1b1b1 !important;
+}
+
+
+.spoilertxt:hover, .spoilertxt:hover a { 
+color: inherit !important;
+  background-color: inherit !important;
+}
+
+.spoilertxt > img {display: none;}
+.spoilertxt:hover > img {display: inline;}
+
+.vertical-align-top img{vertical-align: top!important;}
+.vertical-align-bottom img{vertical-align: bottom!important;}
+.vertical-align-middle img{vertical-align: middle!important;}
+
+.bgcolor {
+	padding: 5px;
+	/**
+	 * Warning: Experimental syntax: https://caniuse.com/mdn-css_types_attr_type_function
+	 * This color is set again in JavaScript just in case.
+	 */
+	background-color: attr(data-bgcolor type(<color>));
+}
+
+.glow {
+	/* Same as above */
+	text-shadow: attr(data-color, type(<color>)) 0px 0px 2px,
+				 attr(data-color, type(<color>)) 0px 0px 6px;
+}

@@ -87,6 +87,7 @@ function template_html_above()
 
 	loadJavaScriptFile('randQuote.js', array('minimize' => false));
 	loadJavaScriptFile('bbcode.js');
+	loadCSSFile('bbcode.css', array('minimize' => false));
 
 	// Show right to left, the language code, and the character set for ease of translating.
 	echo '<!DOCTYPE html>
