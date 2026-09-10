@@ -406,6 +406,7 @@ function loadProfileFields($force_reload = false)
 			'type' => allowedTo('profile_displayed_name_own') || allowedTo('profile_displayed_name_any') || allowedTo('moderate_forum') ? 'text' : 'label',
 			'label' => $txt['username'],
 			'log_change' => true,
+			'subtext' => $txt['info_blurb_profile_username'],
 			'input_attr' => array('maxlength="60"'),
 			'permission' => 'profile_displayed_name',
 			'enabled' => allowedTo('profile_displayed_name_own') || allowedTo('profile_displayed_name_any') || allowedTo('moderate_forum'),
