@@ -2951,9 +2951,11 @@ h3 .collapse {
 .boardindex_table .board_stats {
 	padding: 13px 10px 10px;
 }
-.boardindex_table .board_stats p {
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #ddd;
+.boardindex_table h3.catbg {
+	align-items: center;
+	display: grid;
+	grid-template-columns: 40px auto 29px;
+	grid-template-rows: auto;
 }
 .info {
 	overflow: hidden;
@@ -3624,13 +3626,9 @@ div.cat_bar {
 	font-weight: 600;
 }
 h3.catbg {
-	align-items: center;
-	display: grid;
 	overflow: hidden;
 	font-size: 1.1em;
 	font-family: "Tahoma", sans-serif;
-	grid-template-columns: 40px auto 29px;
-	grid-template-rows: auto;
 }
 h3.catbg, h3.catbg a, h3.catbg a:hover {
 	color: #fff;
