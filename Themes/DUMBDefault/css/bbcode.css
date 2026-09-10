@@ -31,3 +31,14 @@ color: inherit !important;
 	text-shadow: attr(data-color, type(<color>)) 0px 0px 2px,
 				 attr(data-color, type(<color>)) 0px 0px 6px;
 }
+
+.souped-up-table table,
+.souped-up-table .bbc_table {
+    border-collapse: collapse;
+}
+
+.souped-up-table table td,
+.souped-up-table .bbc_table td {
+    border: 1px solid var(--txt-color-off);
+    padding: 10px;
+}
