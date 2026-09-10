@@ -377,6 +377,7 @@ function template_body_above()
 	echo '<div id="header">
 		<a id="top" href="', $scripturl, '">
 		', '<img id="banner" src="' , $settings['images_url'] , '/temp-banner.png" alt="Deltarune Unofficial Message Boards" title="Deltarune Unofficial Message Boards">
+			<div class="randombanner"><img id="randomImage" aria-hidden="true" src="" alt=""></div>
 			 ', '</a>';
 
 	echo '
