@@ -544,17 +544,29 @@ function template_single_post($message)
 		echo '
 								<li class="title">', $message['member']['title'], '</li>';
 
-	// Show the member's primary group (like 'Administrator') if they have one.
-	if (!empty($message['member']['group']))
-		echo '
-								<li class="membergroup">', $message['member']['group'], '</li>';
-
 	// Show the user's avatar.
 	if (!empty($modSettings['show_user_images']) && empty($options['show_no_avatars']) && !empty($message['member']['avatar']['image']))
 		echo '
 								<li class="avatar">
 									<a href="', $message['member']['href'], '">', $message['member']['avatar']['image'], '</a>
 								</li>';
+
+
+	if (!$message['member']['is_guest']) {
+		$postgroup = $message['member']['post_group'] ?? '';
+		// Show their personal text
+		if (!empty($modSettings['show_blurb']) && !empty($message['member']['blurb']))
+			echo '<li class="blurb">', $message['member']['blurb'], '</li>';
+
+		// Show the level and title
+		echo '<li class="icons">', $postgroup, ' ', $message['member']['group_icons'], '</li>';
+
+		// Show the pronouns
+		if (!empty($message['custom_fields']['standard']))
+			foreach ($message['custom_fields']['standard'] as $custom)
+				if ($custom['col_name'] === 'cust_pronou')
+					echo '<li class="pronouns">', $custom['value'], '</li>';
+	}
 
 	// Are there any custom fields below the avatar?
 	if (!empty($message['custom_fields']['below_avatar']))
@@ -565,30 +577,10 @@ function template_single_post($message)
 	// Don't show these things for guests.
 	if (!$message['member']['is_guest'])
 	{
-        // DUMBie extension: implementing badges on the default theme
-        // this probably wont stick once themes are finalized
-        if (!empty($message['member']['DUMB_Badge_render']))
-            echo '
-                <li class="dumb_badge">', $message['member']['DUMB_Badge_render'], '</li>';
-
-		// Show the post group icons
-		echo '
-								<li class="icons">', $message['member']['group_icons'], '</li>';
-
-		// Show the post group if and only if they have no other group or the option is on, and they are in a post group.
-		if ((empty($modSettings['hide_post_group']) || empty($message['member']['group'])) && !empty($message['member']['post_group']))
-			echo '
-								<li class="postgroup">', $message['member']['post_group'], '</li>';
-
 		// Show how many posts they have made.
 		if (!isset($context['disabled_fields']['posts']))
 			echo '
 								<li class="postcount">', $txt['member_postcount'], ': ', $message['member']['posts'], '</li>';
-
-		// Show their personal text?
-		if (!empty($modSettings['show_blurb']) && !empty($message['member']['blurb']))
-			echo '
-								<li class="blurb">', $message['member']['blurb'], '</li>';
 
 		// Any custom fields to show as icons?
 		if (!empty($message['custom_fields']['icons']))
@@ -636,8 +628,16 @@ function template_single_post($message)
 		// Any custom fields for standard placement?
 		if (!empty($message['custom_fields']['standard']))
 			foreach ($message['custom_fields']['standard'] as $custom)
-				echo '
+				if ($custom['col_name'] !== 'cust_pronou')
+					echo '
 								<li class="custom ', $custom['col_name'], '">', $custom['title'], ': ', $custom['value'], '</li>';
+
+
+        // DUMBie extension: implementing badges on the default theme
+        // this probably wont stick once themes are finalized
+        if (!empty($message['member']['DUMB_Badge_render']))
+            echo '
+                <li class="dumb_badge">', $message['member']['DUMB_Badge_render'], '</li>';
 	}
 	// Otherwise, show the guest's email.
 	elseif (!empty($message['member']['email']) && $message['member']['show_email'])
