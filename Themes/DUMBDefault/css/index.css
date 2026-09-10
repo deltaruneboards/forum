@@ -3602,7 +3602,6 @@ div.cat_bar {
 	background: var(--skeuomorphism);
 	border-bottom: 1px solid #777;
 	padding: 0;
-=
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.2);
 }
 .cat_bar h3 {
@@ -3621,9 +3620,12 @@ div.cat_bar {
 	font-weight: 600;
 }
 h3.catbg {
+	display: grid;
 	overflow: hidden;
 	font-size: 1.1em;
 	font-family: "Tahoma", sans-serif;
+	grid-template-columns: 40px auto 29px;
+	grid-template-rows: auto;
 }
 h3.catbg, h3.catbg a, h3.catbg a:hover {
 	color: #fff;
@@ -3634,6 +3636,33 @@ h3.catbg a:hover {
 }
 h3.catbg .main_icons::before, h3.catbg .icon {
 	margin: 0 5px 0 0;
+}
+.catbg a#c1 ~ a, .catbg a#c2 ~ a {
+	grid-column: 2;
+	grid-row: 1;
+}
+.catbg .toggle_up {
+	grid-column: 3;
+	grid-row: 1;
+}
+#c1::before, #c2::before {
+	content: "";
+	display: inline-block;
+	vertical-align: middle;
+	margin: 5px;
+	background-size: cover;
+	grid-column: 1;
+	grid-row: 1;
+}
+#c1::before {
+	width: 16px;
+	height: 16px;
+	background-image: url('/assets/favicon.png');
+}
+#c2::before {
+	width: 32px;
+	height: 30px;
+	background-image: url('/assets/deltarune.png');
 }
 .cat_bar + .windowbg, .cat_bar + .roundframe {
 	margin-top: -1px;

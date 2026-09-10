@@ -1287,6 +1287,15 @@ ul li.greeting {
 .navigate_section a:hover span {
 	text-decoration: underline;
 }
+.navigate_section ul a:first-child::before {
+	background: url('/Smileys/dumb/heart.png') no-repeat;
+	background-size: cover;
+	content: "";
+	display: inline-block;
+	height: 10px;
+	margin-right: 5px;
+	width: 10px;
+}
 
 /* The content section */
 #content_section {
