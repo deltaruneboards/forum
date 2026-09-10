@@ -3369,6 +3369,7 @@ img.avatar {
 }
 img.smiley {
 	vertical-align: bottom;
+	image-rendering: pixelated;
 }
 .attachments {
 	padding: 12px 0 0 0;
