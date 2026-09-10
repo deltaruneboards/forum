@@ -83,7 +83,6 @@ class DUMBBadgerm extends Module
             </dl>';
     }
 
-    // todo implement
     function onUse()
     {
 		global $smcFunc, $user_info;
@@ -101,6 +100,12 @@ class DUMBBadgerm extends Module
                 'kc' => $_REQUEST['killcount'],
             ));
         $refundCount = $smcFunc['db_affected_rows']();  // no negative values to get infinite items THIS TIME hopefully
+
+        if ($refundCount < 1) {
+            return '<div class="infobox">
+                ' . Shop::getText('dumbbrm_no_remove') .
+            '</div>';
+        }
 
         // look man the existing addItem function either requires an item to already exist
         // or removes from the shop stock
