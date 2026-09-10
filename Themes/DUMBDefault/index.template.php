@@ -85,9 +85,11 @@ function template_html_above()
 {
 	global $context, $scripturl, $txt, $modSettings;
 
-	loadJavaScriptFile('randQuote.js', array('minimize' => false));
-	loadJavaScriptFile('bbcode.js');
-	loadCSSFile('bbcode.css', array('minimize' => false));
+	loadJavaScriptFile('randQuote.js', ['minimize' => true], 'smf_theme');
+	loadJavaScriptFile('randChar.js', ['minimize' => true], 'smf_theme');
+	loadJavaScriptFile('bbcode.js', ['minimize' => true], 'smf_theme');
+	loadCSSFile('bbcode.css', ['minimize' => true]);
+	loadCSSFile('randChar.css', ['minimize' => true]);
 
 	// Show right to left, the language code, and the character set for ease of translating.
 	echo '<!DOCTYPE html>
