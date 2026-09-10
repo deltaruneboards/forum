@@ -282,8 +282,8 @@ ul.buddyList {
 }
 
 @media screen and (max-width: 720px){
-	.status li.status .poster {
-		display: none;
+	.user_info li.avatar img {
+		max-height: 10vh;
 	}
 	.status li.status .postarea {
 		margin-left: 0;
