@@ -46,3 +46,6 @@ div.sceditor-group {
 .sceditor-button.disabled svg {
 	fill: var(--txt-color-off);
 }
+div.sceditor-smileyPopup, div.sceditor-dropdown {
+	background: var(--pri-bg-color)
+}
