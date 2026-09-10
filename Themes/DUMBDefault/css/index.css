@@ -2939,6 +2939,7 @@ h3 .collapse {
 	background-position: -45px -45px;
 }
 .board_icon {
+	border-right: 1px solid var(--border-color);
 	text-align: center;
 	padding: 8px 0 0 0;
 	vertical-align: center;
@@ -2966,7 +2967,10 @@ h3 .collapse {
 	color: var(--pri-color);
 }
 .board_stats {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
 	font-size: 0.9em;
+	margin-right: 10px;
 	text-align: center;
 }
 .lastpost {
