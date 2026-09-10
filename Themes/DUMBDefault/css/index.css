@@ -4138,3 +4138,9 @@ color: inherit !important;
 	 */
 	background-color: attr(data-bgcolor type(<color>));
 }
+
+.glow {
+	/* Same as above */
+	text-shadow: attr(data-color, type(<color>)) 0px 0px 2px,
+				 attr(data-color, type(<color>)) 0px 0px 6px;
+}
