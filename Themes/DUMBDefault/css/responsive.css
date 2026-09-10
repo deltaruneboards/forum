@@ -304,10 +304,6 @@
 	.user_info {
 		display: inline;
 	}
-	.user_info li,
-	.custom_fields_above_member {
-		display: none;
-	}
 	.user_info li.title,
 	.user_info li.membergroup {
 		display: inline-block;
