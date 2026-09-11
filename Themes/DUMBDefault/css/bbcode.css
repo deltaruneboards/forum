@@ -142,14 +142,6 @@ color: inherit !important;
     font-style: normal;
 }
 
-.bbc_standard_quote cite strong {
-    color: var(--txt-color);
-}
-
-.bbc_standard_quote cite strong:hover {
-    color: var(--pri-color);
-}
-
 .bbc_standard_quote cite::before {
     content: ""
 }
