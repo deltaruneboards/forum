@@ -162,7 +162,6 @@ summary {
 /* This gives a better effect for those areas, and will default to bold for fonts which do not support numerical font-weight */
 strong, .strong {
 	font-weight: bold;
-	color: var(--pri-color);
 }
 .cat_bar strong {
 	color: #fff;
