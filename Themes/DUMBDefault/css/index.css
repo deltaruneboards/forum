@@ -3306,7 +3306,6 @@ div#pollmoderation {
 }
 img.avatar {
 	object-fit: scale-down;
-	text-align: center;
 }
 .poster img.avatar {
 	max-width: 100%;
@@ -4163,7 +4162,7 @@ img.theme_thumbnail {
 }
 
 /* Miniprofile styles */
-.blurb, .icons, .pronouns {
+.avatar, .blurb, .icons, .pronouns {
 	text-align: center;
 }
 .blurb {
