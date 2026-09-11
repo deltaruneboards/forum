@@ -3306,6 +3306,7 @@ div#pollmoderation {
 }
 img.avatar {
 	object-fit: scale-down;
+	text-align: center;
 }
 .poster img.avatar {
 	max-width: 100%;
@@ -4160,3 +4161,13 @@ img.theme_thumbnail {
 #lang_main_files_list .name, #member_list .email, #approve_list .email {
 	word-break: break-word;
 }
+
+/* Miniprofile styles */
+.blurb, .icons, .pronouns {
+	text-align: center;
+}
+.blurb {
+	font-style: italic;
+	color: var(--txt-color-off)
+}
+
