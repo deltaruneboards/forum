@@ -49,3 +49,24 @@ div.sceditor-group {
 div.sceditor-smileyPopup, div.sceditor-dropdown {
 	background: var(--pri-bg-color)
 }
+
+@media screen and (min-width: 720px) {
+	.sceditor-container {
+		display: block;
+		position: relative;
+	}
+	.sceditor-insertemoticon {
+		height: 520px;
+		position: absolute;
+		width: 225px;
+	}
+	.sceditor-container textarea {
+		border-left: 1px solid var(--border-color);
+		display: block;
+		height: calc(100% - 74px) !important;
+		left: 225px;
+		margin-left: 225px;
+		min-width: unset;
+		width: calc(100% - 225px);
+	}
+}
