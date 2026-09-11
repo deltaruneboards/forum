@@ -519,7 +519,7 @@ function ComposeMailing()
 	$editorOptions = array(
 		'id' => 'message',
 		'value' => $context['message'],
-		'height' => '150px',
+		'height' => '300px',
 		'width' => '100%',
 		'labels' => array(
 			'post_button' => $txt['sendtopic_send'],

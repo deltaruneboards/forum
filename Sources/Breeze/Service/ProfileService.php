@@ -127,7 +127,7 @@ class ProfileService extends BaseService implements ProfileServiceInterface
 			'labels' => [
 				'post_button' => $this->getText('general_save'),
 			],
-			'height' => '150px',
+			'height' => '300px',
 			'width' => '100%',
 			'preview_type' => 0,
 			'required' => true,

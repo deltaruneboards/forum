@@ -1253,7 +1253,7 @@ function Display()
 			'post_button' => $txt['post'],
 		),
 		// add height and width for the editor
-		'height' => '150px',
+		'height' => '300px',
 		'width' => '100%',
 		// We do HTML preview here.
 		'preview_type' => 1,
