@@ -33,8 +33,8 @@ class DUMBBadge extends Module
         $this->authorName = 'candycanearter';
         $this->authorWeb = 'candyether.space';
         $this->authorEmail = 'candy@candyether.space';
-        $this->name = Shop::getText('Shop_dumbb_name');
-        $this->desc = Shop::getText('Shop_dumbb_desc');
+        $this->name = Shop::getText('dumbb_name');
+        $this->desc = Shop::getText('dumbb_desc');
         $this->price = 50;
 
 		$this->require_input = false;

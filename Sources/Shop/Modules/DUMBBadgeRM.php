@@ -31,8 +31,8 @@ class DUMBBadgerm extends Module
         $this->authorName = 'candycanearter';
         $this->authorWeb = 'candyether.space';
         $this->authorEmail = 'candy@candyether.space';
-        $this->name = Shop::getText('Shop_dumbbrm_name');
-        $this->desc = Shop::getText('Shop_dumbbrm_desc');
+        $this->name = Shop::getText('dumbbrm_name');
+        $this->desc = Shop::getText('dumbbrm_desc');
         $this->price = 1;
 
 		$this->require_input = true;

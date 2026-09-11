@@ -31,8 +31,8 @@ class DUMBUsergroup extends Module
         $this->authorName = 'candycanearter';
         $this->authorWeb = 'candyether.space';
         $this->authorEmail = 'candy@candyether.space';
-        $this->name = Shop::getText('Shop_dumbgroup_name'); // todo make strings for everything
-        $this->desc = Shop::getText('Shop_dumbgroup_desc');
+        $this->name = Shop::getText('dumbgroup_name'); // todo make strings for everything
+        $this->desc = Shop::getText('dumbgroup_desc');
         $this->price = 100;
 
 		$this->require_input = false;
