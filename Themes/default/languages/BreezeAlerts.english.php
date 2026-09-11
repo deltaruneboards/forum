@@ -24,14 +24,14 @@ $txt['Breeze_alert_' . LikesEnum::Status->value] = 'status';
 // Gender related stuff.
 $txt['Breeze_alert_gender_possessive_Female'] = 'her';
 $txt['Breeze_alert_gender_possessive_Male'] = 'his';
-$txt['Breeze_alert_gender_possessive_None'] = 'his/her';
+$txt['Breeze_alert_gender_possessive_None'] = 'their';
 $txt['Breeze_alert_gender_pronoun_Male'] = 'he';
 $txt['Breeze_alert_gender_pronoun_Female'] = 'she';
-$txt['Breeze_alert_gender_pronoun_None'] = 'he/she';
+$txt['Breeze_alert_gender_pronoun_None'] = 'they';
 
 // Comment notification.
 $txt['Breeze_alert_comment_different_owner'] = '{poster} commented on the status made by {status_poster} on {wall_owner}\'s wall';
-$txt['Breeze_alert_comment_status_owner'] = '{poster} commented on your status made in {wall_owner}\'s wall';
+$txt['Breeze_alert_comment_status_owner'] = '{poster} commented on your status made on {wall_owner}\'s wall';
 
 // Comment deleted.
 $txt['Breeze_alert_comment_deleted_different_owner'] = '{poster} deleted a comment on the status made by {status_poster} on {wall_owner}\'s wall';
@@ -53,8 +53,8 @@ $txt['Breeze_singleStatus_pageTitle'] = 'Single Status';
 
 // UserSettingsController.
 $txt['alert_group_breezeComponents'] = 'My wall alert settings';
-$txt['alert_Breeze_status_owner'] = 'When someone post a status on my wall';
-$txt['alert_Breeze_comment_status_owner'] = 'When someone comment on a status I made';
-$txt['alert_Breeze_comment_profile_owner'] = 'When someone comment on a status made on my wall';
+$txt['alert_Breeze_status_owner'] = 'When someone posts a status on my wall';
+$txt['alert_Breeze_comment_status_owner'] = 'When someone comments on a status I made';
+$txt['alert_Breeze_comment_profile_owner'] = 'When someone comments on a status made on my wall';
 $txt['alert_Breeze_like'] = 'When someone likes a comment or status I made on any wall';
 $txt['alert_Breeze_mention'] = 'When someone mentions me on a comment or status on any wall';
