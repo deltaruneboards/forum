@@ -6,7 +6,9 @@
 	--ter-bg-color: #161616;
 	--txt-color: #FFFFFF;
 	--txt-color-off: #888888;
-	--skeuomorphism: linear-gradient(180deg, #1E1E1E 45%, #0b0b0b 55%);
+	--skeuomorphism-end-color: #0b0b0b;
+	--skeuomorphism: linear-gradient(180deg, var(--sec-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
+	--skeuomorphism-header: linear-gradient(180deg, var(--ter-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
 
 	--poll-color: #659ad6;
 	--border-color: #353535;
@@ -3644,7 +3646,7 @@ h3.catbg .main_icons::before, h3.catbg .icon {
 	grid-column: 2;
 	grid-row: 1;
 }
-.catbg .toggle_up {
+.catbg .toggle_up, .catbg .toggle_down {
 	grid-column: 3;
 	grid-row: 1;
 }
@@ -3899,16 +3901,18 @@ h3.profile_hd::before,
 
 /* Some new stuff */
 #display_head {
+	background-image: var(--skeuomorphism-header);
 	clear: both;
 	margin: -7px 0 15px 0;
 }
 #display_head p {
-	color: #959595;
+	display: none;
 }
 #display_head span {
 	margin: -4px 0 0 0;
 }
 .display_title {
+	display: inline-block;
 	font-weight: bold;
 	font-size: x-large;
 	margin-bottom: 0.25em;
