@@ -88,6 +88,7 @@ function template_html_above()
 	loadJavaScriptFile('randQuote.js', ['minimize' => true]);
 	loadJavaScriptFile('randChar.js', ['minimize' => true]);
 	loadJavaScriptFile('bbcode.js', ['minimize' => true]);
+	loadJavaScriptFile('goHome.js', ['minimize' => true]);
 	loadCSSFile('bbcode.css', ['minimize' => true]);
 	loadCSSFile('randChar.css', ['minimize' => true]);
 
