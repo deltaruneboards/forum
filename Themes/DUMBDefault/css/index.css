@@ -1011,6 +1011,9 @@ html[lang="el-GR"] .inline_mod_check {
 #alerts_menu_top .main_icons {
 	display: none;
 }
+#alerts_menu .windowbg:hover {
+	background-color: var(--ter-bg-color);
+}
 .notice {
 	font-weight: bold;
 }
@@ -3251,7 +3254,7 @@ img.avatar {
 	flex: 1 1 auto;
 }
 .keyinfo .postinfo .modified {
-	color: #333;
+	color: var(--txt-color-off);
 	font-weight: normal;
 	font-style: italic;
 	padding: 2px 4px 0 4px;
