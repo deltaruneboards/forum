@@ -145,3 +145,6 @@ $txt['Shop_dumbbrm_nobadges'] = 'You don\'t have any badges!';
 $txt['Shop_dumbbrm_no_remove'] = 'No badges were removed';
 $txt['Shop_dumbbrm_choose_badge'] = 'Select a badge and number to remove';
 $txt['Shop_dumbbrm_success'] = 'You have successfully removed %d badges';
+$txt['Shop_dumbgroup_name'] = 'Grants title';
+$txt['Shop_dumbgroup_desc'] = 'Grants a mystery title!!';
+$txt['Shop_dumbgroup_noitem'] = 'No item found that corresponds to your usergroup. You may be in an exclusive usergroup that can not be easily replaced, or are a moderator or admin. Please contact admins to get your usergroup changed.';
