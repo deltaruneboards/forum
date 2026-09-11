@@ -2073,9 +2073,9 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 	position: relative;
 }
 .errorbox {
-	background-color: #fee;
-	border-top: 2px solid #c34;
-	border-bottom: 2px solid #c34;
+	background-color: var(--sec-bg-color);
+	border-top: 2px solid var(--invalid-color);
+	border-bottom: 2px solid var(--invalid-color);
 }
 .errorbox h3 {
 	padding: 0;
