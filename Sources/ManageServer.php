@@ -1327,7 +1327,10 @@ function prepareDBSettingContext(&$config_vars)
 		$temp = parse_bbc(false);
 		$bbcTags = array();
 		foreach ($temp as $tag)
+			/* DUMB change: tags like [td] and [tr] were marked as disallowed
+			   for no reason
 			if (!isset($tag['require_parents']))
+			*/
 				$bbcTags[] = $tag['tag'];
 
 		$bbcTags = array_unique($bbcTags);
