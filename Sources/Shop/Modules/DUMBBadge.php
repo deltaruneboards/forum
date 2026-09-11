@@ -46,17 +46,19 @@ class DUMBBadge extends Module
     {
         global $smcFunc;
 
-        $requestDUMBIE = $smcFunc['db_query']('', '
-            SELECT ext.sort_order, ext.hover_text
-            FROM {db_prefix}stshop_items AS a
-            INNER JOIN {db_prefix}awards_extinfo ext ON a.itemid = ext.ITEM_ID
-            WHERE a.itemid = {int:instanceid}',
-            array(
-                'instanceid' => $_REQUEST['id'],
-            ));
-
-        $existing_info = $smcFunc['db_fetch_row']($requestDUMBIE);
-        $smcFunc['db_free_result']($requestDUMBIE);
+        $existing_info = [0, ''];
+        if (!empty($_REQUEST['id'])) {
+            $requestDUMBIE = $smcFunc['db_query']('', '
+                SELECT ext.sort_order, ext.hover_text
+                FROM {db_prefix}stshop_items AS a
+                INNER JOIN {db_prefix}awards_extinfo ext ON a.itemid = ext.ITEM_ID
+                WHERE a.itemid = {int:instanceid}',
+                [
+                    'instanceid' => $_REQUEST['id'],
+                ]);
+            $existing_info = $smcFunc['db_fetch_row']($requestDUMBIE);
+            $smcFunc['db_free_result']($requestDUMBIE);
+        }
 
 
         return '
