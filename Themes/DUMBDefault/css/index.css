@@ -3119,6 +3119,15 @@ span.postby {
 	place-items: stretch;
 	place-content: stretch;
 }
+.topic_grid .title_bar {
+	display: grid;
+	grid-template-columns: auto auto 15% auto;
+}
+.board_stats {
+	border-right: 3px groove var(--border-color);
+	border-left: 3px groove var(--border-color);
+	width: 100%;
+}
 .preview {
 	font-weight: bold;
 }
