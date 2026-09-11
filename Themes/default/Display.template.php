@@ -511,7 +511,7 @@ function template_single_post($message)
 	}
 
 	echo '
-							<h4>';
+							<h4 class="title_' . str_replace(" ", "_", strtolower($message['member']['primary_group'])) . '">';
 
 	// Show online and offline buttons?
 	if (!empty($modSettings['onlineEnable']) && !$message['member']['is_guest'])

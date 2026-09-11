@@ -1879,7 +1879,7 @@ function loadMemberContext($user, $display_custom_fields = false)
         INNER JOIN {db_prefix}stshop_items nfo ON a.ITEM_ID = nfo.itemid
         LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID
         WHERE a.ID_AWARDED_MEMBER = {int:userid}
-        ORDER BY ext.sort_order ASC',
+        ORDER BY ext.sort_order ASC, a.ID_AWARD',
         array(
             'userid' => $profile['id_member'],
         ));
