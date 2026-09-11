@@ -1410,7 +1410,7 @@ ul li.greeting {
 /* Styles for edit event section
 ---------------------------------------------------- */
 #post_event .roundframe {
-	padding: 12px 12%;
+	padding: 12px;
 	overflow: auto;
 }
 #post_event fieldset {
@@ -3425,7 +3425,7 @@ img.smiley {
 }
 #quickreply_options .roundframe {
 	margin: 0;
-	padding: 8px 10% 12px 10%;
+	padding: 10px;
 }
 #quickReplyExpand {
 	float: right;
@@ -3433,7 +3433,7 @@ img.smiley {
 }
 /* Styles for edit post section */
 form#postmodify .roundframe {
-	padding: 12px 12%;
+	padding: 12px;
 	margin: 12px 0 0 0;
 }
 #post_header {
