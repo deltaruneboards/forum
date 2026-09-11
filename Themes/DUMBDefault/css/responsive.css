@@ -267,6 +267,9 @@
 
 	/* Display (Topics) */
 	.poster {
+		display: grid;
+		grid-auto-flow: row dense;
+		text-align: center;
 		float: none;
 		width: auto;
 		position: relative;
@@ -300,14 +303,39 @@
 	}
 	.poster h4 {
 		display: inline-block;
+		grid-column: 1;
+		grid-row: 1;
 	}
 	.user_info {
-		display: inline;
+		display: contents;
 	}
 	.user_info li.title,
 	.user_info li.membergroup {
 		display: inline-block;
 		font-weight: normal;
+	}
+	.profile {
+		grid-row: 2;
+		place-self: center;
+	}
+	.avatar {
+		grid-column: 1;
+		grid-row: 2 / span 3;
+		place-self: center;
+	}
+	img.avatar {
+		width: 80px;
+		height: 80px;
+	}
+	.icons, .pronouns {
+		grid-column: 1;
+	}
+	.blurb {
+		grid-column: 2;
+		grid-row: 1;
+	}
+	.custom ~ li {
+		grid-column: 2;
 	}
 	.like_count,
 	.smflikebutton:last-child {
