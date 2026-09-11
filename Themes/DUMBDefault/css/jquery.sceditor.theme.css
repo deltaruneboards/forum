@@ -70,4 +70,7 @@ div.sceditor-smileyPopup, div.sceditor-dropdown {
 		min-width: unset;
 		width: calc(100% - 225px);
 	}
+	div.sceditor-smileyPopup {
+		top: 0;
+	}
 }
