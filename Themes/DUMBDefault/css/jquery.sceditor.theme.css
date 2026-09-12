@@ -56,7 +56,7 @@ div.sceditor-smileyPopup, div.sceditor-dropdown {
 		position: relative;
 	}
 	.sceditor-insertemoticon {
-		height: 520px;
+		box-sizing: border-box;
 		position: absolute;
 		width: 225px;
 	}
@@ -66,11 +66,12 @@ div.sceditor-smileyPopup, div.sceditor-dropdown {
 		height: calc(100% - 74px) !important;
 		left: 225px;
 		margin-left: 225px;
-		min-height: 520px;
+		min-height: 550px;
 		min-width: unset;
 		width: calc(100% - 225px);
 	}
 	div.sceditor-smileyPopup {
+		max-height: unset;
 		top: 0;
 	}
 }
