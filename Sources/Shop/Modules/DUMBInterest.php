@@ -31,8 +31,8 @@ class DUMBInterest extends Module
         $this->authorName = 'candycanearter';
         $this->authorWeb = 'candyether.space';
         $this->authorEmail = 'candy@candyether.space';
-        $this->name = Shop::getText('Shop_dumb_interest_name'); //todo add these
-        $this->desc = Shop::getText('Shop_dumb_interest_desc');
+        $this->name = Shop::getText('dumb_interest_name'); 
+        $this->desc = Shop::getText('dumb_interest_desc');
         $this->price = 200;
 
 		$this->require_input = false;

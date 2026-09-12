@@ -44,17 +44,6 @@ class Scheduled
 
         $interset = $modSettings['Shop_bank_interest'];
 
-        /*
-        $requestDUMBIE = $smcFunc['db_query']('', '
-            SELECT interest FROM {db_prefix}interestmod
-            WHERE USER_ID = {int:user_id}',
-            array(
-                'user_id' => $figureTHISOUT!!
-            ));
-        $userInterset = $smcFunc['db_fetch_row']($requestDUMBIE);
-        $smcFunc['db_free_result']($requestDUMBIE);
-         */
-
 		// Create some cash out of nowhere. How? By magical means, of course!
         // im going to "create" a database call that doesnt freaking suck -candy
 
