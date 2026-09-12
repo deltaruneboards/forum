@@ -1,1 +1,8 @@
 RedirectMatch 404 /\.git
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} ^/Themes/DUMBDefault/images/membericons/(.+)$
+RewriteCond %{DOCUMENT_ROOT}/Themes/DUMBDefault/images/membericons/%1 !-f
+RewriteCond %{DOCUMENT_ROOT}/shop_items/items/%1 -f
+RewriteRule ^Themes/DUMBDefault/images/membericons/(.+)$ /shop_items/items/$1 [L]
