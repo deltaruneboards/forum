@@ -3024,15 +3024,11 @@ span.postby {
 	margin: 0;
 	overflow: hidden;
 }
-#topic_header, .topic_grid {
+#topic_header, #topic_container .windowbg {
 	display: grid;
 	grid-template-columns: 4% 68% 10% 18%;
 	place-items: stretch;
 	place-content: stretch;
-}
-.topic_grid .title_bar {
-	display: grid;
-	grid-template-columns: auto auto 15% auto;
 }
 .board_stats {
 	border-right: 3px groove var(--border-color);
