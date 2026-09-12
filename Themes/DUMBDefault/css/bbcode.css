@@ -56,7 +56,7 @@
 .bbc_table td {
 	font: inherit;
 	color: inherit;
-	vertical-align: top;
+	vertical-align: middle;
 }
 .bbc_list {
 	text-align: left;

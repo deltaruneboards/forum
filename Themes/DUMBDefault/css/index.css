@@ -90,6 +90,10 @@ input[type="file"] {
 	padding: 2px;
 	height: auto;
 }
+/* Vertically center all images */
+img {
+	vertical-align: middle;
+}
 /* Prevent inputs and images overflowing */
 img, input, select, textarea {
 	max-width: 100%;
