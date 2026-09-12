@@ -361,7 +361,7 @@ pre.file_content {
 	border-bottom: 1px solid #ddd;
 }
 #manage_boards li.windowbg:hover {
-	background: #d0e7f8;
+	background: var(--ter-color);
 }
 #manage_boards li .floatleft {
 	font-weight: bold;
@@ -574,7 +574,7 @@ h3.config_hd {
 }
 
 .windowbg.highlight2 {
-	background: #d0e7f8;
+	background: var(--ter-color);
 }
 
 /* Css edit page */
