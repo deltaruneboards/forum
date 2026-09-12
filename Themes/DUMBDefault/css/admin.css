@@ -28,7 +28,7 @@ a.help span {
 	margin-right: 2px;
 }
 .table_caption, tr.table_caption td {
-	color: #000;
+	color: var(--txt-color);
 	font-size: 10px;
 	font-weight: bold;
 }
@@ -43,7 +43,7 @@ fieldset dl {
 }
 legend {
 	font-weight: bold;
-	color: #000;
+	color: var(--txt-color);
 }
 
 /* Styles for the admin home screen.
