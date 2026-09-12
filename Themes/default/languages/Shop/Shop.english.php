@@ -119,7 +119,7 @@ $txt['Shop_inventory_purchased'] = 'Purchased on: %s';
 
 // Bank
 $txt['Shop_bank_welcome'] = 'Welcome to the Shop Bank';
-$txt['Shop_bank_desc'] = 'Use the bank to safely store your %1$s and avoid losing them. All %1$s stored in the bank, gain or lose an interest at a rate of %2$d%3% per day.';
+$txt['Shop_bank_desc'] = 'Use the bank to safely store your %1$s and avoid losing them. All %1$s stored in the bank, gain or lose an interest at a rate of %2$d%3% per day. Your account has an additional interest modifier of %3$d%%';
 $txt['Shop_bank_youhave'] = 'You currently have %1$s in your pocket and %2$s in the bank.';
 $txt['Shop_bank_action'] = 'Would you like to deposit or withdraw?';
 $txt['Shop_bank_deposit'] = 'Deposit';
