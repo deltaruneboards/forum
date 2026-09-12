@@ -42,7 +42,7 @@
 		display: none !important;
 	}
 
-	#topic_header, .topic_grid {
+	#topic_header, #topic_container .windowbg {
 		display: block;
 	}
 }
