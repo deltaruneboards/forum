@@ -2898,6 +2898,7 @@ h3 .collapse {
 	justify-self: stretch;
 }
 .main_container {
+	background-color: var(--ter-bg-color);
 	margin-bottom: 20px;
 }
 .up_contain {
