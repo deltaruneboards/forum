@@ -145,6 +145,12 @@ $txt['Shop_dumbbrm_nobadges'] = 'You don\'t have any badges!';
 $txt['Shop_dumbbrm_no_remove'] = 'No badges were removed';
 $txt['Shop_dumbbrm_choose_badge'] = 'Select a badge and number to remove';
 $txt['Shop_dumbbrm_success'] = 'You have successfully removed %d badges';
+// DUMB Usergroup Mod
 $txt['Shop_dumbgroup_name'] = 'Grant Title';
 $txt['Shop_dumbgroup_desc'] = 'Grants a specified title';
 $txt['Shop_dumbgroup_noitem'] = 'No item found that corresponds to your usergroup. You may be in an exclusive usergroup that can not be easily replaced, or are a moderator or admin. Please contact admins to get your usergroup changed.';
+// DUMB Interest
+$txt['Shop_dumb_interest_name'] = 'Interest Modifier';
+$txt['Shop_dumb_interest_desc'] = 'Modifies your user Interest';
+$txt['Shop_dumb_interest_setting1'] = 'Percentage to modify by (can be negative!)';
+$txt['Shop_dumb_interest_success'] = 'Your interest is now %d';

@@ -69,11 +69,29 @@ class Bank
 
 	public function main()
 	{
-		global $context, $scripturl, $modSettings, $user_info;
+		global $context, $scripturl, $modSettings, $user_info, $smcFunc;
+
+        // idk how expensive hitting the database here is but its Probably fine
+        $requestDUMBIE = $smcFunc['db_query']('', '
+            SELECT interest FROM {db_prefix}interestmod
+            WHERE USER_ID = {int:user_id}',
+            array(
+                'user_id' => $user_info['id']
+            ));
+        $currentMod = $smcFunc['db_fetch_row']($requestDUMBIE);
+        $smcFunc['db_free_result']($requestDUMBIE);
+
+        if (empty($currentMod))
+            $currentMod = 0;
+        else
+            $currentMod = $currentMod[0];
+
+        if ($currentMod >= 0)
+            $currentMod = "+" . $currentMod;
 
 		// Set all the page stuff
 		$context['page_title'] = Shop::getText('main_button') . ' - ' . Shop::getText('main_bank');
-		$context['page_description'] = sprintf(Shop::getText('bank_desc'), $modSettings['Shop_credits_suffix'], $modSettings['Shop_bank_interest']);
+		$context['page_description'] = sprintf(Shop::getText('bank_desc'), $modSettings['Shop_credits_suffix'], $modSettings['Shop_bank_interest'], $currentMod);
 		$context['sub_template'] = 'bank';
 		$context['linktree'][] = [
 			'url' => $scripturl . '?action=shop;sa=bank',

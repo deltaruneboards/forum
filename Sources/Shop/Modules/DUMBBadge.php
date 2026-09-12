@@ -67,7 +67,7 @@ class DUMBBadge extends Module
                     ' . Shop::getText("dumbb_setting1") . '
                 </dt>
                 <dd>
-                    <input type="number" id="info1" name="order" value="' . $existing_info[0] . '" />
+                    <input type="number" id="order" name="order" value="' . $existing_info[0] . '" />
                 </dd>
                 <dt>
                     ' . Shop::getText("dumbb_setting2") . '
