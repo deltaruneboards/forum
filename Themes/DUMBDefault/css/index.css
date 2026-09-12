@@ -3578,12 +3578,12 @@ h3.catbg .main_icons::before, h3.catbg .icon {
 #c1::before {
 	width: 16px;
 	height: 16px;
-	background-image: url('/assets/favicon.png');
+	background-image: url('/assets/ui/favicon.png');
 }
 #c2::before {
 	width: 32px;
 	height: 30px;
-	background-image: url('/assets/deltarune.png');
+	background-image: url('/assets/ui/deltarune.png');
 }
 .cat_bar + .windowbg, .cat_bar + .roundframe {
 	margin-top: -1px;
