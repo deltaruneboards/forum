@@ -1965,6 +1965,7 @@ function PlushSearch2()
 				first_mem.id_member AS first_member_id, COALESCE(first_mem.real_name, first_m.poster_name) AS first_member_name,
 				last_m.id_msg AS last_msg, last_m.poster_time AS last_poster_time, last_mem.id_member AS last_member_id,
 				COALESCE(last_mem.real_name, last_m.poster_name) AS last_member_name, last_m.icon AS last_icon, last_m.subject AS last_subject,
+                last_mem.id_group AS last_mem_group, first_mem.id_group AS first_mem_group,
 				t.id_topic, t.is_sticky, t.locked, t.id_poll, t.num_replies, t.num_views,
 				b.id_board, b.name AS board_name, c.id_cat, c.name AS cat_name
 			FROM {db_prefix}messages AS m
@@ -2246,7 +2247,7 @@ function prepareSearchContext($reset = false)
 				'id' => $message['first_member_id'],
 				'name' => $message['first_member_name'],
 				'href' => !empty($message['first_member_id']) ? $scripturl . '?action=profile;u=' . $message['first_member_id'] : '',
-				'link' => !empty($message['first_member_id']) ? '<a href="' . $scripturl . '?action=profile;u=' . $message['first_member_id'] . '" title="' . sprintf($txt['view_profile_of_username'], $message['first_member_name']) . '">' . $message['first_member_name'] . '</a>' : $message['first_member_name']
+				'link' => !empty($message['first_member_id']) ? '<a href="' . $scripturl . '?action=profile;u=' . $message['first_member_id'] . '" title="' . sprintf($txt['view_profile_of_username'], $message['first_member_name']) . '" class="group-' . $message['first_member_group'] . '">' . $message['first_member_name'] . '</a>' : $message['first_member_name']
 			)
 		),
 		'last_post' => array(
@@ -2262,7 +2263,7 @@ function prepareSearchContext($reset = false)
 				'id' => $message['last_member_id'],
 				'name' => $message['last_member_name'],
 				'href' => !empty($message['last_member_id']) ? $scripturl . '?action=profile;u=' . $message['last_member_id'] : '',
-				'link' => !empty($message['last_member_id']) ? '<a href="' . $scripturl . '?action=profile;u=' . $message['last_member_id'] . '" title="' . sprintf($txt['view_profile_of_username'], $message['last_member_name']) . '">' . $message['last_member_name'] . '</a>' : $message['last_member_name']
+				'link' => !empty($message['last_member_id']) ? '<a href="' . $scripturl . '?action=profile;u=' . $message['last_member_id'] . '" title="' . sprintf($txt['view_profile_of_username'], $message['last_member_name']) . '" class="group-' . $message['last_member_group'] . '>' . $message['last_member_name'] . '</a>' : $message['last_member_name']
 			)
 		),
 		'board' => array(

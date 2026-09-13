@@ -74,7 +74,7 @@ function getMembersOnlineStats($membersOnlineOptions)
 	$request = $smcFunc['db_query']('', '
 		SELECT
 			lo.id_member, lo.log_time, lo.id_spider, mem.real_name, mem.member_name, mem.show_online,
-			mg.online_color, mg.id_group, mg.group_name, mg.hidden, mg.group_type, mg.id_parent
+			mg.online_color, mg.id_group, mg.group_name, mg.hidden, mg.group_type, mg.id_parent, mem.id_group
 		FROM {db_prefix}log_online AS lo
 			LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = lo.id_member)
 			LEFT JOIN {db_prefix}membergroups AS mg ON (mg.id_group = CASE WHEN mem.id_group = {int:reg_mem_group} THEN mem.id_post_group ELSE mem.id_group END)',
@@ -106,10 +106,7 @@ function getMembersOnlineStats($membersOnlineOptions)
 		}
 
 		// Some basic color coding...
-		if (!empty($row['online_color']))
-			$link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" style="color: ' . $row['online_color'] . ';">' . $row['real_name'] . '</a>';
-		else
-			$link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['real_name'] . '</a>';
+		$link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" class="group-' . $row['id_group'] . '">' . $row['real_name'] . '</a>';
 
 		// Buddies get counted and highlighted.
 		$is_buddy = in_array($row['id_member'], $user_info['buddies']);

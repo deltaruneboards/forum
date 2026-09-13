@@ -36,7 +36,7 @@ function ArcadeMatchList()
 			m.id_match, m.name, m.private_game, m.created, m.updated, m.status,
 			m.num_players, m.current_players, m.num_rounds, m.current_round,
 			IFNULL(me.id_member, 0) AS participation, me.status AS my_state,
-			mem.id_member, mem.real_name
+			mem.id_member, mem.real_name, mem.id_group
 		FROM {db_prefix}arcade_matches AS m
 			LEFT JOIN {db_prefix}arcade_matches_players AS me ON (me.id_match = m.id_match AND me.id_member = {int:member})
 			LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = m.id_member)
@@ -81,7 +81,7 @@ function ArcadeMatchList()
 			'starter' => array(
 				'id' => $row['id_member'],
 				'name' => $row['real_name'],
-				'link' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['real_name'] . '</a>' : '',
+				'link' => !empty($row['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" class="group-' . $row['id_group'] . '">' . $row['real_name'] . '</a>' : '',
 			),
 		);
 	}

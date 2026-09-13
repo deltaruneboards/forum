@@ -390,7 +390,7 @@ function Display()
 		// Search for members who have this topic set in their GET data.
 		$request = $smcFunc['db_query']('', '
 			SELECT
-				lo.id_member, lo.log_time, mem.real_name, mem.member_name, mem.show_online,
+				lo.id_member, lo.log_time, mem.real_name, mem.member_name, mem.show_online, mem.id_group,
 				mg.online_color, mg.id_group, mg.group_name
 			FROM {db_prefix}log_online AS lo
 				LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = lo.id_member)
@@ -407,10 +407,7 @@ function Display()
 			if (empty($row['id_member']))
 				continue;
 
-			if (!empty($row['online_color']))
-				$link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" style="color: ' . $row['online_color'] . ';">' . $row['real_name'] . '</a>';
-			else
-				$link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['real_name'] . '</a>';
+            $link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" class="group-' . $row['id_group'] .'">' . $row['real_name'] . '</a>';
 
 			$is_buddy = in_array($row['id_member'], $user_info['buddies']);
 			if ($is_buddy)
