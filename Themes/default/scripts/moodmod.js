@@ -65,14 +65,6 @@
 		 * Insert right after the avatar, falling back to group/position
 		 * elements for layouts that don't show an avatar.
 		 */
-		//var anchor =
-		//	container.querySelector('.avatar')        ||
-		//	container.querySelector('.membergroup')   ||
-		//	container.querySelector('.postgroup')     ||
-		//	container.querySelector('.poster-info')   ||
-		//	container.querySelector('.profile_group') ||
-		//	container.querySelector('span.position')  ||
-		//	container.querySelector('.username');
 
 		var anchor = 
 			container.parentElement.querySelector('.postinfo').querySelector('.spacer');
