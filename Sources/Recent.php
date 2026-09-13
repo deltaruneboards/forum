@@ -358,8 +358,6 @@ function RecentPosts()
 		// Make the tags before censoring.
 		$threadTags = makeThreadTags($row['subject']);
 
-		$row['subject'] = $threadTags[0] . ' ' . $threadTags[1];
-
 		// Censor everything.
 		censorText($row['body']);
 		censorText($row['subject']);
@@ -385,7 +383,7 @@ function RecentPosts()
 			),
 			'topic' => $row['id_topic'],
 			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'],
-			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow" title="' . $row['subject'] . '">' . shorten_subject($row['subject'], 30) . '</a>',
+			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow" title="' . $row['subject'] . '">' . $threadTags[0] . ' ' . $threadTags[1] . '</a>',
 			'start' => $row['num_replies'],
 			'subject' => $row['subject'],
 			'shorten_subject' => shorten_subject($row['subject'], 30),
