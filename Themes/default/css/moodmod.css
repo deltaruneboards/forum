@@ -6,9 +6,10 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 4px;
-	margin: 4px 0 0 0;
-	padding: 8px 8px;
+	margin: 2px 0px 2px 0;
+	padding: 2px 8px;
 	border-radius: 12px;
+	border-style: dashed !important;
 	background: hsl(0 0% 0% / 0.15);
 	border: 1px solid hsl(0 0% 0% / 0.50);
 	font-size: 0.9em;

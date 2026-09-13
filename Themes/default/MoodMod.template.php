@@ -65,7 +65,7 @@ function template_moodmod_profile()
 					<label class="moodmod-option', ($selected ? ' moodmod-selected' : ''), '" title="', htmlspecialchars($mood['description']), '">
 						<input type="radio" name="mood_id" value="', (int) $id, '"',
 							($selected ? ' checked="checked"' : ''), '>
-						<span class="moodmod-emoji">', htmlspecialchars($mood['emoji'], ENT_QUOTES, 'UTF-8'), '</span>
+						<span class="moodmod-emoji">', $mood['emoji'], '</span>
 						<span class="moodmod-label">', htmlspecialchars($mood['name']), '</span>
 					</label>';
 	}
@@ -377,7 +377,7 @@ function template_moodmod_admin_moods()
 		foreach ($context['moodmod_moods'] as $mood)
 			echo '
 				<tr class="windowbg">
-					<td class="moodmod-td-emoji">', htmlspecialchars($mood['emoji'], ENT_QUOTES, 'UTF-8'), '</td>
+					<td class="moodmod-td-emoji">', $mood['emoji'], '</td>
 					<td>', htmlspecialchars($mood['name']), '</td>
 					<td>', htmlspecialchars($mood['description']), '</td>
 					<td class="moodmod-td-center">', (int) $mood['sort_order'], '</td>
@@ -436,11 +436,11 @@ function template_moodmod_admin_edit_mood()
 				</dt>
 				<dd>
 					<input type="text" name="mood_emoji" id="mood_emoji"
-					       value="', htmlspecialchars(html_entity_decode($mood['emoji'], ENT_QUOTES | ENT_HTML5, 'UTF-8'), ENT_QUOTES, 'UTF-8'), '"
+					       value="', htmlspecialchars(html_entity_decode($mood['emoji_name'], ENT_QUOTES | ENT_HTML5, 'UTF-8'), ENT_QUOTES, 'UTF-8'), '"
 					       style="width:80px;font-size:1.4em" maxlength="100">
 					<button type="button" id="moodmod_emoji_toggle" class="button">', $txt['moodmod_choose_emoji'], '</button>
 					<span id="moodmod_preview" style="font-size:2em;vertical-align:middle;margin-left:8px">',
-					       htmlspecialchars($mood['emoji'], ENT_QUOTES, 'UTF-8'), '</span>
+					       $mood['emoji'], '</span>
 					<div id="moodmod_emoji_picker" class="moodmod-emoji-picker" hidden>
 						<div class="moodmod-emoji-tabs"></div>
 						<div class="moodmod-emoji-grid"></div>

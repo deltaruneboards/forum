@@ -12,6 +12,60 @@ if (!defined('SMF'))
 
 /* Helpers */
 
+function MoodMod_get_smiley_url()
+{
+	global $modSettings, $user_info, $smcFunc;
+	$request = $smcFunc['db_query']('', '
+		SELECT s.value
+		FROM {db_prefix}settings AS s
+		WHERE s.variable = "smiley_sets_default"
+		LIMIT 1',
+		array()
+	);
+
+	$smiley_set = '';
+	while ($row = $smcFunc['db_fetch_assoc']($request))
+		$smiley_set = $row['value'];
+
+	$request = $smcFunc['db_query']('', '
+		SELECT s.value
+		FROM {db_prefix}settings AS s
+		WHERE s.variable = "smileys_url"
+		LIMIT 1',
+		array()
+	);
+
+	$smiley_url = '';
+	while ($row = $smcFunc['db_fetch_assoc']($request))
+		$smiley_url = $row['value'] . '/' . $smiley_set;
+
+	return $smiley_url;
+}
+
+function MoodMod_get_smiley_filename($name)
+{
+	global $modSettings, $user_info, $smcFunc;
+	$request = $smcFunc['db_query']('', '
+		SELECT s.filename
+		FROM {db_prefix}smiley_files AS s
+		WHERE s.filename LIKE {string:name}"%"
+		LIMIT 1',
+		array('name' => $name)
+	);
+
+	$smiley_name = '';
+	while ($row = $smcFunc['db_fetch_assoc']($request))
+		$smiley_name = $row['filename'];
+
+	return $smiley_name;
+}
+
+function MoodMod_emoji_image_html($str, $url='')
+{
+	$filename = MoodMod_get_smiley_filename(str_replace(':', '', $str));
+	return '<img src="' . $url . '/' . $filename . '" alt="' . $str . '" title="' . $str . '" class="smiley">';
+}
+
 /**
  * Convert a raw UTF-8 emoji string to HTML numeric entities for safe DB storage.
  */
@@ -34,8 +88,11 @@ function MoodMod_emoji_encode($str)
  * Decode stored entities back to raw UTF-8 for display in HTML or JS.
  * &#128522; → 😊
  */
-function MoodMod_emoji_decode($str)
+function MoodMod_emoji_decode($str, $url='')
 {
+	if (str_starts_with($str, ':')) {
+		return MoodMod_emoji_image_html(html_entity_decode((string) $str, ENT_QUOTES | ENT_HTML5, 'UTF-8'), $url);
+	}
 	return html_entity_decode((string) $str, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 }
 
@@ -395,6 +452,8 @@ function MoodMod_ajaxDispatch()
 
 		if (!empty($ids))
 		{
+			$smiley_url = MoodMod_get_smiley_url();
+
 			$request = $smcFunc['db_query']('', '
 				SELECT m.id_member, m.mood_color, mo.emoji, mo.name, mo.description
 				FROM {db_prefix}members AS m
@@ -406,7 +465,7 @@ function MoodMod_ajaxDispatch()
 
 			while ($row = $smcFunc['db_fetch_assoc']($request))
 				$result[(int) $row['id_member']] = array(
-					'emoji'       => MoodMod_emoji_decode($row['emoji']),
+					'emoji'       => MoodMod_emoji_decode($row['emoji'], $smiley_url),
 					'name'        => $row['name'],
 					'description' => MoodMod_emoji_decode($row['description']),
 					'color'       => MoodMod_sanitize_color($row['mood_color']),
@@ -461,9 +520,11 @@ function MoodMod_profileSection($memID)
 		0 => array('id_mood' => 0, 'name' => $txt['moodmod_no_mood'], 'emoji' => '', 'description' => ''),
 	);
 
+	$smiley_url = MoodMod_get_smiley_url();
+
 	while ($row = $smcFunc['db_fetch_assoc']($request))
 	{
-		$row['emoji'] = MoodMod_emoji_decode($row['emoji']);
+		$row['emoji'] = MoodMod_emoji_decode($row['emoji'], $smiley_url);
 		$moods[(int) $row['id_mood']] = $row;
 	}
 
@@ -624,9 +685,11 @@ function MoodMod_adminMoods()
 	);
 
 	$moods = array();
+	$smiley_url = MoodMod_get_smiley_url();
+
 	while ($row = $smcFunc['db_fetch_assoc']($request))
 	{
-		$row['emoji'] = MoodMod_emoji_decode($row['emoji']);
+		$row['emoji'] = MoodMod_emoji_decode($row['emoji'], $smiley_url);
 		$moods[] = $row;
 	}
 	$smcFunc['db_free_result']($request);
@@ -708,9 +771,12 @@ function MoodMod_adminEditMood()
 			array('mid' => $mood_id)
 		);
 
+		$smiley_url = MoodMod_get_smiley_url();
+
 		if ($row = $smcFunc['db_fetch_assoc']($request))
 		{
-			$row['emoji'] = MoodMod_emoji_decode($row['emoji']);
+			$row['emoji_name'] = $row['emoji'];
+			$row['emoji'] = MoodMod_emoji_decode($row['emoji'], $smiley_url);
 			$mood = $row;
 		}
 		$smcFunc['db_free_result']($request);

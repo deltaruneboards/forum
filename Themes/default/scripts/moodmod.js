@@ -47,8 +47,9 @@
 		/* Tooltip shows the mood's description; fall back to "Feeling <name>". */
 		d.title = (mood.description && mood.description.length) ? mood.description : ('Feeling ' + mood.name);
 		d.innerHTML =
-			'<span class="moodmod-badge-emoji">' + esc(mood.emoji) + '</span>' +
-			'<span class="moodmod-badge-name">'  + esc(mood.name)  + '</span>';
+			'<span class="moodmod-badge-name">'  + esc(mood.name)  + '</span>' +
+			'<span class="moodmod-badge-emoji">' + mood.emoji + '</span>';
+			
 		applyBadgeColor(d, mood.color);
 		return d;
 	}
@@ -64,17 +65,26 @@
 		 * Insert right after the avatar, falling back to group/position
 		 * elements for layouts that don't show an avatar.
 		 */
-		var anchor =
-			container.querySelector('.avatar')        ||
-			container.querySelector('.membergroup')   ||
-			container.querySelector('.postgroup')     ||
-			container.querySelector('.poster-info')   ||
-			container.querySelector('.profile_group') ||
-			container.querySelector('span.position')  ||
-			container.querySelector('.username');
+		//var anchor =
+		//	container.querySelector('.avatar')        ||
+		//	container.querySelector('.membergroup')   ||
+		//	container.querySelector('.postgroup')     ||
+		//	container.querySelector('.poster-info')   ||
+		//	container.querySelector('.profile_group') ||
+		//	container.querySelector('span.position')  ||
+		//	container.querySelector('.username');
+
+		var anchor = 
+			container.parentElement.querySelector('.postinfo').querySelector('.spacer');
 
 		if (anchor)
+		{
+			var s = document.createElement('span');
+			s.innerHTML = '<span class="smalltext">Status:&nbsp;</span>';
 			anchor.insertAdjacentElement('afterend', badge);
+			anchor.insertAdjacentElement('afterend', s);
+			
+		}
 		else
 			container.appendChild(badge);
 	}
@@ -86,9 +96,10 @@
 	function processKnownMoods() {
 		/* --- Posts: .poster divs ----------------------------------------- */
 		if (MoodMod.showInPosts) {
-			var posters = document.querySelectorAll('.poster, .poster_details');
+			var posters = document.querySelectorAll('.poster, .postarea');
 			for (var i = 0; i < posters.length; i++) {
 				var poster = posters[i];
+				//var link   = poster.querySelector('a[href*="action=profile"]');
 				var link   = poster.querySelector('a[href*="action=profile"]');
 				if (!link) continue;
 				var uid = extractUid(link.href);

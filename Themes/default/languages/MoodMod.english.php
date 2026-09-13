@@ -58,7 +58,7 @@ $txt['moodmod_col_actions']       = 'Actions';
 
 // --- Admin — add/edit form ---
 $txt['moodmod_field_emoji']       = 'Emoji';
-$txt['moodmod_field_emoji_hint']  = 'Paste or type an emoji character (e.g. 😊), or click "Choose emoji" to pick one.';
+$txt['moodmod_field_emoji_hint']  = 'Paste or type an emoji character (e.g. :green: or 😊), or click "Choose emoji" to pick one.';
 $txt['moodmod_choose_emoji']      = 'Choose emoji';
 $txt['moodmod_field_name']        = 'Name';
 $txt['moodmod_field_desc']        = 'Description';
