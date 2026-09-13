@@ -51,7 +51,11 @@ class DUMBBadgerm extends Module
             FROM {db_prefix}awards a
             INNER JOIN {db_prefix}stshop_items nfo
             ON a.ITEM_ID = nfo.itemid
-            GROUP BY a.ITEM_ID');
+            WHERE a.ID_AWARDED_MEMBER = {int:user_id}
+            GROUP BY a.ITEM_ID',
+            array(
+                'user_id' => $user_info['id'] // protecting against being stupid
+            ));
         
         $badge_count = $smcFunc['db_fetch_all']($requestDUMBIE);
         $smcFunc['db_free_result']($requestDUMBIE);

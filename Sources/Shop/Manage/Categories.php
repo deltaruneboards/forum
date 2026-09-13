@@ -339,11 +339,13 @@ class Categories extends Dashboard
 		if (!isset($_REQUEST['delete']))
 			fatal_error(Shop::getText('item_delete_error'), false);
 
+		$deleteitems = [];
+
 		// Collect the item ids
 		if (isset($_REQUEST['deleteitems']) && !empty($_REQUEST['deleteitems']))
-			$_REQUEST['deleteitems'] = Database::Get(0, 100000, 's.itemid', 'stshop_items AS s', ['s.itemid', 's.catid'], 'WHERE s.catid IN ({array_int:delete})', false, '', ['delete' => $_REQUEST['deleteitems']]);
+			$deleteitems = Database::Get(0, 100000, 's.itemid', 'stshop_items AS s', ['s.itemid', 's.catid'], 'WHERE s.catid IN ({array_int:delete})', false, '', ['delete' => $_REQUEST['deleteitems']]);
 
 		// Items using this module are... no longer using it
-		Delete::cats($_REQUEST['delete'], 'action=admin;area=shopcategories;sa=index;deleted', $_REQUEST['deleteitems']);
+		Delete::cats($_REQUEST['delete'], 'action=admin;area=shopcategories;sa=index;deleted', $deleteitems);
 	}
 }

@@ -1294,7 +1294,7 @@ function getBoardModerators(array $boards)
 		return array();
 
 	$request = $smcFunc['db_query']('', '
-		SELECT mem.id_member, mem.real_name, mo.id_board
+		SELECT mem.id_member, mem.real_name, mo.id_board, mem.id_group
 		FROM {db_prefix}moderators AS mo
 			INNER JOIN {db_prefix}members AS mem ON (mem.id_member = mo.id_member)
 		WHERE mo.id_board IN ({array_int:boards})',
@@ -1312,7 +1312,7 @@ function getBoardModerators(array $boards)
 			'id' => $row['id_member'],
 			'name' => $row['real_name'],
 			'href' => $scripturl . '?action=profile;u=' . $row['id_member'],
-			'link' => '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" title="' . $txt['board_moderator'] . '">' . $row['real_name'] . '</a>',
+			'link' => '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" title="' . $txt['board_moderator'] . '" class="group-' . $row['id_group'] . '">' . $row['real_name'] . '</a>',
 		);
 	}
 	$smcFunc['db_free_result']($request);

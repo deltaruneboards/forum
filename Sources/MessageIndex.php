@@ -214,7 +214,7 @@ function MessageIndex()
 
 		$request = $smcFunc['db_query']('', '
 			SELECT
-				lo.id_member, lo.log_time, mem.real_name, mem.member_name, mem.show_online,
+				lo.id_member, lo.log_time, mem.real_name, mem.member_name, mem.show_online, 
 				mg.online_color, mg.id_group, mg.group_name
 			FROM {db_prefix}log_online AS lo
 				LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = lo.id_member)
@@ -231,10 +231,7 @@ function MessageIndex()
 			if (empty($row['id_member']))
 				continue;
 
-			if (!empty($row['online_color']))
-				$link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" style="color: ' . $row['online_color'] . ';">' . $row['real_name'] . '</a>';
-			else
-				$link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['real_name'] . '</a>';
+            $link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" class="group-' . $row['id_group'] . '">' . $row['real_name'] . '</a>';
 
 			$is_buddy = in_array($row['id_member'], $user_info['buddies']);
 			if ($is_buddy)
@@ -357,6 +354,7 @@ function MessageIndex()
 			COALESCE(meml.real_name, ml.poster_name) AS last_display_name, t.id_first_msg,
 			mf.poster_time AS first_poster_time, mf.subject AS first_subject, mf.icon AS first_icon,
 			mf.poster_name AS first_member_name, mf.id_member AS first_id_member,
+            IFNULL(memf.id_group, 0) AS first_member_group, IFNULL(meml.id_group, 0) AS last_member_group,
 			COALESCE(memf.real_name, mf.poster_name) AS first_display_name, ' . (!empty($modSettings['preview_characters']) ? '
 			SUBSTRING(ml.body, 1, ' . ($modSettings['preview_characters'] + 256) . ') AS last_body,
 			SUBSTRING(mf.body, 1, ' . ($modSettings['preview_characters'] + 256) . ') AS first_body,' : '') . 'ml.smileys_enabled AS last_smileys, mf.smileys_enabled AS first_smileys
@@ -488,7 +486,7 @@ censorText($row['first_subject']);
 					'name' => $row['first_display_name'],
 					'id' => $row['first_id_member'],
 					'href' => !empty($row['first_id_member']) ? $scripturl . '?action=profile;u=' . $row['first_id_member'] : '',
-					'link' => !empty($row['first_id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['first_id_member'] . '" title="' . sprintf($txt['view_profile_of_username'], $row['first_display_name']) . '" class="preview">' . $row['first_display_name'] . '</a>' : $row['first_display_name']
+					'link' => !empty($row['first_id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['first_id_member'] . '" title="' . sprintf($txt['view_profile_of_username'], $row['first_display_name']) . '" class="preview group-' . $row['first_member_group'] . '">' . $row['first_display_name'] . '</a>' : $row['first_display_name']
 				),
 				'time' => timeformat($row['first_poster_time']),
 				'timestamp' => $row['first_poster_time'],
@@ -506,7 +504,7 @@ censorText($row['first_subject']);
 					'name' => $row['last_display_name'],
 					'id' => $row['last_id_member'],
 					'href' => !empty($row['last_id_member']) ? $scripturl . '?action=profile;u=' . $row['last_id_member'] : '',
-					'link' => !empty($row['last_id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['last_id_member'] . '">' . $row['last_display_name'] . '</a>' : $row['last_display_name']
+					'link' => !empty($row['last_id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['last_id_member'] . '" class="group-' . $row['last_member_group'] . '">' . $row['last_display_name'] . '</a>' : $row['last_display_name']
 				),
 				'time' => timeformat($row['last_poster_time']),
 				'timestamp' => $row['last_poster_time'],

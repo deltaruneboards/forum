@@ -1,0 +1,262 @@
+a.tag, a.tag:visited {
+	display: inline-block;
+	border: 1px solid;
+	padding: 0 0.5em 0 0.5em;
+	margin: 0.3em;
+	border-radius: 1em;
+    text-decoration: none;
+	text-transform: lowercase;
+	font-variant: small-caps;
+	background: white;
+	font-weight: bold;
+	letter-spacing: 0.5px;
+	color: black;
+}
+
+a.tag-shipping,
+a.tag-shipping:visited,
+a.tag-headcanons,
+a.tag-headcanons:visited {
+	color: black;
+	background: #fee6ff;
+background: linear-gradient(0deg,rgba(254, 230, 255, 1) 3%, rgba(255, 76, 233, 1) 64%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-fan-art,
+a.tag-fan-art:visited,
+a.tag-art,
+a.tag-art:visited,
+a.tag-video,
+a.tag-video:visited {
+	color: black;
+	background: #75ffd8;
+	background: linear-gradient(0deg,rgba(117, 255, 216, 1) 3%, rgba(0, 225, 255, 1) 64%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-fan-music,
+a.tag-fan-music:visited,
+a.tag-music,
+a.tag-music:visited {
+	color: black;
+	background: #87D0FF;
+	background: linear-gradient(0deg,rgba(135, 208, 255, 1) 3%, rgba(59, 127, 255, 1) 64%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-fan-games,
+a.tag-fan-games:visited,
+a.tag-games,
+a.tag-games:visited,
+a.tag-modding,
+a.tag-modding:visited {
+	color: black;
+	background: #ff8cb2;
+	background: linear-gradient(0deg,rgba(255, 140, 178, 1) 3%, rgba(255, 48, 210, 1) 64%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-question,
+a.tag-question:visited,
+a.tag-help,
+a.tag-help:visited {
+	color: black;
+	background: #ffe6eb;
+	background: linear-gradient(0deg,rgba(255, 230, 235, 1) 3%, rgba(254, 150, 160, 1) 64%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-theory,
+a.tag-theory:visited,
+a.tag-analysis,
+a.tag-analysis:visited,
+a.tag-bug,
+a.tag-bug:visited,
+a.tag-meta,
+a.tag-meta:visited,
+a.tag-gameplay,
+a.tag-gameplay:visited,
+a.tag-ooc,
+a.tag-ooc:visited,
+a.tag-au,
+a.tag-au:visited {
+	color: black;
+	background: #ffffff;
+	background: linear-gradient(0deg,rgba(255, 255, 255, 1) 0%, rgba(125, 125, 125, 1) 75%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-shop,
+a.tag-shop:visited {
+	color: black;
+	background: #ffc23d;
+	background: linear-gradient(0deg,rgba(255, 194, 61, 1) 3%, rgba(254, 228, 108, 1) 64%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-guide,
+a.tag-guide:visited,
+a.tag-poll,
+a.tag-poll:visited {
+	color: black;
+	background: #99ffdd;
+	background: linear-gradient(0deg,rgba(153, 255, 221, 1) 3%, rgba(33, 222, 4, 1) 64%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-merch,
+a.tag-merch:visited {
+	color: black;
+	background: #A9D502;
+	background: linear-gradient(0deg,rgba(153, 255, 221, 1) 3%, rgba(169, 213, 2, 1) 64%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-sensitive,
+a.tag-sensitive:visited,
+a.tag-suggestive,
+a.tag-suggestive:visited,
+a.tag-flashing,
+a.tag-flashing:visited,
+a.tag-spoilers,
+a.tag-spoilers:visited {
+	background: #ddd;
+	color: firebrick;
+}
+
+a.tag-rules,
+a.tag-rules:visited,
+a.tag-denied,
+a.tag-denied:visited {
+	background: firebrick;
+	color: black;
+}
+
+a.tag-warning,
+a.tag-warning:visited {
+	background: yellow;
+	color: black;
+}
+
+a.tag-gallery,
+a.tag-gallery:visited,
+a.tag-wip,
+a.tag-wip:visited,
+a.tag-complete,
+a.tag-complete:visited,
+a.tag-discussion,
+a.tag-discussion:visited,
+a.tag-testing,
+a.tag-testing:visited,
+a.tag-animation,
+a.tag-animation:visited,
+a.tag-open,
+a.tag-open:visited,
+a.tag-closed,
+a.tag-closed:visited,
+a.tag-suggestion,
+a.tag-suggestion:visited,
+a.tag-adventure,
+a.tag-adventure:visited,
+a.tag-silly,
+a.tag-silly:visited,
+a.tag-ama,
+a.tag-ama:visited {
+	color: white;
+	background: #5c5c5c;
+background: linear-gradient(0deg,rgba(92, 92, 92, 1) 0%, rgba(0, 0, 0, 1) 75%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-guidelines,
+a.tag-guidelines:visited {
+	color: black;
+	background: #ff9b7d;
+	background: linear-gradient(0deg,rgba(255, 155, 125, 1) 3%, rgba(255, 141, 59, 1) 64%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-deltarune,
+a.tag-deltarune:visited {
+	color: white;
+	background: linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(46, 46, 46, 1) 75%, rgba(94, 94, 94, 1) 100%);
+	font-family: Determination Mono;
+	font-size: 15px;
+}
+
+a.tag-undertale,
+a.tag-undertale:visited {
+	color: black;
+	background: #ffffff;
+	background: linear-gradient(0deg,rgba(255, 255, 255, 1) 0%, rgba(150, 150, 150, 1) 75%, rgba(255, 255, 255, 1) 100%);
+	font-family: Determination Mono;
+	font-size: 15px;
+}
+
+a.tag-crossover,
+a.tag-crossover:visited {
+	color: black;
+	background: #f5f5f5;
+	background: linear-gradient(0deg,rgba(245, 245, 245, 1) 3%, rgba(194, 76, 72, 1) 63%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-off-topic,
+a.tag-off-topic:visited {
+	color: black;
+	background: #38190f;
+	background: linear-gradient(0deg,rgba(245, 245, 245, 1) 3%, rgba(165, 194, 72, 1) 63%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-resolved,
+a.tag-resolved:visited,
+a.tag-news,
+a.tag-news:visited,
+a.tag-contest,
+a.tag-contest:visited {
+	color: black;
+	background: #e0dcb4;
+	background: linear-gradient(0deg,rgba(224, 220, 180, 1) 3%, rgba(241, 255, 194, 1) 5%, rgba(255, 235, 82, 1) 63%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-to-do,
+a.tag-to-do:visited {
+	color: black;
+	background: #e0bdb4;
+	background: linear-gradient(0deg,rgba(224, 189, 180, 1) 3%, rgba(207, 84, 31, 1) 63%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-revolution,
+a.tag-revolution:visited {
+	color: black;
+	background: #e0bdb4;
+	background: linear-gradient(0deg,rgb(224, 189, 180) 3%, rgb(255, 32, 32) 63%, rgb(255, 255, 255) 100%);
+}
+
+a.tag-graphics,
+a.tag-graphics:visited {
+	color: black;
+	background: #b4e0bf;
+	background: linear-gradient(0deg,rgba(180, 224, 191, 1) 3%, rgba(72, 194, 159, 1) 63%, rgba(255, 255, 255, 1) 100%);
+}
+
+a.tag-pizza,
+a.tag-pizza:visited,
+a.tag-five,
+a.tag-five:visited {
+	color: black;
+	background: radial-gradient(circle,rgba(255, 87, 87, 1) 19%, rgba(255, 230, 43, 1) 38%, rgba(255, 230, 43, 1) 72%, rgba(158, 0, 0, 1) 100%);
+}
+
+a.tag-trading,
+a.tag-trading:visited {
+	color: black;
+	background: #75ffd8;
+	background: linear-gradient(0deg,rgb(255, 67, 120) 3%, rgb(255, 95, 147) 64%, rgb(255, 255, 255) 100%);
+}
+
+a.tag-OCs,
+a.tag-OCs:visited {
+	color: black;
+	background: #75ffd8;
+	background: linear-gradient(0deg,rgb(150, 101, 255) 3%, rgb(148, 46, 247) 64%, rgb(255, 255, 255) 100%);
+	text-transform: inherit;
+	font-size: 10px;
+}
+
+a.tag-burger,
+a.tag-burger:visited {
+	color: gold;
+	background: linear-gradient(360deg, hsl(31.9, 52.2%, 41%) 25%, hsl(32.2, 79.3%, 17.1%) 26%, hsl(32.2, 79.3%, 17.1%) 56%, hsl(110.1, 37.1%, 44.9%) 57%, hsl(110.1, 37.1%, 44.9%) 63%, hsl(9, 75.7%, 45.1%) 65%, hsl(9, 75.7%, 45.1%) 80%, hsl(31.9, 52.2%, 41%) 81%);
+	padding: 5px;
+	border:black;
+}

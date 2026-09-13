@@ -156,6 +156,21 @@ color: inherit !important;
     padding: 2px;
 }
 
+.bbc_standard_quote[style="overflow-y: hidden; max-height: 300px;"] {
+	position: relative;
+}
+
+.bbc_standard_quote[style="overflow-y: hidden; max-height: 300px;"] a.expand {
+	background: linear-gradient(to bottom, transparent, var(--ter-bg-color));
+	bottom: 0;
+	display: block;
+	font-weight: bold;
+	left: 0;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+
 /* Textbox styles */
 .txtbox {
 	border: 26px solid;

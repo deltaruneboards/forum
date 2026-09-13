@@ -92,6 +92,7 @@ function getBoardIndex($board_index_options)
 				' . (!empty($board_index_selects) ? implode(', ', $board_index_selects) : '') . ',
 				COALESCE(m.poster_time, 0) AS poster_time, COALESCE(mem.member_name, m.poster_name) AS poster_name,
 				m.subject, m.id_topic, COALESCE(mem.real_name, m.poster_name) AS real_name,
+				IFNULL(mem.id_group, 0) AS id_group,
 				' . ($user_info['is_guest'] ? ' 1 AS is_read, 0 AS new_from,' : '
 				(CASE WHEN COALESCE(lb.id_msg, 0) >= b.id_last_msg THEN 1 ELSE 0 END) AS is_read, COALESCE(lb.id_msg, -1) + 1 AS new_from,' . ($board_index_options['include_categories'] ? '
 				c.can_collapse,' : '')) . '
@@ -115,6 +116,7 @@ function getBoardIndex($board_index_options)
 				' . (!empty($board_index_selects) ? implode(', ', $board_index_selects) : '') . ',
 				COALESCE(m.poster_time, 0) AS poster_time, COALESCE(mem.member_name, m.poster_name) AS poster_name,
 				m.subject, m.id_topic, COALESCE(mem.real_name, m.poster_name) AS real_name,
+				IFNULL(mem.id_group, 0) AS id_group,
 				' . ($user_info['is_guest'] ? ' 1 AS is_read, 0 AS new_from,' : '
 				(CASE WHEN COALESCE(lb.id_msg, 0) >= b.id_last_msg THEN 1 ELSE 0 END) AS is_read, COALESCE(lb.id_msg, -1) + 1 AS new_from,' . ($board_index_options['include_categories'] ? '
 				c.can_collapse,' : '')) . '
@@ -397,7 +399,7 @@ function getBoardIndex($board_index_options)
 				'username' => $row_board['poster_name'] != '' ? $row_board['poster_name'] : $txt['not_applicable'],
 				'name' => $row_board['real_name'],
 				'href' => $row_board['poster_name'] != '' && !empty($row_board['id_member']) ? $scripturl . '?action=profile;u=' . $row_board['id_member'] : '',
-				'link' => $row_board['poster_name'] != '' ? (!empty($row_board['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row_board['id_member'] . '">' . $row_board['real_name'] . '</a>' : $row_board['real_name']) : $txt['not_applicable'],
+				'link' => $row_board['poster_name'] != '' ? (!empty($row_board['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row_board['id_member'] . '" class="group-' . $row_board['id_group'] . '">' . $row_board['real_name'] . '</a>' : $row_board['real_name']) : $txt['not_applicable'],
 			),
 			'start' => 'msg' . $row_board['new_from'],
 			'topic' => $row_board['id_topic']

@@ -127,6 +127,7 @@ function BoardIndex()
 
 	// And back to normality.
 	$context['page_title'] = sprintf($txt['forum_index'], $context['forum_name']);
+	$context['is_index'] = true;
 
 	// Mark read button
 	$context['mark_read_button'] = array(

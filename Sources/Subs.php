@@ -8563,10 +8563,8 @@ function makeThreadTags($title)
             if (strcmp("ocs", $tag) === 0) $extraTags = 'tag-OCs';
             if (strcmp("burger", $tag) === 0) $extraTags = 'tag-burger';
 
-			if (!$context['user']['is_guest'] && $canSearch)
+			if ($canSearch)
 				$tags .= '<a class="threadTag tag ' . $extraTags . '" href="' . $scripturl . '?action=search2;search=' . htmlspecialchars('[' . $tag . ']') . '" title="' . $tag . '">' . $tag . '</a>';
-
-				
 			else
 				$tags .= '<span class="threadTag tag ' . $extraTags . '">' . $tag . '</span>';
 		}
