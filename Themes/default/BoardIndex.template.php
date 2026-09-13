@@ -109,7 +109,7 @@ function template_main()
 			// Show the last post if there is one.
 			echo'
 					<div class="lastpost">
-						', function_exists('template_bi_' . $board['type'] . '_lastpost') ? call_user_func('template_bi_' . $board['type'] . '_lastpost', $board) : template_bi_board_lastpost($board), '
+						', function_exists('template_bi_' . $board['type'] . '_lastpost_tagged') ? call_user_func('template_bi_' . $board['type'] . '_lastpost_tagged', $board) : template_bi_board_lastpost($board), '
 					</div>';
 
 			// Won't somebody think of the children!
@@ -233,6 +233,15 @@ function template_bi_board_lastpost($board)
 	if (!empty($board['last_post']['id']))
 		echo '
 			<p>', $board['last_post']['last_post_message'], '</p>';
+}function template_bi_board_lastpost_tagged($board)
+{
+	if (!empty($board['last_post']['id']))
+	{
+		$threadTags = makeThreadTags($board['last_post']['last_post_message']);
+		$board['last_post']['last_post_message'] = $threadTags[0] . ' ' . $threadTags[1];
+		echo '
+			<p>', $board['last_post']['last_post_message'], '</p>';
+	}
 }
 
 /**

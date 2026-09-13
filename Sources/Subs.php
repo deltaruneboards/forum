@@ -8452,4 +8452,133 @@ function tokenTxtReplace($stringSubject = '')
 	return str_replace($toFind, $replaceWith, $stringSubject);
 }
 
+// Make tags from thread subject.
+function makeThreadTags($title)
+{
+
+
+	global $context, $scripturl, $txt;
+	static $canSearch = null;
+	$tagged = [];
+	$extraTags = '';
+
+	if (str_contains($title, 'class="threadTag')){
+		return array(trim($title), '');
+	}
+
+	// Save the search permission to avoid adding more queries to the db.
+	// It saves lives (and servers) when there are too many tags to parse.
+	if ($canSearch === null)
+		$canSearch = allowedTo('search_posts');
+
+	preg_match_all('/\[(.*?)\]/', $title, $matches);
+
+	$tags = '';
+	foreach ($matches[1] as $tag)
+	{
+		if (!in_array($tag, $tagged))
+		{
+			array_push($tagged, $tag);
+			$title = str_replace('[' . $tag . ']', '', $title);
+			$tag = htmlspecialchars(strtolower($tag));
+
+			// Start at a hue that makes "18" red.
+			$hash = -105;
+			for($i = 0; $i < strlen($tag); $i++)
+				$hash += ord($tag[$i]);
+
+            if (strcmp("fan-art", $tag) === 0) $extraTags = 'tag-fan-art';
+            if (strcmp("art", $tag) === 0) $extraTags = 'tag-art';
+            if (strcmp("video", $tag) === 0) $extraTags = 'tag-video';
+            if (strcmp("fan-fiction", $tag) === 0) $extraTags = 'tag-fan-fiction';
+            if (strcmp("writing", $tag) === 0) $extraTags = 'tag-writing';
+            if (strcmp("comic", $tag) === 0) $extraTags = 'tag-comic';
+            if (strcmp("fan-music", $tag) === 0) $extraTags = 'tag-fan-music';
+            if (strcmp("music", $tag) === 0) $extraTags = 'tag-music';
+
+            if (strcmp("fan-games", $tag) === 0) $extraTags = 'tag-fan-games';
+            if (strcmp("games", $tag) === 0) $extraTags = 'tag-games';
+            if (strcmp("modding", $tag) === 0) $extraTags = 'tag-modding';
+
+            if (strcmp("question", $tag) === 0) $extraTags = 'tag-question';
+            if (strcmp("help", $tag) === 0) $extraTags = 'tag-help';
+
+            if (strcmp("theory", $tag) === 0) $extraTags = 'tag-theory';
+            if (strcmp("analysis", $tag) === 0) $extraTags = 'tag-analysis';
+            if (strcmp("bug", $tag) === 0) $extraTags = 'tag-bug';
+            if (strcmp("meta", $tag) === 0) $extraTags = 'tag-meta';
+            if (strcmp("gameplay", $tag) === 0) $extraTags = 'tag-gameplay';
+            if (strcmp("ooc", $tag) === 0) $extraTags = 'tag-ooc';
+            if (strcmp("au", $tag) === 0) $extraTags = 'tag-au';
+
+            if (strcmp("shop", $tag) === 0) $extraTags = 'tag-shop';
+
+            if (strcmp("guide", $tag) === 0) $extraTags = 'tag-guide';
+            if (strcmp("poll", $tag) === 0) $extraTags = 'tag-poll';
+
+            if (strcmp("merch", $tag) === 0) $extraTags = 'tag-merch';
+
+            if (strcmp("sensitive", $tag) === 0) $extraTags = 'tag-sensitive';
+            if (strcmp("suggestive", $tag) === 0) $extraTags = 'tag-suggestive';
+            if (strcmp("flashing", $tag) === 0) $extraTags = 'tag-flashing';
+            if (strcmp("spoilers", $tag) === 0) $extraTags = 'tag-spoilers';
+
+            if (strcmp("rules", $tag) === 0) $extraTags = 'tag-rules';
+            if (strcmp("denied", $tag) === 0) $extraTags = 'tag-denied';
+            if (strcmp("warning", $tag) === 0) $extraTags = 'tag-warning';
+
+            if (strcmp("gallery", $tag) === 0) $extraTags = 'tag-gallery';
+            if (strcmp("wip", $tag) === 0) $extraTags = 'tag-wip';
+            if (strcmp("complete", $tag) === 0) $extraTags = 'tag-complete';
+            if (strcmp("discussion", $tag) === 0) $extraTags = 'tag-discussion';
+            if (strcmp("testing", $tag) === 0) $extraTags = 'tag-testing';
+            if (strcmp("animation", $tag) === 0) $extraTags = 'tag-animation';
+            if (strcmp("open", $tag) === 0) $extraTags = 'tag-open';
+            if (strcmp("closed", $tag) === 0) $extraTags = 'tag-closed';
+            if (strcmp("suggestion", $tag) === 0) $extraTags = 'tag-suggestion';
+            if (strcmp("adventure", $tag) === 0) $extraTags = 'tag-adventure';
+            if (strcmp("silly", $tag) === 0) $extraTags = 'tag-silly';
+            if (strcmp("ama", $tag) === 0) $extraTags = 'tag-ama';
+
+            if (strcmp("guidelines", $tag) === 0) $extraTags = 'tag-guidelines';
+            if (strcmp("deltarune", $tag) === 0) $extraTags = 'tag-deltarune';
+            if (strcmp("undertale", $tag) === 0) $extraTags = 'tag-undertale';
+            if (strcmp("crossover", $tag) === 0) $extraTags = 'tag-crossover';
+            if (strcmp("off-topic", $tag) === 0) $extraTags = 'tag-off-topic';
+
+            if (strcmp("news", $tag) === 0) $extraTags = 'tag-news';
+            if (strcmp("resolved", $tag) === 0) $extraTags = 'tag-resolved';
+            if (strcmp("contest", $tag) === 0) $extraTags = 'tag-contest';
+
+            if (strcmp("to-do", $tag) === 0) $extraTags = 'tag-to-do';
+            if (strcmp("revolution", $tag) === 0) $extraTags = 'tag-revolution';
+
+            if (strcmp("graphics", $tag) === 0) $extraTags = 'tag-graphics';
+
+            if (strcmp("pizza", $tag) === 0) $extraTags = 'tag-pizza';
+            if (strcmp("five", $tag) === 0) $extraTags = 'tag-five';
+
+            if (strcmp("trading", $tag) === 0) $extraTags = 'tag-trading';
+
+            if (strcmp("ocs", $tag) === 0) $extraTags = 'tag-OCs';
+            if (strcmp("burger", $tag) === 0) $extraTags = 'tag-burger';
+
+			if (!$context['user']['is_guest'] && $canSearch)
+				$tags .= '<a class="threadTag tag ' . $extraTags . '" href="' . $scripturl . '?action=search2;search=' . htmlspecialchars('[' . $tag . ']') . '" title="' . $tag . '">' . $tag . '</a>';
+
+				
+			else
+				$tags .= '<span class="threadTag tag ' . $extraTags . '">' . $tag . '</span>';
+		}
+	}
+
+	return array(trim($title), $tags);
+}
+
+// Strip tags from title.
+function stripThreadTags($title)
+{
+	$title = makeThreadTags($title);
+	return $title[0];
+}
 ?>

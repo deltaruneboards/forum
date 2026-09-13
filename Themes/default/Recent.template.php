@@ -143,6 +143,9 @@ function template_unread()
 
 		foreach ($context['topics'] as $topic)
 		{
+				$threadTags = makeThreadTags($txt['last_post_topic']);
+				$txt['last_post_topic'] = $threadTags[0] . ' ' . $threadTags[1];
+			
 			echo '
 					<div class="', $topic['css_class'], '">
 						<div class="board_icon">

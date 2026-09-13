@@ -67,6 +67,12 @@ function getLastPosts($latestPostOptions)
 	$posts = array();
 	foreach ($rows as $row)
 	{
+		// Make the tags before censoring.
+		$threadTags = makeThreadTags($row['subject']);
+
+		$row['subject'] = $threadTags[0];
+		$threadTags = $threadTags[1];
+
 		// Censor the subject and post for the preview ;).
 		censorText($row['subject']);
 		censorText($row['body']);
@@ -91,6 +97,9 @@ function getLastPosts($latestPostOptions)
 				'link' => empty($row['id_member']) ? $row['poster_name'] : '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['poster_name'] . '</a>'
 			),
 			'subject' => $row['subject'],
+				$threadTags = makeThreadTags($row_board['subject']);
+				$row_board['subject'] = $threadTags[0] . ' ' . $threadTags[1];
+			
 			'short_subject' => shorten_subject($row['subject'], 24),
 			'preview' => $row['body'],
 			'time' => timeformat($row['poster_time']),

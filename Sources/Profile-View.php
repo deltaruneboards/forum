@@ -1075,6 +1075,12 @@ function showPosts($memID)
 		// Do the code.
 		$row['body'] = parse_bbc($row['body'], $row['smileys_enabled'], $row['id_msg']);
 
+		// Make our tags.
+		$threadTags = makeThreadTags($row['subject']);
+
+		$row['subject'] = $threadTags[0];
+		$threadTags = $threadTags[1];
+
 		// And the array...
 		$context['posts'][$counter += $reverse ? -1 : 1] = array(
 			'body' => $row['body'],
@@ -1089,6 +1095,7 @@ function showPosts($memID)
 			),
 			'topic' => $row['id_topic'],
 			'subject' => $row['subject'],
+			'tags' => $threadTags,
 			'start' => 'msg' . $row['id_msg'],
 			'time' => timeformat($row['poster_time']),
 			'timestamp' => $row['poster_time'],

@@ -143,6 +143,11 @@ function template_main()
 		// Are there actually any topics to show?
 		if (!empty($context['topics']))
 		{
+				$oldSubject = $context['topics_headers']['last_post'];
+				$threadTags = makeThreadTags($context['topics_headers']['last_post']);
+				$newSubject = $threadTags[0] . ' ' . $threadTags[1];
+				$context['topics_headers']['last_post'] = str_replace($oldSubject, $newSubject, $context['topics_headers']['last_post']);
+			
 			echo '
 				<div class="board_icon"></div>
 				<div class="info">', $context['topics_headers']['subject'], ' / ', $context['topics_headers']['starter'], '</div>
@@ -176,6 +181,11 @@ function template_main()
 
 		foreach ($context['topics'] as $topic)
 		{
+				$oldSubject = $topic['first_post']['subject'];
+				$threadTags = makeThreadTags($topic['first_post']['subject']);
+				$newSubject = $threadTags[0] . ' ' . $threadTags[1];
+				$topic['first_post']['link'] = str_replace($oldSubject, $newSubject, $topic['first_post']['link']);
+			
 			echo '
 				<div class="topic_grid ', $topic['css_class'], '">
 					<div class="board_icon">
@@ -478,6 +488,15 @@ function template_bi_board_lastpost($board)
 	if (!empty($board['last_post']['id']))
 		echo '
 			<p>', $board['last_post']['last_post_message'], '</p>';
+}function template_bi_board_lastpost_tagged($board)
+{
+	if (!empty($board['last_post']['id']))
+	{
+		$threadTags = makeThreadTags($board['last_post']['last_post_message']);
+		$board['last_post']['last_post_message'] = $threadTags[0] . ' ' . $threadTags[1];
+		echo '
+			<p>', $board['last_post']['last_post_message'], '</p>';
+	}
 }
 
 /**

@@ -2102,6 +2102,15 @@ function prepareSearchContext($reset = false)
 	}
 	$memberContext[$message['id_member']]['ip'] = inet_dtop($message['poster_ip']);
 
+	// Look, tags everywere!
+	$threadTags = array(
+		'subject' => makeThreadTags($message['subject']),
+		'first_subject' => makeThreadTags($message['first_subject']),
+	);
+
+	$message['first_subject'] = $threadTags['first_subject'][0];
+	$message['subject'] = $threadTags['subject'][0];
+
 	// Do the censor thang...
 	censorText($message['body']);
 	censorText($message['subject']);
@@ -2228,6 +2237,7 @@ function prepareSearchContext($reset = false)
 			'time' => timeformat($message['first_poster_time']),
 			'timestamp' => $message['first_poster_time'],
 			'subject' => $message['first_subject'],
+			'tags' => $threadTags['first_subject'][1],
 			'href' => $scripturl . '?topic=' . $message['id_topic'] . '.0',
 			'link' => '<a href="' . $scripturl . '?topic=' . $message['id_topic'] . '.0">' . $message['first_subject'] . '</a>',
 			'icon' => $message['first_icon'],
@@ -2300,6 +2310,7 @@ function prepareSearchContext($reset = false)
 		'icon' => $message['icon'],
 		'icon_url' => $settings[$context['icon_sources'][$message['icon']]] . '/post/' . $message['icon'] . '.png',
 		'subject' => $message['subject'],
+		'tags' => $threadTags['subject'][1],
 		'subject_highlighted' => $message['subject_highlighted'],
 		'time' => timeformat($message['poster_time']),
 		'timestamp' => $message['poster_time'],

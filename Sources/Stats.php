@@ -336,6 +336,12 @@ function DisplayStats()
 
 	while ($row_topic_reply = $smcFunc['db_fetch_assoc']($topic_reply_result))
 	{
+		// Stats deserve their tags too.
+		$threadTags = makeThreadTags($row_topic_reply['subject']);
+
+		$row_topic_reply['subject'] = $threadTags[0];
+		$threadTags = $threadTags[1];
+
 		censorText($row_topic_reply['subject']);
 
 		$context['stats_blocks']['topics_replies'][] = array(
@@ -347,6 +353,7 @@ function DisplayStats()
 				'link' => '<a href="' . $scripturl . '?board=' . $row_topic_reply['id_board'] . '.0">' . $row_topic_reply['name'] . '</a>'
 			),
 			'subject' => $row_topic_reply['subject'],
+			'tags' => $threadTags,
 			'num' => $row_topic_reply['num_replies'],
 			'href' => $scripturl . '?topic=' . $row_topic_reply['id_topic'] . '.0',
 			'link' => '<a href="' . $scripturl . '?topic=' . $row_topic_reply['id_topic'] . '.0">' . $row_topic_reply['subject'] . '</a>'
@@ -406,6 +413,12 @@ function DisplayStats()
 	$max_num = 1;
 	while ($row_topic_views = $smcFunc['db_fetch_assoc']($topic_view_result))
 	{
+		// Stats deserve their tags again too.
+		$threadTags = makeThreadTags($row_topic_views['subject']);
+
+		$row_topic_views['subject'] = $threadTags[0];
+		$threadTags = $threadTags[1];
+
 		censorText($row_topic_views['subject']);
 
 		$context['stats_blocks']['topics_views'][] = array(
@@ -417,6 +430,7 @@ function DisplayStats()
 				'link' => '<a href="' . $scripturl . '?board=' . $row_topic_views['id_board'] . '.0">' . $row_topic_views['name'] . '</a>'
 			),
 			'subject' => $row_topic_views['subject'],
+			'tags' => $threadTags,
 			'num' => $row_topic_views['num_views'],
 			'href' => $scripturl . '?topic=' . $row_topic_views['id_topic'] . '.0',
 			'link' => '<a href="' . $scripturl . '?topic=' . $row_topic_views['id_topic'] . '.0">' . $row_topic_views['subject'] . '</a>'

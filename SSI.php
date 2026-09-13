@@ -523,6 +523,9 @@ function ssi_queryPosts($query_where = '', $query_where_params = array(), $query
 	{
 		$row['body'] = parse_bbc($row['body'], $row['smileys_enabled'], $row['id_msg']);
 
+		// Make our tags for SSI.
+		$threadTags = makeThreadTags($row['subject']);
+		$row['subject'] = $threadTags[0] . ' ' . $threadTags[1];
 		// Censor it!
 		censorText($row['subject']);
 		censorText($row['body']);
@@ -552,7 +555,10 @@ function ssi_queryPosts($query_where = '', $query_where_params = array(), $query
 			'time' => timeformat($row['poster_time']),
 			'timestamp' => $row['poster_time'],
 			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . ';topicseen#new',
-			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>',
+			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>' . $threadTags,
+			// Make a clean version of the link, for those people who want it.
+			'link_clean' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>',
+			'tags' => $threadTags,
 			'new' => !empty($row['is_read']),
 			'is_new' => empty($row['is_read']),
 			'new_from' => $row['new_from'],
@@ -691,6 +697,11 @@ function ssi_recentTopics($num_recent = 8, $exclude_boards = null, $include_boar
 		if ($smcFunc['strlen']($row['body']) > 128)
 			$row['body'] = $smcFunc['substr']($row['body'], 0, 128) . '...';
 
+		// Make our tags for SSI.
+		$threadTags = makeThreadTags($row['subject']);
+
+		$row['subject'] = $threadTags[0];
+		$threadTags = $threadTags[1];
 		// Censor the subject.
 		censorText($row['subject']);
 		censorText($row['body']);
@@ -727,7 +738,10 @@ function ssi_recentTopics($num_recent = 8, $exclude_boards = null, $include_boar
 			'time' => timeformat($row['poster_time']),
 			'timestamp' => $row['poster_time'],
 			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . ';topicseen#new',
-			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#new" rel="nofollow">' . $row['subject'] . '</a>',
+			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#new" rel="nofollow">' . $row['subject'] . '</a>' . $threadTags,
+			// Make a clean version of the link, for those people who want it.
+			'link_clean' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#new" rel="nofollow">' . $row['subject'] . '</a>',
+			'tags' => $threadTags,
 			// Retained for compatibility - is technically incorrect!
 			'new' => !empty($row['is_read']),
 			'is_new' => empty($row['is_read']),
@@ -933,6 +947,11 @@ function ssi_topTopics($type = 'replies', $num_topics = 10, $output_method = 'ec
 	$topics = array();
 	while ($row = $smcFunc['db_fetch_assoc']($request))
 	{
+		// Make our tags for SSI.
+		$threadTags = makeThreadTags($row['subject']);
+
+		$row['subject'] = $threadTags[0];
+		$threadTags = $threadTags[1];
 		censorText($row['subject']);
 
 		$topics[] = array(
@@ -941,7 +960,9 @@ function ssi_topTopics($type = 'replies', $num_topics = 10, $output_method = 'ec
 			'num_replies' => $row['num_replies'],
 			'num_views' => $row['num_views'],
 			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.0',
-			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['subject'] . '</a>',
+			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['subject'] . '</a>' . $threadTags,
+			'link_clean' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['subject'] . '</a>',
+			'tags' => $threadTags,
 		);
 	}
 	$smcFunc['db_free_result']($request);
@@ -2168,6 +2189,11 @@ function ssi_boardNews($board = null, $limit = null, $start = null, $length = nu
 		elseif (!isset($icon_sources[$row['icon']]))
 			$icon_sources[$row['icon']] = 'images_url';
 
+		// Make our tags for SSI.
+		$threadTags = makeThreadTags($row['subject']);
+
+		$row['subject'] = $threadTags[0];
+		$threadTags = $threadTags[1];
 		censorText($row['subject']);
 		censorText($row['body']);
 

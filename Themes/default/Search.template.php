@@ -367,7 +367,7 @@ function template_results()
 				<div class="page_number floatright"> #', $message['counter'], '</div>
 				<div class="half_content">
 					<div class="topic_details">
-						<h5>', $topic['board']['link'], ' / <a href="', $scripturl, '?topic=', $topic['id'], '.msg', $message['id'], '#msg', $message['id'], '">', $message['subject_highlighted'], '</a></h5>
+						<h5>', $topic['board']['link'], ' / <a href="', $scripturl, '?topic=', $topic['id'], '.msg', $message['id'], '#msg', $message['id'], '">', $message['subject_highlighted'], '</a> ', $message['tags'] ? $message['tags'] : '', '</h5>
 						<span class="smalltext">', sprintf(str_replace('<br>', ' ', $txt['last_post_topic']), $message['time'], '<strong>' . $message['member']['link'] . '</strong>'), '</span>
 					</div>
 				</div>

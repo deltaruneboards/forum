@@ -371,7 +371,7 @@ function Display()
 
 	// Censor the title...
 	censorText($context['topicinfo']['subject']);
-	$context['page_title'] = $context['topicinfo']['subject'];
+	$context['page_title'] = stripThreadTags($context['topicinfo']['subject']);;
 
 	// Default this topic to not marked for notifications... of course...
 	$context['is_marked_notify'] = false;
@@ -490,10 +490,16 @@ function Display()
 			$context['page_index'] .= sprintf(strtr($settings['page_index']['page'], array('{URL}' => $scripturl . '?topic=' . $topic . '.0;all')), '', $txt['all']);
 	}
 
+	// Make our tags.
+	$threadTags = makeThreadTags($context['topicinfo']['subject']);
+
+	$context['topicinfo']['subject'] = $threadTags[0];
+	$threadTags = $threadTags[1];
+
 	// Build the link tree.
 	$context['linktree'][] = array(
 		'url' => $scripturl . '?topic=' . $topic . '.0',
-		'name' => $context['topicinfo']['subject'],
+		'name' => $context['topicinfo']['subject'] . ' ' . $threadTags,
 	);
 
 	// Build a list of this board's moderators.
@@ -1508,7 +1514,7 @@ function prepareDisplayContext($reset = false)
 		'member' => &$memberContext[$message['id_member']],
 		'icon' => $message['icon'],
 		'icon_url' => $settings[$context['icon_sources'][$message['icon']]] . '/post/' . $message['icon'] . '.png',
-		'subject' => $message['subject'],
+		'subject' => stripThreadTags($message['subject']),
 		'time' => timeformat($message['poster_time']),
 		'timestamp' => $message['poster_time'],
 		'counter' => $counter,

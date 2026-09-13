@@ -57,6 +57,11 @@ function getLastPost()
 	if ($smcFunc['strlen']($row['body']) > 128)
 		$row['body'] = $smcFunc['substr']($row['body'], 0, 128) . '...';
 
+	// Tags are hard...
+	$threadTags = makeThreadTags($row['subject']);
+
+	$row['subject'] = $threadTags[0] . ' ' . $threadTags[1];
+
 	// Send the data.
 	return array(
 		'topic' => $row['id_topic'],
@@ -350,6 +355,11 @@ function RecentPosts()
 	$board_ids = array('own' => array(), 'any' => array());
 	while ($row = $smcFunc['db_fetch_assoc']($request))
 	{
+		// Make the tags before censoring.
+		$threadTags = makeThreadTags($row['subject']);
+
+		$row['subject'] = $threadTags[0] . ' ' . $threadTags[1];
+
 		// Censor everything.
 		censorText($row['body']);
 		censorText($row['subject']);

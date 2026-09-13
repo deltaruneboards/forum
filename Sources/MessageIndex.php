@@ -397,7 +397,12 @@ function MessageIndex()
 				$row['first_body'] = $smcFunc['substr']($row['first_body'], 0, $modSettings['preview_characters']) . '...';
 
 			// Censor the subject and message preview.
-			censorText($row['first_subject']);
+			
+			// Make our thread tags.
+			$threadTags = makeThreadTags($row['first_subject']);
+
+			$row['first_subject'] = $threadTags[0] . ' ' . $threadTags[1];
+censorText($row['first_subject']);
 			censorText($row['first_body']);
 
 			// Don't censor them twice!
