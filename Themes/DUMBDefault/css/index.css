@@ -2898,6 +2898,7 @@ h3 .collapse {
 	justify-self: stretch;
 }
 .main_container {
+	background-color: var(--ter-bg-color);
 	margin-bottom: 20px;
 }
 .up_contain {
@@ -3024,15 +3025,11 @@ span.postby {
 	margin: 0;
 	overflow: hidden;
 }
-#topic_header, .topic_grid {
+#topic_header, #topic_container .windowbg {
 	display: grid;
 	grid-template-columns: 4% 68% 10% 18%;
 	place-items: stretch;
 	place-content: stretch;
-}
-.topic_grid .title_bar {
-	display: grid;
-	grid-template-columns: auto auto 15% auto;
 }
 .board_stats {
 	border-right: 3px groove var(--border-color);
@@ -3570,7 +3567,7 @@ h3.catbg .main_icons::before, h3.catbg .icon {
 	grid-column: 3;
 	grid-row: 1;
 }
-#c1::before, #c2::before {
+#c1::before, #c2::before, #c3::before, #c4::before, #c5::before {
 	content: "";
 	display: inline-block;
 	vertical-align: middle;
@@ -3582,13 +3579,34 @@ h3.catbg .main_icons::before, h3.catbg .icon {
 #c1::before {
 	width: 16px;
 	height: 16px;
-	background-image: url('/assets/favicon.png');
+	background-image: url('/assets/ui/favicon.png');
 }
 #c2::before {
 	width: 32px;
 	height: 30px;
-	background-image: url('/assets/deltarune.png');
+	background-image: url('/assets/ui/deltarune.png');
 }
+#c3::before {
+	width: 32px;
+	height: 30px;
+	background-image: url('/assets/ui/utheart.png');
+}
+#c4::before {
+	width: 32px;
+	height: 30px;
+	background-image: url('/shop_items/items/dog.png');
+}
+#c5::before {
+	width: 20px;
+	height: 20px;
+	background-image: url('/shop_items/items/exclamation.png');
+}
+#c7::before {
+	width: 20px;
+	height: 19px;
+	background-image: url('/shop_items/items/utsave.png');
+}
+
 .cat_bar + .windowbg, .cat_bar + .roundframe {
 	margin-top: -1px;
 	border-top-left-radius: 0;

@@ -424,12 +424,11 @@ function template_arcade_game_play()
 			<input type="hidden" id="gameSmfToken" name="gameSmfToken" value="' . $_SESSION['arcade_html5_token'][1] . '" />
 			<input type="hidden" id="game_name" name="game_name" value="' . $context['game']['internal_name'] . '" />
 		</form>
-		<div id="arcadeGameFrame" style="background-color: ' . (!empty($context['game']['extra_data']['background_color']) && ctype_xdigit($context['game']['extra_data']['background_color']) && (strlen($context['game']['extra_data']['background_color'])==6 || strlen($context['game']['extra_data']['background_color'])==3) ? '#' . $context['game']['extra_data']['background_color'] : 'black') . ';border: 0px;margin: 0em;padding: 0px;left: 0;top: 0;display: flex;position: fixed;overflow: hidden;width: 99.9999vw; height: 100vh;min-height: 100vh;min-width: 99.9999vw;max-height: 100vh;max-width: 99.999vw;z-index: 95;">
-			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="" style="width: 100%;height: 100%;">
+		<div id="arcadeGameFrame" style="background-color: ' . (!empty($context['game']['extra_data']['background_color']) && ctype_xdigit($context['game']['extra_data']['background_color']) && (strlen($context['game']['extra_data']['background_color'])==6 || strlen($context['game']['extra_data']['background_color'])==3) ? '#' . $context['game']['extra_data']['background_color'] : 'black') . ';border: 0px;margin: 0em;padding: 0px;left: 0;top: 0;display: flex;position: fixed;overflow: auto;width: 99.9999vw; height: 100vh;min-height: 100vh;min-width: 99.9999vw;max-height: 100vh;max-width: 99.999vw;z-index: 95;">
+			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="">
 				<param name="movie" value="' . $arcadeModSettings['gamesUrl'] . '/' . $context['game']['directory'] . '/' . $context['game']['file'] . '" />
 				<param name="quality" value="high" />
-				<param name="scale" value="exactfit" />
-				<embed id="arcadeGameObject" src="' . $arcadeModSettings['gamesUrl'] . '/' . $context['game']['directory'] . '/' . $context['game']['file'] . '" quality="high" type="application/x-shockwave-flash" style="width: 100%;height: 100%;" scale="exactfit" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+				<embed id="arcadeGameObject" src="' . $arcadeModSettings['gamesUrl'] . '/' . $context['game']['directory'] . '/' . $context['game']['file'] . '" quality="high" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
 			</object>
 		</div>
 		' . (!$context['arcade']['can_submit'] ? '

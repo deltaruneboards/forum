@@ -1,0 +1,19 @@
+@font-face {
+	font-family: Determination Mono;
+	src: url('/assets/fonts/determination.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: UT Wingdings;
+	src: url('/assets/fonts/wingdings.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: UT Comic Sans;
+	src: url('/assets/fonts/comic_sans.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: Press Start;
+	src: url('/assets/fonts/press_start.woff2') format('woff2');
+}

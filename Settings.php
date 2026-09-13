@@ -58,7 +58,7 @@ $webmaster_email = $dumb_is_dev ? 'noreply@example.com' : 'noreply@dumb.kocka.te
  *
  * @var string
  */
-$mbname = 'Deltarune Unofficial Message Boards';
+$mbname = 'DELTARUNE Unofficial Message Boards';
 /**
  * The default language file set for the forum.
  *

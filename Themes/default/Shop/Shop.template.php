@@ -18,6 +18,10 @@ function template_shop_above()
 	if (!empty($modSettings['Shop_enable_shop']) && !empty($modSettings['Shop_enable_maintenance']) && allowedTo('shop_canAccess') && !allowedTo('shop_canManage'))
 		return;
 
+	// Avoid warning on login screen
+	if (!isset($context['shop']))
+		return;
+
 	// Shop is in maintenance??
 	if (!empty($modSettings['Shop_enable_maintenance']))
 		echo '
@@ -607,6 +611,10 @@ function template_shop_below()
 	// Check for avoid errors
 	if (!empty($modSettings['Shop_enable_shop']) && !empty($modSettings['Shop_enable_maintenance']) && allowedTo('shop_canAccess') && !allowedTo('shop_canManage'))
 		return false;
+
+	// Avoid warning on login screen
+	if (!isset($context['shop']))
+		return;
 
 	echo '
 		<br />

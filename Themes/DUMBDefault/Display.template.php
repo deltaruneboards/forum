@@ -572,7 +572,7 @@ function template_single_post($message)
 	if (!empty($message['custom_fields']['below_avatar']))
 		foreach ($message['custom_fields']['below_avatar'] as $custom)
 			echo '
-								<li class="custom ', $custom['col_name'], '">', $custom['value'], '</li>';
+								<li class="custom ', $custom['col_name'], '">', $custom['title'], ': ', $custom['value'], '</li>';
 
 	// Don't show these things for guests.
 	if (!$message['member']['is_guest'])

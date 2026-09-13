@@ -155,3 +155,27 @@ color: inherit !important;
     background-color: var(--sec-bg-color);
     padding: 2px;
 }
+
+/* Textbox styles */
+.txtbox {
+	border: 26px solid;
+	border-image: url('/assets/ui/dr_txtborder.png') 30% 27 26 round;
+	border-image-slice: 27 fill;
+	color: white;
+	font-size: 24px;
+	margin: 5px;
+	font-family: 'Determination Mono';
+	padding: 8px;
+	width: 70%;
+}
+
+.utxtbox {
+	background-color: black;
+	border: 4px solid white;
+	color: white;
+	font-family: 'Determination Mono';
+	font-size: 24px;
+	margin: 5px;
+	padding: 28px 24px 28px 24px;
+	width: 70%;
+}

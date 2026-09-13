@@ -154,10 +154,3 @@ $txt['Shop_dumb_interest_name'] = 'Interest Modifier';
 $txt['Shop_dumb_interest_desc'] = 'Modifies your user Interest';
 $txt['Shop_dumb_interest_setting1'] = 'Percentage to modify by (can be negative!)';
 $txt['Shop_dumb_interest_success'] = 'Your interest is now %d';
-// DUMB Gamble
-$txt['Shop_dumb_gamble_name'] = "DUMB Gambling";
-$txt['Shop_dumb_gamble_desc'] = "lets go gambling!!!";
-$txt['Shop_dumb_gamble_gambleheader'] = 'Current loot table:';
-$txt['Shop_dumb_gamble_setting1'] = 'Choose an item or category to add:';
-$txt['Shop_dumb_gamble_setting2'] = 'Weight this item will have, or a negative number to remove it from table';
-$txt['Shop_dumb_gamble_success'] = 'You got item %s!';

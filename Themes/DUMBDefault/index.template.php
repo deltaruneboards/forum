@@ -89,7 +89,9 @@ function template_html_above()
 	loadJavaScriptFile('randChar.js', ['minimize' => true]);
 	loadJavaScriptFile('bbcode.js', ['minimize' => true]);
 	loadJavaScriptFile('goHome.js', ['minimize' => true]);
+	loadCSSFile('fonts.css', ['minimize' => true]);
 	loadCSSFile('bbcode.css', ['minimize' => true]);
+	loadCSSFile('banner.css', ['minimize' => true]);
 	loadCSSFile('randChar.css', ['minimize' => true]);
 
 	// Show right to left, the language code, and the character set for ease of translating.
@@ -379,7 +381,7 @@ function template_body_above()
 
 	echo '<div id="header">
 		<a id="top" href="', $scripturl, '">
-		', '<img id="banner" src="' , $settings['images_url'] , '/temp-banner.png" alt="Deltarune Unofficial Message Boards" title="Deltarune Unofficial Message Boards">
+		', '<img id="banner" src="' , $settings['images_url'] , '/temp-banner.png" alt="DELTARUNE Unofficial Message Boards" title="DELTARUNE Unofficial Message Boards">
 			<div class="randombanner"><img id="randomImage" aria-hidden="true" src="" alt=""></div>
 			 ', '</a>';
 

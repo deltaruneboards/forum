@@ -1,0 +1,9 @@
+#inner_wrap {
+	display: flex;
+	flex-direction: column;
+}
+#inner_wrap .news {
+	font-size: 20px;
+	order: -1;
+	max-width: 100%;
+}
