@@ -598,33 +598,6 @@ function template_single_post($message)
 								</li>';
 		}
 
-		// Show the website and email address buttons.
-		if ($message['member']['show_profile_buttons'])
-		{
-			echo '
-								<li class="profile">
-									<ol class="profile_icons">';
-
-			// Don't show an icon if they haven't specified a website.
-			if (!empty($message['member']['website']['url']) && !isset($context['disabled_fields']['website']))
-				echo '
-										<li><a href="', $message['member']['website']['url'], '" title="' . $message['member']['website']['title'] . '" target="_blank" rel="noopener">', ($settings['use_image_buttons'] ? '<span class="main_icons www centericon" title="' . $message['member']['website']['title'] . '"></span>' : $txt['www']), '</a></li>';
-
-			// Since we know this person isn't a guest, you *can* message them.
-			if ($context['can_send_pm'])
-				echo '
-										<li><a href="', $scripturl, '?action=pm;sa=send;u=', $message['member']['id'], '" title="', $message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline'], '">', $settings['use_image_buttons'] ? '<span class="main_icons im_' . ($message['member']['online']['is_online'] ? 'on' : 'off') . ' centericon" title="' . ($message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']) . '"></span> ' : ($message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline']), '</a></li>';
-
-			// Show the email if necessary
-			if (!empty($message['member']['email']) && $message['member']['show_email'])
-				echo '
-										<li class="email"><a href="mailto:' . $message['member']['email'] . '" rel="nofollow">', ($settings['use_image_buttons'] ? '<span class="main_icons mail centericon" title="' . $txt['email'] . '"></span>' : $txt['email']), '</a></li>';
-
-			echo '
-									</ol>
-								</li><!-- .profile -->';
-		}
-
 		// Any custom fields for standard placement?
 		if (!empty($message['custom_fields']['standard']))
 			foreach ($message['custom_fields']['standard'] as $custom)
@@ -702,7 +675,6 @@ function template_single_post($message)
 								</div>';
 
 	echo '
-								', !empty($message['counter']) ? '<span class="page_number floatright">#' . $message['counter'] . '</span>' : '', '
 								<div class="postinfo">
 									<span class="messageicon" ', ($message['icon_url'] === $settings['images_url'] . '/post/xx.png' && !$message['can_modify']) ? ' style="position: absolute; z-index: -1;"' : '', '>
 										<img src="', $message['icon_url'] . '" alt=""', $message['can_modify'] ? ' id="msg_icon_' . $message['id'] . '"' : '', '>
@@ -710,17 +682,10 @@ function template_single_post($message)
 									<a href="', $message['href'], '" rel="nofollow" title="', !empty($message['counter']) ? sprintf($txt['reply_number'], $message['counter'], ' - ') : '', $message['subject'], '" class="smalltext">', $message['time'], '</a>
 									<span class="spacer"></span>';
 
-	// Show "<< Last Edit: Time by Person >>" if this post was edited. But we need the div even if it wasn't modified!
-	// Because we insert into it through AJAX and we don't want to stop themers moving it around if they so wish so they can put it where they want it.
-	echo '
-									<span class="smalltext modified floatright', !empty($modSettings['show_modify']) && !empty($message['modified']['name']) ? ' mvisible' : '', '" id="modified_', $message['id'], '">';
-
-	if (!empty($modSettings['show_modify']) && !empty($message['modified']['name']))
-		echo
-										$message['modified']['last_edit_text'];
+	// Show the quickbuttons, for various operations on posts.
+	template_quickbuttons($message['quickbuttons'], 'post');
 
 	echo '
-									</span>
 								</div>
 								<div id="msg_', $message['id'], '_quick_mod"', $ignoring ? ' style="display:none;"' : '', '></div>
 							</div><!-- .keyinfo -->';
@@ -833,6 +798,16 @@ function template_single_post($message)
 	echo '
 							<div class="under_message">';
 
+	// Show "<< Last Edit: Time by Person >>" if this post was edited. But we need the div even if it wasn't modified!
+	// Because we insert into it through AJAX and we don't want to stop themers moving it around if they so wish so they can put it where they want it.
+	echo '<span class="smalltext modified floatright', !empty($modSettings['show_modify']) && !empty($message['modified']['name']) ? ' mvisible' : '', '" id="modified_', $message['id'], '">';
+
+	if (!empty($modSettings['show_modify']) && !empty($message['modified']['name']))
+		echo
+										$message['modified']['last_edit_text'];
+
+	echo '</span>';
+
 	// What about likes?
 	if (!empty($modSettings['enable_likes']))
 	{
@@ -874,9 +849,6 @@ function template_single_post($message)
 		echo '
 								</ul>';
 	}
-
-	// Show the quickbuttons, for various operations on posts.
-	template_quickbuttons($message['quickbuttons'], 'post');
 
 	echo '
 							</div><!-- .under_message -->
@@ -925,6 +897,23 @@ function template_single_post($message)
 	echo '
 						</div><!-- .moderatorbar -->
 					</div><!-- .post_wrapper -->
+					<ol class="actionbar">';
+	// Show the website and email address buttons.
+	if (!$message['member']['is_guest'] && $message['member']['show_profile_buttons'])
+	{
+		echo '<li><a href="', $scripturl, '?action=profile;area=showposts;u=', $message['member']['id'], '" title="', $txt['posts'], '"><img src="/assets/ui/posts.png" alt="Posts"></a></li>';
+		echo '<li><a href="', $scripturl, '?action=shop;sa=inventory;u=', $message['member']['id'], '" title="', $txt['Shop_main_inventory'], '"><img src="/assets/ui/inventory.png" alt="Inventory"></a></li>';
+
+		// Don't show an icon if they haven't specified a website.
+		if (!empty($message['member']['website']['url']) && !isset($context['disabled_fields']['website']))
+			echo '<li><a href="', $message['member']['website']['url'], '" title="' . $message['member']['website']['title'] . '" target="_blank" rel="nofollow"><img src="/assets/ui/website.png" alt="Website"></a></li>';
+
+		// Since we know this person isn't a guest, you *can* message them.
+		if ($context['can_send_pm'])
+			echo '<li><a href="', $scripturl, '?action=pm;sa=send;u=', $message['member']['id'], '" title="', $message['member']['online']['is_online'] ? $txt['pm_online'] : $txt['pm_offline'], '"><img src="/assets/ui/pm.png" alt="Private Message"></a></li>';
+	}
+	echo '
+					</ol>
 				</div><!-- $message[css_class] -->
 				<hr class="post_separator">';
 }

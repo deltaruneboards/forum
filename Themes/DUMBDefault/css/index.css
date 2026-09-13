@@ -20,6 +20,8 @@
 	--info-color: #FFFF3C;
 	--valid-color: #25FA67;
 	--invalid-color: #FF3C3C;
+
+	--ut-icon-filter: hue-rotate(180deg);
 }
 body {
 	background: black;
@@ -266,6 +268,40 @@ a.new_posts:visited {
 .info_block {
 	border-left: 1px solid var(--border-color);
 	border-top: 1px solid var(--border-color);
+}
+
+.message_index_title, .info_block div .floatright {
+	grid-row: 1;
+}
+
+.info_block div .floatleft {
+	grid-column: 3;
+	grid-row: 2;
+	text-align: right;
+}
+
+.message_index_title {
+	grid-row: 1;
+	grid-column: 1;
+	justify-self: start;
+}
+
+.message_index_title .new_posts {
+	width: fit-content;
+}
+
+.info_block div .icons {
+	grid-row: 1;
+	grid-column: 3;
+	display: block;
+	text-align: right;
+}
+
+.info_block div small {
+	grid-row: 2;
+	grid-column: 1;
+	font-style: normal;
+	color: var(--txt-color-off)
 }
 
 /* Common classes to easy styling.
@@ -1400,16 +1436,18 @@ ul li.greeting {
 
 /* The quick buttons */
 .quickbuttons {
-	margin: 0 0 5px;
-	clear: right;
-	float: right;
-	text-align: right;
+	display: flex;
 }
 #recent .quickbuttons {
 	margin: 0;
 }
 .quickbuttons > li {
-	float: left;
+	border-left: 1px var(--txt-color-off) solid;
+	border-top: 1px var(--txt-color-off) solid;
+	border-right: 1px var(--ter-bg-color) solid;
+	border-bottom: 1px var(--ter-bg-color) solid;
+	background-color: var(--sec-bg-color);
+	margin: 2px;
 }
 .quickbuttons > li > a, .inline_mod_check {
 	display: block;
@@ -1420,6 +1458,9 @@ ul li.greeting {
 .quickbuttons > li:only-child > a, .inline_mod_check:only-child {
 	margin: 2px;
 	height: 23px;
+}
+.postinfo .quickbuttons li a {
+	color: var(--txt-color);
 }
 .inline_mod_check input {
 	position: relative;
@@ -2926,6 +2967,10 @@ tr.windowbg:hover {
 /* Special treatment for #forumposts area */
 #forumposts .windowbg, #forumposts .approvebg, #forumposts .approvebg2, #pmFolder .windowbg {
 	overflow: visible;
+	padding: 0;
+}
+.post_wrapper {
+	padding: 12px 16px;
 }
 /* Nobody wants locked topics to stand out much. */
 .windowbg.locked {
@@ -3402,6 +3447,15 @@ img.avatar {
 .postarea, .moderatorbar {
 	margin: 0 0 0 175px;
 }
+.actionbar {
+	background-color: var(--ter-bg-color);
+	border-top: 1px solid var(--border-color);
+	display: flex;
+	filter: var(--ut-icon-filter);
+	gap: 5px;
+	justify-content: flex-end;
+	padding: 6px;
+}
 .postarea div.flow_hidden {
 	width: 100%;
 }
@@ -3414,8 +3468,16 @@ img.avatar {
 .messageicon img, #iconList img {
 	vertical-align: middle;
 }
+.keyinfo {
+	border-right: 1px var(--ter-bg-color) solid;
+	border-top: 1px var(--ter-bg-color) solid;
+	border-left: 1px var(--border-color) solid;
+	border-bottom: 1px var(--border-color) solid;
+	padding-left: 5px;
+	padding-right: 5px;
+}
 .keyinfo .postinfo {
-	padding: 1px 0 5px 0;
+	padding: 1px 0 1px 0;
 	line-height: 1.5em;
 	font-size: 0.9em;
 	font-weight: bold;
@@ -3440,6 +3502,9 @@ img.avatar {
 	font-weight: normal;
 	font-style: italic;
 	padding: 2px 4px 0 4px;
+}
+.keyinfo .postinfo .smalltext, .keyinfo .postinfo .smalltext strong {
+	color: var(--txt-color);
 }
 /* PMs postinfo */
 #personal_messages .keyinfo .postinfo {
@@ -3467,8 +3532,6 @@ img.avatar {
 .inner {
 	padding: 7px 8px 2px 2px;
 	margin: 0;
-	border-top: 1px solid #bfbfbf;
-	box-shadow: 0 1px 0 #fff inset;
 	min-height: 85px;
 	word-wrap: break-word; /* IE fallback */
 	overflow-wrap: break-word;
@@ -3748,7 +3811,7 @@ h3.catbg .main_icons::before, h3.catbg .icon {
 	grid-column: 3;
 	grid-row: 1;
 }
-#c1::before, #c2::before, #c3::before, #c4::before, #c5::before {
+#c1::before, #c2::before, #c3::before, #c4::before, #c5::before, #c7::before {
 	content: "";
 	display: inline-block;
 	vertical-align: middle;
@@ -3780,7 +3843,7 @@ h3.catbg .main_icons::before, h3.catbg .icon {
 #c5::before {
 	width: 20px;
 	height: 20px;
-	background-image: url('/shop_items/items/exclamation.png');
+	background-image: url('/assets/ui/exclamation.png');
 }
 #c7::before {
 	width: 20px;
@@ -3859,6 +3922,8 @@ p.information img {
 }
 .topic_pages {
 	font-size: 0.75em;
+	grid-column: 2;
+	grid-row: 1;
 	margin: 0 0 0 5px;
 }
 .topic_pages::before {
@@ -4279,4 +4344,17 @@ img.theme_thumbnail {
 	font-style: italic;
 	color: var(--txt-color-off)
 }
+.dumb_badge {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	max-height: 90px;
+	max-width: 152px;
+	overflow-y: auto;
+}
 
+.dumb_badge img {
+	align-self: center;
+	flex: 0 0 auto;
+	padding: 1px;
+}
