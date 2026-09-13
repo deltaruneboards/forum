@@ -44,10 +44,10 @@ class DUMBUsergroup extends Module
     function getAddInput()
     {
 		// Get the forum groups, except admin/mod
-		$this->_groups = Database::Get(0, 1000, 'm.group_name', 'membergroups AS m', ['m.id_group', 'm.group_name'], 'WHERE m.min_posts = -1 AND m.id_group <> 1 AND m.id_group <> 3');
+		$groups = Database::Get(0, 1000, 'm.group_name', 'membergroups AS m', ['m.id_group', 'm.group_name'], 'WHERE m.min_posts = -1 AND m.id_group <> 1 AND m.id_group <> 3');
 
 		// For some reason you are using this module, but have not groups whatsoever
-		if (empty($this->_groups))
+		if (empty($groups))
 			return '
 			<div class="errorbox">
 				' . Shop::getText('pmg_nogroups') . '
@@ -57,8 +57,8 @@ class DUMBUsergroup extends Module
 		else
 		{
 			// Loop through the groups
-			foreach ($this->_groups AS $group)
-				$this->_select .= '<option value="' . $group['id_group'] . '"' . ($group['id_group'] == $this->item_info[1] ? ' selected' : '') . '>' . $group['group_name'] . '</option>';
+			foreach ($groups AS $group)
+				$select .= '<option value="' . $group['id_group'] . '"' . ($group['id_group'] == $this->item_info[1] ? ' selected' : '') . '>' . $group['group_name'] . '</option>';
 
 			return '
 			<dl class="settings">
@@ -68,7 +68,7 @@ class DUMBUsergroup extends Module
 				<dt>
 				<dd>
 					<select name="info1">
-						' . $this->_select . '
+						' . $select . '
 					</select>
 				</dd>
 			</dl>';

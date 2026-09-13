@@ -221,7 +221,7 @@ function DisplayStats()
 
 	// Poster top 10.
 	$members_result = $smcFunc['db_query']('', '
-		SELECT id_member, real_name, posts
+		SELECT id_member, real_name, posts, id_group
 		FROM {db_prefix}members
 		WHERE posts > {int:no_posts}
 		ORDER BY posts DESC
@@ -239,7 +239,7 @@ function DisplayStats()
 			'id' => $row_members['id_member'],
 			'num' => $row_members['posts'],
 			'href' => $scripturl . '?action=profile;u=' . $row_members['id_member'],
-			'link' => '<a href="' . $scripturl . '?action=profile;u=' . $row_members['id_member'] . '">' . $row_members['real_name'] . '</a>'
+			'link' => '<a href="' . $scripturl . '?action=profile;u=' . $row_members['id_member'] . '" class="group-' . $row_members['id_group'] . '">' . $row_members['real_name'] . '</a>'
 		);
 
 		if ($max_num_posts < $row_members['posts'])
@@ -474,7 +474,7 @@ function DisplayStats()
 
 	// Topic poster top 10.
 	$members_result = $smcFunc['db_query']('', '
-		SELECT id_member, real_name
+		SELECT id_member, real_name, id_group
 		FROM {db_prefix}members
 		WHERE id_member IN ({array_int:member_list})',
 		array(
@@ -495,7 +495,7 @@ function DisplayStats()
 			'id' => $row_members['id_member'],
 			'num' => $members[$row_members['id_member']],
 			'href' => $scripturl . '?action=profile;u=' . $row_members['id_member'],
-			'link' => '<a href="' . $scripturl . '?action=profile;u=' . $row_members['id_member'] . '">' . $row_members['real_name'] . '</a>'
+			'link' => '<a href="' . $scripturl . '?action=profile;u=' . $row_members['id_member'] . '" class="group-' . $row_members['id_group'] . '">' . $row_members['real_name'] . '</a>'
 		);
 
 		if ($max_num < $members[$row_members['id_member']])
@@ -513,7 +513,7 @@ function DisplayStats()
 	// Time online top 10.
 	$temp = cache_get_data('stats_total_time_members', 600);
 	$members_result = $smcFunc['db_query']('', '
-		SELECT id_member, real_name, total_time_logged_in
+		SELECT id_member, real_name, total_time_logged_in, id_group
 		FROM {db_prefix}members
 		WHERE is_activated = {int:is_activated}' .
 		(!empty($temp) ? ' AND id_member IN ({array_int:member_list_cached})' : '') . '
@@ -551,7 +551,7 @@ function DisplayStats()
 			'num' => $timelogged,
 			'seconds_online' => $row_members['total_time_logged_in'],
 			'href' => $scripturl . '?action=profile;u=' . $row_members['id_member'],
-			'link' => '<a href="' . $scripturl . '?action=profile;u=' . $row_members['id_member'] . '">' . $row_members['real_name'] . '</a>'
+			'link' => '<a href="' . $scripturl . '?action=profile;u=' . $row_members['id_member'] . '" class="group-' . $row_members['id_group'] . '">' . $row_members['real_name'] . '</a>'
 		);
 
 		if ($max_time_online < $row_members['total_time_logged_in'])

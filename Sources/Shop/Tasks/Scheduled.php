@@ -37,28 +37,35 @@ class Scheduled
 	 * Creates a scheduled task for making money in the bank of every user
 	 * @return void
 	 */
-    // DUMBIE extension: per-user interest
+	// DUMBIE extension: per-user interest
 	public function bank_interest()
 	{
 		global $modSettings, $smcFunc;
 
-        $interset = $modSettings['Shop_bank_interest'];
+		$interset = $modSettings['Shop_bank_interest'];
 
 		// Create some cash out of nowhere. How? By magical means, of course!
-        // im going to "create" a database call that doesnt freaking suck -candy
+		// im going to "create" a database call that doesnt freaking suck -candy
 
-        // what does this even do again
-        $timeyes = "";
-        if (!empty($modSettings['Shop_bank_interest_yesterday']))
-            $timeyes = ' WHERE last_login > {int:yesterday}'
+		// what does this even do again
+		$timeyes = "";
+		if (!empty($modSettings['Shop_bank_interest_yesterday']))
+			$timeyes = ' WHERE last_login > {int:yesterday}';
 
-        $smcFunc['db_query']('', '
-            UPDATE {db_prefix}members mbr
-            SET mbr.shopBank = mbr.shopBank + (abs(shopBank) * (({float:interest} + coalesce(it.interest, 0)) / 100))
-            LEFT JOIN {db_prefix}interestmod it ON mbr.id_member = it.USER_ID' . $timeyes,
-            array(
-                'interest' = $modSettings['Shop_bank_interest'],
-                'yesterday' = $this->_login
-            ));
+		$smcFunc['db_query']('', '
+			UPDATE {db_prefix}members mbr
+			SET mbr.shopBank =
+				mbr.shopBank + (
+					abs(shopBank) * (
+					{float:interest} + coalesce(
+						(SELECT interest FROM {db_prefix}interestmod WHERE USER_ID = mbr.id_member),
+						0
+					)) / 100
+				)
+			' . $timeyes,
+			array(
+				'interest' => $modSettings['Shop_bank_interest'],
+				'yesterday' => $this->_login
+			));
 	}
 }

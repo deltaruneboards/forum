@@ -92,6 +92,8 @@ function template_html_above()
 	loadCSSFile('fonts.css', ['minimize' => true]);
 	loadCSSFile('bbcode.css', ['minimize' => true]);
 	loadCSSFile('banner.css', ['minimize' => true]);
+	loadCSSFile('tags.css', ['minimize' => true]);
+	loadCSSFile('groups.css', ['minimize' => true]);
 	loadCSSFile('randChar.css', ['minimize' => true]);
 
 	// Show right to left, the language code, and the character set for ease of translating.
@@ -136,7 +138,7 @@ function template_html_above()
 	template_javascript();
 
 	echo '
-	<title>', $context['page_title_html_safe'], '</title>
+	<title>', (isset($context['is_index']) ? $context['forum_name_html_safe'] : $context['page_title_html_safe'] . ' - ' . $context['forum_name_html_safe']), '</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">';
 
 	// Content related meta tags, like description, keywords, Open Graph stuff, etc...
@@ -479,7 +481,7 @@ function template_body_below()
 		<ul>
 			<li id='randomQuote'></li>
 			<li class='copyright'>", theme_copyright(), "</li>
-			<li class='floatright'><a href='$scripturl?action=pages;sa=view;id=4'>User help</a> | <a href='$scripturl?action=agreement'>Terms of use</a> | <a href='#top_section'>Back to top ▲</a></li>
+			<li class='floatright'><a href='$scripturl?action=pages;sa=view;id=4'>User help</a> | <a href='$scripturl?action=pm;sa=send;u=1,2'>Contact mods</a> | <a href='$scripturl?action=agreement'>Terms of use</a> | <a href='#top_section'>Back to top ▲</a></li>
 		</ul>";
 
 	// Show the load time?

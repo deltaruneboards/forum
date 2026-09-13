@@ -180,7 +180,7 @@ function template_summary()
 
 	echo '
 			<div class="username clear">
-				<h4>';
+				<h4 class="group-' . $context['member']['group_id'] . '">';
 
 	if (!empty($context['print_custom_fields']['before_member']))
 		foreach ($context['print_custom_fields']['before_member'] as $field)

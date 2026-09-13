@@ -150,7 +150,7 @@ class Bank
 				$deposit = (int) ($user_info['shopMoney'] - $this->_amount);
 
 			// Okay, we want to check if user actually has enough in their pocket and also check for the fee
-			if ($deposit < 0 && ($user_info['shopBank']) < $modSettings['Shop_bank_deposit_fee'])
+			if ($deposit < 0 || ($user_info['shopBank']) < $modSettings['Shop_bank_deposit_fee'])
 				fatal_error(sprintf(Shop::getText('bank_notenough_pocket'), $modSettings['Shop_credits_suffix']), false);
 			// Alright, so user has enough for the deposit then
 			elseif ($deposit >= 0 || $user_info['shopBank'] >= $modSettings['Shop_bank_deposit_fee'])

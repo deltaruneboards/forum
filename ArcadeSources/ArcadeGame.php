@@ -1320,7 +1320,7 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 	$result = $smcFunc['db_query']('', '
 		SELECT
 			sc.id_score, sc.score, sc.end_time AS time, sc.duration, sc.comment, sc.id_member,
-			sc.position, sc.score_status, IFNULL(mem.id_member, 0) AS id_member,
+			sc.position, sc.score_status, IFNULL(mem.id_member, 0) AS id_member, IFNULL(mem.id_group, 0) AS id_group,
 			IFNULL(mem.real_name, sc.player_name) AS real_name
 		FROM  {db_prefix}arcade_scores AS sc
 			LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = sc.id_member)
@@ -1363,7 +1363,7 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 			'member' => array(
 				'id' => $score['id_member'],
 				'name' => $score['real_name'],
-				'link' => !empty($score['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $score['id_member'] . '">' . $score['real_name'] . '</a>' : $score['real_name'],
+				'link' => !empty($score['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $score['id_member'] . '" class="group-' . $row['id_group'] . '">' . $score['real_name'] . '</a>' : $score['real_name'],
 			),
 			'position' => $positionCount > 0 && $positionCount < 4 ? '<img style="max-width: 2.188em; max-height: 1.5em;" src="' . $settings['default_images_url'] . '/arc_icons/' . $positionCount . '.gif" alt="' . $positionCount . '" />' : $positionCount,
 			'score' => comma_format(floatval($score['score'])),

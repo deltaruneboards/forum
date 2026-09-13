@@ -334,7 +334,8 @@ function RecentPosts()
 			m.id_msg, m.subject, m.smileys_enabled, m.poster_time, m.body, m.id_topic, t.id_board, b.id_cat,
 			b.name AS bname, c.name AS cname, t.num_replies, m.id_member, m2.id_member AS id_first_member,
 			COALESCE(mem2.real_name, m2.poster_name) AS first_poster_name, t.id_first_msg,
-			COALESCE(mem.real_name, m.poster_name) AS poster_name, t.id_last_msg
+			COALESCE(mem.real_name, m.poster_name) AS poster_name, t.id_last_msg,
+            mem.id_group AS poster_group, mem2.id_group AS first_poster_group
 		FROM {db_prefix}messages AS m
 			INNER JOIN {db_prefix}topics AS t ON (t.id_topic = m.id_topic)
 			INNER JOIN {db_prefix}boards AS b ON (b.id_board = t.id_board)
@@ -393,13 +394,13 @@ function RecentPosts()
 				'id' => $row['id_first_member'],
 				'name' => $row['first_poster_name'],
 				'href' => empty($row['id_first_member']) ? '' : $scripturl . '?action=profile;u=' . $row['id_first_member'],
-				'link' => empty($row['id_first_member']) ? $row['first_poster_name'] : '<a href="' . $scripturl . '?action=profile;u=' . $row['id_first_member'] . '">' . $row['first_poster_name'] . '</a>'
+				'link' => empty($row['id_first_member']) ? $row['first_poster_name'] : '<a href="' . $scripturl . '?action=profile;u=' . $row['id_first_member'] . '" class="group-' . $row['first_poster_group'] . '">' . $row['first_poster_name'] . '</a>'
 			),
 			'poster' => array(
 				'id' => $row['id_member'],
 				'name' => $row['poster_name'],
 				'href' => empty($row['id_member']) ? '' : $scripturl . '?action=profile;u=' . $row['id_member'],
-				'link' => empty($row['id_member']) ? $row['poster_name'] : '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '">' . $row['poster_name'] . '</a>'
+				'link' => empty($row['id_member']) ? $row['poster_name'] : '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" class="group-' . $row['poster_group'] . '">' . $row['poster_name'] . '</a>'
 			),
 			'message' => $row['body'],
 			'can_reply' => false,
@@ -748,6 +749,7 @@ function UnreadTopics()
 		t.num_replies, t.num_views, ms.id_member AS id_first_member, ml.id_member AS id_last_member,' . (!empty($settings['avatars_on_indexes']) ? ' meml.avatar, meml.email_address, mems.avatar AS first_poster_avatar, mems.email_address AS first_poster_email, COALESCE(af.id_attach, 0) AS first_poster_id_attach, af.filename AS first_poster_filename, af.attachment_type AS first_poster_attach_type, COALESCE(al.id_attach, 0) AS last_poster_id_attach, al.filename AS last_poster_filename, al.attachment_type AS last_poster_attach_type,' : '') . '
 		ml.poster_time AS last_poster_time, COALESCE(mems.real_name, ms.poster_name) AS first_poster_name,
 		COALESCE(meml.real_name, ml.poster_name) AS last_poster_name, ml.subject AS last_subject,
+		COALESCE(meml.id_group, 0) AS last_poster_group, COALESCE(mems.id_group, 0) AS first_poster_group,
 		ml.icon AS last_icon, ms.icon AS first_icon, t.id_poll, t.is_sticky, t.locked, ml.modified_time AS last_modified_time,
 		COALESCE(lt.id_msg, lmr.id_msg, -1) + 1 AS new_from, SUBSTRING(ml.body, 1, 385) AS last_body,
 		SUBSTRING(ms.body, 1, 385) AS first_body, ml.smileys_enabled AS last_smileys, ms.smileys_enabled AS first_smileys, t.id_first_msg, t.id_last_msg, COALESCE(t.description, "") AS description';
@@ -1349,7 +1351,7 @@ function UnreadTopics()
 					'name' => $row['first_poster_name'],
 					'id' => $row['id_first_member'],
 					'href' => $scripturl . '?action=profile;u=' . $row['id_first_member'],
-					'link' => !empty($row['id_first_member']) ? '<a class="preview" href="' . $scripturl . '?action=profile;u=' . $row['id_first_member'] . '" title="' . sprintf($txt['view_profile_of_username'], $row['first_poster_name']) . '">' . $row['first_poster_name'] . '</a>' : $row['first_poster_name']
+					'link' => !empty($row['id_first_member']) ? '<a class="preview" href="' . $scripturl . '?action=profile;u=' . $row['id_first_member'] . '" title="' . sprintf($txt['view_profile_of_username'], $row['first_poster_name']) . '" class="group-' . $row['first_poster_group'] . '">' . $row['first_poster_name'] . '</a>' : $row['first_poster_name']
 				),
 				'time' => timeformat($row['first_poster_time']),
 				'timestamp' => $row['first_poster_time'],
@@ -1366,7 +1368,7 @@ function UnreadTopics()
 					'name' => $row['last_poster_name'],
 					'id' => $row['id_last_member'],
 					'href' => $scripturl . '?action=profile;u=' . $row['id_last_member'],
-					'link' => !empty($row['id_last_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_last_member'] . '">' . $row['last_poster_name'] . '</a>' : $row['last_poster_name']
+					'link' => !empty($row['id_last_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $row['id_last_member'] . '" class="group' . $row['last_poster_group'] . '">' . $row['last_poster_name'] . '</a>' : $row['last_poster_name']
 				),
 				'time' => timeformat($row['last_poster_time']),
 				'timestamp' => $row['last_poster_time'],

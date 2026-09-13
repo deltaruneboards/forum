@@ -220,6 +220,7 @@
 	}
 	.up_contain {
 		display: inline-block;
+		width: 100%;
 	}
 	.up_contain .lastpost {
 		border-top: 1px solid #ddd;
