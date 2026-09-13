@@ -64,7 +64,7 @@ class DUMBGambling extends Module
 
 
         foreach ($existing_info as $ex) 
-            $existing_text .= "<li>" . $ex["name"] . " (" . $ex["weight"] . " weight" . ($ex["is_category"] == 1 ? " (category)" : "") . ")</li>";
+            $existing_text .= "<li>" . htmlspecialchars($ex["name"]) . " (" . $ex["weight"] . " weight" . ($ex["is_category"] == 1 ? " (category)" : "") . ")</li>";
 
         $existing_text .= "</ul>";
 
@@ -83,7 +83,7 @@ class DUMBGambling extends Module
 
         $item_list = "";
         foreach ($all_items as $itm)
-            $item_list .= '<option value="' . $itm['itemid'] . '">' . $itm['name'] . '</option>';
+            $item_list .= '<option value="' . $itm['itemid'] . '">' . htmlspecialchars($itm['name']) . '</option>';
 
 
         $requestDUMBIE = $smcFunc['db_query']('', 'SELECT catid, name FROM {db_prefix}stshop_categories');
@@ -254,7 +254,7 @@ class DUMBGambling extends Module
 
         return '
             <div class="infobox">
-                ' . sprintf(Shop::getText('dumb_gamble_success'), $labelName) .
+                ' . sprintf(Shop::getText('dumb_gamble_success'), htmlspecialchars($labelName)) .
             '</div>';
     }
 }
