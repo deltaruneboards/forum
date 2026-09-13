@@ -88,10 +88,9 @@
 	function processKnownMoods() {
 		/* --- Posts: .poster divs ----------------------------------------- */
 		if (MoodMod.showInPosts) {
-			var posters = document.querySelectorAll('.poster, .postarea');
+			var posters = document.querySelectorAll('.poster, .poster_details');
 			for (var i = 0; i < posters.length; i++) {
 				var poster = posters[i];
-				//var link   = poster.querySelector('a[href*="action=profile"]');
 				var link   = poster.querySelector('a[href*="action=profile"]');
 				if (!link) continue;
 				var uid = extractUid(link.href);
