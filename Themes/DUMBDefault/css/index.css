@@ -3542,12 +3542,13 @@ ul.post_options li {
 	line-height: 1.4em;
 	font-size: 0.9em;
 }
-.signature {
+.signature,
+#current_signature_display,
+#preview_signature_display {
 	border-top: 1px solid var(--txt-color-off);
 	max-height: 255px;
 	max-width: 800px;
-	overflow-x: hidden;
-	overflow-y: auto;
+	overflow: auto;
 	scrollbar-width: thin;
 }
 .under_message {

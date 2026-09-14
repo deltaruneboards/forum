@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	];
 	const image = characters[Math.floor(Math.random() * characters.length)];
 	const toChange = document.getElementById('randomImage');
-	toChange.src = `/assets/characters/${image}`;
+	toChange.src = `/avatars/characters/${image}`;
 
 	if (image === 'tenna.png' || image === 'sneo.png') {
 		toChange.style.marginRight = '-25px';

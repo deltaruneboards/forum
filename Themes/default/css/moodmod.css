@@ -11,11 +11,11 @@
 	border-radius: 12px;
 	border-style: dashed !important;
 	background: hsl(0 0% 0% / 0.15);
-	border: 1px solid hsl(0 0% 0% / 0.50);
+	border: 1px solid #80808082;
 	font-size: 0.9em;
 	font-weight: 700;
 	line-height: 1.4em;
-	color: inherit;
+	color: var(--txt-color-off);
 	max-width: 100%;
 	box-sizing: border-box;
 	cursor: default;
@@ -32,6 +32,7 @@
 .moodmod-badge .moodmod-badge-name {
 	overflow: hidden;
 	text-overflow: ellipsis;
+	text-transform: uppercase;
 	white-space: nowrap;
 }
 
