@@ -25,7 +25,7 @@
 }
 body {
 	background: black;
-	background-image: url('https://dumb.kocka.tech/Themes/DUMBDefault/images/background.png');
+	background-image: url('/Themes/DUMBDefault/images/background.png');
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -62,19 +62,18 @@ input, button, select, textarea {
 	outline: none;
 	border: 1px solid #bbb;
 	vertical-align: middle;
-	box-shadow: 1px 2px 1px rgba(160, 187, 221, 0.2) inset;
 	padding: 0.3em 0.4em;
 }
 input:hover, textarea:hover, button:hover, select:hover {
 	outline: none;
-	border-color: #82a2bc;
+	border-color: var(--sec-color);
 }
 textarea:hover {
 	background: var(--pri-bg-color);
 }
 input:focus, textarea:focus, button:focus, select:focus {
 	outline: none;
-	border-color: #7fb0d8;
+	border-color: color-mix(var(--sec-color), var(--pri-color));
 }
 input, button, select {
 	padding: 0 0.4em;
@@ -507,6 +506,9 @@ strong[id^='child_list_']::after {
 	line-height: 1.4em;
 	padding: 1px 0;
 }
+.post .inner {
+	font-size: 0.9em;
+}
 
 /* Calendar colors for birthdays, events and holidays */
 .birthday {
@@ -736,6 +738,71 @@ img.sort, .sort {
 	color: #444;
 	box-shadow: 0 5px 5px rgba(255, 255, 255, 0.2) inset;
 	text-shadow: none;
+}
+
+ul.dropmenu li {
+	padding: .3em 0;
+}
+
+ul.dropmenu li:hover,
+ul.dropmenu li li:hover,
+.button:hover {
+	background-color: var(--sec-color);
+	border-top: 1px solid var(--pri-color);
+	border-left: 1px solid var(--pri-color);
+	border-right: 1px solid var(--ter-color);
+	border-bottom: 1px solid var(--ter-color);
+}
+
+.dropmenu li li a:hover,
+.dropmenu li li:hover > a {
+	background: none;
+	border: none;
+	color: var(--txt-color);
+}
+
+.dropmenu > li:hover > a {
+	box-shadow: none;
+	text-shadow: none;
+	background: none;
+	border: none;
+}
+
+.dropmenu > li > a {
+	box-shadow: none;
+	text-shadow: none;
+	background: none;
+	border: none;
+}
+
+.dropmenu a.active,
+.dropmeny > li > a:active {
+	background: none;
+	text-shadow: none;
+}
+
+.dropmenu li a.active:hover,
+.dropmenu li:hover a.active {
+	background: none;
+	text-shadow: none;
+	box-shadow: none;
+	color: inherit;
+	border: none;
+}
+
+.dropmenu > li > a:focus,
+.dropmenu li li a:focus {
+	background: none;
+	border: none;
+	color: var(--txt-color);
+}
+
+.dropmenu > li > a:focus,
+ul.dropmenu li:has(a:focus) {
+	box-shadow: none;
+	text-shadow: none;
+	background: color-mix(var(--sec-color), var(--pri-bg-color));
+	font-style: oblique;
 }
 
 a.mobile_user_menu,
@@ -1116,7 +1183,7 @@ h1.forumtitle a {
 }
 .user {
 	padding: 0 4px 8px 4px;
-	font-size: 0.9em;
+	font-size: 0.8em;
 	white-space: nowrap;
 }
 .user:only-child {
@@ -1144,6 +1211,10 @@ ul li.greeting {
 	margin-left: -2px;
 }
 /* News section. */
+#inner_wrap {
+	min-height: 2.5em;
+	max-height: fit-content;
+}
 #inner_wrap .news {
 	padding: 0 0 8px 1ch;
 	font-size: 0.9em;
@@ -1182,6 +1253,7 @@ ul li.greeting {
 	line-height: 1.1em;
 }
 .navigate_section ul li a, .navigate_section ul li em {
+	color: color-mix(var(--txt-color-off), var(--txt-color));
 	padding: 4px 0 4px;
 	margin-top: -4px;
 	display: inline-block;
@@ -1191,7 +1263,7 @@ ul li.greeting {
 	margin-top: 8px;
 }
 .navigate_section ul li .dividers {
-	color: #3f6b8c;
+	color: var(--txt-color);
 	font: 83.33%/150% Arial, sans-serif;
 	padding: 0 2px 0 6px;
 }
@@ -1201,6 +1273,17 @@ ul li.greeting {
 
 .navigate_section a:hover span {
 	text-decoration: underline;
+}
+
+.navigate_section ul li a:first-child::before {
+	background-image: url('/Smileys/dumb/heart.png');
+	background-size: cover;
+	content: "";
+	display: inline-block;
+	height: 16px;
+	margin-right: 0.5em;
+	vertical-align: middle;
+	width: 16px;
 }
 
 /* The content section */
@@ -1637,7 +1720,7 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 }
 
 .generic_menu {
-	margin: 5px 0;
+	margin: 0 0 15px 0;
 }
 /* Some lovely generic icons.
 ------------------------------------------------- */
@@ -3239,8 +3322,15 @@ div#pollmoderation {
 }
 
 /* The visible stuff below the avatar. */
+ul.user_info {
+	font-size: 0.75em;
+	line-height: 1em;
+}
 .user_info > li {
 	margin: 3px 0 0 0;
+}
+.user_info .pronouns {
+	margin-bottom: 1.5em;
 }
 .poster li.membergroup {
 	font-weight: bold;
@@ -3269,6 +3359,7 @@ img.avatar {
 }
 .poster img.avatar {
 	max-width: 100%;
+	padding: 0.5em;
 }
 .postarea, .moderatorbar {
 	margin: 0 0 0 175px;
@@ -3293,6 +3384,9 @@ img.avatar {
 }
 .messageicon img, #iconList img {
 	vertical-align: middle;
+}
+.postinfo .messageicon {
+	margin: 0 0.6em 0.2em 0;
 }
 .keyinfo {
 	border-right: 1px var(--ter-bg-color) solid;
@@ -3322,12 +3416,6 @@ img.avatar {
 }
 .keyinfo .postinfo .spacer {
 	flex: 1 1 auto;
-}
-.keyinfo .postinfo .modified {
-	color: var(--txt-color-off);
-	font-weight: normal;
-	font-style: italic;
-	padding: 2px 4px 0 4px;
 }
 .keyinfo .postinfo .smalltext, .keyinfo .postinfo .smalltext strong {
 	color: var(--txt-color);
@@ -3555,6 +3643,12 @@ ul.post_options li {
 	overflow: visible;
 	border: none;
 	box-shadow: none;
+}
+.under_message .modified {
+	color: var(--txt-color-off);
+	font-weight: normal;
+	font-style: italic;
+	padding: 2px 4px 0 4px;
 }
 .smflikebutton {
 	margin-top: 4px;
@@ -3811,9 +3905,10 @@ p.information img {
 }
 /* On/Off Icons (User) */
 .on, .off {
+	border-radius: 50%;
 	display: inline-block;
-	width: 14px;
-	height: 14px;
+	width: 10px;
+	height: 10px;
 	border: 1px solid transparent;
 	vertical-align: middle;
 }
@@ -3936,6 +4031,10 @@ h3.profile_hd::before,
 	margin-bottom: 0.25em;
 	line-height: 1.05em;
 	overflow-wrap: break-word;
+}
+#top_subject {
+	font-size: .6em;
+	align-self: center;
 }
 
 #reported_posts .main_icons,
