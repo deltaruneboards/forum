@@ -1313,6 +1313,7 @@ function PlushSearch2()
 					'where' => array(
 						't.id_redirect_topic = {int:not_redirected}',
 						't.redirect_expires = {int:never_expires}',
+						'm.id_member NOT IN ({array_int:ignore_users})',
 					),
 					'group_by' => array(),
 					'parameters' => array(
@@ -1322,6 +1323,7 @@ function PlushSearch2()
 						'is_approved' => 1,
 						'not_redirected' => 0,
 						'never_expires' => 0,
+						'ignore_users' => !$user_info['ignoreusers'] ? [-1] : $user_info['ignoreusers'],
 					),
 				);
 
@@ -1423,6 +1425,7 @@ function PlushSearch2()
 
 								$subject_query['where'][] = '(subj' . $numTables . '.word IS NULL)';
 								$subject_query['where'][] = 'm.body NOT ' . $query_match_type . ' {string:body_not_' . $count . '}';
+								$subject_query['where'][] = 'm.id_member NOT IN ({array_int:ignore_users})';
 
 								if ($is_search_regex)
 									$subject_query['params']['body_not_' . $count++] = $word_boundary_wrapper($escape_sql_regex($subjectWord));
@@ -1485,6 +1488,9 @@ function PlushSearch2()
 									$subject_query['params']['exclude_phrase_' . $count++] = '%' . $smcFunc['db_escape_wildcard_string']($phrase) . '%';
 							}
 						}
+
+						$subject_query['params']['ignore_users'] = !$user_info['ignoreusers'] ? [-1] : $user_info['ignoreusers'];
+
 						call_integration_hook('integrate_subject_search_query', array(&$subject_query));
 
 						// Nothing to search for?
@@ -1939,9 +1945,11 @@ function PlushSearch2()
 			FROM {db_prefix}messages
 			WHERE id_member != {int:no_member}
 				AND id_msg IN ({array_int:message_list})
+				AND id_member NOT IN ({array_int:ignore_users})
 			LIMIT {int:limit}',
 			array(
 				'message_list' => $msg_list,
+				'ignore_users' => !$user_info['ignoreusers'] ? [-1] : $user_info['ignoreusers'],
 				'no_member' => 0,
 				'limit' => count($context['topics']),
 			)
@@ -1977,10 +1985,12 @@ function PlushSearch2()
 				LEFT JOIN {db_prefix}members AS first_mem ON (first_mem.id_member = first_m.id_member)
 				LEFT JOIN {db_prefix}members AS last_mem ON (last_mem.id_member = first_m.id_member)
 			WHERE m.id_msg IN ({array_int:message_list})' . $approve_query . '
+				AND m.id_member NOT IN ({array_int:ignore_users})
 			ORDER BY ' . $smcFunc['db_custom_order']('m.id_msg', $msg_list) . '
 			LIMIT {int:limit}',
 			array(
 				'message_list' => $msg_list,
+				'ignore_users' => !$user_info['ignoreusers'] ? [-1] : $user_info['ignoreusers'],
 				'is_approved' => 1,
 				'current_member' => $user_info['id'],
 				'approve_boards' => !empty($modSettings['postmod_active']) ? $user_info['mod_cache']['ap'] : array(),

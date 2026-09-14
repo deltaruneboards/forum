@@ -1804,6 +1804,7 @@ function editIgnoreList($memID)
 
 	if (isset($_SESSION['prf-save']))
 	{
+		$_SESSION['search_cache'] = [];
 		if ($_SESSION['prf-save'] === true)
 			$context['saved_successful'] = true;
 		else
