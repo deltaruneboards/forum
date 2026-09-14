@@ -25,11 +25,21 @@
 }
 
 .moodmod-badge .moodmod-badge-emoji {
+	align-items: center;
+	display: flex;
 	font-size: 1.15em;
 	flex-shrink: 0;
+	height: 16px;
+	margin-right: 0.5em;
+	width: 16px;
+}
+
+.moodmod-badge .moodmod-badge-emoji img {
+	max-width: unset;
 }
 
 .moodmod-badge .moodmod-badge-name {
+	font-style: italic;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	text-transform: uppercase;

@@ -1252,7 +1252,7 @@ ul li.greeting {
 	padding-bottom: 3px;
 	line-height: 1.1em;
 }
-.navigate_section ul li a, .navigate_section ul li em {
+.navigate_section ul li a:not(.tag), .navigate_section ul li em {
 	color: color-mix(var(--txt-color-off), var(--txt-color));
 	padding: 4px 0 4px;
 	margin-top: -4px;
@@ -3362,7 +3362,9 @@ img.avatar {
 	padding: 0.5em;
 }
 .postarea, .moderatorbar {
+	border-left: 2px groove var(--border-color);
 	margin: 0 0 0 175px;
+	padding-left: 0.5em;
 }
 .actionbar {
 	background-color: var(--ter-bg-color);
@@ -4272,6 +4274,10 @@ img.theme_thumbnail {
 /* Miniprofile styles */
 .avatar, .blurb, .icons, .pronouns {
 	text-align: center;
+}
+.icons {
+	font-family: "Determination Mono";
+	font-size: 1.5em;
 }
 .blurb {
 	font-style: italic;
