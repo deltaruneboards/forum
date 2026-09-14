@@ -48,7 +48,7 @@ function MoodMod_get_smiley_filename($name)
 	$request = $smcFunc['db_query']('', '
 		SELECT s.filename
 		FROM {db_prefix}smiley_files AS s
-		WHERE s.filename LIKE {string:name}"%"
+		WHERE s.filename LIKE {string:name}".%"
 		LIMIT 1',
 		array('name' => $name)
 	);
