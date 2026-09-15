@@ -65,7 +65,7 @@ function template_arcade_online()
 
 		echo '
 								<span class="member', $member['is_hidden'] && !$member['is_guest'] ? ' hidden' : '', '">
-									', $member['is_guest'] ? 'Guest' : '<a href="' . $member['href'] . '" title="' . $txt['arcade_profile_of'] . ' ' . $member['name'] . '"' . (empty($member['color']) ? '' : ' style="color: ' . $member['color'] . '"') . '>' . $member['name'] . '</a>', '
+									', $member['is_guest'] ? 'Guest' : '<a href="' . $member['href'] . '" title="' . $txt['arcade_profile_of'] . ' ' . $member['name'] . '" class="group-' . $member['id_group'] . '">' . $member['name'] . '</a>', '
 								</span>';
 
 		if (!empty($member['ip']) && allowedTo('moderate_forum'))

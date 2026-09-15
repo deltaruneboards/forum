@@ -24,6 +24,11 @@
 	background: hsl(0 0% 0% / 0.10);
 }
 
+.postinfo:has(> .quickbuttons > li[id^="quoteSelected_"]:not([style*="none"])) .moodmod-badge,
+.postinfo:has(> .quickbuttons > li[id^="quoteSelected_"]:not([style*="none"])) > span > .smalltext {
+	display: none;
+}
+
 .moodmod-badge .moodmod-badge-emoji {
 	align-items: center;
 	display: flex;
@@ -35,7 +40,7 @@
 }
 
 .moodmod-badge .moodmod-badge-emoji img {
-	max-width: unset;
+	max-width: 30px;
 }
 
 .moodmod-badge .moodmod-badge-name {

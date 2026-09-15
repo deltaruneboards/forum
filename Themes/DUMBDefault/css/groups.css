@@ -1,5 +1,9 @@
+span[class*="group-"], a[class*="group-"], a[class*="group-"]:visited {
+	font-weight: bold;
+}
+
 /* Administrator */
-a.group-1, a.group-1:visited {
+span.group-1, a.group-1, a.group-1:visited {
 	color: #00ffff;
 	text-shadow: 0 0 5px #b5b5b5;
 	-webkit-text-stroke: 3px #0000c1;
@@ -7,7 +11,7 @@ a.group-1, a.group-1:visited {
 }
 
 /* Global Moderator, Moderator */
-a.group-2, a.group-2:visited, a.group-3, a.group-3:visited {
+span.group-2, a.group-2, a.group-2:visited, span.group-3, a.group-3, a.group-3:visited {
 	color: black;
 	text-shadow: 0 0 5px white, 0 0 2px white;
 	-webkit-text-stroke: 1px white;
@@ -25,27 +29,28 @@ a.group-26, a.group-26:visited {
 }
 
 /* Human */
-a.group-40, a.group-40:visited {
+span.group-40, a.group-40, a.group-40:visited {
 	color: #de1c0c;
 }
 
 /* Mean Girl*/
-a.group-54, a.group-54:visited {
-	color: #8c1fbd;
+span.group-54, a.group-54, a.group-54:visited {
+	color: #AD30DF;
+	text-shadow: 0 0 2px black;
 }
 
 /* Lonely Prince */
-a.group-53, a.group-53:visited {
+span.group-53, a.group-53, a.group-53:visited {
 	color: #1f9775;
 }
 
 /* Tactician */
-a.group-56, a.group-56:visited {
+span.group-56, a.group-56, a.group-56:visited {
 	color: #5581fc;
 }
 
 /* Moss Finder */
-a.group-48, a.group-48:visited {
+span.group-48, a.group-48, a.group-48:visited {
 	color: #55c621;
 	text-shadow: 0 0 2px #3e89ff;
 	-webkit-text-stroke: 3px #1e7969;
@@ -53,7 +58,7 @@ a.group-48, a.group-48:visited {
 }
 
 /* Lightner */
-a.group-44, a.group-44:visited {
+span.group-44, a.group-44, a.group-44:visited {
 	color: #FC3;
 	text-shadow: 0 0 2px #FF5400;
 	-webkit-text-stroke: 3px #cc5600;
@@ -62,7 +67,7 @@ a.group-44, a.group-44:visited {
 
 
 /* Darkner */
-a.group-30, a.group-30:visited {
+span.group-30, a.group-30, a.group-30:visited {
 	color: #3DAEEE;
 	text-shadow: 0 0 2px #0004FF;
 	-webkit-text-stroke: 3px #002d52;
@@ -70,7 +75,7 @@ a.group-30, a.group-30:visited {
 }
 
 /* Dark Prince */
-a.group-29, a.group-29:visited {
+span.group-29, a.group-29, a.group-29:visited {
 	color: #2ce4b0;
 	text-shadow: 0 0 3px #ff00e3;
 	-webkit-text-stroke: 2px #008412;
@@ -78,7 +83,7 @@ a.group-29, a.group-29:visited {
 }
 
 /* Dark Knight*/
-a.group-28, a.group-28:visited {
+span.group-28, a.group-28, a.group-28:visited {
 	color: #ff00e3;
 	text-shadow: 0 0 4px #00645b;
 	-webkit-text-stroke: 2px #2c0188;
@@ -86,20 +91,20 @@ a.group-28, a.group-28:visited {
 }
 
 /* Milk Looker */
-a.group-47, a.group-47:visited {
+span.group-47, a.group-47, a.group-47:visited {
 	color: #FFE600;
 	text-shadow: 0 0 2px black;
 }
 
 /* Monster */
-a.group-55, a.group-55:visited {
+span.group-55, a.group-55, a.group-55:visited {
 	color: #8469E3;
 	-webkit-text-stroke: 1px #000;
 	paint-order: stroke fill;
 }
 
 /* Determination */
-a.group-31, a.group-31:visited {
+span.group-31, a.group-31, a.group-31:visited {
 	color: #FF0;
 	-webkit-text-stroke: 3px #000;
 	paint-order: stroke fill;
@@ -107,7 +112,7 @@ a.group-31, a.group-31:visited {
 }
 
 /* Hopes & Dreams */
-a.group-38, a.group-38:visited {
+span.group-38, a.group-38, a.group-38:visited {
 	background: linear-gradient(to right, #DC3F62, #FFA081, #FEFF6F, #56DE5C, #61FFE1, #0E92FE, #C036FF);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -116,7 +121,7 @@ a.group-38, a.group-38:visited {
 }
 
 /* SpecialUltraRainbowMilkLooker */
-a.group-57, a.group-57:visited {
+span.group-57, a.group-57, a.group-57:visited {
 	background: linear-gradient(to right, #DC3F62, #FFA081, #FEFF6F, #56DE5C, #61FFE1, #0E92FE, #C036FF);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -125,29 +130,29 @@ a.group-57, a.group-57:visited {
 }
 
 /* The Youthful Days*/
-a.group-32, a.group-32:visited {
+span.group-32, a.group-32, a.group-32:visited {
 	color: #97CA88;
 }
 
 /* BLAZER */
-a.group-27, a.group-27:visited {
+span.group-27, a.group-27, a.group-27:visited {
 	color: #8dedfe;
 }
 
 /* ICE BLAZER */
-a.group-41, a.group-41:visited {
+span.group-41, a.group-41, a.group-41:visited {
 	color: #6c50d5;
 }
 
 /* YOUR TAKING TOO LONG */
-a.group-52, a.group-52:visited {
+span.group-52, a.group-52, a.group-52:visited {
 	color: #000;
 	-webkit-text-stroke: 3px #ed1c24;
 	paint-order: stroke fill;
 }
 
 /* BIG SHOT */
-a.group-58, a.group-58:visited {
+span.group-58, a.group-58, a.group-58:visited {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -157,7 +162,7 @@ a.group-58, a.group-58:visited {
 }
 
 /* Lucky */
-a.group-45, a.group-45:visited {
+span.group-45, a.group-45, a.group-45:visited {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -166,19 +171,19 @@ a.group-45, a.group-45:visited {
 }
 
 /* Snowcaster */
-a.group-51, a.group-51:visited {
+span.group-51, a.group-51, a.group-51:visited {
 	color: #96f1ff;
 }
 
 /* Frostmancer */
-a.group-36, a.group-36:visited {
-	color: #000;
+span.group-36, a.group-36, a.group-36:visited {
+	color: black;
 	-webkit-text-stroke: 3px #517184;
 	paint-order: stroke fill;
 }
 
 /* Ice Trancer */
-a.group-42, a.group-42:visited {
+span.group-42, a.group-42, a.group-42:visited {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -187,16 +192,12 @@ a.group-42, a.group-42:visited {
 }
 
 /* SOUTH OF THE BORDER */
-a.group-59, a.group-59:visited {
+span.group-59, a.group-59, a.group-59:visited {
 	color: #ff4c76;
-	font-family: "Press Start";
-	font-size: 11px;
-	text-transform: uppercase;
-	font-weight: 400
 }
 
 /* Forecaster */
-a.group-34, a.group-34:visited, a.group-35, a.group-35:visited {
+span.group-34, a.group-34:visited, span.group-35, a.group-35:visited {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -204,13 +205,13 @@ a.group-34, a.group-34:visited, a.group-35, a.group-35:visited {
 }
 
 /* Mew Mew Fan */
-a.group-46, a.group-46:visited {
+span.group-46, a.group-46, a.group-46:visited {
 	color: #fba3b0;
 	font-family: "UT Comic Sans";
 }
 
 /* Joker */
-a.group-43, a.group-43:visited {
+span.group-43, a.group-43, a.group-43:visited {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -221,13 +222,13 @@ a.group-43, a.group-43:visited {
 }
 
 /* Horse */
-a.group-39, a.group-39:visited {
+span.group-39, a.group-39, a.group-39:visited {
 	color: #99d14d;
 	font-weight: bold;
 }
 
 /* Ex-Horse */
-a.group-33, a.group-33:visited {
+span.group-33, a.group-33, a.group-33:visited {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -236,7 +237,7 @@ a.group-33, a.group-33:visited {
 }
 
 /* Roommate */
-a.group-50, a.group-50:visited {
+span.group-50, a.group-50, a.group-50:visited {
 	background: linear-gradient(90deg, #fee501, #65bc52, #fee501, #df7332, #fee501);
 	-webkit-background-clip: text;
 	background-clip: text;
@@ -246,6 +247,7 @@ a.group-50, a.group-50:visited {
 }
 
 /* BLAZER, ICE BLAZER, SOUTH OF THE BORDER, The Youthful Days */
+span.group-27, span.group-32, span.group-41, span.group-59,
 a.group-27, a.group-32, a.group-41, a.group-59 {
 	font-family: "Press Start";
 	font-size: 11px;
@@ -254,6 +256,7 @@ a.group-27, a.group-32, a.group-41, a.group-59 {
 }
 
 /* Hopes & Dreams, BIG SHOT, Lucky!, Ice Trancer */
+span.group-38:hover, span.group-28:hover, span.group-29:hover, span.group-33:hover,
 a.group-38:hover, a.group-28:hover, a.group-29:hover, a.group-33:hover {
 	background-image: linear-gradient(to right, white, white);
 }

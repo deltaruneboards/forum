@@ -1124,7 +1124,7 @@ function AdminApprove()
 			{
 				$replacements = array(
 					'NAME' => $member['name'],
-					'USERNAME' => $member['username'],
+					'USERNAME' => $member['name'],
 					'PROFILELINK' => $scripturl . '?action=profile;u=' . $member['id'],
 					'FORGOTPASSWORDLINK' => $scripturl . '?action=reminder',
 				);

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () =>
 		?.addEventListener('click', e => {
 			e.preventDefault();
 			const goHome = new Audio('/assets/audio/go_home.wav');
+			goHome.volume = 0.5;
 			goHome.play();
 			const link = e.currentTarget.href;
 			goHome.addEventListener('ended', () => window.location.href = link);

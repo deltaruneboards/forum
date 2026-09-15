@@ -31,7 +31,9 @@ div.sceditor-group {
 .sceditor-button:hover,
 .sceditor-button:active,
 .sceditor-button.active {
+	background-color: var(--ter-color);
 	border-radius: 0;
+	box-shadow: none;
 }
 .sceditor-button:active {
 	background: var(--sec-color);
@@ -48,6 +50,16 @@ div.sceditor-group {
 }
 div.sceditor-smileyPopup, div.sceditor-dropdown {
 	background: var(--pri-bg-color)
+}
+div.sceditor-dropdown a,
+div.sceditor-dropdown a:link {
+	color: var(--txt-color);
+}
+.sceditor-dropdown a:hover {
+	background-color: var(--ter-bg-color);
+}
+div.sceditor-dropdown label {
+	color: var(--txt-color);
 }
 
 @media screen and (min-width: 720px) {

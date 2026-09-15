@@ -22,7 +22,7 @@ global $txtBirthdayEmails;
 	@description:
 */
 $txt['resend_activate_message_subject'] = 'Welcome to {FORUMNAME}';
-$txt['resend_activate_message_body'] = 'Thank you for registering at {FORUMNAME}. Your username is {USERNAME}. If you forget your password, you can reset it by visiting {FORGOTPASSWORDLINK}.
+$txt['resend_activate_message_body'] = 'Thank you for registering at {FORUMNAME}. Your username is {REALNAME}. If you forget your password, you can reset it by visiting {FORGOTPASSWORDLINK}.
 
 Before you can log in, you must first activate your account by selecting the following link:
 
@@ -41,7 +41,7 @@ Should you have any problems with the activation, please visit {ACTIVATIONLINKWI
 $txt['resend_pending_message_subject'] = 'Welcome to {FORUMNAME}';
 $txt['resend_pending_message_body'] = 'Hello {REALNAME}, your registration request at {FORUMNAME} has been received.
 
-The username you registered with was {USERNAME}.
+The username you registered with was {REALNAME}.
 
 Before you can log in and start using the forum, your request will be reviewed and approved.
 
@@ -100,7 +100,7 @@ This is due to the following reason: {REASON}
 $txt['admin_approve_accept_subject'] = 'Welcome to {FORUMNAME}';
 $txt['admin_approve_accept_body'] = 'Welcome, {NAME}
 
-Your account has been activated manually by the admin and you can now log in and post. Your username is: {USERNAME}. If you forget your password, you can change it at {FORGOTPASSWORDLINK}.
+Your account has been activated manually by the admin and you can now log in and post. Your username is: {NAME}. If you forget your password, you can change it at {FORGOTPASSWORDLINK}.
 
 {REGARDS}';
 
@@ -597,7 +597,7 @@ $txt['register_immediate_body'] = 'Thank you for registering at {FORUMNAME}. You
 $txt['register_pending_subject'] = 'Welcome to {FORUMNAME}';
 $txt['register_pending_body'] = 'Hello {REALNAME}, your registration request at {FORUMNAME} has been received.
 
-The username you want to register with was {USERNAME}. If you forget your password, you can change it at {FORGOTPASSWORDLINK}.
+The username you want to register with was {REALNAME}. If you forget your password, you can change it at {FORGOTPASSWORDLINK}.
 
 Before you can log in and start using the forum, your request will be reviewed and approved.
 

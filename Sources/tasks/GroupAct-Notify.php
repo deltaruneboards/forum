@@ -130,7 +130,7 @@ class GroupAct_Notify_Background extends SMF_BackgroundTask
 					loadEssentialThemeData();
 
 					$replacements = array(
-						'USERNAME' => $user['member_name'],
+						'USERNAME' => $user['real_name'],
 						'GROUPNAME' => $user['group_name'],
 					);
 

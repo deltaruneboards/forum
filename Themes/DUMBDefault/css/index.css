@@ -39,6 +39,7 @@ body {
 /* General reset */
 * {
 	box-sizing: border-box;
+	image-rendering: pixelated;
 	padding: 0;
 	margin: 0;
 }
@@ -173,11 +174,6 @@ strong, .strong {
 }
 em, .em {
 	font-style: italic;
-}
-/* Default <strong> color on these tags */
-h1, h2, h3, h4, h5, h6 {
-	font-size: 1em;
-	color: var(--txt-color);
 }
 /* All input elements that are checkboxes or radio buttons shouldn't have a border around them */
 input[type="checkbox"], input[type="radio"] {
@@ -741,6 +737,7 @@ img.sort, .sort {
 }
 
 ul.dropmenu li {
+	border: 1px solid transparent;
 	padding: .3em 0;
 }
 
@@ -802,6 +799,9 @@ ul.dropmenu li:has(a:focus) {
 	box-shadow: none;
 	text-shadow: none;
 	background: color-mix(var(--sec-color), var(--pri-bg-color));
+}
+
+.dropmenu > li > a:focus {
 	font-style: oblique;
 }
 
@@ -1280,10 +1280,10 @@ ul li.greeting {
 	background-size: cover;
 	content: "";
 	display: inline-block;
-	height: 16px;
+	height: 10px;
+	image-rendering: auto;
 	margin-right: 0.5em;
-	vertical-align: middle;
-	width: 16px;
+	width: 10px;
 }
 
 /* The content section */
@@ -1736,17 +1736,6 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 	background: url(../images/icons/bell.png);
 	background-size: 16px;
 }
-/* Load better icons for higher resolution screens */
-@media
-	screen and (-webkit-min-device-pixel-ratio: 1.66),
-	screen and (min-resolution: 160dpi) {
-	.main_icons::before {
-		background-image: url(../images/icons/main_icons_sprite_hd.png);
-	}
-	.main_icons.alerts::before {
-		background-image: url(../images/icons/bell_hd.png);
-	}
-}
 
 /* Small fix for topics */
 .quickbuttons .main_icons::before, .button .main_icons::before {
@@ -2159,6 +2148,9 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 	padding: 7px 10px 7px 10px;
 	margin: 6px 0;
 }
+.noticebox a, .infobox a, .descbox a {
+	text-decoration: underline;
+}
 
 /* Styles for stats bars and progress bars.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -2331,10 +2323,11 @@ dl {
 }
 .activity_stats li span {
 	display: block;
-	border: 1px solid #666;
+	border: 1px solid var(--border-color);
 	border-left: none;
 	border-right: none;
-	background: #eee;
+	background: var(--ter-bg-color);
+	white-space: nowrap;
 }
 .activity_stats li.last span {
 	border-right: none;
@@ -3017,7 +3010,7 @@ h3 .collapse {
 }
 .lastpost {
 	font-size: 0.9em;
-	padding-top: 3px;
+	padding: 0 10px;
 }
 .board_icon, .info, .board_stats, .lastpost {
 	display: inline-block;
@@ -3032,7 +3025,7 @@ h3 .collapse {
 	overflow: hidden;
 	margin: 0 0 3px 0;
 	display: grid;
-	grid-template-columns: auto 50% 10% 25%;
+	grid-template-columns: auto 55% 10% 25%;
 	flex-wrap: wrap;
 }
 /* Child boards */

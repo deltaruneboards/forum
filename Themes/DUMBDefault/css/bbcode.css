@@ -90,22 +90,31 @@
 }
 
 .spoilertxt, .spoilertxt a{ 
-color: #b1b1b1 !important;
-  background-color: #b1b1b1 !important;
+	color: #b1b1b1 !important;
+	background-color: #b1b1b1 !important;
 }
-
 
 .spoilertxt:hover, .spoilertxt:hover a { 
-color: inherit !important;
-  background-color: inherit !important;
+	color: inherit !important;
+	background-color: inherit !important;
 }
 
-.spoilertxt > img {display: none;}
-.spoilertxt:hover > img {display: inline;}
+.spoilertxt > img {
+	display: none;
+}
+.spoilertxt:hover > img {
+	display: inline;
+}
 
-.vertical-align-top img{vertical-align: top!important;}
-.vertical-align-bottom img{vertical-align: bottom!important;}
-.vertical-align-middle img{vertical-align: middle!important;}
+.vertical-align-top img {
+	vertical-align: top !important;
+}
+.vertical-align-bottom img {
+	vertical-align: bottom !important;
+}
+.vertical-align-middle img {
+	vertical-align: middle !important;
+}
 
 .bgcolor {
 	padding: 5px;
@@ -122,6 +131,16 @@ color: inherit !important;
 				 attr(data-color, type(<color>)) 0px 0px 6px;
 }
 
+/* Remap some colors that are hard to read on the dark theme */
+span[style="color: blue;"] {
+	color: #344aff !important;
+}
+
+span[style="color: purple;"] {
+	color: #a806f2 !important;
+}
+
+/* [souptable] styles */
 .souped-up-table table,
 .souped-up-table .bbc_table {
     border-collapse: collapse;
@@ -193,4 +212,9 @@ color: inherit !important;
 	margin: 5px;
 	padding: 28px 24px 28px 24px;
 	width: 70%;
+}
+
+/* Smooth image rendering for large images */
+.smooth, .smooth * {
+	image-rendering: auto;
 }
