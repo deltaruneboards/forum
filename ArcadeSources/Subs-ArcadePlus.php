@@ -1359,7 +1359,7 @@ function Arcade_DoToolBarStrip($area, $direction, $content = '', $rom = 0)
 		$context['arcade']['buttons_set']['tour'] =  array(
 			'text' => 'arcade_arena',
 			'image' => 'arcade_arena.gif',
-			'url' => $scripturl . '?action=' . $arcadeAction . ';sa=arena;reload=' . mt_rand(0, 9999) . ';#arenamatch',
+			'url' => $scripturl . '?action=' . $arcadeAction . ';sa=arena#arenamatch',
 			'active' => in_array($context['current_arcade_sa'], array('arena', 'newMatch', 'newMatch2', 'viewMatch')) ? true : null,
 			'lang' => true,
 		);
@@ -2548,7 +2548,7 @@ function getGameInfo($id_game, $raw = false, $rom = 0)
 			<input type="hidden" id="guestname" name="guestname" value="1" />' : '
 			<input type="hidden" id="guestname" name="guestname" value="0" />') . '
 			<input type="hidden" id="smfGameSaveUrl" name="smfGameSaveUrl" value="' . $settings['default_theme_url'] . '/scripts/arcade-html5-save.js" />
-			<input type="hidden" id="html5smfGameUrl" name="html5smfGameUrl" value="' . $scripturl . '?action=' . $action . ';game=' . $game['id_game'] . (!empty($reload) ? ';reload=' . $reload : '') . ';#playgame" />
+			<input type="hidden" id="html5smfGameUrl" name="html5smfGameUrl" value="' . $scripturl . '?action=' . $action . ';game=' . $game['id_game'] . ';#playgame" />
 			<input type="hidden" id="gameSmfFullscreen" name="gameSmfFullscreen" value="1" />
 			<input type="hidden" id="popup" name="popup" value="0" />
 			<input type="hidden" id="gameexit" name="gameexit" value="0" />
@@ -2557,7 +2557,7 @@ function getGameInfo($id_game, $raw = false, $rom = 0)
 			<input type="hidden" id="game_name" name="game_name" value="' . $game['internal_name'] . '" />
 			<input type="hidden" name="' . $context['session_var'] . '" value="' . $context['session_id'] . '" />
 		</form>';
-		$escUrl = $scripturl . '?action=' . $action . ';sa=highscore;game=' . $game['id_game'] . ';reload=' . mt_rand(0, 9999) . ';#commentform3';
+		$escUrl = $scripturl . '?action=' . $action . ';sa=highscore;game=' . $game['id_game'] . ';#commentform3';
 		$esc = '
 		<div class="escgamediv" style="position: absolute;top: 20px;right: 0px;z-index: 100;">
 			<img class="escgame" id="escbutton" src="' . $settings['default_theme_url'] . '/images/arc_icons/arcade_esc.png' . '" alt="[ESC]" onclick="(function(){ window.location = \'' . ($escUrl) . '\';return false; })();return false;" />
@@ -2571,7 +2571,7 @@ function getGameInfo($id_game, $raw = false, $rom = 0)
 				bodyX.style.width = "100vw";
 			}
 			function escGameSmf() {
-				window.location = "' . $scripturl . '?action=' . $action . ';sa=highscore;game=' . $game['id_game'] . ';reload=' . mt_rand(0, 9999) . ';#commentform3";
+				window.location = "' . $scripturl . '?action=' . $action . ';sa=highscore;game=' . $game['id_game'] . ';#commentform3";
 			}
 			if (window.addEventListener) {
 				window.addEventListener("load", function (){
@@ -2647,9 +2647,9 @@ function getGameInfo($id_game, $raw = false, $rom = 0)
 	return array(
 		'id' => $game['id_game'],
 		'url' => array(
-			'play' => $scripturl . '?action=' . $action . ';sa=play;game=' . $game['id_game'] . ';reload=' . mt_rand(1, 9999) . ';#playgame',
+			'play' => $scripturl . '?action=' . $action . ';sa=play;game=' . $game['id_game'] . ';#playgame',
 			'base_url' => $gameurl,
-			'highscore' => $scripturl . '?action=' . $action . ';sa=highscore;game=' . $game['id_game'] . ';reload=' . mt_rand(1, 9999) . ';#commentform3',
+			'highscore' => $scripturl . '?action=' . $action . ';sa=highscore;game=' . $game['id_game'] . ';#commentform3',
 			'flash' => $gameurl . $game['game_file'],
 			'favorite' => $context['arcade']['can_favorite'] ? $game['is_favorite'] == 0 ? $scripturl . '?action=' . $action . ';sa=favorite;game=' . $game['id_game'] : $scripturl . '?action=' . $action . ';sa=favorite;remove;game=' . $game['id_game'] : '#',
 		),

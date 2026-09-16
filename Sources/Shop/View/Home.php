@@ -49,6 +49,10 @@ class Home
 		loadLanguage('Shop/Shop');
 		loadLanguage('Shop/Errors');
 
+		// Load CSS and JS files
+		loadCSSFile('shop.css', ['minimize' => true], 'smf_shop');
+		loadJavaScriptFile('shop.js', ['minimize' => true], 'smf_shop');
+
 		// Load template file
 		loadTemplate('Shop/Shop');
 

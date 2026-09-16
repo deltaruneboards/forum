@@ -466,7 +466,7 @@ function Arcade($rom = 0)
 			$context['arcade_tabs']['arcade_arena'] = array(
 				'text' => 'arcade_arena',
 				'image' => 'arcade_arena.gif',
-				'url' => $scripturl . '?action=arcade;sa=arena;reload=' . mt_rand(0, 9999) . ';#arenamatch',
+				'url' => $scripturl . '?action=arcade;sa=arena#arenamatch',
 				'active' => in_array($context['current_arcade_sa'], array('arena', 'newMatch', 'newMatch2', 'viewMatch')) ? true : null,
 				'lang' => true
 			);

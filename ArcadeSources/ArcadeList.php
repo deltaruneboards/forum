@@ -473,9 +473,9 @@ function ArcadeList($rom = 0)
 				'id' => $row['id_game'],
 				'game_file' => $row['game_file'],
 				'url' => array(
-					'play' => $scripturl . '?action=' . $listAction . ';sa=play;game=' . $row['id_game'] . ';reload=' . mt_rand(1, 9999) . ';#playgame',
+					'play' => $scripturl . '?action=' . $listAction . ';sa=play;game=' . $row['id_game'] . ';#playgame',
 					'popup' => $scripturl . '?action=' . $listAction . ';sa=play;game=' . $row['id_game'] . ';pop=1',
-					'highscore' => $scripturl . '?action=' . $listAction . ';sa=highscore;game=' . $row['id_game'] . ';reload=' . mt_rand(1, 9999) . ';#commentform3',
+					'highscore' => $scripturl . '?action=' . $listAction . ';sa=highscore;game=' . $row['id_game'] . ';#commentform3',
 					'edit' => $scripturl . '?action=admin;area=manage' . $romMgr . 'games;sa=edit' . $romMgr . ';game=' . $row['id_game'],
 					'download' => $downlink,
 					'favorite' => $context['arcade']['can_favorite'] ? $row['is_favorite'] == 0 ? $scripturl . '?action=' . $listAction . ';sa=favorite;game=' . $row['id_game'] : $scripturl . '?action=' . $listAction . ';sa=favorite;remove;game=' . $row['id_game'] : '#',
@@ -958,7 +958,7 @@ function ArcadeRate($rom = 0)
 			)
 		);
 
-	redirectexit('?action=' . (empty($rom) ? 'arcade;sa=highscore;' : 'retro_arch;') . 'game=' . $game['id'] . ';reload=' . mt_rand(1, 9999) . ';#commentform3');
+	redirectexit('?action=' . (empty($rom) ? 'arcade;sa=highscore;' : 'retro_arch;') . 'game=' . $game['id'] . ';#commentform3');
 }
 
 function ArcadeFavorite($rom = 0)
@@ -1043,7 +1043,7 @@ function ArcadeFavorite($rom = 0)
 			));
 	}
 
-	redirectexit('?action=' . (empty($rom) ? 'arcade;sa=highscore;' : 'retro_arch;') . 'game=' . $game['id'] . ';reload=' . mt_rand(1, 9999) . ';#commentform3');
+	redirectexit('?action=' . (empty($rom) ? 'arcade;sa=highscore;' : 'retro_arch;') . 'game=' . $game['id'] . ';#commentform3');
 }
 
 ?>

@@ -6,6 +6,9 @@
 	--ter-bg-color: #161616;
 	--txt-color: #FFFFFF;
 	--txt-color-off: #888888;
+	--accent-label-color-pri: #000;
+	--accent-label-color-sec: #fff;
+	--accent-label-color-ter: #fff;
 	--skeuomorphism-end-color: #0b0b0b;
 	--skeuomorphism: linear-gradient(180deg, var(--sec-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
 	--skeuomorphism-header: linear-gradient(180deg, var(--ter-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
@@ -688,7 +691,7 @@ img.sort, .sort {
 .amt {
 	margin-left: 3px;
 	padding: 0 5px;
-	color: black;
+	color: var(--accent-label-color-pri);
 	background: var(--pri-color);
 }
 .dropmenu li .active .amt, #top_info li .active .amt {
@@ -710,7 +713,7 @@ img.sort, .sort {
 }
 /* Level 1 active button. */
 .dropmenu a.active, #top_info a.active {
-	color: #fff;
+	color: var(--accent-label-color-ter);
 	font-weight: bold;
 	border-color: var(--ter-color);
 	background: var(--ter-color);
@@ -721,7 +724,7 @@ img.sort, .sort {
 #top_info > li:hover > a, #top_info > li > a:focus, #top_info > li > a.open {
 	background: var(--sec-color);
 	border: 1px solid #4a6b8c;
-	color: #fff;
+	color: var(--accent-label-color-sec);
 	cursor: pointer;
 	text-decoration: none;
 	box-shadow: 0 4px 4px rgba(255, 255, 255, 0.1) inset;
@@ -731,7 +734,7 @@ img.sort, .sort {
 .dropmenu li a.active:hover, .dropmenu li:hover a.active {
 	background: var(--pri-color);
 	border: 1px solid var(--pri-color);
-	color: #444;
+	color: var(--accent-label-color-pri);
 	box-shadow: 0 5px 5px rgba(255, 255, 255, 0.2) inset;
 	text-shadow: none;
 }
@@ -745,6 +748,7 @@ ul.dropmenu li:hover,
 ul.dropmenu li li:hover,
 .button:hover {
 	background-color: var(--sec-color);
+	color: var(-accent-label-color-sec);
 	border-top: 1px solid var(--pri-color);
 	border-left: 1px solid var(--pri-color);
 	border-right: 1px solid var(--ter-color);
@@ -775,6 +779,7 @@ ul.dropmenu li li:hover,
 .dropmenu a.active,
 .dropmeny > li > a:active {
 	background: none;
+	color: var(--txt-color);
 	text-shadow: none;
 }
 
@@ -1051,11 +1056,11 @@ html[lang="el-GR"] .inline_mod_check {
 /* the active one */
 .button.active {
 	background: var(--pri-color);
-	color: #000;
+	color: var(--accent-label-color-pri);
 	font-weight: bold;
 }
 .button.active:hover, .button.active:focus {
-	color: #ffc187;
+	color: var(--accent-label-color-sec);
 	background: var(--sec-color);
 	box-shadow: none;
 }
@@ -2855,6 +2860,7 @@ dl.addrules dt.floatleft {
 
 /* Add some hover on table rows */
 tr.windowbg:hover {
+	color: var(--accent-label-color-ter);
 	background: var(--ter-color);
 }
 
@@ -3379,6 +3385,10 @@ img.avatar {
 }
 .messageicon img, #iconList img {
 	vertical-align: middle;
+}
+.messageicon:hover > div, #iconList, #iconList > span:hover {
+	background-color: var(--ter-bg-color) !important;
+	border-color: var(--border-color) !important;
 }
 .postinfo .messageicon {
 	margin: 0 0.6em 0.2em 0;
@@ -3962,6 +3972,8 @@ h3.profile_hd::before,
 }
 .main_icons.profile_sm::before {
 	background: url(../images/icons/profile_sm.png) no-repeat;
+	height: 12px;
+	width: 11px;
 }
 .xx {
 	background: url(../images/post/xx.png) 2px no-repeat;

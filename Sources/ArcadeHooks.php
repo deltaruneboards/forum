@@ -375,14 +375,14 @@ function Arcade_menu_buttons()
 	$arcadeNav = [
 		$currentAction => [
 			'title' => $action == 'retro_arch' ? $txt['rom_arcade'] : $txt['arcade'],
-			'href' => $scripturl . '?action=' . $action . $sort,
+			'href' => $scripturl . '?action=' . $action,
 			'show' => $show,
 			'icon' => '<img src="' . $settings['default_images_url'] . '/icons/arcade_games.png" />',
 			'active_button' => $action == $currentAction ? true : false,
 			'sub_buttons' => array(
 				'arcade' => array(
 					'title' => $txt['arcade'],
-					'href' => $scripturl . '?action=arcade' . $sort,
+					'href' => $scripturl . '?action=arcade',
 					'show' => ($subs && $show ? true : false),
 				),
 				'retro_arch' => [

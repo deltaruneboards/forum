@@ -82,7 +82,7 @@ $txt['username'] = 'Username';
 $txt['password'] = 'Password';
 
 $txt['username_no_exist'] = 'That username does not exist.';
-$txt['no_user_with_email'] = 'There are no usernames associated with that email.';
+$txt['no_user_with_email'] = 'There are no users associated with that username or email.';
 
 $txt['board_moderator'] = 'Board Moderator';
 $txt['remove_topic'] = 'Remove topic';

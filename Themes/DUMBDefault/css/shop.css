@@ -1,0 +1,7 @@
+#detailedinfo .information {
+	text-align: center;
+}
+
+#random-shop-quote p:not(.chosen) {
+	display: none;
+}

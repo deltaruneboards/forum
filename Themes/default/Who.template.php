@@ -66,7 +66,7 @@ function template_main()
 
 		echo '
 								<span class="member', $member['is_hidden'] ? ' hidden' : '', '">
-									', $member['is_guest'] ? $member['name'] : '<a href="' . $member['href'] . '" title="' . sprintf($txt['view_profile_of_username'], $member['name']) . '" class="group-' . $member['id_group'] . '">' . $member['name'] . '</a>', '
+									', $member['is_guest'] ? $member['name'] : '<a href="' . $member['href'] . '" title="' . sprintf($txt['view_profile_of_username'], $member['name']) . '" class="group-' . $member['group_id'] . '">' . $member['name'] . '</a>', '
 								</span>';
 
 		if (!empty($member['ip']))

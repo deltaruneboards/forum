@@ -312,14 +312,14 @@ elseif (isset($_SESSION['current_game_id']) && allowedTo('arcade_submit') && !em
 		require_once($sourcedir . '/Arcade.php');
 		require_once($boarddir . '/ArcadeSources/Subs-Arcade.php');
 		$scoreData = SaveScore($_SESSION['save_score'][0], $_SESSION['save_score'][1], $_SESSION['save_score'][2]);
-		redirectexit($scripturl . '?action=arcade;sa=highscore;game=' . $gameid . ';reload=' . mt_rand(1, 9999) . ';score=' . $scoreData['id'] . ';edit;#commentform3');
+		redirectexit($scripturl . '?action=arcade;sa=highscore;game=' . $gameid . ';score=' . $scoreData['id'] . ';edit;#commentform3');
 	}
 	else
 	{
 		require_once($sourcedir . '/Arcade.php');
 		require_once($boarddir . '/ArcadeSources/Subs-Arcade.php');
 		$scoreData = SaveScore($_SESSION['save_score'][0], $_SESSION['save_score'][1], $_SESSION['save_score'][2]);
-		redirectexit($scripturl . '?action=arcade;sa=highscore;game=' . $gameid . ';reload=' . mt_rand(1, 9999) . ';score=' . $scoreData['id'] . ';edit;#commentform3');
+		redirectexit($scripturl . '?action=arcade;sa=highscore;game=' . $gameid . ';score=' . $scoreData['id'] . ';edit;#commentform3');
 	}
 }
 

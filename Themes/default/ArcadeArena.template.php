@@ -31,7 +31,7 @@ function template_arcade_arena_matches()
 			<div class="match">
 				<div id="contain">
 					<div class="menu">', ($context['arcade']['can_create_match'] ? '
-						<a class="matchlink" href="' . $scripturl . '?action=arcade;sa=newMatch;reload=' . mt_rand(0, 9999) . ';#arenamatch">' . $txt['arcade_newMatch'] . '</a>' : '<span style="display: none;">&nbsp;</span>'), '
+						<a class="matchlink" href="' . $scripturl . '?action=arcade;sa=newMatch#arenamatch">' . $txt['arcade_newMatch'] . '</a>' : '<span style="display: none;">&nbsp;</span>'), '
 					</div>
 					<div style="padding-top: 15px;">';
 
@@ -119,12 +119,12 @@ function template_arcade_arena_view_match_above()
 							<span style="display: table;">
 								<span style="display: table-row;" class="matchinfo">
 									<span style="display: table-cell;">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;start;match=', $context['match']['id'], ';' . $context['session_var'] . '=' . $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;start;match=', $context['match']['id'], ';' . $context['session_var'] . '=' . $context['session_id'], '#arenamatch">
 											<span class="matchinfotext">', $txt['arcade_startMatch'], '</span>
 										</a>
 									</span>
 									<span style="display: table-cell;">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;start;match=', $context['match']['id'], ';' . $context['session_var'] . '=' . $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;start;match=', $context['match']['id'], ';' . $context['session_var'] . '=' . $context['session_id'], '#arenamatch">
 											<img class="arena_icon" src="', $settings['default_images_url'], '/arc_icons/arena_accept.png" alt="" />
 										</a>
 									</span>
@@ -140,12 +140,12 @@ function template_arcade_arena_view_match_above()
 							<span style="display: table;">
 								<span style="display: table-row;" class="matchinfo">
 									<span style="display: table-cell;">
-										<a href="', $scripturl, '?action=arcade;sa=play;match=', $context['match']['id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=play;match=', $context['match']['id'], '#arenamatch">
 											<span class="matchinfotext">', $txt['arcade_play'], '</span>
 										</a>
 									</span>
 									<span style="display: table-cell">
-										<a href="', $scripturl, '?action=arcade;sa=play;match=', $context['match']['id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=play;match=', $context['match']['id'], '#arenamatch">
 											<img class="arena_icon" src="', $settings['default_images_url'], '/arc_icons/arena_accept.png" alt="" />
 										</a>
 									</span>
@@ -161,12 +161,12 @@ function template_arcade_arena_view_match_above()
 							<span style="display: table;">
 								<span style="display: table-row;" class="matchinfo">
 									<span style="display: table-cell;">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;delete;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;delete;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<span class="matchinfotext">', $txt['arcade_cancelMatch'], '</span>
 										</a>
 									</span>
 									<span style="display: table-cell">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;delete;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;delete;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<img class="arena_icon" src="', $settings['default_images_url'], '/arc_icons/arena_decline.png" alt="" />
 										</a>
 									</span>
@@ -182,12 +182,12 @@ function template_arcade_arena_view_match_above()
 							<span style="display: table;">
 								<span style="display: table-row;" class="matchinfo">
 									<span style="display: table-cell;">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;join;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;join;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<span class="matchinfotext">', $txt['arcade_joinMatch'], '</span>
 										</a>
 									</span>
 									<span style="display: table-cell">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;join;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;join;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<img class="arena_icon" src="', $settings['default_images_url'], '/arc_icons/arena_accept.png" alt="" />
 										</a>
 									</span>
@@ -202,12 +202,12 @@ function template_arcade_arena_view_match_above()
 							<span style="display: table;">
 								<span style="display:table-row;" class="matchinfo">
 									<span style="display: table-cell;">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;leave;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;leave;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<span class="matchinfotext">', $txt['arcade_leaveMatch'], '</span>
 										</a>
 									</span>
 									<span style="display: table-cell">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;leave;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;leave;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<img class="arena_icon" src="', $settings['default_images_url'], '/arc_icons/arena_decline.png" alt="" />
 										</a>
 									</span>
@@ -222,24 +222,24 @@ function template_arcade_arena_view_match_above()
 							<span style="display: table;">
 								<span style="display: table-row;" class="matchinfo">
 									<span style="display: table-cell;">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;join;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;join;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<span class="matchinfotext">', $txt['arcade_accept'], '</span>
 										</a>
 									</span>
 									<span style="display: table-cell">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;join;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;join;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<img class="arena_icon" src="', $settings['default_images_url'], '/arc_icons/arena_accept.png" alt="" />
 										</a>
 									</span>
 								</span>
 								<span style="display: table-row;" class="matchinfo">
 									<span style="display: table-cell;">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;leave;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;leave;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<span class="matchinfotext">', $txt['arcade_decline'], '</span>
 										</a>
 									</span>
 									<span style="display: table-cell;">
-										<a href="', $scripturl, '?action=arcade;sa=viewMatch;leave;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch">
+										<a href="', $scripturl, '?action=arcade;sa=viewMatch;leave;match=', $context['match']['id'], ';' . $context['session_var'] . '=', $context['session_id'], '#arenamatch">
 											<img class="arena_icon" src="', $settings['default_images_url'], '/arc_icons/arena_decline.png" alt="" />
 										</a>
 									</span>
@@ -281,7 +281,7 @@ function template_arcade_arena_view_match()
 
 		if ($player['can_kick'])
 			echo '
-						<a href="', $player['kick_url'], ';reload=' . mt_rand(0, 9999) . ';#arenamatch"><img src="', $settings['default_images_url'], '/arc_icons/arena_decline.png" alt="" /></a>';
+						<a href="', $player['kick_url'], '#arenamatch"><img src="', $settings['default_images_url'], '/arc_icons/arena_decline.png" alt="" /></a>';
 		else
 			echo '
 						&nbsp;';
@@ -360,7 +360,7 @@ function template_arcade_arena_new_match()
 				<div class="title">
 					<span>', $txt['arcade_new_match'], '</span>
 				</div>
-				<form action="', $scripturl, '?action=arcade;sa=newMatch2;reload=' . mt_rand(0, 9999) . ';#arenamatch" method="post">
+				<form action="', $scripturl, '?action=arcade;sa=newMatch2#arenamatch" method="post">
 					<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '" />
 					<input type="hidden" name="segnum" value="', $context['form_sequence_number'], '" />';
 

@@ -63,7 +63,7 @@ function arcadeEventNewGame($game, $gameid, $rom = 0)
 	$description = !empty($game['description']) ? $txt['arcade_post_description'] . wordwrap($game['description'], 140, "<br />") : '&nbsp;';
 	$directory = (empty($rom) ? $arcadeModSettings['gamesDirectory'] : $arcadeModSettings['romGamesDirectory']) . (!empty($gamedirectory) ? '/' . $gamedirectory : '');
 	$directory = rtrim($directory, '/');
-	$game_url = '<a href="' . $scripturl. '?action=' . $action . ';sa=play;game=' . $gameid . ';reload=' . $ranum . ';#playgame" title="' . $gamename_name . '">' . $gamename_name . '</a>';
+	$game_url = '<a href="' . $scripturl. '?action=' . $action . ';sa=play;game=' . $gameid . ';#playgame" title="' . $gamename_name . '">' . $gamename_name . '</a>';
 	$subject = str_replace('{GAMENAMESUB}', $gamename_name, $txt['notification_arcade_new_game_pm']['subject']);
 	$gameUrl = empty($rom) ? rtrim($arcadeModSettings['gamesUrl'] . '/' . $gamedirectory, '/') : rtrim($arcadeModSettings['romGamesUrl'] . '/' . $gamedirectory, '/');
 	$game_pic = !empty($game['thumbnail']) ? '<img src="' . $gameUrl . '/' . $game['thumbnail'] . '" alt="" />' : '';

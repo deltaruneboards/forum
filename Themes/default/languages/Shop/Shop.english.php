@@ -11,10 +11,10 @@
 global $scripturl, $modSettings;
 
 // Main
-$txt['Shop'] = 'Shop';
-$txt['Shop_main_button'] = 'Shop';
-$txt['Shop_main_home'] = 'Shop - Home';
-$txt['Shop_admin_button'] = 'Shop Admin';
+$txt['Shop'] = 'Seap';
+$txt['Shop_main_button'] = 'Seap';
+$txt['Shop_main_home'] = 'Seap - Home';
+$txt['Shop_admin_button'] = 'Seap Admin';
 $txt['Shop_main_home'] = 'Home';
 $txt['Shop_main_buy'] = 'Buy Items';
 $txt['Shop_main_inventory'] = 'Inventory';
@@ -27,8 +27,21 @@ $txt['Shop_main_yourinventory'] = 'Your Inventory';
 
 // Shop Home
 $txt['Shop_user_info'] = 'User information';
-$txt['Shop_welcome_to'] = '%s Shop';
-$txt['Shop_welcome_text'] = '<strong>Welcome to the Shop, %1$s.</strong><br /> Here you can buy items with the %2$s you get from posting on the forum, trade items at the trade center, put your money safe in the bank, browse your inventory and other users inventory.';
+$txt['Shop_welcome_to'] = 'Seap';
+$txt['Shop_welcome_text'] = '
+<p><strong>Hee hee... Welcome, %1$s.</strong></p>
+<p><img src="/assets/ui/seam.gif" alt="Seam"></p>
+<div id="random-shop-quote">
+	<p data-weight="3">The name\'s Seam. Pronounced <i>Shawm.</i><br>And this is my little <i>Seap</i>. Ha ha ha ha...</p>
+	<p data-weight="5">Take your time... Ain\'t like it\'s better spent.</p>
+	<p>There are many fresh faces in town, I see.<br>It warms this old fluff to see such hope.</p>
+	<p>Eh? That little salesman...?<br>... I don\'t know what you\'re talking about.</p>
+	<p>As long as I stay in my shop, these walls won\'t change.</p>
+	<p>You\'re a Lightner. Don\'t take your life, well, lightly!</p>
+	<p>Me? I\'m here offering the same old junk.</p>
+	<p>In a way, I suppose it\'s just a little bit amusing to see you again.</p>
+</div>
+<p>(Confused? Read the <a href="/index.php?action=pages;sa=view;id=5">shop guide</a>!)</p>';
 $txt['Shop_money_pocket'] = 'Pocket';
 $txt['Shop_money_bank'] = 'Bank';
 $txt['Shop_user_avatar'] = 'Avatar';
