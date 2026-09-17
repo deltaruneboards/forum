@@ -1534,7 +1534,7 @@ function editBuddies($memID)
 			$request = $smcFunc['db_query']('', '
 				SELECT id_member
 				FROM {db_prefix}members
-				WHERE member_name IN ({array_string:new_buddies}) OR real_name IN ({array_string:new_buddies})
+				WHERE real_name IN ({array_string:new_buddies})
 				LIMIT {int:count_new_buddies}',
 				array(
 					'new_buddies' => $new_buddies,
@@ -1738,7 +1738,7 @@ function editIgnoreList($memID)
 			$request = $smcFunc['db_query']('', '
 				SELECT id_member
 				FROM {db_prefix}members
-				WHERE member_name IN ({array_string:new_entries}) OR real_name IN ({array_string:new_entries})
+				WHERE real_name IN ({array_string:new_entries})
 				LIMIT {int:count_new_entries}',
 				array(
 					'new_entries' => $new_entries,

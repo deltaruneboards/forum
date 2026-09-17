@@ -1274,7 +1274,7 @@ function validateTriggers(&$triggers)
 				$request = $smcFunc['db_query']('', '
 					SELECT id_member, (id_group = {int:admin_group} OR FIND_IN_SET({int:admin_group}, additional_groups) != 0) AS isAdmin
 					FROM {db_prefix}members
-					WHERE member_name = {string:username} OR real_name = {string:username}
+					WHERE real_name = {string:username}
 					LIMIT 1',
 					array(
 						'admin_group' => 1,

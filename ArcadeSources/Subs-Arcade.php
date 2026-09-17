@@ -1015,8 +1015,11 @@ function addNotificationRecievers(&$pms, $event, $type)
 // Send off an email.
 function arcadeSendmail($to, $subject, $message, $from = null, $message_id = null, $send_html = false, $priority = 3, $hotmail_fix = null, $is_private = false, $subEncode = '')
 {
+	/* DUMB change: don't send emails from the arcade? Why would the arcade need to do this?
 	$result = arcadeSendmail21($to, $subject, $message, $from, $message_id, $send_html, $priority, $hotmail_fix, $is_private, $subEncode);
 	return $result;
+	*/
+	return false;
 }
 
 // Send off a PM.

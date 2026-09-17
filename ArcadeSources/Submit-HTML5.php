@@ -301,7 +301,7 @@ function ArcadeHTML5Html(&$game, $auto_start = true)
 			scrollTo(document.body, divelement.offsetTop, 100);
 		}
 		function escGameSmf() {
-			window.location = "' . $scripturl . '?action=arcade;sa=highscore;game=' . $game['id'] . ';reload=' . mt_rand(0, 9999) . ';#commentform3";
+			window.location = "' . $scripturl . '?action=arcade;sa=highscore;game=' . $game['id'] . ';#commentform3";
 		}
 	// ]]></script>';
 }

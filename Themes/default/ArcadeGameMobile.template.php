@@ -416,7 +416,7 @@ function template_arcade_game_play()
 			<input type="hidden" id="guestname" name="guestname" value="1" />' : '
 			<input type="hidden" id="guestname" name="guestname" value="0" />') . '
 			<input type="hidden" id="smfGameSaveUrl" name="smfGameSaveUrl" value="' . $settings['default_theme_url'] . '/arcade_scripts/arcade-html5-save.js?' . $suffixVersion . '" />
-			<input type="hidden" id="html5smfGameUrl" name="html5smfGameUrl" value="' . $scripturl . '?action=arcade;game=' . $context['game']['id'] . (!empty($reload) ? ';reload=' . $reload : '') . ';#playgame" />
+			<input type="hidden" id="html5smfGameUrl" name="html5smfGameUrl" value="' . $scripturl . '?action=arcade;game=' . $context['game']['id'] . ';#playgame" />
 			<input type="hidden" id="gameSmfFullscreen" name="gameSmfFullscreen" value="0" />
 			<input type="hidden" id="popup" name="popup" value="0" />
 			<input type="hidden" id="gameexit" name="gameexit" value="0" />
@@ -620,7 +620,7 @@ function template_arcade_html5_game_play()
 			<input type="hidden" id="guestname" name="guestname" value="1" />' : '
 			<input type="hidden" id="guestname" name="guestname" value="0" />') . '
 			<input type="hidden" id="smfGameSaveUrl" name="smfGameSaveUrl" value="' . $settings['default_theme_url'] . '/arcade_scripts/arcade-html5-save.js?' . $suffixVersion . '" />
-			<input type="hidden" id="html5smfGameUrl" name="html5smfGameUrl" value="' . $scripturl . '?action=arcade;game=' . $context['game']['id'] . (!empty($reload) ? ';reload=' . $reload : '') . ';#playgame" />
+			<input type="hidden" id="html5smfGameUrl" name="html5smfGameUrl" value="' . $scripturl . '?action=arcade;game=' . $context['game']['id'] . ';#playgame" />
 			<input type="hidden" id="gameSmfFullscreen" name="gameSmfFullscreen" value="0" />
 			<input type="hidden" id="popup" name="popup" value="0" />
 			<input type="hidden" id="gameexit" name="gameexit" value="0" />
@@ -1020,7 +1020,7 @@ function template_arcade_game_highscore()
 					echo '
 					</div>
 					<div style="word-spacing: 0.75em;white-space: pre-line;line-height: 0.65em;padding: 0px;margin: 0 auto;">
-						<form name="commentform1" id="commentform1" action="', $scripturl, '?action=arcade;sa=highscore;game=', $context['game']['id'], ';score=',  $score['id'], ';reload=', mt_rand(1, 9999), ';#commentform3" method="post">
+						<form name="commentform1" id="commentform1" action="', $scripturl, '?action=arcade;sa=highscore;game=', $context['game']['id'], ';score=',  $score['id'], '#commentform3" method="post">
 							<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '" />
 							<input type="hidden" name="mynewscoreid" value="', $score['id'], '" />
 							<input type="text" id="new_comment', $score['id'], '" name="new_comment', $score['id'], '" style="width: 95%;" maxlength="50" />
@@ -1042,7 +1042,7 @@ function template_arcade_game_highscore()
 			<div class="smalltext" style="word-spacing: 0.75em;white-space: pre-line;line-height: 1.5em;">
 				<span style="padding-top: 1em;"><span>&nbsp;</span></span>
 				<div style="padding: 0 0.5em">
-					<form name="commentform2" id="commentform2" action="', $scripturl, '?action=arcade;sa=save;reload=', mt_rand(1, 9999), ';#commentform3" method="post" onsubmit="myformxyz(\'commentform2\', 0)">
+					<form name="commentform2" id="commentform2" action="', $scripturl, '?action=arcade;sa=save#commentform3" method="post" onsubmit="myformxyz(\'commentform2\', 0)">
 						<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '" />
 						<input type="text" name="name" style="width: 95%;" maxlength="20" />
 						<input class="button_submit" onclick="myformxyz(\'commentform2\'), -1" type="submit" value="', $txt['arcade_save'], '" />
@@ -1057,7 +1057,7 @@ function template_arcade_game_highscore()
 
 	echo '
 		<div style="width: 0px;height: 0px;" id="mobileHiScoreFlag"><span></span></div>
-		<form id="commentform3" name="commentform3" action="', $scripturl, '?action=arcade;sa=highscore;reload=', mt_rand(1, 9999), ';#commentform3" method="post" onsubmit="myformxyz(\'commentform3\', 0)">
+		<form id="commentform3" name="commentform3" action="', $scripturl, '?action=arcade;sa=highscore#commentform3" method="post" onsubmit="myformxyz(\'commentform3\', 0)">
 			<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '" />
 			<input type="hidden" name="game" value="', $context['game']['id'], '" />
 			<div style="padding-top: 10px;"><span style="display: none;">&nbsp;</span></div>
@@ -1223,7 +1223,7 @@ function template_arcade_game_below()
 				if (reason)
 				{
 					var url = "'. $scripturl . '?action=arcade;sa=report;game=" + gameid + ";sesc=" + "' . $context['session_id'] . '";
-					var play_url = "'. $scripturl . '?action=arcade;sa=play;game=" + gameid + ";reload=" + Math.floor((Math.random() * 8999) + 1000);
+					var play_url = "'. $scripturl . '?action=arcade;sa=play;game=" + gameid;
 					var data = "reason=" + encodeURIComponent(reason).replace(/\'/g, "%27");
 					var callback = function(data){console.log(data);};
 					arcadeAjaxSend(url, data, callback);

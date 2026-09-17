@@ -231,14 +231,7 @@ class StatusService extends BaseService implements StatusServiceInterface
 	 */
 	public function deleteById(int $statusId): void
 	{
-		$status = $this->statusRepository->getById($statusId);
-		$currentUserInfo = $this->currentUserInfo();
-		$viewerId = (int) ($currentUserInfo['id'] ?? 0);
-		$wallOwnerId = $status->getWallId();
-		$perms = $this->permissionsService->permissions($wallOwnerId, $viewerId);
-		if (!$perms[PermissionsEnum::TYPE_STATUS]['delete']) {
-			throw new InvalidStatusException('error_no_permission');
-		}
+		$this->checkPermissions('delete', $this->statusRepository->getById($statusId)->getWallId());
 		$this->statusRepository->deleteById($statusId);
 	}
 
@@ -248,6 +241,7 @@ class StatusService extends BaseService implements StatusServiceInterface
 	 */
 	public function save(array $data): array
 	{
+		$this->checkPermissions('post', (int) ($data[StatusEntity::WALL_ID] ?? 0));
 		$processed = null;
 
 		if ($this->mentionService?->isEnabled()) {
@@ -276,6 +270,16 @@ class StatusService extends BaseService implements StatusServiceInterface
 		}
 
 		return $statusEntities;
+	}
+
+	private function checkPermissions(string $action, int $wallOwnerId): void
+	{
+		$currentUserInfo = $this->currentUserInfo();
+		$viewerId = (int) ($currentUserInfo['id'] ?? 0);
+		$perms = $this->permissionsService->permissions($wallOwnerId, $viewerId);
+		if (!$perms[PermissionsEnum::TYPE_STATUS][$action]) {
+			throw new InvalidStatusException('error_no_permission');
+		}
 	}
 
 	public function currentUserInfo(): array

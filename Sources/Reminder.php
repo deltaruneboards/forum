@@ -66,8 +66,8 @@ function RemindPick()
 	}
 	elseif (isset($_POST['user']) && $_POST['user'] != '')
 	{
-		$where = 'member_name = {string:member_name}';
-		$where_params['member_name'] = $_POST['user'];
+		$where = 'real_name = {string:real_name} OR email_address = {string:email_address}';
+		$where_params['real_name'] = $_POST['user'];
 		$where_params['email_address'] = $_POST['user'];
 	}
 
@@ -84,27 +84,15 @@ function RemindPick()
 
 	// Find the user!
 	$request = $smcFunc['db_query']('', '
-		SELECT id_member, real_name, member_name, email_address, is_activated, validation_code, lngfile, secret_question
+		SELECT id_member, real_name, email_address, is_activated, validation_code, lngfile, secret_question
 		FROM {db_prefix}members
 		WHERE ' . $where . '
 		LIMIT 1',
 		$where_params
 	);
 	// Maybe email?
-	if ($smcFunc['db_num_rows']($request) == 0 && empty($_REQUEST['uid']))
-	{
-		$smcFunc['db_free_result']($request);
-
-		$request = $smcFunc['db_query']('', '
-			SELECT id_member, real_name, member_name, email_address, is_activated, validation_code, lngfile, secret_question
-			FROM {db_prefix}members
-			WHERE email_address = {string:email_address}
-			LIMIT 1',
-			$where_params
-		);
-		if ($smcFunc['db_num_rows']($request) == 0)
-			fatal_lang_error('no_user_with_email', false);
-	}
+	if ($smcFunc['db_num_rows']($request) == 0)
+		fatal_lang_error('no_user_with_email', false);
 
 	$row = $smcFunc['db_fetch_assoc']($request);
 	$smcFunc['db_free_result']($request);
@@ -136,7 +124,7 @@ function RemindPick()
 			'REALNAME' => $row['real_name'],
 			'REMINDLINK' => $scripturl . '?action=reminder;sa=setpassword;u=' . $row['id_member'] . ';code=' . $password,
 			'IP' => $user_info['ip'],
-			'MEMBERNAME' => $row['member_name'],
+			'MEMBERNAME' => $row['real_name'],
 		);
 
 		$emaildata = loadEmailTemplate('forgot_password', $replacements, empty($row['lngfile']) || empty($modSettings['userLanguage']) ? $language : $row['lngfile']);
@@ -163,7 +151,7 @@ function RemindPick()
 	$context['sub_template'] = 'reminder_pick';
 	$context['current_member'] = array(
 		'id' => $row['id_member'],
-		'name' => $row['member_name'],
+		'name' => $row['real_name'],
 	);
 }
 
@@ -300,7 +288,7 @@ function SecretAnswerInput()
 
 	// Get the stuff....
 	$request = $smcFunc['db_query']('', '
-		SELECT id_member, real_name, member_name, secret_question
+		SELECT id_member, secret_question
 		FROM {db_prefix}members
 		WHERE id_member = {int:id_member}
 		LIMIT 1',
@@ -368,7 +356,7 @@ function SecretAnswer2()
 	*/
 	if ($row['secret_question'] == '' || $row['secret_answer'] == '' || (!hash_verify_password($row['member_name'], $_POST['secret_answer'], $row['secret_answer']) && md5($_POST['secret_answer']) != $row['secret_answer']))
 	{
-		log_error(sprintf($txt['reminder_error'], $row['member_name']), 'user');
+		log_error(sprintf($txt['reminder_error'], $row['real_name']), 'user');
 		fatal_lang_error('incorrect_answer', false);
 	}
 
@@ -401,7 +389,7 @@ function SecretAnswer2()
 	$context += array(
 		'page_title' => $txt['reminder_password_set'],
 		'sub_template' => 'login',
-		'default_username' => $row['member_name'],
+		'default_username' => $row['real_name'],
 		'default_password' => $_POST['passwrd1'],
 		'never_expire' => false,
 		'description' => $txt['reminder_password_set']

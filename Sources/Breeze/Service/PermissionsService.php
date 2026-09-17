@@ -75,16 +75,13 @@ class PermissionsService implements PermissionsServiceInterface
 		$isPosterOwner = false;
 
 		// Lets check the posing bit first. Profile owner can always post.
-		if ($isProfileOwner) {
-			$perm[PermissionsEnum::TYPE_STATUS]['post'] = true;
-			$perm[PermissionsEnum::TYPE_COMMENTS]['post'] = true;
-		} else {
-			$perm[PermissionsEnum::TYPE_STATUS]['post'] = $this->isAllowedTo(PermissionsEnum::POST_STATUS);
-			$perm[PermissionsEnum::TYPE_COMMENTS]['post'] =  $this->isAllowedTo(PermissionsEnum::POST_COMMENTS);
-		}
-
+		$isBanned = isset($_SESSION['ban']) && isset($_SESSION['ban']['cannot_post']);
+		$perm[PermissionsEnum::TYPE_STATUS]['post'] = !$isBanned && ($isPosterOwner || $this->isAllowedTo(PermissionsEnum::POST_STATUS));
+		$perm[PermissionsEnum::TYPE_COMMENTS]['post'] = !$isBanned && ($isPosterOwner || $this->isAllowedTo(PermissionsEnum::POST_COMMENTS));
 		$perm[PermissionsEnum::TYPE_STATUS]['delete'] = $this->handleDelete(PermissionsEnum::TYPE_STATUS, $isPosterOwner, $isProfileOwner);
 		$perm[PermissionsEnum::TYPE_COMMENTS]['delete'] =  $this->handleDelete(PermissionsEnum::TYPE_COMMENTS, $isPosterOwner, $isProfileOwner);
+		$perm[PermissionsEnum::TYPE_STATUS]['report'] = !$isBanned;
+		$perm[PermissionsEnum::TYPE_COMMENTS]['report'] = !$isBanned;
 
 		return $perm;
 	}

@@ -74,7 +74,7 @@ function template_arcade_retro_arch()
 
 			}
 			function escGameSmf() {
-				window.location = "' . $scripturl . '?action=' . $action . ';sa=highscore;game=' . $context['arcade_rom_game_data']['id'] . ';reload=' . mt_rand(0, 9999) . ';#commentform3";
+				window.location = "' . $scripturl . '?action=' . $action . ';sa=highscore;game=' . $context['arcade_rom_game_data']['id'] . ';#commentform3";
 			}
 		</script>';
 	}

@@ -724,7 +724,7 @@ function modifyBoard($board_id, &$boardOptions)
 				$request = $smcFunc['db_query']('', '
 					SELECT id_member
 					FROM {db_prefix}members
-					WHERE member_name IN ({array_string:moderator_list}) OR real_name IN ({array_string:moderator_list})
+					WHERE real_name IN ({array_string:moderator_list})
 					LIMIT {int:limit}',
 					array(
 						'moderator_list' => $moderators,

@@ -52,7 +52,7 @@ $boardurl = $dumb_is_dev ? 'http://localhost:4000' : 'https://dumb.kocka.tech';
  *
  * @var string
  */
-$webmaster_email = $dumb_is_dev ? 'noreply@example.com' : 'deltaruneboards@sites.nearlyfreespeech.net';
+$webmaster_email = $dumb_is_dev ? 'noreply@example.com' : 'admin@deltaruneboards.net';
 /**
  * The name of your forum.
  *

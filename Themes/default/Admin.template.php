@@ -1272,7 +1272,7 @@ function template_edit_profile_field()
 											</select>
 											<br>
 											<span id="regex_div">
-												<input type="text" name="regex" value="', $context['field']['regex'], '" size="30">
+												<input type="text" name="regex" value="', htmlspecialchars($context['field']['regex']), '" size="30">
 											</span>
 										</dd>
 										<dt>

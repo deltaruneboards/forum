@@ -2047,6 +2047,27 @@ function MessagePost()
 			$names[] = $to['name'];
 		$context['to_value'] = empty($names) ? '' : '&quot;' . implode('&quot;, &quot;', $names) . '&quot;';
 	}
+	elseif (!empty($_REQUEST['g']))
+	{
+		$request = $smcFunc['db_query']('', '
+			SELECT mem.id_member, mem.real_name
+			FROM {db_prefix}members AS mem
+			JOIN {db_prefix}membergroups AS mg USING(id_group)
+			WHERE mg.id_group IN ({array_int:group})
+				AND mg.hidden = 0',
+			[ 'group' => explode(',', $_REQUEST['g']) ]
+		);
+		$names = [];
+		while ($row = $smcFunc['db_fetch_assoc']($request)) {
+			$context['recipients']['to'][] = array(
+				'id' => $row['id_member'],
+				'name' => $row['real_name'],
+			);
+			$names[] = $row['real_name'];
+		}
+		$smcFunc['db_free_result']($request);
+		$context['to_value'] = empty($names) ? '' : '&quot;' . implode('&quot;, &quot;', $names) . '&quot;';
+	}
 	else
 		$context['to_value'] = '';
 

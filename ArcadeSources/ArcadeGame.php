@@ -314,7 +314,7 @@ function ArcadePlay()
 			$context['page_title'] = sprintf($txt['arcade_game_play'], $context['game']['name']);
 			$context['arcade']['play'] = true;
 			$context['linktree'][] = array(
-				'url' => $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';reload=' . mt_rand(1, 9999) . ';#playgame',
+				'url' => $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';#playgame',
 				'name' => $context['game']['name'],
 			);
 			$context['html_headers'] .= '
@@ -368,7 +368,7 @@ function ArcadePlay()
 				$context['page_title'] = sprintf($txt['arcade_game_play'], $context['game']['name']);
 				$context['arcade']['play'] = true;
 				$context['linktree'][] = array(
-					'url' => $scripturl . '?action=arcade;sa=play;game=' . $context['game']['id'] . ';reload=' . mt_rand(1, 9999) . ';#playgame',
+					'url' => $scripturl . '?action=arcade;sa=play;game=' . $context['game']['id'] . ';#playgame',
 					'name' => $context['game']['name'],
 				);
 				$context['html_headers'] .= '
@@ -395,7 +395,7 @@ function ArcadePlay()
 				$context['page_title'] = sprintf($txt['arcade_game_play'], $context['game']['name']);
 				$context['arcade']['play'] = true;
 				$context['linktree'][] = array(
-					'url' => $scripturl . '?action=arcade;sa=play;game=' . $context['game']['id'] . ';reload=' . mt_rand(1, 9999) . ';#playgame',
+					'url' => $scripturl . '?action=arcade;sa=play;game=' . $context['game']['id'] . ';#playgame',
 					'name' => $context['game']['name'],
 				);
 				$context['html_headers'] .= '
@@ -475,7 +475,7 @@ function ArcadePlay()
 			$context['page_title'] = sprintf($txt['arcade_game_play'], $context['game']['name']);
 			$context['arcade']['play'] = true;
 			$context['linktree'][] = array(
-				'url' => $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';reload=' . mt_rand(1, 9999) . ';#playgame',
+				'url' => $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';#playgame',
 				'name' => $context['game']['name'],
 			);
 
@@ -513,7 +513,7 @@ function ArcadePlay()
 				$_REQUEST['game'] = $context['game']['id'];
 				$context['arcade']['play'] = true;
 				$context['linktree'][] = array(
-					'url' => $scripturl . '?action=arcade;sa=play;game=' . $context['game']['id'] . ';reload=' . mt_rand(1, 9999) . ';#playgame',
+					'url' => $scripturl . '?action=arcade;sa=play;game=' . $context['game']['id'] . ';#playgame',
 					'name' => $context['game']['name'],
 				);
 
@@ -543,7 +543,7 @@ function ArcadePlay()
 				$_REQUEST['game'] = $context['game']['id'];
 				$context['arcade']['play'] = true;
 				$context['linktree'][] = array(
-					'url' => $scripturl . '?action=arcade;sa=play;game=' . $context['game']['id'] . ';reload=' . mt_rand(1, 9999) . ';#playgame',
+					'url' => $scripturl . '?action=arcade;sa=play;game=' . $context['game']['id'] . ';#playgame',
 					'name' => $context['game']['name'],
 				);
 
@@ -660,7 +660,7 @@ function ArcadeSubmit($url = '')
 	if (!$context['game'] || !isset($_SESSION['arcade_play_' . $context['game']['id']]) || !isset($_SESSION['arcade_play_extra_' . $context['game']['id']]))
 		$newLink = $scripturl . '?action=' . $action . ';';
 	else
-		$newLink = !empty($context['game']['id']) ? $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';reload=' . rand(100, 999) : $scripturl . '?action=' . $action . ';';
+		$newLink = !empty($context['game']['id']) ? $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . '' : $scripturl . '?action=' . $action . ';';
 
 	$context['html_headers'] .= '
 		<script type="text/javascript">
@@ -987,7 +987,7 @@ function ArcadeSubmit($url = '')
 	}
 
 	if (!isset($_REQUEST['xml']))
-		redirectexit('action=arcade;sa=highscore;game=' . $context['game']['id'] . ';start=' . $_SESSION['arcade']['highscore']['start']) . ';reload=' . mt_rand(1, 9999) . ';#commentform3';
+		redirectexit('action=arcade;sa=highscore;game=' . $context['game']['id'] . ';start=' . $_SESSION['arcade']['highscore']['start']) . ';#commentform3';
 	else
 		redirectexit('action=arcade');
 }
@@ -1029,13 +1029,13 @@ function ArcadeSave_Guest()
 			$_SESSION['save_score'][1]['id'] = 0;
 		}
 		else
-			redirectexit('action=arcade;sa=highscore;game=' . $_REQUEST['game'] . ';reload=' . mt_rand(1, 9999));
+			redirectexit('action=arcade;sa=highscore;game=' . $_REQUEST['game']);
 
 		if (!empty($user_info['is_guest']) && allowedTo('arcade_submit') && isset($_SESSION['save_score'][0]) && isset($_SESSION['save_score'][1]) && isset($_SESSION['save_score'][2]))
 			SaveScore($_SESSION['save_score'][0], $_SESSION['save_score'][1], $_SESSION['save_score'][2]);
 
 		//unset($_SESSION['save_score']);
-		redirectexit('action=arcade;sa=highscore;game=' . $_REQUEST['game'] . ';reload=' . mt_rand(1, 9999) . ';#commentform3');
+		redirectexit('action=arcade;sa=highscore;game=' . $_REQUEST['game'] . ';#commentform3');
 	}
 }
 
@@ -1258,7 +1258,7 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 				null
 			);
 		}
-		redirectexit('action=arcade;sa=' . $context['arcade_scorelist'] . ';' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'] . ';reload=' . mt_rand(1, 9999) . (!empty($start) ? ';start=' . $start : '') . ';#commentform3');
+		redirectexit('action=arcade;sa=' . $context['arcade_scorelist'] . ';' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'] . (!empty($start) ? ';start=' . $start : '') . ';#commentform3');
 	}
 	// Quick Management
 	elseif ($context['arcade']['can_admin_arcade'] && isset($_REQUEST['qaction']))
@@ -1281,7 +1281,7 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 			$smcFunc['db_free_result']($request);
 		}
 
-		redirectexit('action=arcade;sa=' . $context['arcade_scorelist'] . ';' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'] . ';reload=' . mt_rand(1, 9999) . (!empty($start) ? ';start=' . $start : '') . ';#commentform3');
+		redirectexit('action=arcade;sa=' . $context['arcade_scorelist'] . ';' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'] . (!empty($start) ? ';start=' . $start : '') . ';#commentform3');
 	}
 
 	// How many scores there are
@@ -1312,9 +1312,9 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 	}
 
 	$smcFunc['db_free_result']($result);
-	$context['page_index'] = constructPageIndex($scripturl .'?action=arcade;sa=' . $context['arcade_scorelist'] . ';' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'] . ';reload=' . mt_rand(1, 9999), $_REQUEST['start'], $scoreCount, $context['scores_per_page'], false);
+	$context['page_index'] = constructPageIndex($scripturl .'?action=arcade;sa=' . $context['arcade_scorelist'] . ';' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'], $_REQUEST['start'], $scoreCount, $context['scores_per_page'], false);
 	$context['page_index'] = preg_replace('~href=("|\')(.+?)\1~', 'href=$1$2;commentform3$1', $context['page_index']);
-	$context['arcade_scorelist_toggle'] = $scripturl . '?action=arcade;sa=' . ($context['arcade_scorelist'] == 'highscore' ? 'myhighscore' : 'highscore') . ';' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'] . ';start=' . $_REQUEST['start'] . ';reload=' . mt_rand(1, 9999);
+	$context['arcade_scorelist_toggle'] = $scripturl . '?action=arcade;sa=' . ($context['arcade_scorelist'] == 'highscore' ? 'myhighscore' : 'highscore') . ';' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'] . ';start=' . $_REQUEST['start'];
 
 	// Actual query
 	$result = $smcFunc['db_query']('', '
@@ -1435,11 +1435,11 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 	$context['arcade_empty_cell'] = '<div class="minwidth" style="display: table-cell;width: 0px;height: 1.5em;max-height: 1.5em;"><span style="display: none;">&nbsp;</span></div>';
 	$context['page_title'] = sprintf($txt['arcade_view_highscore'], $game['name']);
 	$context['linktree'][] = array(
-		'url' => $scripturl . '?action=arcade;sa=play;game=' . $game['id'] . ';reload=' . mt_rand(1, 9999) . ';#playgame',
+		'url' => $scripturl . '?action=arcade;sa=play;game=' . $game['id'] . ';#playgame',
 		'name' => $game['name'],
 	);
 	$context['linktree'][] = array(
-		'url' => $scripturl . '?action=arcade;sa=highscore;' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'] . ';reload=' . mt_rand(1, 9999) . ';#commentform3',
+		'url' => $scripturl . '?action=arcade;sa=highscore;' . ($pop == 1 ? 'pop=1;' : '') . 'game=' . $game['id'] . ';#commentform3',
 		'name' => $txt['arcade_viewscore'],
 	);
 
@@ -1447,10 +1447,10 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 	{
 		$context['html_headers'] .= !isset($_REQUEST['end']) ? '
 		<script type="text/javascript">
-			window.location.href = "' . $scripturl . '?action=arcade;sa=' . $context['arcade_scorelist'] . ';pop=1;game=' . $game['id'] . ';edit;score=' . $popScore . ';reload=' . mt_rand(1, 9999) . (!empty($start) ? ';start=' . $start : '') . ';#commentform3";
+			window.location.href = "' . $scripturl . '?action=arcade;sa=' . $context['arcade_scorelist'] . ';pop=1;game=' . $game['id'] . ';edit;score=' . $popScore . (!empty($start) ? ';start=' . $start : '') . ';#commentform3";
 		</script>' : '
 		<script type="text/javascript">
-			window.location.href = "' . $scripturl . '?action=arcade;sa=' . $context['arcade_scorelist'] . ';pop=1;game=' . $game['id'] . ';reload=' . mt_rand(1, 9999) . (!empty($start) ? ';start=' . $start : '') . ';#commentform3";
+			window.location.href = "' . $scripturl . '?action=arcade;sa=' . $context['arcade_scorelist'] . ';pop=1;game=' . $game['id'] . (!empty($start) ? ';start=' . $start : '') . ';#commentform3";
 		</script>';
 		require_once($settings['default_theme_dir'] . '/ArcadeGamePop.template.php');
 		arcadePopHighscoreTemplate();
@@ -1463,7 +1463,7 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 		$context['html_headers'] .= !isset($_REQUEST['end']) ? '
 		<script type="text/javascript">
 			if (false == ' . $checkLastTime . ')
-				var myArcadeWindow = window.location.replace("' . $scripturl . '?action=arcade;sa=' . $context['arcade_scorelist'] . ';' . (!empty($lastid) ? 'lastid=' . $lastid . ';' : '') . 'game=' . $game['id'] . ';edit;score=' . $popScore . ';reload=' . mt_rand(1, 9999) . (!empty($start) ? ';start=' . $start : '') . ';time=' . time() . ';#commentform3");
+				var myArcadeWindow = window.location.replace("' . $scripturl . '?action=arcade;sa=' . $context['arcade_scorelist'] . ';' . (!empty($lastid) ? 'lastid=' . $lastid . ';' : '') . 'game=' . $game['id'] . ';edit;score=' . $popScore . (!empty($start) ? ';start=' . $start : '') . ';time=' . time() . ';#commentform3");
 			if(myArcadeWindow && !myArcadeWindow.closed) {
 				myArcadeWindow.preventDefault();myArcadeWindow.close();
 			}
@@ -1471,7 +1471,7 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 		</script>' : '
 		<script type="text/javascript">
 			if (false === ' . $checkLastTime . ')
-				var myArcadeWindow = window.location.replace("' . $scripturl . '?action=arcade;sa=' . $context['arcade_scorelist'] . ';game=' . $game['id'] . ';reload=' . mt_rand(1, 9999) . (!empty($start) ? ';start=' . $start : '') . ';time=' . time() . ';#commentform3");
+				var myArcadeWindow = window.location.replace("' . $scripturl . '?action=arcade;sa=' . $context['arcade_scorelist'] . ';game=' . $game['id'] . (!empty($start) ? ';start=' . $start : '') . ';time=' . time() . ';#commentform3");
 			if(myArcadeWindow && !myArcadeWindow.closed)
 				setTimeout(throwArcadeErr("Closing window ~ Ignore this warning unless it is looping"), 1000);
 		</script>';
@@ -1648,14 +1648,14 @@ function ArcadePlayTabs($game)
 	$context['arcade']['buttons']['play'] =  array(
 		'text' => 'arcade_play',
 		'image' => 'arcade_play.gif', // Theres no image for this included (yet)
-		'url' => !empty($context['arcade']['play']) ? $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';reload=' . mt_rand(1, 9999). ';#playgame" onclick="arcadeRestart(); return false;' : $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';reload=' . mt_rand(1, 9999). ';#playgame',
+		'url' => !empty($context['arcade']['play']) ? $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';#playgame" onclick="arcadeRestart(); return false;' : $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';#playgame',
 		'lang' => true
 	);
 
 	$context['arcade']['buttons']['fullscreen'] =  array(
 		'text' => 'arcadeFullPopup',
 		'image' => 'arcade_fullscreen.gif', // Theres no image for this included (yet)
-		'url' => !empty($context['arcade']['play']) && empty($context['game']['rom_flag']) && empty($context['game']['rom_game']) ? $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';pop=1;full=1;sameArcadeWindow=1;reload=' . mt_rand(1, 9999). ';#playgame" onclick="arcadeRestart(); return false;' : $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';pop=1;full=1;sameArcadeWindow=1;reload=' . mt_rand(1, 9999). ';#playgame',
+		'url' => !empty($context['arcade']['play']) && empty($context['game']['rom_flag']) && empty($context['game']['rom_game']) ? $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';pop=1;full=1;sameArcadeWindow=1;#playgame" onclick="arcadeRestart(); return false;' : $scripturl . '?action=' . $action . ';sa=play;game=' . $context['game']['id'] . ';pop=1;full=1;sameArcadeWindow=1;#playgame',
 		'lang' => true
 	);
 
@@ -1665,7 +1665,7 @@ function ArcadePlayTabs($game)
 		$context['arcade']['buttons']['score'] =  array(
 			'text' => 'arcade_viewscore',
 			'image' => 'arcade_viewscore.gif', // Theres no image for this included (yet)
-			'url' => $scripturl . '?action=' . $action . ';sa=highscore;game=' . $context['game']['id'] . ';reload=' . mt_rand(1, 9999) . ';#commentform3',
+			'url' => $scripturl . '?action=' . $action . ';sa=highscore;game=' . $context['game']['id'] . ';#commentform3',
 			'lang' => true
 		);
 
@@ -1673,7 +1673,7 @@ function ArcadePlayTabs($game)
 	$context['arcade']['buttons']['random'] =  array(
 		'text' => 'arcade_random_game',
 		'image' => 'arcade_random.gif', // Theres no image for this included (yet)
-		'url' => $scripturl . '?action=' . $action . ';sa=play;random;reload=' . mt_rand(1, 9999) . ';#playgame',
+		'url' => $scripturl . '?action=' . $action . ';sa=play;random#playgame',
 		'lang' => true
 	);
 

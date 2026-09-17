@@ -69,7 +69,7 @@ function ArcadeMatchList()
 		$context['matches'][] = array(
 			'id' => $row['id_match'],
 			'name' => $row['name'],
-			'link' => '<a href="' . $scripturl . '?action=arcade;sa=viewMatch;match=' . $row['id_match'] . ';reload=' . mt_rand(1, 9999) . ';#arenamatch">' . $row['name'] . '</a>',
+			'link' => '<a href="' . $scripturl . '?action=arcade;sa=viewMatch;match=' . $row['id_match'] . ';#arenamatch">' . $row['name'] . '</a>',
 			'status' => $status[($row['my_state'] + ($row['status'] * 10 + 10))],
 			'joined' => (bool) $row['participation'],
 			'my_state' => $row['my_state'],
@@ -140,7 +140,7 @@ function ArcadeViewMatch()
 
 		matchUpdateStatus($context['match']['id']);
 
-		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';reload=' . mt_rand(1, 9999) . ';#arenamatch');
+		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';#arenamatch');
 	}
 	// Leave match
 	elseif (isset($_REQUEST['leave']) && ($context['can_leave'] || $context['can_decline']))
@@ -163,7 +163,7 @@ function ArcadeViewMatch()
 			);
 		}
 
-		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';reload=' . mt_rand(1, 9999) . ';#arenamatch');
+		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';#arenamatch');
 	}
 	// Kick some user
 	elseif (isset($_REQUEST['kick']) && !empty($context['match']['players'][$_REQUEST['player']]['can_kick']))
@@ -177,7 +177,7 @@ function ArcadeViewMatch()
 			)
 		);
 
-		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';reload=' . mt_rand(1, 9999) . ';#arenamatch');
+		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';#arenamatch');
 	}
 	// Join
 	elseif (isset($_REQUEST['join']) && $context['can_join_match'])
@@ -191,7 +191,7 @@ function ArcadeViewMatch()
 			)
 		);
 
-		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';reload=' . mt_rand(1, 9999) . ';#arenamatch');
+		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';#arenamatch');
 	}
 	// Accept
 	elseif (isset($_REQUEST['join']) && $context['can_accept'])
@@ -206,7 +206,7 @@ function ArcadeViewMatch()
 			1
 		);
 
-		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';reload=' . mt_rand(1, 9999) . ';#arenamatch');
+		redirectexit('action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';#arenamatch');
 	}
 
 	// Layout
@@ -221,11 +221,11 @@ function ArcadeViewMatch()
 
 	// Add Arena to link tree
 	$context['linktree'][] = array(
-		'url' => $scripturl . '?action=arcade;sa=arena' . ';reload=' . mt_rand(1, 9999) . ';#arenamatch',
+		'url' => $scripturl . '?action=arcade;sa=arena' . ';#arenamatch',
 		'name' => $txt['arcade_arena'],
 	);
 	$context['linktree'][] = array(
-		'url' => $scripturl . '?action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';reload=' . mt_rand(1, 9999) . ';#arenamatch',
+		'url' => $scripturl . '?action=arcade;sa=viewMatch;match=' . $context['match']['id'] . ';#arenamatch',
 		'name' => $context['match']['name'],
 	);
 }
@@ -522,7 +522,7 @@ function ArcadeNewMatch2()
 
 	$id_match = createMatch($matchOptions);
 
-	redirectexit('action=arcade;sa=viewMatch;match=' . $id_match . ';reload=' . mt_rand(1, 9999) . ';#arenamatch');
+	redirectexit('action=arcade;sa=viewMatch;match=' . $id_match . ';#arenamatch');
 }
 
 function arcadeArenaTemplate()

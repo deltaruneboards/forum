@@ -11,10 +11,10 @@
 global $scripturl, $modSettings;
 
 // Main
-$txt['Shop'] = 'Shop';
-$txt['Shop_main_button'] = 'Shop';
-$txt['Shop_main_home'] = 'Shop - Home';
-$txt['Shop_admin_button'] = 'Shop Admin';
+$txt['Shop'] = 'Seap';
+$txt['Shop_main_button'] = 'Seap';
+$txt['Shop_main_home'] = 'Seap - Home';
+$txt['Shop_admin_button'] = 'Seap Admin';
 $txt['Shop_main_home'] = 'Home';
 $txt['Shop_main_buy'] = 'Buy Items';
 $txt['Shop_main_inventory'] = 'Inventory';
@@ -27,8 +27,52 @@ $txt['Shop_main_yourinventory'] = 'Your Inventory';
 
 // Shop Home
 $txt['Shop_user_info'] = 'User information';
-$txt['Shop_welcome_to'] = '%s Shop';
-$txt['Shop_welcome_text'] = '<strong>Welcome to the Shop, %1$s.</strong><br /> Here you can buy items with the %2$s you get from posting on the forum, trade items at the trade center, put your money safe in the bank, browse your inventory and other users inventory.';
+$txt['Shop_welcome_to'] = 'Seap';
+$txt['Shop_welcome_text'] = '
+<p><strong>Hee hee... Welcome, %1$s.</strong></p>
+<p><img src="/assets/ui/seam.gif" alt="Seam"></p>
+<div id="random-shop-quote">
+	<p data-weight="3">The name\'s Seam. Pronounced <i>Shawm.</i><br>And this is my little <i>Seap</i>. Ha ha ha ha...</p>
+	<p data-weight="5">Take your time... Ain\'t like it\'s better spent.</p>
+	<p>There are many fresh faces in town, I see.<br>It warms this old fluff to see such hope.</p>
+	<p>Eh? That little salesman...?<br>... I don\'t know what you\'re talking about.</p>
+	<p>As long as I stay in my shop, these walls won\'t change.</p>
+	<p>You\'re a Lightner. Don\'t take your life, well, lightly!</p>
+	<p>Me? I\'m here offering the same old junk.</p>
+	<p>In a way, I suppose it\'s just a little bit amusing to see you again.</p>
+</div>
+<p>(Confused? Read the <a href="/index.php?action=pages;sa=view;id=5">shop guide</a>!)</p>
+<table class="shop-items-table">
+	<thead>
+		<tr>
+			<th>Category Name</th>
+			<th>Category Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><a href="/index.php?action=shop;sa=buy;cat=2">BADGES</a></td>
+			<td>BADGES to equip.</td>
+		</tr>
+		<tr>
+			<td><a href="/index.php?action=shop;sa=buy;cat=3">TITLES</a></td>
+			<td>TITLES to attain.</td>
+		</tr>
+		<tr>
+			<td><a href="/index.php?action=shop;sa=buy;cat=4">VARIOUS</a></td>
+			<td>VARIOUS items.</td>
+		</tr>
+		<tr>
+			<td><a href="/index.php?action=shop;sa=buy;cat=5">[CASINO]</a></td>
+			<td>Try your LUCK!</td>
+		</tr>
+		<tr>
+			<td><a href="/index.php?action=shop;sa=tradelist">TRADING</a></td>
+			<td>TRADE your items.</td>
+		</tr>
+	</tbody>
+</table>
+';
 $txt['Shop_money_pocket'] = 'Pocket';
 $txt['Shop_money_bank'] = 'Bank';
 $txt['Shop_user_avatar'] = 'Avatar';
@@ -172,8 +216,8 @@ $txt['Shop_gift_money_sent'] = 'The ' . (!empty($modSettings['Shop_credits_suffi
 $txt['Shop_gift_message'] = 'Message to send to the member';
 $txt['Shop_gift_message_desc'] = 'User will still receive a notification, but you can leave the box blank.';
 $txt['Shop_gift_notification_subject'] = 'You have received a gift.';
-$txt['Shop_gift_notification_message1'] = '[url=' . $scripturl . '?action=profile;u=%1$d]%2$s[/url] has sent you an item! They have gifted you the item %3$s.' . "\n" . 'If they left an additional message, will be shown below.' . "\n\n" . '%4$s' . "\n\n" . 'This is an automatic notification, have a good day.' . "\n" .'- Forum Shop';
-$txt['Shop_gift_notification_message2'] = '[url=' . $scripturl . '?action=profile;u=%1$d]%2$s[/url] has sent you %3$s! They have  gifted you [i]%4$s[/i].' . "\n" . 'You now have %5$s' . "\n" . 'If they left an additional message, will be shown below.' . "\n\n" . '%6$s' . "\n\n" . 'This is an automatic notification, have a good day.' . "\n" .'- Forum Shop';
+$txt['Shop_gift_notification_message1'] = '[url=' . $scripturl . '?action=profile;u=%1$d]%2$s[/url] has sent you an item! They have gifted you the item %3$s.' . "\n" . 'If they left an additional message, it will be shown below.' . "\n\n" . '%4$s' . "\n\n" . 'This is an automatic notification, have a good day.' . "\n" .'- Forum Shop';
+$txt['Shop_gift_notification_message2'] = '[url=' . $scripturl . '?action=profile;u=%1$d]%2$s[/url] has sent you %3$s! They have  gifted you [i]%4$s[/i].' . "\n" . 'You now have %5$s' . "\n" . 'If they left an additional message, it will be shown below.' . "\n\n" . '%6$s' . "\n\n" . 'This is an automatic notification, have a good day.' . "\n" .'- Forum Shop';
 
 // Stats
 $txt['Shop_stats_desc'] = 'Welcome to the Stats site, here you can keep track of the most relevant information about the Shop';
