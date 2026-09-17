@@ -372,7 +372,7 @@ function MessageIndex()
 			LEFT JOIN {db_prefix}log_mark_read AS lmr ON (lmr.id_board = {int:current_board} AND lmr.id_member = {int:current_member})') . '
 			WHERE 1=1
 			' . (!empty($message_index_tables) ? implode("\n\t\t\t\t", $message_index_tables) : '') . '
-			' . (!empty($message_index_wheres) ? ' WHERE ' . implode("\n\t\t\t\tAND ", $message_index_wheres) : '') . '
+			' . (!empty($message_index_wheres) ? ' AND ' . implode("\n\t\t\t\tAND ", $message_index_wheres) : '') . '
 			' . ($user_info['ignoreusers_hide_posts'] ? ' AND ml.id_member NOT IN ({array_int:ignore_users})' : '') . '
 		ORDER BY is_sticky' . ($fake_ascending ? '' : ' DESC') . ', ' . $_REQUEST['sort'] . ($ascending ? '' : ' DESC') . ', ml.id_msg DESC',
 		$message_index_parameters
