@@ -367,6 +367,10 @@ function getBoardIndex($board_index_options)
 			// Propagate some values to the parent board
 			if (isset($row_boards[$row_board['id_parent']]))
 			{
+				if ($user_info['ignoreusers_hide_posts'] && in_array($row_board['id_member'], $user_info['ignoreusers'])) continue;
+				if ($user_info['ignoreusers_hide_topics'] && in_array($row_board['id_member_started'], $user_info['ignoreusers'])) continue;
+				if ($row_boards[$row_board['id_parent']]['id_msg'] > $row_board['id_msg']) continue;
+
 				if (empty($row_board['is_read']))
 					$row_boards[$row_board['id_parent']]['is_read'] = $row_board['is_read'];
 
