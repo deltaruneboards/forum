@@ -374,6 +374,7 @@ function MessageIndex()
 			' . (!empty($message_index_tables) ? implode("\n\t\t\t\t", $message_index_tables) : '') . '
 			' . (!empty($message_index_wheres) ? ' AND ' . implode("\n\t\t\t\tAND ", $message_index_wheres) : '') . '
 			' . ($user_info['ignoreusers_hide_posts'] ? ' AND ml.id_member NOT IN ({array_int:ignore_users})' : '') . '
+			' . ($user_info['ignoreusers_hide_topics'] ? ' AND mf.id_member NOT IN ({array_int:ignore_users})' : '') . '
 		ORDER BY is_sticky' . ($fake_ascending ? '' : ' DESC') . ', ' . $_REQUEST['sort'] . ($ascending ? '' : ' DESC') . ', ml.id_msg DESC',
 		$message_index_parameters
 	);
