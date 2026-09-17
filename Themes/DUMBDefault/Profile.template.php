@@ -933,6 +933,30 @@ function template_editIgnoreList()
 					<input type="submit" value="', $txt['ignore_add_button'], '" class="button">
 				</dd>
 			</dl>
+		</div>
+		<div class="cat_bar">
+			<h3 class="catbg">', $txt['ignore_settings'], '</h3>
+		</div>
+		<div class="information">
+			<dl class="settings">
+				<dt>
+					<label for="hide_posts"><strong>', $txt['ignore_hide_posts'], '</strong></label>
+				</dt>
+				<dd>
+					<input type="checkbox" name="hide_posts" id="hide_posts" ', $context['member']['ignoreusers_hide_posts'] ? "checked" : "" ,'>
+				</dd>
+			</dl>
+			<dl class="settings">
+				<dt>
+					<label for="hide_topics"><strong>', $txt['ignore_hide_topics'], '</strong></label>
+				</dt>
+				<dd>
+					<input type="checkbox" name="hide_topics" id="hide_topics" ', $context['member']['ignoreusers_hide_topics'] ? "checked" : "" ,'>
+				</dd>
+			</dl>
+			<div class="centertext padding">
+				<input type="submit" name="btn_ignore_settings" value="', $txt['ignore_save_button'], '" class="button">
+			</div>
 		</div>';
 
 	if (!empty($context['token_check']))
