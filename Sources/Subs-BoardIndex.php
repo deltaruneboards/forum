@@ -65,6 +65,7 @@ function getBoardIndex($board_index_options)
 		'current_member' => $user_info['id'],
 		'child_level' => $board_index_options['base_level'],
 		'max_child_level' => $board_index_options['base_level'] + $modSettings['boardindex_max_depth'],
+		'ignore_users' => !empty($user_info['ignoreusers']) ? $user_info['ignoreusers'] : [-1],
 		'blank_string' => ''
 	);
 
@@ -87,19 +88,20 @@ function getBoardIndex($board_index_options)
 				WHERE {query_see_board}
 					AND b.child_level BETWEEN {int:child_level} AND {int:max_child_level}
 			)
-			SELECT' . ($board_index_options['include_categories'] ? '
+			SELECT t.id_member_started,' . ($board_index_options['include_categories'] ? '
 				c.id_cat, c.name AS cat_name, c.description AS cat_desc,' : '') . '
 				' . (!empty($board_index_selects) ? implode(', ', $board_index_selects) : '') . ',
 				COALESCE(m.poster_time, 0) AS poster_time, COALESCE(mem.member_name, m.poster_name) AS poster_name,
 				m.subject, m.id_topic, COALESCE(mem.real_name, m.poster_name) AS real_name,
 				IFNULL(mem.id_group, 0) AS id_group,
 				' . ($user_info['is_guest'] ? ' 1 AS is_read, 0 AS new_from,' : '
-				(CASE WHEN COALESCE(lb.id_msg, 0) >= b.id_last_msg THEN 1 ELSE 0 END) AS is_read, COALESCE(lb.id_msg, -1) + 1 AS new_from,' . ($board_index_options['include_categories'] ? '
+				(CASE WHEN COALESCE(lb.id_msg, 0) >= m.id_msg THEN 1 ELSE 0 END) AS is_read, COALESCE(lb.id_msg, -1) + 1 AS new_from,' . ($board_index_options['include_categories'] ? '
 				c.can_collapse,' : '')) . '
 				COALESCE(mem.id_member, 0) AS id_member, mem.avatar, m.id_msg' . (!empty($settings['avatars_on_boardIndex']) ? ',  mem.email_address, mem.avatar, COALESCE(am.id_attach, 0) AS member_id_attach, am.filename AS member_filename, am.attachment_type AS member_attach_type' : '') . '
 			FROM boards_cte AS b' . ($board_index_options['include_categories'] ? '
 				LEFT JOIN {db_prefix}categories AS c ON (c.id_cat = b.id_cat)' : '') . '
-				LEFT JOIN {db_prefix}messages AS m ON (m.id_msg = b.id_last_msg)
+				LEFT JOIN {db_prefix}topics AS t ON (t.id_board = b.id_board)
+				LEFT JOIN {db_prefix}messages AS m ON (m.id_topic = t.id_topic)
 				LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = m.id_member)' . (!empty($settings['avatars_on_boardIndex']) ? '
 				LEFT JOIN {db_prefix}attachments AS am ON (am.id_member = mem.id_member)' : '') . '' . ($user_info['is_guest'] ? '' : '
 				LEFT JOIN {db_prefix}log_boards AS lb ON (lb.id_board = b.id_board AND lb.id_member = {int:current_member})') . '
@@ -111,7 +113,7 @@ function getBoardIndex($board_index_options)
 		);
 	else
 		$result_boards = $smcFunc['db_query']('', '
-			SELECT' . ($board_index_options['include_categories'] ? '
+			SELECT t.id_member_started,' . ($board_index_options['include_categories'] ? '
 				c.id_cat, c.name AS cat_name, c.description AS cat_desc,' : '') . '
 				' . (!empty($board_index_selects) ? implode(', ', $board_index_selects) : '') . ',
 				COALESCE(m.poster_time, 0) AS poster_time, COALESCE(mem.member_name, m.poster_name) AS poster_name,
@@ -123,7 +125,8 @@ function getBoardIndex($board_index_options)
 				COALESCE(mem.id_member, 0) AS id_member, mem.avatar, m.id_msg' . (!empty($settings['avatars_on_boardIndex']) ? ',  mem.email_address, mem.avatar, COALESCE(am.id_attach, 0) AS member_id_attach, am.filename AS member_filename, am.attachment_type AS member_attach_type' : '') . '
 			FROM {db_prefix}boards AS b' . ($board_index_options['include_categories'] ? '
 				LEFT JOIN {db_prefix}categories AS c ON (c.id_cat = b.id_cat)' : '') . '
-				LEFT JOIN {db_prefix}messages AS m ON (m.id_msg = b.id_last_msg)
+				LEFT JOIN {db_prefix}topics AS t ON (t.id_board = b.id_board)
+				LEFT JOIN {db_prefix}messages AS m ON (m.id_topic = t.id_topic)
 				LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = m.id_member)' . (!empty($settings['avatars_on_boardIndex']) ? '
 				LEFT JOIN {db_prefix}attachments AS am ON (am.id_member = mem.id_member)' : '') . '' . ($user_info['is_guest'] ? '' : '
 				LEFT JOIN {db_prefix}log_boards AS lb ON (lb.id_board = b.id_board AND lb.id_member = {int:current_member})') . '
@@ -151,8 +154,16 @@ function getBoardIndex($board_index_options)
 	// Children can affect parents, so we need to gather all the boards first and then process them after.
 	$row_boards = array();
 
-	foreach ($smcFunc['db_fetch_all']($result_boards) as $row)
-		$row_boards[$row['id_board']] = $row;
+	foreach ($smcFunc['db_fetch_all']($result_boards) as $row) {
+		if (isset($row_boards[$row['id_board']])) {
+			if ($user_info['ignoreusers_hide_posts'] && in_array($row['id_member'], $user_info['ignoreusers'])) continue;
+			if ($user_info['ignoreusers_hide_topics'] && in_array($row['id_member_started'], $user_info['ignoreusers'])) continue;
+			if ($row_boards[$row['id_board']]['id_msg'] > $row['id_msg']) continue;
+			$row_boards[$row['id_board']] = $row;
+		}
+		else
+			$row_boards[$row['id_board']] = $row;
+	}
 
 	$smcFunc['db_free_result']($result_boards);
 
@@ -185,6 +196,7 @@ function getBoardIndex($board_index_options)
 
 				$categories[$row_board['id_cat']] = array(
 					'id' => $row_board['id_cat'],
+					'id_member_started' => $row_board['id_member_started'],
 					'name' => $row_board['cat_name'],
 					'description' => $category_description,
 					'is_collapsed' => isset($row_board['can_collapse']) && $row_board['can_collapse'] == 1 &&
@@ -243,6 +255,7 @@ function getBoardIndex($board_index_options)
 
 				$this_category[$row_board['id_board']] += array(
 					'id_cat' => $row_board['id_cat'],
+					'id_member_started' => $row_board['id_member_started'],
 					'new' => empty($row_board['is_read']),
 					'id' => $row_board['id_board'],
 					'type' => $row_board['is_redirect'] ? 'redirect' : 'board',
@@ -311,6 +324,7 @@ function getBoardIndex($board_index_options)
 
 			$this_category[$row_board['id_parent']]['children'][$row_board['id_board']] = array(
 				'id' => $row_board['id_board'],
+				'id_member_started' => $row_board['id_member_started'],
 				'id_cat' => $row_board['id_cat'],
 				'name' => $row_board['board_name'],
 				'description' => $row_board['description'],
@@ -391,6 +405,7 @@ function getBoardIndex($board_index_options)
 		$row_board['short_subject'] = shorten_subject($row_board['subject'], 24);
 		$this_last_post = array(
 			'id' => $row_board['id_msg'],
+			'id_member_started' => $row_board['id_member_started'],
 			'time' => $row_board['poster_time'],
 			'timestamp' => $row_board['poster_time'],
 			'subject' => $row_board['short_subject'],

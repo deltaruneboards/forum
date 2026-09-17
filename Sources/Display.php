@@ -407,7 +407,7 @@ function Display()
 			if (empty($row['id_member']))
 				continue;
 
-            $link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" class="group-' . $row['id_group'] .'">' . $row['real_name'] . '</a>';
+			$link = '<a href="' . $scripturl . '?action=profile;u=' . $row['id_member'] . '" class="group-' . $row['id_group'] .'">' . $row['real_name'] . '</a>';
 
 			$is_buddy = in_array($row['id_member'], $user_info['buddies']);
 			if ($is_buddy)
@@ -885,6 +885,7 @@ function Display()
 		FROM {db_prefix}messages
 		WHERE id_topic = {int:current_topic}' . (!$modSettings['postmod_active'] || $can_approve_posts ? '' : '
 			AND (approved = {int:is_approved}' . ($user_info['is_guest'] ? '' : ' OR id_member = {int:current_member}') . ')') . '
+		' . ($user_info['ignoreusers_hide_posts'] ? ' AND id_member NOT IN ({array_int:ignore_users})' : '') . '
 		ORDER BY id_msg ' . ($DBascending ? '' : 'DESC') . ($context['messages_per_page'] == -1 ? '' : '
 		LIMIT {int:start}, {int:max}'),
 		array(
@@ -892,6 +893,7 @@ function Display()
 			'current_topic' => $topic,
 			'is_approved' => 1,
 			'blank_id_member' => 0,
+			'ignore_users' => !empty($user_info['ignoreusers']) ? $user_info['ignoreusers'] : [-1],
 			'start' => $start,
 			'max' => $limit,
 		)

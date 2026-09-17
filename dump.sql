@@ -2084,6 +2084,8 @@ CREATE TABLE `smf_members` (
   `gamesPass` int(10) unsigned NOT NULL DEFAULT 0,
   `mood_id` smallint(5) unsigned NOT NULL DEFAULT 0,
   `mood_color` varchar(7) NOT NULL DEFAULT '',
+  `pm_ignore_list_hide_posts` tinyint(1) NOT NULL DEFAULT 1,
+  `pm_ignore_list_hide_topics` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id_member`),
   KEY `idx_member_name` (`member_name`),
   KEY `idx_real_name` (`real_name`),
@@ -4033,6 +4035,24 @@ CREATE TABLE `smf_user_likes` (
   KEY `content` (`content_id`,`content_type`),
   KEY `liker` (`id_member`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+DROP TABLE IF EXISTS `smf_awards`;
+CREATE TABLE `smf_awards` (
+  `ID_AWARD` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ITEM_ID` int(10) unsigned NOT NULL,
+  `ID_AWARDED_MEMBER` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `givenDate` int(10) unsigned NOT NULL DEFAULT 0,
+  `ID_MEMBER` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`ID_AWARD`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+DROP TABLE IF EXISTS `smf_awards_extinfo`;
+CREATE TABLE `smf_awards_extinfo` (
+  `ITEM_ID` int(10) unsigned NOT NULL,
+  `sort_order` int(10) unsigned NOT NULL DEFAULT 1000,
+  `hover_text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci DEFAULT NULL,
+  PRIMARY KEY (`ITEM_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

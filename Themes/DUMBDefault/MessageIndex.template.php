@@ -59,6 +59,7 @@ function template_main()
 
 		foreach ($context['boards'] as $board)
 		{
+			$hide_last_post = false;
 			echo '
 		<div id="board_', $board['id'], '" class="up_contain ', (!empty($board['css_class']) ? $board['css_class'] : ''), '">
 			<div class="board_icon">
@@ -74,11 +75,19 @@ function template_main()
 				', function_exists('template_bi_' . $board['type'] . '_stats') ? call_user_func('template_bi_' . $board['type'] . '_stats', $board) : template_bi_board_stats($board), '
 			</div>';
 
+			if($context["user"]["ignoreusers_hide_posts"] && in_array($board['last_post']['member']['id'], $context["user"]["ignoreusers"]))
+				$hide_last_post = true;
+			if($context["user"]["ignoreusers_hide_topics"] && in_array($board['last_post']['id_member_started'], $context["user"]["ignoreusers"]))
+				$hide_last_post = true;
+
 			// Show the last post if there is one.
-			echo '
-			<div class="lastpost">
-				', function_exists('template_bi_' . $board['type'] . '_lastpost') ? call_user_func('template_bi_' . $board['type'] . '_lastpost', $board) : template_bi_board_lastpost($board), '
-			</div>';
+			if(!$hide_last_post)
+			{
+				echo '
+				<div class="lastpost">
+					', function_exists('template_bi_' . $board['type'] . '_lastpost') ? call_user_func('template_bi_' . $board['type'] . '_lastpost', $board) : template_bi_board_lastpost($board), '
+				</div>';
+			}
 
 			// Won't somebody think of the children!
 			if (function_exists('template_bi_' . $board['type'] . '_children'))

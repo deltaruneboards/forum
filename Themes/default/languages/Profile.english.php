@@ -398,8 +398,12 @@ $txt['buddy_add_button'] = 'Add';
 $txt['no_buddies'] = 'Your buddy list is currently empty';
 
 $txt['ignore_add'] = 'Add to ignore list';
+$txt['ignore_settings'] = 'Ignore List Settings';
+$txt['ignore_hide_posts'] = 'Hide posts from ignored users?';
+$txt['ignore_hide_topics'] = 'Hide topics from ignored users?';
 $txt['ignore_remove'] = 'Remove from ignore list';
 $txt['ignore_add_button'] = 'Add';
+$txt['ignore_save_button'] = 'Save';
 $txt['no_ignore'] = 'Your ignore list is currently empty';
 
 $txt['regular_members'] = 'Registered Members';

@@ -922,6 +922,8 @@ function loadUserSettings()
 		'buddies' => !empty($modSettings['enable_buddylist']) && !empty($user_settings['buddy_list']) ? explode(',', $user_settings['buddy_list']) : array(),
 		'ignoreboards' => !empty($user_settings['ignore_boards']) && !empty($modSettings['allow_ignore_boards']) ? explode(',', $user_settings['ignore_boards']) : array(),
 		'ignoreusers' => !empty($user_settings['pm_ignore_list']) ? explode(',', $user_settings['pm_ignore_list']) : array(),
+		'ignoreusers_hide_posts' => isset($user_settings['pm_ignore_list_hide_posts']) ? !!$user_settings['pm_ignore_list_hide_posts'] : true,
+		'ignoreusers_hide_topics' => isset($user_settings['pm_ignore_list_hide_topics']) ? !!$user_settings['pm_ignore_list_hide_topics'] : true,
 		'warning' => isset($user_settings['warning']) ? $user_settings['warning'] : 0,
 		'permissions' => array(),
 	);
@@ -1572,7 +1574,8 @@ function loadMemberData($users, $is_name = false, $set = 'normal')
 			$select_columns .= ', mem.buddy_list,  mem.additional_groups';
 			break;
 		case 'profile':
-			$select_columns .= ', mem.additional_groups, mem.id_theme, mem.pm_ignore_list, mem.pm_receive_from,
+			$select_columns .= ', mem.additional_groups, mem.id_theme, mem.pm_ignore_list,
+			mem.pm_ignore_list_hide_posts, mem.pm_ignore_list_hide_topics, mem.pm_receive_from,
 			mem.time_format, mem.timezone, mem.secret_question, mem.smiley_set, mem.tfa_secret,
 			mem.total_time_logged_in, lo.url, mem.ignore_boards, mem.password_salt, mem.pm_prefs, mem.buddy_list, mem.alerts';
 			break;
@@ -1818,6 +1821,8 @@ function loadMemberContext($user, $display_custom_fields = false)
 			'is_buddy' => $profile['buddy'],
 			'is_reverse_buddy' => in_array($user_info['id'], $buddy_list),
 			'buddies' => $buddy_list,
+			'ignoreusers_hide_posts' => $user_info['ignoreusers_hide_posts'],
+			'ignoreusers_hide_topics' => $user_info['ignoreusers_hide_topics'],
 			'title' => !empty($modSettings['titlesEnable']) ? $profile['usertitle'] : '',
 			'blurb' => $profile['personal_text'],
 			'website' => array(
@@ -2356,6 +2361,8 @@ function loadTheme($id_theme = 0, $initialize = true)
 			'language' => $user_info['language'],
 			'email' => $user_info['email'],
 			'ignoreusers' => $user_info['ignoreusers'],
+			'ignoreusers_hide_posts' => !!$user_info['ignoreusers_hide_posts'],
+			'ignoreusers_hide_topics' => !!$user_info['ignoreusers_hide_topics'],
 		);
 		if (!$context['user']['is_guest'])
 			$context['user']['name'] = $user_info['name'];
@@ -2380,6 +2387,8 @@ function loadTheme($id_theme = 0, $initialize = true)
 			'language' => $language,
 			'email' => '',
 			'ignoreusers' => array(),
+			'ignoreusers_hide_posts' => true,
+			'ignoreusers_hide_topics' => true,
 		);
 		// Note we should stuff $user_info with some guest values also...
 		$user_info = array(
@@ -2394,6 +2403,8 @@ function loadTheme($id_theme = 0, $initialize = true)
 			'permissions' => array(),
 			'groups' => array(),
 			'ignoreusers' => array(),
+			'ignoreusers_hide_posts' => true,
+			'ignoreusers_hide_topics' => true,
 			'possibly_robot' => true,
 			'time_offset' => 0,
 			'timezone' => $modSettings['default_timezone'],

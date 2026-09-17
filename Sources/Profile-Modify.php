@@ -1715,7 +1715,7 @@ function editIgnoreList($memID)
 		// Redirect off the page because we don't like all this ugly query stuff to stick in the history.
 		redirectexit('action=profile;area=lists;sa=ignore;u=' . $memID);
 	}
-	elseif (isset($_POST['new_ignore']))
+	elseif (isset($_POST['new_ignore']) && !isset($_POST['btn_ignore_settings']))
 	{
 		checkSession();
 		// Prepare the string for extraction...
@@ -1765,6 +1765,27 @@ function editIgnoreList($memID)
 		}
 
 		// Back to the list of pityful people!
+		redirectexit('action=profile;area=lists;sa=ignore;u=' . $memID);
+	}
+	elseif (isset($_POST['btn_ignore_settings']))
+	{
+		checkSession();
+		$hide_posts = isset($_POST['hide_posts']) ? 1 : 0;
+		$hide_topics = isset($_POST['hide_topics']) ? 1 : 0;
+
+		$smcFunc['db_query']('', '
+			UPDATE {db_prefix}members
+			SET pm_ignore_list_hide_posts = {int:hide_posts},
+				pm_ignore_list_hide_topics = {int:hide_topics}
+			WHERE id_member = {int:memID}',
+			array(
+				'memID' => $memID,
+				'hide_posts' => $hide_posts,
+				'hide_topics' => $hide_topics,
+			)
+		);
+
+		$_SESSION['prf-save'] = true;
 		redirectexit('action=profile;area=lists;sa=ignore;u=' . $memID);
 	}
 
