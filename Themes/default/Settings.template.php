@@ -18,6 +18,33 @@ function template_options()
 	global $context, $txt, $modSettings;
 
 	$context['theme_options'] = array(
+		'Theme settings',
+		[
+			'id' => 'banner',
+			'label' => 'Banner',
+			'options' => [
+				'Beheeyemite.png' => 'Default Banner',
+				'classic.png' => 'DUMB Classic',
+				'toriel.png' => 'toriel\'s Banner',
+				'sheepydwagon.png' => 'sheepydwagon\'s Banner',
+				'333.png' => '333\'s Banner',
+				'stylish-fish_dark.png' => 'stylish-fish\'s Banner',
+				'stylish-fish_light.png' => 'stylish-fish\'s Banner (Light Mode)',
+				'daydreamycrustacean.png' => 'daydreamycrustacean\'s Banner',
+				'ch5.png' => 'Chapter 5 Banner',
+			],
+			'default' => 'Beheeyemite.png',
+		],
+		// [
+		// 	'id' => 'color_scheme',
+		// 	'label' => 'Color scheme',
+		// 	'options' => [
+		// 		'dark' => 'Dark',
+		// 		'light' => 'Light (Beta)',
+		// 		'os' => 'System default',
+		// 	],
+		// 	'default' => 'dark',
+		// ],
 		$txt['theme_opt_display'],
 		array(
 			'id' => 'show_children',

@@ -54,6 +54,7 @@ class CommentService extends BaseService implements CommentServiceInterface
 		try {
 			$statusEntity = $this->statusRepository->getBasicInfoById($commentEntity->getStatusId());
 			$wallId = $statusEntity->getWallId();
+			$this->checkPermissions('post', $wallId);
 		} catch (DataNotFoundException) {
 			// Status not found; mention alerts will use wallId = 0,
 			// event dispatch is skipped below.
@@ -84,15 +85,20 @@ class CommentService extends BaseService implements CommentServiceInterface
 
 	public function deleteById(int $commentId): bool
 	{
-		$status = $this->commentRepository->getById($commentId);
+		$comment = $this->commentRepository->getById($commentId);
+		$status = $this->statusRepository->getById($comment->getStatusId());
+		$this->checkPermissions('delete', $status->getWallId());
+		return $this->commentRepository->deleteById($commentId);
+	}
+
+	private function checkPermissions(string $action, int $wallOwnerId): void
+	{
 		$currentUserInfo = $this->currentUserInfo();
 		$viewerId = (int) ($currentUserInfo['id'] ?? 0);
-		$wallOwnerId = $status->getWallId();
 		$perms = $this->permissionsService->permissions($wallOwnerId, $viewerId);
-		if (!$perms[PermissionsEnum::TYPE_STATUS]['delete']) {
+		if (!$perms[PermissionsEnum::TYPE_COMMENTS][$action]) {
 			throw new InvalidCommentException('error_no_permission');
 		}
-		return $this->commentRepository->deleteById($commentId);
 	}
 
 	public function countOrphans(): int

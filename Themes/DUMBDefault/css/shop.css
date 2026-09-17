@@ -5,3 +5,13 @@
 #random-shop-quote p:not(.chosen) {
 	display: none;
 }
+
+.shop-items-table {
+	margin: 20px auto;
+	width: 100%;
+}
+
+table.shop-items-table th {
+	background: var(--skeuomorphism);
+	padding: 10px;
+}

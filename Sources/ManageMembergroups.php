@@ -990,7 +990,7 @@ function EditMembergroup()
 					$request = $smcFunc['db_query']('', '
 						SELECT id_member
 						FROM {db_prefix}members
-						WHERE member_name IN ({array_string:moderators}) OR real_name IN ({array_string:moderators})
+						WHERE real_name IN ({array_string:moderators})
 						LIMIT {int:count}',
 						array(
 							'moderators' => $moderators,

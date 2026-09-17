@@ -83,7 +83,7 @@ function template_init()
 */
 function template_html_above()
 {
-	global $context, $scripturl, $txt, $modSettings;
+	global $context, $scripturl, $txt, $modSettings, $options;
 
 	loadJavaScriptFile('randQuote.js', ['minimize' => true]);
 	loadJavaScriptFile('randChar.js', ['minimize' => true]);
@@ -200,7 +200,8 @@ function template_html_above()
 	echo '
 </head>
 <body id="', $context['browser_body_id'], '" class="action_', !empty($context['current_action']) ? $context['current_action'] : (!empty($context['current_board']) ?
-		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '', '">';
+		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '',
+		' color-scheme-', $options['color_scheme'] ?? 'dark', '">';
 }
 
 /**
@@ -209,7 +210,7 @@ function template_html_above()
 */
 function template_body_above()
 {
-	global $context, $settings, $scripturl, $txt, $modSettings, $maintenance;
+	global $context, $settings, $scripturl, $txt, $modSettings, $maintenance, $options;
 
 	// Wrapper div now echoes permanently for better layout options. h1 a is now target for "Go up" links.
 	echo '
@@ -383,7 +384,7 @@ function template_body_above()
 
 	echo '<div id="header">
 		<a id="top" href="', $scripturl, '">
-		', '<img id="banner" src="' , $settings['images_url'] , '/temp-banner.png" alt="DELTARUNE Unofficial Message Boards" title="DELTARUNE Unofficial Message Boards">
+		', '<img id="banner" src="/assets/banners/' . ($options['banner'] ?? 'Beheeyemite.png') . '" alt="DELTARUNE Unofficial Message Boards" title="DELTARUNE Unofficial Message Boards">
 			<div class="randombanner"><img id="randomImage" aria-hidden="true" src="" alt=""></div>
 			 ', '</a>';
 
@@ -481,11 +482,11 @@ function template_body_below()
 		<ul>
 			<li id='randomQuote'></li>
 			<li class='copyright'>", theme_copyright(), "</li>
-			<li class='floatright'><a href='$scripturl?action=pages;sa=view;id=4'>User help</a> | <a href='$scripturl?action=pm;sa=send;u=1,2'>Contact mods</a> | <a href='$scripturl?action=agreement'>Terms of use</a> | <a href='#top_section'>Back to top ▲</a></li>
+			<li class='floatright'><a href='$scripturl?action=pages;sa=view;id=4'>User help</a> | <a href='$scripturl?action=pm;sa=send;g=1,2'>Contact mods</a> | <a href='$scripturl?action=agreement'>Terms of use</a> | <a href='#top_section'>Back to top ▲</a></li>
 		</ul>";
 
 	// Show the load time?
-	if ($context['show_load_time'])
+	if ($context['show_load_time'] && $context['user']['is_admin'])
 		echo '
 		<p>', sprintf($txt['page_created_full'], $context['load_time'], $context['load_queries']), '</p>';
 

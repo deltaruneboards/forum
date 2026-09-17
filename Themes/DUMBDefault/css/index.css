@@ -30,7 +30,7 @@ body {
 	background: black;
 	background-image: url('/Themes/DUMBDefault/images/background.png');
 	background-attachment: fixed;
-	background-repeat: no-repeat;
+	background-repeat: repeat-x;
 	background-size: cover;
 	background-position-x: -50px;
 	font: 83.33%/150% Verdana, Tahoma, Arial, sans-serif;
@@ -744,6 +744,10 @@ ul.dropmenu li {
 	padding: .3em 0;
 }
 
+ul.dropmenu li li, .button {
+	border: 1px solid transparent;
+}
+
 ul.dropmenu li:hover,
 ul.dropmenu li li:hover,
 .button:hover {
@@ -758,22 +762,16 @@ ul.dropmenu li li:hover,
 .dropmenu li li a:hover,
 .dropmenu li li:hover > a {
 	background: none;
-	border: none;
+	border: 1px solid transparent;
 	color: var(--txt-color);
 }
 
-.dropmenu > li:hover > a {
-	box-shadow: none;
-	text-shadow: none;
-	background: none;
-	border: none;
-}
-
+.dropmenu > li:hover > a,
 .dropmenu > li > a {
 	box-shadow: none;
 	text-shadow: none;
 	background: none;
-	border: none;
+	border: 1px solid transparent;
 }
 
 .dropmenu a.active,
@@ -789,13 +787,13 @@ ul.dropmenu li li:hover,
 	text-shadow: none;
 	box-shadow: none;
 	color: inherit;
-	border: none;
+	border: 1px solid transparent;
 }
 
 .dropmenu > li > a:focus,
 .dropmenu li li a:focus {
 	background: none;
-	border: none;
+	border: 1px solid transparent;
 	color: var(--txt-color);
 }
 
@@ -949,7 +947,7 @@ a[class^="mobile_generic_menu_"] {
 	background: none;
 	padding: 0 9px;
 	color: var(--txt-color);
-	border: none;
+	border: 1px solid transparent;
 	line-height: 2.2em;
 }
 
@@ -983,7 +981,7 @@ a[class^="mobile_generic_menu_"] {
 }
 /* Levels 2 and 3 hover effects. */
 .dropmenu li li:hover {
-	border: none;
+	border: 1px solid transparent;
 }
 
 .dropmenu li li:hover > a, .dropmenu li li a:focus, .dropmenu li li a:hover {
@@ -2278,7 +2276,7 @@ dl {
 	overflow: auto;
 	margin: 0 0 18px 0;
 	padding: 0 0 15px 0;
-	border-bottom: 1px #ccc solid;
+	border-bottom: 1px var(--txt-color) solid;
 }
 #detailedinfo dt, #tracking dt {
 	width: 35%;
@@ -3625,15 +3623,17 @@ ul.post_options li {
 }
 /* All the signatures used in the forum. If your forum users use Mozilla, Opera, or Safari, you might add max-height here ;). */
 .signature, .attachments, .under_message,
-.custom_fields_above_signature,
 .custom_fields_below_signature {
 	width: 100%;
 	overflow: auto;
 	clear: right;
 	padding: 12px 0 3px 0;
-	border-top: 1px solid #bfbfbf;
+	border-top: 1px solid var(--txt-color);
 	line-height: 1.4em;
 	font-size: 0.9em;
+}
+.custom_fields_above_signature {
+	border-bottom: 1px solid var(--txt-color);
 }
 .signature,
 #current_signature_display,
@@ -3981,6 +3981,14 @@ h3.profile_hd::before,
 }
 
 /* Background of buttons */
+.dropmenu li li, .dropmenu li li > a,
+.dropmenu li li a,
+.quickbuttons li ul li a:hover,
+.post_options ul a,
+.notify_dropdown a {
+	border: 1px solid transparent;
+}
+
 .dropmenu li ul, .top_menu, .dropmenu li li:hover, .button,
 .dropmenu li li:hover > a, .dropmenu li li a:focus, .dropmenu li li a:hover,
 #top_section, .quickbuttons > li,
