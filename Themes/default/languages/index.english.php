@@ -402,6 +402,7 @@ $txt['valid_email'] = 'This must be a valid email address.';
 
 $txt['geek'] = 'I am a geek!!';
 $txt['info_center_title'] = '%1$s - Info Center';
+$txt['recent_activity_title'] = 'Recent Activity';
 
 $txt['watch'] = 'Watch';
 $txt['unwatch'] = 'Stop watching';
@@ -898,6 +899,8 @@ $txt['hide_category'] = 'Hide Category';
 $txt['show_category'] = 'Show Category';
 $txt['hide_infocenter'] = 'Hide Info Center';
 $txt['show_infocenter'] = 'Show Info Center';
+$txt['hide_recentactivity'] = 'Hide Recent Activity';
+$txt['show_recentactivity'] = 'Show Recent Activity';
 
 // Notification post control
 $txt['notify_topic_0'] = 'Not Following';

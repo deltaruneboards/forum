@@ -3201,6 +3201,12 @@ span.postby {
 	place-items: stretch;
 	place-content: stretch;
 }
+#topic_container .windowbg_recent {
+	display: grid;
+	grid-template-columns: 4% 76% 20% 0%;
+	place-items: stretch;
+	place-content: stretch;
+}
 #topic_container .topic_grid.windowbg.sticky + .topic_grid.windowbg:not(.sticky),
 .topic_grid.windowbg.sticky + .topic_grid.windowbg:not(.sticky) {
 	margin-top: 30px;

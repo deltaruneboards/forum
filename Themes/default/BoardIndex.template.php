@@ -141,12 +141,16 @@ function template_main()
 	echo '
 	</div><!-- #boardindex_table -->';
 
+	echo '<div class="main_container">', template_recent_activity(), '</div>';
+
 	// Show the mark all as read button?
 	if ($context['user']['is_logged'] && !empty($context['categories']))
 		echo '
 	<div class="mark_read">
 		', template_button_strip($context['mark_read_button'], 'right'), '
 	</div>';
+
+
 }
 
 /**
@@ -244,7 +248,8 @@ function template_bi_board_lastpost($board)
 	if (!empty($board['last_post']['id']))
 		echo '
 			<p>', $board['last_post']['last_post_message'], '</p>';
-}function template_bi_board_lastpost_tagged($board)
+}
+function template_bi_board_lastpost_tagged($board)
 {
 	if (!empty($board['last_post']['id']))
 	{
@@ -363,6 +368,87 @@ function template_info_center()
 			oCookieOptions: {
 				bUseCookie: ', $context['user']['is_guest'] ? 'true' : 'false', ',
 				sCookieName: \'upshrinkIC\'
+			}
+		});
+	</script>';
+}
+
+/**
+ * Displays recent activity
+ */
+function template_recent_activity()
+{
+	global $context, $options, $txt, $scripturl, $settings;
+
+	if (empty($context['recent_topics']))
+		return;
+
+	echo '
+	<div class="roundframe" id="recent_topics">
+		<div class="title_bar">
+			<h3 class="titlebg">
+				<span class="toggle_up floatright" id="upshrink_ic_recent" title="', $txt['hide_recentactivity'], '" style="display: none;"></span>
+				<a href="#" id="upshrink_link_recent">', $txt['recent_activity_title'], '</a>
+			</h3>
+		</div>
+		<div id="upshrink_stats_recent"', empty($options['collapse_header_ic_recent']) ? '' : ' style="display: none;"', '>';
+
+	echo '<div id="topic_container">';
+	foreach ($context['recent_topics'] as $topic)
+	{
+		echo '<div class="topic_grid windowbg_recent">',
+		'<div class="board_icon">', '<img src="', $settings['actual_images_url'], '/post/', htmlspecialchars($topic['icon']), '.png">', '</div>';
+		$threadTags = makeThreadTags($topic['first_subject']);
+		$topic['first_subject'] = $threadTags[0] . ' ' . $threadTags[1];
+		echo '<div class="info info_block"><div class="message_index_title">',
+		'<a href="', $scripturl, '?topic=', $topic['id_topic'], '.msg', $topic['id_msg'], '#new">',
+		$topic['first_subject'],
+		'</a> - by ',
+		'<a href="', $scripturl, '?action=profile;u=', $topic['id_member'], '" class="group-', $topic['id_group'], '">', htmlspecialchars($topic['poster_name']), '</a>',
+		'</div></div>',
+		'<div class="lastpost">',
+		timeformat(htmlspecialchars($topic['poster_time'])),
+		'</div>',
+		'</div>';
+
+	}
+	echo '</div>';
+
+	echo '
+		</div><!-- #upshrink_stats -->
+	</div><!-- #recent_topics -->';
+
+	echo '
+	<script>
+		var oInfoCenterToggleRecent = new smc_Toggle({
+			bToggleEnabled: true,
+			bCurrentlyCollapsed: ', empty($options['collapse_header_ic_recent']) ? 'false' : 'true', ',
+			aSwappableContainers: [
+				\'upshrink_stats_recent\'
+			],
+			aSwapImages: [
+				{
+					sId: \'upshrink_ic_recent\',
+					altExpanded: ', JavaScriptEscape($txt['hide_recentactivity']), ',
+					altCollapsed: ', JavaScriptEscape($txt['show_recentactivity']), '
+				}
+			],
+			aSwapLinks: [
+				{
+					sId: \'upshrink_link_recent\',
+					msgExpanded: ', JavaScriptEscape($txt['recent_activity_title']), ',
+					msgCollapsed: ', JavaScriptEscape($txt['recent_activity_title']), '
+				}
+			],
+			oThemeOptions: {
+				bUseThemeSettings: ', $context['user']['is_guest'] ? 'false' : 'true', ',
+				sOptionName: \'collapse_header_ic_recent\',
+				sSessionId: smf_session_id,
+				sSessionVar: smf_session_var,
+			},
+			oCookieOptions: {
+				bUseCookie: ', $context['user']['is_guest'] ? 'true' : 'false', ',
+				sCookieName: \'upshrinkICRecent\'
 			}
 		});
 	</script>';

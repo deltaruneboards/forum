@@ -8479,7 +8479,7 @@ function makeThreadTags($title)
 		if (!in_array($tag, $tagged))
 		{
 			array_push($tagged, $tag);
-			$title = str_replace('[' . $tag . ']', '', $title);
+			$title = htmlspecialchars(str_replace('[' . $tag . ']', '', $title));
 			$tag = htmlspecialchars(strtolower($tag));
 
 			// Start at a hue that makes "18" red.
@@ -8578,5 +8578,44 @@ function stripThreadTags($title)
 {
 	$title = makeThreadTags($title);
 	return $title[0];
+}
+
+function getRecentActivity($start_date = 0, $end_date = 0, $limit = 15)
+{
+	global $smcFunc, $user_info;
+
+	$start_date = $start_date > 0 ? $start_date : 0;
+	$end_date = $end_date > 0 ? $end_date : time();
+	$topics = [];
+
+	$request = $smcFunc['db_query']('', '
+		SELECT t.id_topic, t.id_member_started, m.id_msg, m.icon, m.subject, mf.subject AS first_subject, m.id_member, m.poster_name, m.poster_time, mem.id_group 
+		FROM {db_prefix}topics AS t
+		JOIN {db_prefix}messages AS m ON m.id_topic = t.id_topic
+		JOIN {db_prefix}members AS mem ON mem.id_member = m.id_member
+		JOIN {db_prefix}messages AS mf ON mf.id_msg = t.id_first_msg
+		WHERE m.poster_time BETWEEN {int:start_date} AND {int:end_date}
+		' . ($user_info['ignoreusers_hide_posts'] ? ' AND m.id_member NOT IN ({array_int:ignore_users})' : '') . '
+		' . ($user_info['ignoreusers_hide_topics'] ? ' AND t.id_member_started NOT IN ({array_int:ignore_users})' : '') . '
+		ORDER BY m.poster_time DESC
+		LIMIT {int:limit}',
+		array(
+			'start_date' => $start_date,
+			'end_date' => $end_date,
+			'limit' => $limit,
+			'ignore_users' => !empty($user_info['ignoreusers']) ? $user_info['ignoreusers'] : [-1],
+		)
+	);
+
+	foreach ($smcFunc['db_fetch_all']($request) as $row) {
+		if (isset($topics[$row['id_topic']])) {
+			if ($topics[$row['id_topic']]['id_msg'] > $row['id_topic']) continue;
+			$topics[$row['id_topic']] = $row;
+		}
+		else
+			$topics[$row['id_topic']] = $row;
+	}
+
+	return $topics;
 }
 ?>
