@@ -481,7 +481,7 @@ function Post($post_errors = array())
 		if ($smcFunc['strlen']($form_subject) > 100)
 			$form_subject = $smcFunc['substr']($form_subject, 0, 100);
 
-		$form_description = $smcFunc['htmlspecialchars']($_REQUEST['message'], ENT_QUOTES);
+		$form_description = $smcFunc['htmlspecialchars']($_REQUEST['description'], ENT_QUOTES);
 
 		if (isset($_REQUEST['poll']))
 		{
