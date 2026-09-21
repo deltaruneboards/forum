@@ -138,7 +138,7 @@ class CreatePost_Notify_Background extends SMF_BackgroundTask
 		// Find the people interested in receiving notifications for this topic
 		$request = $smcFunc['db_query']('', '
 			SELECT
-				ln.id_member, ln.id_board, ln.id_topic, ln.sent,
+				ln.id_member, ln.id_board, ln.id_topic, ln.sent, ul.id_alert, ul.is_read,
 				mem.email_address, mem.lngfile, mem.pm_ignore_list,
 				mem.id_group, mem.id_post_group, mem.additional_groups,
 				mem.time_format, mem.time_offset, mem.timezone,
@@ -146,6 +146,7 @@ class CreatePost_Notify_Background extends SMF_BackgroundTask
 			FROM {db_prefix}log_notify AS ln
 				INNER JOIN {db_prefix}members AS mem ON (ln.id_member = mem.id_member)
 				LEFT JOIN {db_prefix}topics AS t ON (t.id_topic = ln.id_topic)
+				LEFT JOIN {db_prefix}user_alerts AS ul ON (ul.content_id = t.id_topic AND ul.content_id = {int:topic} AND ul.content_type = "topic")
 			WHERE
 				(' . (!empty($topicOptions['board']) ? 'ln.id_board = {int:board}' : '')
 				 . (!empty($topicOptions['board']) && !empty($topicOptions['id']) ? ' or ' : '')
@@ -179,6 +180,11 @@ class CreatePost_Notify_Background extends SMF_BackgroundTask
 				}
 				if ($this->members['watching'][$row['id_member']]['id_topic'] > 0) {
 					$row['id_topic'] = $this->members['watching'][$row['id_member']]['id_topic'];
+				}
+				if ($this->members['watching'][$row['id_member']]['id_alert'] > $row['id_alert'])
+				{
+					$row['id_alert'] = $this->members['watching'][$row['id_member']]['id_alert'];
+					$row['is_read'] = $this->members['watching'][$row['id_member']]['is_read'];
 				}
 			}
 
@@ -592,23 +598,26 @@ class CreatePost_Notify_Background extends SMF_BackgroundTask
 			// Bitwise check: Receiving a alert?
 			if ($pref & self::RECEIVE_NOTIFY_ALERT)
 			{
-				$this->alert_rows[] = array(
-					'alert_time' => time(),
-					'id_member' => $member_id,
-					// Only tell sender's information for new topics and replies
-					'id_member_started' => in_array($type, array('topic', 'reply')) ? $posterOptions['id'] : 0,
-					'member_name' => in_array($type, array('topic', 'reply')) ? $posterOptions['name'] : '',
-					'content_type' => $content_type,
-					'content_id' => $topicOptions['id'],
-					'content_action' => $type,
-					'is_read' => 0,
-					'extra' => $smcFunc['json_encode'](array(
-						'topic' => $topicOptions['id'],
-						'board' => $topicOptions['board'],
-						'content_subject' => $parsed_message[$localization]['subject'],
-						'content_link' => $scripturl . '?topic=' . $topicOptions['id'] . (in_array($type, array('reply', 'topic')) ? '.new;topicseen#new' : '.0'),
-					)),
-				);
+				if ($frequency != self::FREQUENCY_FIRST_UNREAD_MSG || !isset($member_data['is_read']) || !!$member_data['is_read'])
+				{
+					$this->alert_rows[] = array(
+						'alert_time' => time(),
+						'id_member' => $member_id,
+						// Only tell sender's information for new topics and replies
+						'id_member_started' => in_array($type, array('topic', 'reply')) ? $posterOptions['id'] : 0,
+						'member_name' => in_array($type, array('topic', 'reply')) ? $posterOptions['name'] : '',
+						'content_type' => $content_type,
+						'content_id' => $topicOptions['id'],
+						'content_action' => $type,
+						'is_read' => 0,
+						'extra' => $smcFunc['json_encode'](array(
+							'topic' => $topicOptions['id'],
+							'board' => $topicOptions['board'],
+							'content_subject' => $parsed_message[$localization]['subject'],
+							'content_link' => $scripturl . '?topic=' . $topicOptions['id'] . (in_array($type, array('reply', 'topic')) ? '.new;topicseen#new' : '.0'),
+						)),
+					);
+				}
 			}
 
 			// Bitwise check: Receiving a email notification?
