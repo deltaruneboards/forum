@@ -138,7 +138,16 @@ class CreatePost_Notify_Background extends SMF_BackgroundTask
 		// Find the people interested in receiving notifications for this topic
 		$request = $smcFunc['db_query']('', '
 			SELECT
-				ln.id_member, ln.id_board, ln.id_topic, ln.sent, ul.id_alert, ul.is_read,
+				ln.id_member, ln.id_board, ln.id_topic, ln.sent,
+				(SELECT is_read
+				FROM {db_prefix}user_alerts ul
+				WHERE
+					ul.id_member = ln.id_member AND
+				(' . (!empty($topicOptions['board']) ? '(ul.content_id = {int:board} AND ul.content_type = "board")' : '')
+				 . (!empty($topicOptions['board']) && !empty($topicOptions['id']) ? ' or ' : '')
+				 . (!empty($topicOptions['id']) ? '(ul.content_id = {int:topic} AND ul.content_type = "topic")' : '') . ')
+				ORDER BY alert_time DESC
+				LIMIT 1) AS is_read,
 				mem.email_address, mem.lngfile, mem.pm_ignore_list,
 				mem.id_group, mem.id_post_group, mem.additional_groups,
 				mem.time_format, mem.time_offset, mem.timezone,
@@ -146,7 +155,6 @@ class CreatePost_Notify_Background extends SMF_BackgroundTask
 			FROM {db_prefix}log_notify AS ln
 				INNER JOIN {db_prefix}members AS mem ON (ln.id_member = mem.id_member)
 				LEFT JOIN {db_prefix}topics AS t ON (t.id_topic = ln.id_topic)
-				LEFT JOIN {db_prefix}user_alerts AS ul ON (ul.content_id = t.id_topic AND ul.content_id = {int:topic} AND ul.content_type = "topic")
 			WHERE
 				(' . (!empty($topicOptions['board']) ? 'ln.id_board = {int:board}' : '')
 				 . (!empty($topicOptions['board']) && !empty($topicOptions['id']) ? ' or ' : '')
@@ -180,11 +188,6 @@ class CreatePost_Notify_Background extends SMF_BackgroundTask
 				}
 				if ($this->members['watching'][$row['id_member']]['id_topic'] > 0) {
 					$row['id_topic'] = $this->members['watching'][$row['id_member']]['id_topic'];
-				}
-				if ($this->members['watching'][$row['id_member']]['id_alert'] > $row['id_alert'])
-				{
-					$row['id_alert'] = $this->members['watching'][$row['id_member']]['id_alert'];
-					$row['is_read'] = $this->members['watching'][$row['id_member']]['is_read'];
 				}
 			}
 
