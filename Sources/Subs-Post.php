@@ -494,6 +494,10 @@ function fixTag(&$message, $myTag, $protocols, $embeddedUrl = false, $hasEqualSi
 		$this_close = $hasEqualSign ? (empty($matches[4][$k]) ? '' : $matches[4][$k]) : $matches[3][$k];
 
 		$found = false;
+
+		if (preg_match('/^&quot;(.*?)&quot;$/', $replace, $m) != 0)
+			$replace = $m[1];
+
 		foreach ($protocols as $protocol)
 		{
 			$found = strncasecmp($replace, $protocol . '://', strlen($protocol) + 3) === 0;
