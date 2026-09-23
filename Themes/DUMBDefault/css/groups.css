@@ -278,7 +278,21 @@ a.group-27, a.group-32, a.group-41, a.group-59 {
 }
 
 /* Hopes & Dreams, BIG SHOT, Lucky!, Ice Trancer */
-span.group-38:hover, span.group-28:hover, span.group-29:hover, span.group-33:hover,
-a.group-38:hover, a.group-28:hover, a.group-29:hover, a.group-33:hover {
+span.group-38:hover, span.group-28:hover, span.group-29:hover, span.group-33:hover, span.group-58:hover,
+a.group-38:hover, a.group-28:hover, a.group-29:hover, a.group-33:hover, a.group-58:hover {
+	background-image: linear-gradient(to right, white, white);
+}
+
+tr.windowbg:hover span.group-38,
+tr.windowbg:hover span.group-28,
+tr.windowbg:hover span.group-29,
+tr.windowbg:hover span.group-33,
+tr.windowbg:hover span.group-58,
+tr.windowbg:hover a.group-38,
+tr.windowbg:hover a.group-28,
+tr.windowbg:hover a.group-29,
+tr.windowbg:hover a.group-33,
+tr.windowbg:hover a.group-58 {
+	background-clip: text;
 	background-image: linear-gradient(to right, white, white);
 }
