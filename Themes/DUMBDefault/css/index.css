@@ -3535,7 +3535,7 @@ img.avatar {
 	overflow-wrap: break-word;
 }
 img.smiley {
-	vertical-align: bottom;
+	vertical-align: middle;
 	image-rendering: pixelated;
 }
 .attachments {
