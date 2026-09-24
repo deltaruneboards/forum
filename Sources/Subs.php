@@ -8533,6 +8533,7 @@ const CANONICAL_TAGS = [
 	// ???
 	'au',
 	'five',
+	'pipis',
 ];
 
 // Make tags from thread subject.
