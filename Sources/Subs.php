@@ -3029,6 +3029,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 									')' .
 								')' .
 
+								/* DUMB change: don't allow naked domains
 								// Or, if there is neither a scheme nor an authority...
 								'|' .
 
@@ -3042,6 +3043,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 									// Followed by a non-domain character or end of line
 									'(?=(?P>not_domain_label_char)|$)' .
 								')' .
+								*/
 							')' .
 
 							// 2. IRI path, query, and fragment components (if present)
@@ -3057,11 +3059,13 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 									'(?(<has_authority>)' .
 										// require a "/"
 										'/' .
+										/* DUMB change: don't allow naked domains
 										// Else if we found a naked domain above...
 										'|(?(<naked_domain>)' .
 											// require a "/"
 											'/' .
 										')' .
+										*/
 									')' .
 								')' .
 
