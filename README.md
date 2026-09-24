@@ -62,25 +62,9 @@ php -S 127.0.0.1:4000
 
 You can then view the forum at http://localhost:4000/. Log in using the account `test2` with password `aaaabbbb`.
 
-## Notes
+## Scripts
 
-### Updating `dump.sql`
+This repository comes with some maintenance scripts in the `scripts` directory, meant to be run by administrators:
 
-After we change some settings on the DUMB, we might need to update some of the following tables in `dump.sql`:
-
-- `smf_arcade_modsettings` (except `arcadeRandomIdVar` and `arcadeSecretIdVar`)
-- `smf_board_permissions`
-- `smf_board_permissions_view`
-- `smf_boards`
-- `smf_categories`
-- `smf_membergroups`
-- `smf_permission_profiles`
-- `smf_permissions`
-- `smf_scheduled_tasks`
-- `smf_settings` (except `avatar_url`)
-- `smf_smiley_files`
-- `smf_smileys`
-- `smf_stshop_categories`
-- `smf_stshop_modules`
-
-After updating, the forum URL in the dump should be replaced with `http://localhost:4000`, and document root path with `/srv/dumb`.
+- `backup.sh`: backs up the uploaded avatars and database
+- `update_dump.sh`: updates `dump.sql` with new values from production (make sure to check there are no secrets in there)

@@ -1,3 +1,4 @@
+backup*.tar.gz
 dump_*.sql
 minified_*
 Settings_bak.php
