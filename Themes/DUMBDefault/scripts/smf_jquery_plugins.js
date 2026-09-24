@@ -175,12 +175,6 @@
 					return false;
 				});
 			}
-
-			// clear the tip on a click
-			$(this).on("click", function(event){
-				hideTooltip(this);
-				return true;
-			});
 		});
 	};
 
@@ -752,6 +746,10 @@ $(function() {
 	});
 	$( '.mobile_user_menu' ).click(function() {
 		$( '#mobile_user_menu' ).show();
+	});
+	$('.popup_container').click(e => {
+		if (e.target === e.currentTarget)
+			$(e.currentTarget).hide();
 	});
 	$( '.hide_popup' ).click(function() {
 		$( '#mobile_user_menu' ).hide();
