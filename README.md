@@ -60,7 +60,7 @@ You can use the PHP built-in webserver to serve the forum. Use port 4000:
 php -S 127.0.0.1:4000
 ```
 
-You can then view the forum at http://localhost:4000/. Log in using the account `test2` with password `aaaabbbb`.
+You can then view the forum at http://localhost:4000/. Log in using the account `admin` with password `aaaabbbb`.
 
 ## Scripts
 
