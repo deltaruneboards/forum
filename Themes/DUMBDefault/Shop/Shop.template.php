@@ -457,7 +457,7 @@ function template_games_play_above()
 
 			// Display the payout table for others
 			if (!empty($context['shop_game_spin'][1]))
-				echo str_repeat('<img src="'. $context['shop_game_images'] . $face . '.png" alt="" style="width: 25px; height: 25px; vertical-align: middle;" />', $context['shop_game_spin'][1]), '&nbsp; ', Format::cash($modSettings['Shop_settings_' . $_REQUEST['play'] . '_' . $payout]), '<br /><hr />';
+				echo str_repeat('<img src="'. $context['shop_game_images'] . $face . '.png" alt="" style="vertical-align: middle;" />', $context['shop_game_spin'][1]), '&nbsp; ', Format::cash($modSettings['Shop_settings_' . $_REQUEST['play'] . '_' . $payout]), '<br /><hr />';
 			else
 				echo $txt['Shop_games_' . $_REQUEST['play'] . '_'. $payout], $modSettings['Shop_settings_' . $_REQUEST['play'] . '_' . $payout] . '<hr />';
 		}

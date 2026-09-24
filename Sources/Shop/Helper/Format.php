@@ -60,7 +60,7 @@ class Format
 		// Item images...
 		self::$items_url = $boardurl . Shop::$itemsdir;
 
-		$formatname = '<img' . (!empty($class) ? ' class="' . $class . '" id="' . $class . '"' : ''). ' src="' . self::$items_url . $image . '" alt="' . $description . '" title="' . $description . '" style="vertical-align: middle;width:' . $modSettings['Shop_images_width'] . ';height:' . $modSettings['Shop_images_height'] . ';" />';
+		$formatname = '<img' . (!empty($class) ? ' class="' . $class . '" id="' . $class . '"' : ''). ' src="' . self::$items_url . $image . '" alt="' . $description . '" title="' . $description . '" style="vertical-align: middle;" />';
 
 		return $formatname;
 	}
