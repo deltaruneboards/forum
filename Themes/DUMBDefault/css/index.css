@@ -1382,6 +1382,9 @@ ul li.greeting {
 #footerfix {
 	flex: 1 0 auto;
 }
+#randomQuote {
+	overflow-wrap: break-word;
+}
 
 /* The posting icons */
 #postbuttons_upper ul li a span {
