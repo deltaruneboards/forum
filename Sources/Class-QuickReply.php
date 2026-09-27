@@ -117,7 +117,7 @@ class QuickReply
 	 */
 	public static function theme_options() : void
 	{
-		global $context, $txt;
+		global $context, $txt, $modSettings;
 
 		// Are they allowed to change the behavior?
 		if (!allowedTo('QuickReply_behavior'))
@@ -139,6 +139,7 @@ class QuickReply
 				'disabled' => $txt['QuickReply_disabled'],
 			],
 			'enabled' => allowedTo('QuickReply_behavior'),
+			'default' => $modSettings['QuickReply_behavior_general'] ?? 'full',
 		];
 		
 	}
