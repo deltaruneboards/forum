@@ -3584,6 +3584,12 @@ img.smiley {
 	float: right;
 	margin: 2px 2px 0 2px;
 }
+#quickreply .cat_bar h3::before {
+	content: "▼";
+}
+#quickreply .cat_bar.quickreply_collapsed h3::before {
+	content: "►";
+}
 /* Styles for edit post section */
 form#postmodify .roundframe {
 	padding: 12px;

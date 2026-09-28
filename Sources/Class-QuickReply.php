@@ -48,7 +48,7 @@ class QuickReply
 
 		// Add the javascript goodies
 		addJavaScriptVar('quickreply_placeholder', $txt['QuickReply_reply_value'], true);
-		loadJavascriptFile('quickreply.js', ['defer' => true, 'default_theme' => true], 'enhanced_quickreply');
+		loadJavascriptFile('quickreply.js', ['defer' => true], 'enhanced_quickreply');
 
 		// What are we doing to the quick reply box?
 		switch ($context['QuickReply_behavior'])
