@@ -267,15 +267,16 @@ class Database
 		);
 	}
 
-	public static function Insert($table, $columns, $types, $indexes = [], $method = 'ignore')
+	public static function Insert($table, $columns, $types, $indexes = [], $method = 'ignore', $returnmode = 0)
 	{
 		global $smcFunc;
 
-		$smcFunc['db_insert']($method,
+		return $smcFunc['db_insert']($method,
 			'{db_prefix}'.$table,
 			$types,
 			$columns,
-			$indexes
+            $indexes,
+            $returnmode
 		);
 	}
 
