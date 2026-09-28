@@ -139,7 +139,8 @@ function template_html_above()
 
 	echo '
 	<title>', (isset($context['is_index']) ? $context['forum_name_html_safe'] : $context['page_title_html_safe'] . ' - ' . $context['forum_name_html_safe']), '</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">';
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="/favicon.ico">';
 
 	// Content related meta tags, like description, keywords, Open Graph stuff, etc...
 	foreach ($context['meta_tags'] as $meta_tag)
