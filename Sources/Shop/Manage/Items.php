@@ -391,7 +391,7 @@ class Items extends Dashboard
 
 	public function save()
 	{
-		global $context;
+		global $context, $smcFunc;
 
 		// Data
 		$this->_fields_data = [
@@ -431,8 +431,8 @@ class Items extends Dashboard
 			foreach($this->_fields_data as $column => $type)
 				$this->_fields_type[$column] = str_replace('integer', 'int', gettype($type));
 
-			// Insert
-			Database::Insert('stshop_items', $this->_fields_data, $this->_fields_type);
+			// Insert, and save new item id
+			$_REQUEST['id'] = Database::Insert('stshop_items', $this->_fields_data, $this->_fields_type, ['itemid'], returnmode: 2)[0];
 			$status = 'added';
 		}
 
@@ -455,15 +455,40 @@ class Items extends Dashboard
 
         // DUMBie extension: implements postUserInput
         // copied code from above
-        // i hate Database module with a passion but im too tired to rewrite this properly
-        $ctx_shopitem = Database::Get('', '', '', 'stshop_items AS s', array_merge(Database::$items, ['sm.file']), 'WHERE s.itemid = {int:itemid}', true, 'LEFT JOIN {db_prefix}stshop_modules AS sm ON (sm.id = s.module)', ['itemid' => (int) (isset($_REQUEST['id']) ? $_REQUEST['id'] : 0)]);
-        $this->_item_module .= $ctx_shopitem['file'];
+        // guess its time to rewrite this properly
 
-        if (class_exists($this->_item_module))
-        {
-            // Create a new object (why do i have to do this again
-            $itemModel = new $this->_item_module;
-            $itemModel->postAddInput();
+        $module = -1;
+        if (empty($_REQUEST['module'])) {
+            $requestDUMBIE = $smcFunc['db_query']('', '
+                SELECT module FROM {db_prefix}stshop_items
+                WHERE itemid = {int:itemid}',
+                array(
+                    'itemid' => $_REQUEST['id']
+                ));
+
+            $potentialModule = $smcFunc['db_fetch_row']($requestDUMBIE);
+            if (!empty($potentialModule)) { $module = $potentialModule[0]; }
+            $smcFunc['db_free_result']($requestDUMBIE);
+        }
+        else { $module = $_REQUEST['module']; }
+
+        if ($module > 0) {
+            $requestDUMBIE = $smcFunc['db_query']('', '
+                SELECT file FROM {db_prefix}stshop_modules
+                WHERE id = {int:moduleid}',
+                array(
+                    'moduleid' => $module
+                ));
+            $item_module = $smcFunc['db_fetch_row']($requestDUMBIE);
+
+            if (!empty($item_module)) { $this->_item_module .= $item_module[0]; }
+
+            if (class_exists($this->_item_module)) {
+                $iModel = new $this->_item_module;
+                $iModel->postAddInput();
+            }
+
+            $smcFunc['db_free_result']($requestDUMBIE);
         }
 
 		redirectexit('action=admin;area=shopitems;sa=index;'.$status);

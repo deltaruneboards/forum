@@ -1,12 +1,14 @@
 <?php
 
-/**
- * @package ST Shop
+/*
+ * @package DUMB Text Module / ST Shop
  * @version 4.0
- * @author Antquinox
+ * @author candycanearter <candy@candyether.space> and Antquinox
  * @copyright Copyright (c) 2026, DUMB
  * @license https://www.mozilla.org/en-US/MPL/2.0/
  */
+
+// DUMBie extension: like all of this obviously
 
 namespace Shop\Modules;
 
@@ -15,52 +17,93 @@ use Shop\Helper\Database;
 use Shop\Helper\Module;
 
 if (!defined('SMF'))
-	die('Hacking attempt...');
+    die('Hacking attempt...');
 
 class TextOnlyItem extends Module
 {
-    /**
-	 * @var string Display text.
-	 */
-	private $_displayText;
+    function getItemDetails()
+    {
+        $this->authorName = 'candycanearter';
+        $this->authorWeb = 'candyether.space';
+        $this->authorEmail = 'candy@candyether.space';
+        $this->name = Shop::getText('dumb_texto_name');
+        $this->desc = Shop::getText('dumb_texto_desc');
+        $this->price = 50;
 
-	/**
-	 * TextOnlyItem::getItemDetails()
-	 *
-	 * Item that only displays text when used.
-	 */
-	function getItemDetails()
-	{
-		// Item details
-		$this->authorName = 'Antquinox';
-		$this->authorWeb = '';
-		$this->authorEmail = '';
-		$this->name = "Text Only";
-		$this->desc = "Displays text when used";
-		$this->price = 50;
-		$this->require_input = false;
-		$this->can_use_item = true;
+        $this->require_input = false;
+        $this->can_use_item = true;
         $this->addInput_editable = true;
-	}
+    }
 
     function getAddInput()
-	{
-		return '
-		<dl class="settings">
-			<dt>
-				<span class="smalltext"> Text: </span>
-			</dt>
-			<dd>
-				<input type="text" id="displayText" name="displayText" size="255" value="' . $_displayText . '"/>
-			</dd>
-		</dl>';
-	}
+    {
+        global $smcFunc;
 
-	function onUse()
-	{
-		return '
-			<div class="infobox">
-				' . $_displayText . '
-			</div>';
-	}
+        $curText = "";
+
+        if (!empty($_REQUEST['id'])) {
+            $requestDUMBIE = $smcFunc['db_query']('', '
+                SELECT value FROM {db_prefix}itemlongtext
+                WHERE ITEM_ID = {int:itemid}',
+                array(
+                    'itemid' => $_REQUEST['id']
+                ));
+            $fetched = $smcFunc['db_fetch_row']($requestDUMBIE);
+            if (!empty($fetched)) { $curText = $fetched[0]; }
+            $smcFunc['db_free_result']($requestDUMBIE);
+        }
+
+        return '
+            <dl class="settings">
+                <dt>
+                    ' . Shop::getText('dumb_texto_setting1') . '
+                </dt>
+                <dd>
+                    <textarea id="rawtext" name="rawtext" rows="10" cols="50">' . htmlspecialchars($curText) . '</textarea>
+                </dd>
+
+            </dl>';
+    }
+
+    function postAddInput()
+    {
+        global $smcFunc;
+
+        $smcFunc['db_query']('', '
+            INSERT INTO {db_prefix}itemlongtext
+            VALUES ({int:itemid}, {string:text})
+            ON DUPLICATE KEY UPDATE value = {string:text}',
+            array(
+                'itemid' => $_REQUEST['id'],
+                'text' => $_REQUEST['rawtext']
+            ));
+    }
+
+    function onUse()
+    {
+        global $smcFunc;
+
+        $dispText = Shop::getText('dumb_texto_error');
+
+        $requestDUMBIE = $smcFunc['db_query']('', '
+            SELECT value FROM {db_prefix}itemlongtext
+            WHERE ITEM_ID = (
+                SELECT itemid FROM {db_prefix}stshop_inventory
+                WHERE id = {int:instid}
+            )',
+            array(
+                'instid' => $_REQUEST['id']
+            ));
+
+        $fetched = $smcFunc['db_fetch_row']($requestDUMBIE);
+        if (!empty($fetched)) { $dispText = $fetched[0]; }
+        $smcFunc['db_free_result']($requestDUMBIE);
+
+        return '
+            <div class="infobox">
+                ' . $dispText . '
+            </div>';
+    }
 }
+
+?>
