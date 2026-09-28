@@ -161,3 +161,8 @@ $txt['Shop_dumb_gamble_gambleheader'] = 'Current loot table:';
 $txt['Shop_dumb_gamble_setting1'] = 'Choose an item or category to add:';
 $txt['Shop_dumb_gamble_setting2'] = 'Weight this item will have, or a negative number to remove it from table';
 $txt['Shop_dumb_gamble_success'] = 'You got item %s!';
+// DUMB TextOnly
+$txt['Shop_dumb_texto_name'] = "DUMB TextOnly";
+$txt['Shop_dumb_texto_desc'] = "Displays a string on use";
+$txt['Shop_dumb_texto_setting1'] = "Text to display (renders HTML)";
+$txt['Shop_dumb_texto_error'] = "THIS IS NOT SUPPOSED TO BE DISPLAYED!!! THIS STRING MEANS THAT THE CORRESPONDING STRING WAS NOT LOCATED, PLEASE CONTACT ADMINS IMMEDIATELY!!";
