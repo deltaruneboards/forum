@@ -34,3 +34,5 @@ $db_passwd = 'aaaaaaaaaaaaaaaa';
  * @var string
  */
 $image_proxy_secret = 'aaaaaaaaaaaaaaaaaaaa';
+
+$cron_key = '';

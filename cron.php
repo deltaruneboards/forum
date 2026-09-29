@@ -25,6 +25,7 @@ define('SMF_VERSION', '2.1.7');
 define('SMF_FULL_VERSION', 'SMF ' . SMF_VERSION);
 define('SMF_SOFTWARE_YEAR', '2026');
 define('FROM_CLI', empty($_SERVER['REQUEST_METHOD']));
+define('FROM_WORKER', !empty($_SERVER['HTTP_X_CF_WORKER']));
 
 define('JQUERY_VERSION', '3.6.3');
 define('POSTGRE_TITLE', 'PostgreSQL');
@@ -34,7 +35,7 @@ define('SMF_USER_AGENT', 'Mozilla/5.0 (' . php_uname('s') . ' ' . php_uname('m')
 // This one setting is worth bearing in mind. If you are running this from proper cron, make sure you
 // don't run this file any more frequently than indicated here. It might turn ugly if you do.
 // But on proper cron you can always increase this value provided you don't go beyond max_limit.
-define('MAX_CRON_TIME', 10);
+define('MAX_CRON_TIME', 45);
 // If a task fails for whatever reason it will still be marked as claimed. This is the threshold
 // by which if a task has not completed in this time, the task should become available again.
 define('MAX_CLAIM_THRESHOLD', 300);
@@ -45,6 +46,7 @@ global $boardurl, $boarddir, $sourcedir, $webmaster_email;
 global $db_server, $db_name, $db_user, $db_prefix, $db_persist, $db_error_send, $db_last_error;
 global $db_connection, $modSettings, $context, $sc, $user_info, $txt;
 global $smcFunc, $ssi_db_user, $scripturl, $db_passwd, $cachedir;
+global $cron_key;
 
 if (!defined('TIME_START'))
 	define('TIME_START', microtime(true));
@@ -56,6 +58,22 @@ foreach (array('db_character_set', 'cachedir') as $variable)
 
 // Get the forum's settings for database and file paths.
 require_once(dirname(__FILE__) . '/Settings.php');
+
+// Validate the entry point early
+if (!empty($cron_key))
+{
+	if (FROM_WORKER)
+	{
+		if ($_SERVER['HTTP_X_CF_WORKER'] !== $cron_key)
+		{
+			obExit_cron('invalid-token');
+		}
+	}
+	elseif (!FROM_CLI)
+	{
+		obExit_cron('invalid-entry');
+	}
+}
 
 // Make absolutely sure the cache directory is defined and writable.
 if (empty($cachedir) || !is_dir($cachedir) || !is_writable($cachedir))
@@ -79,27 +97,13 @@ if (substr($sourcedir, 0, 1) == '.' && substr($sourcedir, 1, 1) != '.')
 
 // Do nothing if we are in the middle of an install or upgrade.
 if (!empty($upgradeData) || !empty($package_installing))
-	obExit_cron();
+	obExit_cron('upgrading');
 
 // Have we already turned this off? If so, exist gracefully.
 if (file_exists($cachedir . '/cron.lock'))
-	obExit_cron();
+	obExit_cron('locked');
 
-// Before we go any further, if this is not a CLI request, we need to do some checking.
-if (!FROM_CLI)
-{
-	// When using sub-domains with SSI and ssi_themes set, browsers will receive a "Access-Control-Allow-Origin" error.
-	// * is not ideal but the best method to preventing this from occurring.
-	header('Access-Control-Allow-Origin: *');
-
-	// We will clean up $_GET shortly. But we want to this ASAP.
-	$ts = isset($_GET['ts']) ? (int) $_GET['ts'] : 0;
-	if ($ts <= 0 || $ts % 15 != 0 || time() - $ts < 0 || time() - $ts > 20)
-		obExit_cron();
-}
-
-else
-	$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.0';
+$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.0';
 
 // Load the most important includes. In general, a background should be loading its own dependencies.
 require_once($sourcedir . '/Errors.php');
@@ -129,6 +133,8 @@ $_SERVER['REQUEST_URL'] = FROM_CLI ? 'CLI cron.php' : $boardurl . '/cron.php';
 // Now 'clean the request' (or more accurately, ignore everything we're not going to use)
 cleanRequest_cron();
 
+$tasksDone = 0;
+$tasksFailed = 0;
 // At this point we could reseed the RNG but I don't think we need to risk it being seeded *even more*.
 // Meanwhile, time we got on with the real business here.
 while ($task_details = fetch_task())
@@ -136,6 +142,7 @@ while ($task_details = fetch_task())
 	$result = perform_task($task_details);
 	if ($result)
 	{
+		$tasksDone++;
 		$smcFunc['db_query']('', '
 			DELETE FROM {db_prefix}background_tasks
 			WHERE id_task = {int:task}',
@@ -143,6 +150,10 @@ while ($task_details = fetch_task())
 				'task' => $task_details['id_task'],
 			)
 		);
+	}
+	else
+	{
+		$tasksFailed++;
 	}
 }
 
@@ -157,7 +168,14 @@ if (time() - TIME_START < ceil(MAX_CRON_TIME / 2))
 		ReduceMailQueue();
 }
 
-obExit_cron();
+if (FROM_CLI)
+	die(0);
+
+header('Content-Type: application/json');
+echo json_encode([
+	'done' => $tasksDone,
+	'failed' => $tasksFailed,
+]);
 exit;
 
 /**
@@ -331,14 +349,14 @@ function smf_exception_handler_cron(\Throwable $e)
 /**
  * The exit function
  */
-function obExit_cron()
+function obExit_cron($reason)
 {
 	if (FROM_CLI)
-		die(0);
+		die(1);
 	else
 	{
-		header('content-type: image/gif');
-		die("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
+		http_response_code(400);
+		die($reason);
 	}
 }
 
