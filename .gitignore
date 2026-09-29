@@ -1,5 +1,7 @@
+.venv
 backup*.tar.gz
 dump_*.sql
 minified_*
 Settings_bak.php
 Settings_private.php
+logs
