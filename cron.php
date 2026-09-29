@@ -38,7 +38,7 @@ define('SMF_USER_AGENT', 'Mozilla/5.0 (' . php_uname('s') . ' ' . php_uname('m')
 define('MAX_CRON_TIME', 45);
 // If a task fails for whatever reason it will still be marked as claimed. This is the threshold
 // by which if a task has not completed in this time, the task should become available again.
-define('MAX_CLAIM_THRESHOLD', 300);
+define('MAX_CLAIM_THRESHOLD', 60);
 
 // We're going to want a few globals... these are all set later.
 global $maintenance, $msubject, $mmessage, $mbname, $language;
