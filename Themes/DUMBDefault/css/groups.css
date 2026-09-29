@@ -133,18 +133,10 @@ span.group-31, a.group-31, a.group-31:visited {
 	font-weight: bold;
 }
 
-/* Hopes & Dreams */
-span.group-38, a.group-38, a.group-38:visited {
-	background: var(--hopes-dreams-color);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-	font-weight: bold;
-}
-
-/* SpecialUltraRainbowMilkLooker */
+/* Hopes & Dreams, SpecialUltraRainbowMilkLooker */
+span.group-38, a.group-38, a.group-38:visited,
 span.group-57, a.group-57, a.group-57:visited {
-	background: linear-gradient(to right, #DC3F62, #FFA081, #FEFF6F, #56DE5C, #61FFE1, #0E92FE, #C036FF);
+	background: var(--hopes-dreams-color);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
