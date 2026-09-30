@@ -20,5 +20,5 @@ jobs:
           script: |
             cd /home/public
             git pull
-            find /home/public -type d -not -path "*/.git/*" -exec chmod 777 {} \;
-            find /home/public -type f -not -path "*/.git/*" -exec chmod 666 {} \;
+            find . -not \( -path ./.git -prune \) -not \( -path ./scripts -prune \) -type d -exec chmod 777 {} \;
+            find . -not \( -path ./.git -prune \) -not \( -path ./scripts -prune \) -type f -exec chmod 666 {} \;

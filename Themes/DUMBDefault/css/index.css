@@ -484,10 +484,7 @@ a img {
 	content: "";
 	vertical-align: middle;
 	margin: 0 5px 0 5px;
-	border: 1px solid #c5c5c5;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, .2),
-		0 1px 1px #fff inset,
-		0 -5px 4px rgba(0,0,0,.1) inset;
+	border: 1px solid var(--sec-color);
 	transition: background-color 0.25s;
 }
 .toggle_down::before {
@@ -495,7 +492,7 @@ a img {
 }
 
 .toggle_up:hover:before, .toggle_down:hover:before {
-	background-color: #bfd4e7;
+	background-color: var(--pri-color);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) inset;
 	transition: background-color 0.25s;
 }
@@ -1381,6 +1378,9 @@ ul li.greeting {
 }
 #footerfix {
 	flex: 1 0 auto;
+}
+#randomQuote {
+	overflow-wrap: break-word;
 }
 
 /* The posting icons */
@@ -3445,13 +3445,16 @@ img.avatar {
 	padding-left: 0.5em;
 }
 .actionbar {
-	background-color: var(--ter-bg-color);
+	background-color: var(--sec-bg-color);
 	border-top: 1px solid var(--border-color);
 	display: flex;
 	filter: var(--ut-icon-filter);
 	gap: 5px;
 	justify-content: flex-end;
 	padding: 6px;
+}
+.actionbar img:hover {
+	filter:brightness(190%);
 }
 .postarea div.flow_hidden {
 	width: 100%;
@@ -3581,6 +3584,12 @@ img.smiley {
 	float: right;
 	margin: 2px 2px 0 2px;
 }
+#quickreply .cat_bar h3::before {
+	content: "▼";
+}
+#quickreply .cat_bar.quickreply_collapsed h3::before {
+	content: "►";
+}
 /* Styles for edit post section */
 form#postmodify .roundframe {
 	padding: 12px;
@@ -3639,14 +3648,11 @@ ul.post_options li {
 	font-weight: bold;
 }
 #post_draft_options {
-	background: #fdfdfd;
-	border: 1px solid #aaa;
-	border-left: 1px solid #bbb;
-	border-top: none;
+	background: var(--sec-bg-color);
 }
 #post_draft_options .settings dd, #post_draft_options .settings dt {
 	width: 50%;
-	border-top: 1px solid #e4e4e4;
+	border-top: 1px solid var(--border-color);
 	padding: 5px 10px;
 	margin: 0;
 }

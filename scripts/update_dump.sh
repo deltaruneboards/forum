@@ -235,6 +235,8 @@ DELETE FROM smf_arcade_modsettings WHERE
     variable = 'arcadeRecurrentCronTasks' OR
     variable = 'game_of_day' OR
     variable = 'game_time';
+UPDATE smf_pages SET views = 0;
+UPDATE smf_scheduled_tasks SET next_time = 0;
 UPDATE smf_settings SET value = '{\"1\":\"/srv/dumb/attachments\"}' WHERE variable = 'attachmentUploadDir';
 UPDATE smf_settings SET value = '/srv/dumb/avatars' WHERE variable = 'avatar_directory';
 UPDATE smf_settings SET value = '/srv/dumb/custom_avatar' WHERE variable = 'custom_avatar_dir';
@@ -249,11 +251,15 @@ UPDATE smf_settings SET value = '0' WHERE
     variable = 'memberlist_updated' OR
     variable = 'mostDate' OR
     variable = 'settings_updated' OR
-    variable = 'turnstile_enabled';
+    variable = 'turnstile_enabled' OR
+    variable = 'totalMessages' OR
+    variable = 'totalTopics' OR
+    variable = 'cron_is_real_cron';
 UPDATE smf_settings SET value = '1' WHERE
     variable = 'latestMember' OR
     variable = 'mostOnline' OR
-    variable = 'mostOnlineToday';
+    variable = 'mostOnlineToday' OR
+    variable = 'totalMembers';
 UPDATE smf_settings SET value = 'admin' WHERE variable = 'latestRealName';
 UPDATE smf_settings SET value = '2000-01-01' WHERE variable = 'mostOnlineUpdated';
 DELETE FROM smf_settings WHERE
@@ -270,6 +276,7 @@ DELETE FROM smf_settings WHERE
     variable = 'calendar_updated' OR
     variable = 'browser_cache' OR
     variable = 'cron_last_checked';
+UPDATE smf_stshop_items SET stock = 1000 WHERE stock > 2;
 UPDATE smf_themes SET value = '/srv/dumb/Themes/default' WHERE id_theme = 1 AND variable = 'theme_dir';
 UPDATE smf_themes SET value = '/srv/dumb/Themes/DUMBDefault' WHERE id_theme = 2 AND variable = 'theme_dir';
 UPDATE smf_themes SET value = '/srv/dumb/Themes/default' WHERE id_theme = 2 AND variable = 'based_on_dir';
