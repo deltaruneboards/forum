@@ -37,9 +37,13 @@ class DUMBBadge extends Module
         $this->desc = Shop::getText('dumbb_desc');
         $this->price = 50;
 
-		$this->require_input = false;
+		$this->require_input = true;
 		$this->can_use_item = true;
 		$this->addInput_editable = true;
+
+        // by default, not giftable or custom description-able(?)
+        $this->item_info[1] = false;
+        $this->item_info[2] = false;
     }
 
     function getAddInput()
@@ -75,9 +79,67 @@ class DUMBBadge extends Module
                 <dd>
                     <input type="text" id="hover" name="hover" value="' . htmlspecialchars($existing_info[1]) . '" />
                 </dd>
+                <dt>
+                    ' . Shop::getText("dumbb_setting3") . '
+                </dt>
+                <dd>
+                    <input type="checkbox" id="info1" name="info1" value="1" ' . (empty($this->item_info[1]) ? '' : 'checked') . ' />
+                </dd>
+                <dt>
+                    ' . Shop::getText("dumbb_setting4") . '
+                </dt>
+                <dd>
+                    <input type="checkbox" id="info2" name="info2" value="1" ' . (empty($this->item_info[2]) ? '' : 'checked') . ' />
+                </dd>
+
 
             </dl>';
 
+    }
+
+    function getUseInput()
+    {
+        global $context;
+
+        $retr = '<dl class="settings">';
+        if (!empty($this->item_info[1])) {
+            $retr .= '
+                <dt>
+                    ' . Shop::getText('dumbb_setuser') . '
+                </dt>
+                <dd>
+                    <input type="text" name="membername" id="membername" />
+                    <div id="membernameItemContainer"></div>
+                </dd>
+                <script>
+                    var oAddMemberSuggest = new smc_AutoSuggest({
+                        sSelf: \'oAddMemberSuggest\',
+                        sSessionId: \''. $context['session_id']. '\',
+                        sSessionVar: \''. $context['session_var']. '\',
+                        sSuggestId: \'to_suggest\',
+                        sControlId: \'membername\',
+                        sSearchType: \'member\',
+                        sPostName: \'memberid\',
+                        sURLMask: \'action=profile;u=%item_id%\',
+                        sTextDeleteItem: \''. Shop::getText('autosuggest_delete_item', false). '\',
+                        sItemListContainerId: \'membernameItemContainer\'
+                    });
+                </script>';
+        }
+
+        if (!empty($this->item_info[2])) {
+            $retr .= '
+                <dt>
+                    ' . Shop::getText('dumbb_setdesc') . '
+                </dt>
+                <dd>
+                    <input type="text" name="customdesc" size="50" />
+                </dd>';
+        }
+
+        $retr .= '</dl>';
+
+        return $retr;
     }
 
     // DUMBie extension note: postAddInput is a custom function called after saving an item edit
@@ -137,14 +199,61 @@ class DUMBBadge extends Module
 
         checkSession();
 
-        $smcFunc['db_query']('', '
+        // checking a description is set if needed
+
+        if (!empty($this->item_info[2])) {
+            if (empty($_REQUEST['customdesc'])) { fatal_error(Shop::getText('cot_empty_title'), false); }
+            $setdesc = $_REQUEST['customdesc'];
+        }
+
+        // by default, self apply
+        $target_member = $user_info['id'];
+
+        // resolving the member name to an id (also its a bit more difficult bc of jammys changse)
+        // i think real_name is the display name that should be fine hopefully??
+
+        if (!empty($this->item_info[1])) {
+            if (empty($_REQUEST['membername'])) { fatal_error(Shop::getText('user_unable_tofind'), false); }
+
+            $requestDUMBIE = $smcFunc['db_query']('', '
+                SELECT id_member FROM {db_prefix}members
+                WHERE real_name = {string:member}',
+                array(
+                    'member' => $_REQUEST['membername']
+                ));
+
+            $target_member = $smcFunc['db_fetch_row']($requestDUMBIE)[0];
+            if (empty($target_member)) { fatal_error(Shop::getText('user_unable_tofind'), false); }
+            $smcFunc['db_free_result']($requestDUMBIE);
+        }
+
+
+
+
+        $requestDUMBIE = $smcFunc['db_query']('', '
             INSERT INTO {db_prefix}awards
-            VALUES(null, {int:item_id}, {int:user_id}, {int:date}, {int:user_id})',
+            VALUES(null, {int:item_id}, {int:user_id}, {int:date}, {int:self_id})
+            RETURNING ID_AWARD',
             array(
                 'item_id' => $item_id[0],
-                'user_id' => $user_info['id'],
+                'user_id' => $target_member,
+                'self_id' => $user_info['id'],
                 'date' => time()
             ));
+
+        $badge_id = $smcFunc['db_fetch_row']($requestDUMBIE)[0];
+        $smcFunc['db_free_result']($requestDUMBIE);
+
+        if (!empty($setdesc)) {
+            $smcFunc['db_query']('', '
+                INSERT INTO {db_prefix}awards_overrides(ID_AWARD, hover_text)
+                VALUES({int:badge_id}, {string:desc})
+                ON DUPLICATE KEY UPDATE hover_text = {string:desc}',
+                array(
+                    'badge_id' => $badge_id,
+                    'desc' => $setdesc
+                ));
+        }
 
         return '
             <div class="infobox">
