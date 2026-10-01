@@ -90,24 +90,13 @@ class DUMBUsergroup extends Module
         // to refund any items
 
         if ($user_info['groups'][0] > 0) {
-
-            // sql garbage spam lol
-            // this is supposed to get the id of the item that gives the current title
-            // its checking the info1 field is the same as the current group
-            // and the module is the same as the currently used item
             $requestDUMBIE = $smcFunc['db_query']('', '
-                WITH full_data AS (
-                    SELECT id, itm.itemid, module, info1
-                    FROM {db_prefix}stshop_inventory inv
-                    INNER JOIN {db_prefix}stshop_items itm
-                    ON itm.itemid = inv.itemid
-                ) SELECT DISTINCT itemid FROM full_data
+                SELECT itemid FROM {db_prefix}stshop_items
                 WHERE info1 = (SELECT id_group FROM {db_prefix}members WHERE id_member = {int:user_id})
-                AND module = (SELECT module FROM full_data WHERE id = {int:itemcopy_id})',
-                array(
-                    'user_id' => $user_info['id'],
-                    'itemcopy_id' => $_REQUEST['id']
-                ));
+                AND module = (SELECT id FROM {db_prefix}stshop_modules WHERE file = "DUMBUserGroup")
+                ',
+                ['user_id' => $user_info['id']]
+            );
 
             $title_item = $smcFunc['db_fetch_row']($requestDUMBIE);
             $smcFunc['db_free_result']($requestDUMBIE);
