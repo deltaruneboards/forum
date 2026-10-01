@@ -74,7 +74,7 @@ function template_home()
 			</h3>
 		</div>
 		<div class="information">
-			<a href="', $scripturl, '?action=profile"><img class="avatar" style="display: inline" src="', $context['user']['avatar']['href'], '" alt="" /></a><br />
+			<a href="', $scripturl, '?action=profile;u=' . $context['user']['id'] . '"><img class="avatar" style="display: inline" src="', $context['user']['avatar']['href'], '" alt="" /></a><br />
 			<strong>', $txt['Shop_money_pocket'], ':</strong> ', Format::cash($context['user']['shopMoney']), '<br />
 			<strong>', $txt['Shop_money_bank'], ':</strong> ', Format::cash($context['user']['shopBank']);
 	if (!empty($modSettings['Shop_enable_games']))
