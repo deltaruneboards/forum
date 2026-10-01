@@ -52,6 +52,7 @@ class Scheduled
 		if (!empty($modSettings['Shop_bank_interest_yesterday']))
 			$timeyes = ' WHERE last_login > {int:yesterday}';
 
+        // REMEMBER TO COPY THIS TO THE BANK VIEW SECTION IF CHANGED!
 		$smcFunc['db_query']('', '
 			UPDATE {db_prefix}members mbr
 			SET mbr.shopBank =
