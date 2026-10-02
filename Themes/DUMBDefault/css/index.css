@@ -3047,7 +3047,6 @@ h3 .collapse {
 	background-position: -45px -45px;
 }
 .board_icon {
-	border-right: 1px solid var(--border-color);
 	text-align: center;
 	padding: 8px 0 0 0;
 	vertical-align: center;
@@ -3108,7 +3107,7 @@ h3 .collapse {
 }
 /* Child boards */
 .children {
-	border-top: 1px solid #ddd;
+	border-top: 1px solid var(--border-color);
 	grid-column: 1 / span 4;
 	padding: 5px;
 	width: 100%;
@@ -3932,10 +3931,6 @@ p.information img {
 }
 #messageindex .information {
 	margin: 0;
-}
-#topic_icons .information,
-#messageindex .information {
-	border-top: 1px solid #ddd;
 }
 .topic_pages {
 	font-size: 0.75em;
