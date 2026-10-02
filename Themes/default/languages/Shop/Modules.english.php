@@ -140,6 +140,7 @@ $txt['Shop_dumbb_setting1'] = 'Badge order';
 $txt['Shop_dumbb_setting2'] = 'Hover text';
 $txt['Shop_dumbb_setting3'] = 'User can add this badge to another member';
 $txt['Shop_dumbb_setting4'] = 'User can add custom description';
+$txt['Shop_dumbb_setting5'] = '(Optional) Sprite when applied';
 $txt['Shop_dumbb_setuser'] = 'Choose a user to gift this to';
 $txt['Shop_dumbb_setdesc'] = 'Input custom hover text (max of 255 characters)';
 // DUMB Badge Remover
