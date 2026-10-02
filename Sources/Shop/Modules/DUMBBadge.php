@@ -48,12 +48,12 @@ class DUMBBadge extends Module
 
     function getAddInput()
     {
-        global $smcFunc;
+        global $smcFunc, $context;
 
-        $existing_info = [0, ''];
+        $existing_info = [0, '', ''];
         if (!empty($_REQUEST['id'])) {
             $requestDUMBIE = $smcFunc['db_query']('', '
-                SELECT ext.sort_order, ext.hover_text
+                SELECT ext.sort_order, ext.hover_text, ext.badge_sprite
                 FROM {db_prefix}stshop_items AS a
                 INNER JOIN {db_prefix}awards_extinfo ext ON a.itemid = ext.ITEM_ID
                 WHERE a.itemid = {int:instanceid}',
@@ -64,6 +64,9 @@ class DUMBBadge extends Module
             $smcFunc['db_free_result']($requestDUMBIE);
         }
 
+        $imgdd = "";
+        foreach ($context['shop_images_list'] as $image)
+            $imgdd .= '<option value="' . $image . '" '. (($existing_info[2] == $image) ? 'selected="selected"' : "") . ">" . $image . '</option>';
 
         return '
             <dl class="settings">
@@ -92,6 +95,15 @@ class DUMBBadge extends Module
                     <input type="checkbox" id="info2" name="info2" value="1" ' . (empty($this->item_info[2]) ? '' : 'checked') . ' />
                 </dd>
 
+                <dt>
+                    ' . Shop::getText("dumbb_setting5") . '
+                </dt>
+                <dd>
+                    <select name="badgedicon">
+                        <option value="unset">use item icon</option>
+                        ' . $imgdd . '
+                    </select>
+                </dd>
 
             </dl>';
 
@@ -152,12 +164,12 @@ class DUMBBadge extends Module
         // makes sure an entry exists before editing it
         // ignores error if already exists
         $smcFunc['db_query']('', '
-            INSERT IGNORE INTO {db_prefix}awards_extinfo VALUES({int:itemid}, null, null)',
+            INSERT IGNORE INTO {db_prefix}awards_extinfo(ITEM_ID) VALUES({int:itemid})',
             array(
                 'itemid' => $item_id
             ));
 
-        if (isset($_REQUEST['order'])) {
+        if (isset($_REQUEST['order']) && !empty($_REQUEST['order'])) {
             $smcFunc['db_query']('', '
                 UPDATE {db_prefix}awards_extinfo
                 SET sort_order = {int:order}
@@ -177,6 +189,26 @@ class DUMBBadge extends Module
                     'hover' => $_REQUEST['hover'],
                     'itemid' => $item_id
                 ));
+        }
+
+        if (isset($_REQUEST['badgedicon'])) {
+            if ($_REQUEST['badgedicon'] == 'unset')
+                $smcFunc['db_query']('', '
+                    UPDATE {db_prefix}awards_extinfo
+                    SET badge_sprite = NULL
+                    WHERE ITEM_ID = {int:itemid}',
+                    array(
+                        'itemid' => $item_id
+                    ));
+            else
+                $smcFunc['db_query']('', '
+                    UPDATE {db_prefix}awards_extinfo
+                    SET badge_sprite = {string:spr}
+                    WHERE ITEM_ID = {int:itemid}',
+                    array(
+                        'spr' => $_REQUEST['badgedicon'],
+                        'itemid' => $item_id
+                    ));
         }
     }
 
