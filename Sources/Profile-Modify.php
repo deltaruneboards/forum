@@ -2003,6 +2003,148 @@ function theme($memID)
 	);
 }
 
+function badge_admin($memID)
+{
+    global $txt, $context, $smcFunc;
+
+
+    loadTemplate('Settings');
+	loadSubTemplate('options');
+
+    if (!allowedTo(array('profile_extra_own', 'profile_extra_any')))
+		fatal_lang_error('no_access', false);
+
+
+    // first, we handle "actions"
+    $badgeTarget = [];
+    foreach ($_POST as $k => $v) {
+        $extr = intval(preg_replace('/^badge-/i', '', $k));
+        if ($extr <= 0)
+            continue;
+        array_push($badgeTarget, $extr);
+    }
+    $context['badge_targets'] = $badgeTarget;
+
+    if (empty($context['post_errors'])) 
+        $context['post_errors'] = [];
+
+    $actionTake = null;
+
+    if (isset($_POST['badge_set']))
+        $actionTake = 'set';
+    else if (isset($_POST['badge_add']))
+        $actionTake = 'add';
+    else if (isset($_POST['badge_delete']))
+        $actionTake = 'delete';
+
+    if (!is_null($actionTake)) {
+        if (empty($badgeTarget)) 
+            array_push($context['post_errors'], "badge_admin_noselecty");
+        else
+            if (make_badge_changes($memID, $badgeTarget, $actionTake))
+                $context['profile_updated'] = $txt['badge_admin_success'];
+    }
+
+    $requestDUMBIE = $smcFunc['db_query']('', '
+        SELECT a.ID_AWARD, nfo.name, nfo.description,
+            COALESCE(ovr.image, nfo.image) AS image,
+            COALESCE(ovr.hover_text, ext.hover_text) AS hover_text,
+            a.sortorder,
+            gfr.real_name AS gifter_name
+        FROM {db_prefix}awards AS a
+        INNER JOIN {db_prefix}stshop_items nfo ON a.ITEM_ID = nfo.itemid
+        LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID
+        LEFT JOIN {db_prefix}awards_overrides ovr ON a.ID_AWARD = ovr.ID_AWARD
+        LEFT JOIN {db_prefix}members gfr ON a.ID_MEMBER = gfr.id_member
+        WHERE a.ID_AWARDED_MEMBER = {int:userid}
+        ORDER BY a.sortorder DESC, nfo.name ASC',
+        array(
+            'userid' => $memID
+        ));
+    $context['badge_list'] = $smcFunc['db_fetch_all']($requestDUMBIE);
+    $smcFunc['db_free_result']($requestDUMBIE);
+
+    $context['sub_template'] = 'badge_admin';
+    $context['page_desc'] = 'Big Pipis Down The Lane';
+
+}
+
+/**
+ * DUMBie extension: Make badge changes
+ */
+function make_badge_changes($memID, $badgeTarget, $actionTake)
+{
+    global $txt, $context, $smcFunc;
+
+    switch ($actionTake) {
+        case "set":
+            return $smcFunc['db_query']('', '
+                UPDATE {db_prefix}awards
+                SET sortorder = {int:theorder}
+                WHERE ID_AWARD IN ({array_int:target})',
+            array(
+                'theorder' => $_POST['coeff'],
+                'target' => $badgeTarget
+            ));
+            break;
+
+        case "add":
+            $actsuccess = $smcFunc['db_query']('', '
+                UPDATE {db_prefix}awards
+                SET sortorder = sortorder + {int:theorder}
+                WHERE ID_AWARD IN ({array_int:target})',
+            array(
+                'theorder' => $_POST['coeff'],
+                'target' => $badgeTarget
+            ));
+            break;
+
+        case "delete":
+            $requestDUMBIE = $smcFunc['db_query']('', '
+                SELECT * FROM {db_prefix}awards_overrides
+                WHERE ID_AWARD IN ({array_int:target})',
+            array(
+                'target' => $badgeTarget
+            ));
+            $specil = $smcFunc['db_fetch_row']($requestDUMBIE);
+            $smcFunc['db_free_result']($requestDUMBIE);
+            if (!empty($specil)) {
+                array_push($context['post_errors'], "badge_admin_specil");
+                return false;
+            }
+
+            // this time we're adding the badge FIRST before deleting it from the other table
+            // so like if something goes wrong inbetween the user doesnt permanently lose the badge
+            // also yipee i get to use insert-select
+            $res = $smcFunc['db_query']('', '
+                INSERT INTO {db_prefix}stshop_inventory(userid, itemid, date)
+                SELECT {int:userid}, ITEM_ID, UNIX_TIMESTAMP()
+                FROM {db_prefix}awards
+                WHERE ID_AWARD IN ({array_int:target})
+                AND ID_AWARDED_MEMBER = {int:userid}',  // protection from removing other ppls badges lol
+                array(
+                    'target' => $badgeTarget,
+                    'userid' => $memID
+                ));
+
+            if (!$res)
+                return;
+
+            // idk how much the log_gift is used but its way more complicated here
+            // since multiple different badges can be removed at once
+            // TODO here i guess
+
+            return $smcFunc['db_query']('', '
+                DELETE FROM {db_prefix}awards
+                WHERE ID_AWARD IN ({array_int:target})
+                AND ID_AWARDED_MEMBER = {int:userid}',
+                array(
+                    'target' => $badgeTarget,
+                    'userid' => $memID
+                ));
+    }
+}
+
 /**
  * Display the notifications and settings for changes.
  *
