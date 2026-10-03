@@ -263,8 +263,8 @@ class DUMBBadge extends Module
 
 
         $requestDUMBIE = $smcFunc['db_query']('', '
-            INSERT INTO {db_prefix}awards
-            VALUES(null, {int:item_id}, {int:user_id}, {int:date}, {int:self_id})
+            INSERT INTO {db_prefix}awards(ITEM_ID, ID_AWARDED_MEMBER, givenDate, ID_MEMBER)
+            VALUES({int:item_id}, {int:user_id}, {int:date}, {int:self_id})
             RETURNING ID_AWARD',
             array(
                 'item_id' => $item_id[0],

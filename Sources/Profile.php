@@ -297,6 +297,18 @@ function ModifyProfile($post_errors = array())
 						'any' => array('profile_extra_any'),
 					),
 				),
+                'badgeadmin' => array(
+                    'label' => $txt['badge_admin'],
+                    'file' => 'Profile-Modify.php',
+                    'function' => 'badge_admin',
+                    'icon' => 'packages',
+                    'sc' => 'post',
+                    'token' => 'profile-bam%u',
+                    'permission' => array(
+						'own' => array('profile_extra_any', 'profile_extra_own'),
+						'any' => array('profile_extra_any'),
+					),
+                ),
 				'notification' => array(
 					'label' => $txt['notification'],
 					'file' => 'Profile-Modify.php',
