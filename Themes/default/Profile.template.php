@@ -1872,63 +1872,6 @@ function template_profile_theme_settings()
 }
 
 /**
- * DUMBie Extension: template for editing your badges
- */
-function template_badge_admin()
-{
-    global $context, $txt;
-
-	echo '
-		<div class="cat_bar">
-			<h3 class="catbg">
-				', $txt['badge_admin'], '
-			</h3>
-		</div>
-		<p class="information">
-			', (empty($context['description']) ? $txt['badge_admin_desc'] : $context['description']), '
-		</p>';
-
-    echo '<form action="?action=profile;area=badgeadmin;u=' . $context['id_member'] . '"
-          method="post" accept-charset="' . $context['character_set'] . '" id="badge_admin2">';
-    echo '<table class="table_grid">
-        <tr class="title_bar">
-            <th>Sort</th>
-            <th></th>
-            <th></th>
-            <th>Name</th>
-            <th>Text</th>
-            <th>Gifter</th>
-        </tr>';
-
-    foreach ($context['badge_list'] as $badger)
-        echo '<tr' . (in_array(strval($badger['ID_AWARD']), $context['badge_targets']) ? ' class="highlight"' : "") . '>
-                <td>' . htmlspecialchars($badger['sortorder']) . '</td>
-                <td><input type="checkbox" id="' . $badger['ID_AWARD'] . '" name="badge-' . $badger['ID_AWARD'] . '" value="1"></td>
-                <td><img src="/shop_items/items/' . $badger['image'] . '" loading=lazy ></td>
-                <td>' . htmlspecialchars($badger['name']) . ' </td>
-                <td>' . htmlspecialchars($badger['hover_text']) . ' </td>
-                <td>' . htmlspecialchars($badger['gifter_name']) . ' </td>
-              </tr>';
-
-    echo '
-        </table>
-        <br>
-        <div>
-            <input style="float: right" id="badge_delete" type="submit" name="badge_delete" value="', $txt['badge_admin_delete'], '" class="button">
-            <input id="coeff" type="number" name="coeff" value="0">
-            <input id="badge_set" type="submit" name="badge_set" value="', $txt['badge_admin_set'], '" class="button">
-            <input id="badge_add" type="submit" name="badge_add" value="', $txt['badge_admin_add'], '" class="button">
-            <input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '">', !empty($context['token_check']) ? '
-            <input type="hidden" name="' . $context[$context['token_check'] . '_token_var'] . '" value="' . $context[$context['token_check'] . '_token'] . '">' : '', '
-            <input type="hidden" name="u" value="', $context['id_member'], '">
-            <input type="hidden" name="sa" value="', $context['menu_item_selected'], '">
-        </div>';
-
-    echo "</form>";
-}
-
-
-/**
  * The template for configuring alerts
  */
 function template_alert_configuration()
