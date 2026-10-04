@@ -101,6 +101,14 @@ $txt['alert_purge'] = 'Delete all read alerts';
 
 $txt['alert_prefs'] = 'Notification Preferences';
 $txt['alert_prefs_desc'] = 'This page will allow you to configure when and how you get notified about new content.';
+$txt['badge_admin'] = 'Badge Management';
+$txt['badge_admin_desc'] = 'This page lets you manage and remove any equipped badges. Badges are sorted with the highest sort number first, and newly applied badges are always assigned zero.';
+$txt['badge_admin_delete'] = 'Unequip selected badges';
+$txt['badge_admin_set'] = 'Set order number';
+$txt['badge_admin_add'] = 'Add to order number';
+$txt['badge_admin_success'] = "Updated badges";
+$txt['profile_error_badge_admin_noselecty'] = 'Select badges to operate on.';
+$txt['profile_error_badge_admin_specil'] = 'A selected badge has special metadata, please contact an admin to remove.';
 $txt['watched_topics'] = 'Watched Topics';
 $txt['watched_topics_desc'] = 'This page lets you review which topics you are watching; when topics that you are watching have been replied to, you can be notified.';
 $txt['watched_boards'] = 'Watched Boards';

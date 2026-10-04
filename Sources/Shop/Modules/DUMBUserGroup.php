@@ -45,7 +45,7 @@ class DUMBUsergroup extends Module
     {
 		// Get the forum groups, except admin/mod
 		$groups = Database::Get(0, 1000, 'm.group_name', 'membergroups AS m', ['m.id_group', 'm.group_name'], 'WHERE m.min_posts = -1 AND m.id_group <> 1 AND m.id_group <> 3');
-        $select = '';
+        $select = '<option value="0">Unassign group</option>';
 
 		// For some reason you are using this module, but have not groups whatsoever
 		if (empty($groups))
@@ -135,7 +135,13 @@ class DUMBUsergroup extends Module
         // overriding the existing primary group
         // dear god i really hope this doesnt break somehow
         // and deadmin someon
-		addMembersToGroup($user_info['id'], $this->item_info[1], 'force_primary', true);
+        if ($this->item_info > 0)
+            addMembersToGroup($user_info['id'], $this->item_info[1], 'force_primary', true);
+        else
+            removeMembersFromGroup($user_info['id'], null, true);
+        // hopefully this doesnt break anything in the future??
+        // on the other hand idk how mad smf would get about having a member
+        // with no primary mgroup but also having subgroups
 
 
 		// Display message box

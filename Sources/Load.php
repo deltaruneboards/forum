@@ -1886,7 +1886,7 @@ function loadMemberContext($user, $display_custom_fields = false)
         LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID
         LEFT JOIN {db_prefix}awards_overrides ovr ON a.ID_AWARD = ovr.ID_AWARD
         WHERE a.ID_AWARDED_MEMBER = {int:userid}
-        ORDER BY ext.sort_order ASC, a.ID_AWARD',
+        ORDER BY ext.sort_order DESC, a.sortorder DESC, nfo.name',
         array(
             'userid' => $profile['id_member'],
         ));
