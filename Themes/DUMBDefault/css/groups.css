@@ -7,6 +7,8 @@
 	--blazer-color: #8dedfe;
 	--forecaster-color: linear-gradient(90deg, rgba(242, 200, 90, 1) 13%, rgba(204, 254, 255, 1) 55%, rgba(148, 188, 241, 1) 87%);;
 	--snowcaster-color: #96f1ff;
+
+	--hover-color: white;
 }
 
 body.color-scheme-light, body.color-scheme-os {
@@ -18,6 +20,8 @@ body.color-scheme-light, body.color-scheme-os {
 	--blazer-color: #57c4cb;
 	--forecaster-color: linear-gradient(90deg, rgb(218, 166, 31) 25%, rgb(31, 184, 187) 55%, rgb(116, 171, 245) 100%);
 	--snowcaster-color: #0293FD;
+
+	--hover-color: #D5390D;
 }
 
 span[class*="group-"], a[class*="group-"], a[class*="group-"]:visited {
@@ -269,22 +273,21 @@ a.group-27, a.group-32, a.group-41, a.group-59 {
 	text-transform: uppercase;
 }
 
-/* Hopes & Dreams, BIG SHOT, Lucky!, Ice Trancer */
-span.group-38:hover, span.group-28:hover, span.group-29:hover, span.group-33:hover, span.group-58:hover,
-a.group-38:hover, a.group-28:hover, a.group-29:hover, a.group-33:hover, a.group-58:hover {
-	background-image: linear-gradient(to right, white, white);
+a[class*="group-"]:hover {
+	color: var(--hover-color);   
 }
 
-tr.windowbg:hover span.group-38,
-tr.windowbg:hover span.group-28,
-tr.windowbg:hover span.group-29,
-tr.windowbg:hover span.group-33,
-tr.windowbg:hover span.group-58,
-tr.windowbg:hover a.group-38,
-tr.windowbg:hover a.group-28,
-tr.windowbg:hover a.group-29,
-tr.windowbg:hover a.group-33,
-tr.windowbg:hover a.group-58 {
+/* Gradient titles need special hover */
+tr.windowbg:hover a.group-33, a.group-33:hover,
+tr.windowbg:hover a.group-34, a.group-34:hover,
+tr.windowbg:hover a.group-35, a.group-35:hover,
+tr.windowbg:hover a.group-38, a.group-38:hover, 
+tr.windowbg:hover a.group-42, a.group-42:hover,
+tr.windowbg:hover a.group-43, a.group-43:hover,
+tr.windowbg:hover a.group-45, a.group-45:hover,
+tr.windowbg:hover a.group-50, a.group-50:hover,
+tr.windowbg:hover a.group-57, a.group-57:hover,
+tr.windowbg:hover a.group-58, a.group-58:hover {
 	background-clip: text;
-	background-image: linear-gradient(to right, white, white);
+	background-image: linear-gradient(to right, var(--hover-color), var(--hover-color));
 }

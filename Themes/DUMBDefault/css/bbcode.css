@@ -209,6 +209,7 @@ span[style="color: pink;"] {
     border-bottom: 1px var(--border-color) solid;
     background-color: var(--sec-bg-color);
     padding: 2px;
+	overflow: auto;
 }
 
 blockquote[style="overflow-y: hidden; max-height: 300px;"] {

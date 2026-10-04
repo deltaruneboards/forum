@@ -3681,7 +3681,16 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 			else
 				$quoted = false;
 
-			$pos2 = strpos($message, $quoted == false ? ']' : $quot . ']', $pos1);
+			$pos2 = strpos($message, ']', $pos1);
+			if ($quoted)
+			{
+				$quot_pos = strpos($message, $quot . ']', $pos1);
+				if ($quot_pos < $pos2)
+					$pos2 = $quot_pos;
+				else
+					// Somebody forgot to close their quoted argument
+					$quoted = false;
+			}
 			if ($pos2 === false)
 				continue;
 
@@ -3794,11 +3803,29 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				if ($nested_tag && substr($message, $nested_tag, 2 + strlen($quot)) == '=' . $quot . ']')
 					$nested_tag = false;
 				if ($nested_tag && $nested_tag < $end_of_value)
+				{
 					// Nested tag with quoted value detected, use next end tag
-					$nested_tag_pos = strpos($message, $quoted == false ? ']' : $quot, $pos1) + strlen($quot);
+					$close_pos = strpos($message, ']', $pos1);
+					$quot_pos = strpos($message, $quot, $pos1);
+					if ($quot_pos < $close_pos)
+						$nested_tag_pos = $quot_pos + strlen($quot);
+					else
+						// Somebody forgot to close their quoted argument
+						$nested_tag_pos = $close_pos;
+				}
 			}
 
-			$pos2 = strpos($message, $quoted == false ? ']' : $quot . ']', isset($nested_tag_pos) ? $nested_tag_pos : $pos1);
+			$start_pos2 = isset($nested_tag_pos) ? $nested_tag_pos : $pos1;
+			$pos2 = strpos($message, ']', $start_pos2);
+			if ($quoted)
+			{
+				$quot_pos = strpos($message, $quot . ']', $start_pos2);
+				if ($quot_pos < $pos2)
+					$pos2 = $quot_pos;
+				else
+					// Somebody forgot to close their quoted argument
+					$quoted = false;
+			}
 			if ($pos2 === false)
 				continue;
 

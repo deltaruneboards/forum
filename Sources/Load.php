@@ -1880,7 +1880,7 @@ function loadMemberContext($user, $display_custom_fields = false)
         // DUMBie extension: loading badge data
        $requestDUMBIE = $smcFunc['db_query']('', '
         SELECT a.ID_AWARD, a.ITEM_ID, nfo.name, nfo.description, 
-                COALESCE(ovr.image, nfo.image) AS image, COALESCE(ovr.hover_text, ext.hover_text) AS hover_text
+                COALESCE(ovr.image, ext.badge_sprite, nfo.image) AS image, COALESCE(ovr.hover_text, ext.hover_text) AS hover_text
         FROM {db_prefix}awards AS a
         INNER JOIN {db_prefix}stshop_items nfo ON a.ITEM_ID = nfo.itemid
         LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID
