@@ -68,5 +68,19 @@ class Scheduled
 				'interest' => $modSettings['Shop_bank_interest'],
 				'yesterday' => $this->_login
 			));
+
+        // DUMBie extension: gambling orbs as interest every other day
+        if (intval(date("j")) % 2 == 0)
+            $smcFunc['db_query']('', "
+                INSERT INTO {db_prefix}stshop_inventory(userid, itemid, date)
+                SELECT mbr.id_member, (
+                    SELECT itemid FROM {db_prefix}stshop_items
+                    WHERE name = '[COMMON] MYSTERY CAPSULE'
+                ), UNIX_TIMESTAMP()
+                FROM {db_prefix}members mbr
+                " . $timeyes,
+                array(
+                    'yesterday' => $this->_login
+                ));
 	}
 }
