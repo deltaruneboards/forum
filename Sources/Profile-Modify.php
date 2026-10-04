@@ -2050,7 +2050,7 @@ function badge_admin($memID)
             COALESCE(ovr.image, nfo.image) AS image,
             COALESCE(ovr.hover_text, ext.hover_text) AS hover_text,
             a.sortorder,
-            gfr.real_name AS gifter_name
+            IF (a.ID_MEMBER != a.ID_AWARDED_MEMBER, gfr.real_name, \'\') AS gifter_name
         FROM {db_prefix}awards AS a
         INNER JOIN {db_prefix}stshop_items nfo ON a.ITEM_ID = nfo.itemid
         LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID

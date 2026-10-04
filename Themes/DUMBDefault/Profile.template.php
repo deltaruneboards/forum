@@ -1892,14 +1892,14 @@ function template_badge_admin()
         <tr class="title_bar">
             <th>Sort</th>
             <th></th>
-            <th></th>
+            <th width="32px"></th>
             <th>Name</th>
             <th>Text</th>
             <th>Gifter</th>
         </tr>';
 
     foreach ($context['badge_list'] as $badger)
-        echo '<tr' . (in_array(strval($badger['ID_AWARD']), $context['badge_targets']) ? ' class="highlight"' : "") . '>
+        echo '<tr class="windowbg' . (in_array(strval($badger['ID_AWARD']), $context['badge_targets']) ? ' highlight"' : "") . '">
                 <td>' . htmlspecialchars($badger['sortorder']) . '</td>
                 <td><input type="checkbox" id="' . $badger['ID_AWARD'] . '" name="badge-' . $badger['ID_AWARD'] . '" value="1"></td>
                 <td><img src="/shop_items/items/' . $badger['image'] . '" loading=lazy ></td>
