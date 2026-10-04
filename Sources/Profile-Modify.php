@@ -2026,7 +2026,10 @@ function badge_admin($memID)
     $context['badge_targets'] = $badgeTarget;
 
     if (empty($context['post_errors'])) 
+	{
+		loadLanguage('Errors');
         $context['post_errors'] = [];
+	}
 
     $actionTake = null;
 
