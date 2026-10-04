@@ -337,10 +337,6 @@ div.topic_info_grid {
 	grid-template-columns: min-content 1fr 0.2fr;
 }
 
-div.info_block > .message_index_title {
-	display: block;
-}
-
 .info_block div .floatleft {
 	grid-area: name;
     white-space: nowrap;
