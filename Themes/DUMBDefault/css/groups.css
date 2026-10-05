@@ -261,7 +261,7 @@ span.group-50, a.group-50, a.group-50:visited {
 	background-clip: text;
 	background-size: 200% 100%;
 	color: #0000;
-	animation: gradient 4000ms linear infinite;
+	animation: group-50-anim 4000ms linear infinite;
 }
 
 /* BLAZER, ICE BLAZER, SOUTH OF THE BORDER, The Youthful Days */
@@ -273,6 +273,7 @@ a.group-27, a.group-32, a.group-41, a.group-59 {
 	text-transform: uppercase;
 }
 
+/* Hover */
 a[class*="group-"]:hover {
 	color: var(--hover-color);   
 }
@@ -290,4 +291,95 @@ tr.windowbg:hover a.group-57, a.group-57:hover,
 tr.windowbg:hover a.group-58, a.group-58:hover {
 	background-clip: text;
 	background-image: linear-gradient(to right, var(--hover-color), var(--hover-color));
+}
+
+/* Special titles */
+img.group-32 {
+	position: absolute;
+	display: inline-block;
+	margin-top: -2px;
+	margin-left: 0.5em;
+	width: 132px;
+	height: 24px;
+}
+
+img.group-34, img.group-35 {
+	margin-bottom:0.5em;
+}
+
+.group-34-35-text {
+	background-image: url(https://deltaruneboards.net/assets/titles/forecaster_text.gif);
+	width: 100px;
+	height: 24px;
+	position: absolute;
+	display: inline-block;
+	font-size: 8px;
+	font-family: Press Start;
+	color: #f2c85a;
+	-webkit-text-stroke: 2px #033b68;
+	paint-order: stroke fill;
+	cursor: pointer;
+	padding-top:4px;
+}
+.group-34-35-text:hover {
+	color:color-mix(#f2c85a, #777 );
+	-webkit-text-stroke: 2px #033b68;
+	paint-order: stroke fill;
+}
+	  
+img.group-59 {
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+}
+
+.group-52-playbutton {
+	display: inline-block;
+	position: absolute;
+	background: url(https://deltaruneboards.net/assets/titles/jack_button.png);
+	height: 18px;
+	width: 18px;
+	border: 0px;
+	cursor: pointer;
+	margin-top: 2px;
+	margin-left: -95px;
+}
+
+.group-52-playbutton:hover {
+	background: url(https://deltaruneboards.net/assets/titles/jack_button2.png);
+}
+
+
+img.oflove {
+	background: linear-gradient(to right, #ccbe23 0, #ccbe23 17px, #00d8c4 18px, #00d8c4 35px, #ff4c76 35px, #ff4c76 53px, #0f0 54px, #0f0 71px, #c300ff 71px, #c300ff 89px, #1142e1 89px, #1142e1 107px);
+	filter: saturate(200%);
+	background-size: 107px;
+	height: 24px;
+	width: 107px;
+	animation: group-59-anim 2.3s linear infinite;
+	animation-timing-function: linear;
+	animation-timing-function: steps(6, end);
+	-webkit-mask-image: url(https://deltaruneboards.net/Themes/default/images/membericons/tropic.gif);
+	mask-image: url(https://deltaruneboards.net/Themes/default/images/membericons/tropic.gif);
+	pointer-events: none;
+	cursor: pointer
+}
+
+@keyframes group-59-anim {
+	to {
+		background-position: bottom 0 right -107px
+	}
+}
+
+.group-59-text {
+	background-image: url(https://deltaruneboards.net/assets/titles/tropic_text.gif);
+	width: 107px;
+	height: 24px;
+	position: absolute;
+	display: inline-block;
+}
+@keyframes group-50-anim {
+	0%{background-position:0% 0%}
+	50%{background-position:-100% 0%}
+	100%{background-position:-200% 0%}
 }
