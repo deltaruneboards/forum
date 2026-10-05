@@ -1579,7 +1579,7 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 			'member' => array(
 				'id' => $score['id_member'],
 				'name' => $score['real_name'],
-				'link' => !empty($score['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $score['id_member'] . '" class="group-' . $row['id_group'] . '">' . $score['real_name'] . '</a>' : $score['real_name'],
+				'link' => !empty($score['id_member']) ? '<a href="' . $scripturl . '?action=profile;u=' . $score['id_member'] . '" class="group-' . $score['id_group'] . '">' . $score['real_name'] . '</a>' : $score['real_name'],
 			),
 			'position' => $positionCount > 0 && $positionCount < 4 ? '<img style="max-width: 2.188em; max-height: 1.5em;" src="' . $settings['default_images_url'] . '/arc_icons/' . $positionCount . '.gif" alt="' . $positionCount . '" />' : $positionCount,
 			'score' => comma_format(floatval($score['score'])),
