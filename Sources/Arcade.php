@@ -97,7 +97,11 @@ function Arcade($rom = 0)
 			'save' => array('ArcadeGame.php', 'ArcadeSave_Guest'),
 			// ArcadeStats.php
 			'stats' => array('ArcadeStats.php', 'ArcadeStatistics'),
+			/* DUMB change: we don't need any of these
 			'submit' => array('ArcadeGame.php', 'ArcadeSubmit'),
+			*/
+			'submit' => ['ArcadeGame.php', 'ArcadeSubmitNew'],
+			'start' => ['ArcadeGame.php', 'ArcadeStartGame'],
 			// Arcade Online
 			'online' => array('ArcadeOnline.php', 'ArcadeOnline'),
 			// Advanced

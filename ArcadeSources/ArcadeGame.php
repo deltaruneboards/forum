@@ -992,6 +992,222 @@ function ArcadeSubmit($url = '')
 		redirectexit('action=arcade');
 }
 
+function jsonError($error)
+{
+	send_http_status(400);
+	die(json_encode(['error' => $error]));
+}
+
+function ArcadeStartGame()
+{
+	global $arcadeModSettings, $user_info;
+	header('Content-Type: application/json');
+
+	if ($user_info['is_guest'])
+	{
+		die(json_encode([
+			'id' => 0,
+			'name' => 'Guest',
+		]));
+	}
+	foreach (['game', 'ts', 'sig'] as $param)
+	{
+		if (empty($_GET[$param]))
+		{
+			jsonError("missing required parameter: $param");
+		}
+	}
+	$startTime = intval($_GET['ts']);
+	$now = time();
+	if (abs($now * 1000 - $startTime) > 60 * 1000)
+	{
+		jsonError('timestamp is too far; possible replay attack');
+	}
+	$gameId = intval($_GET['game']);
+	$encryptionKey = $arcadeModSettings['arcadeCookieEncryptionCipher'];
+	$gameKey = hash('sha256', "$encryptionKey$gameId");
+	$signature = hash('sha256', "$gameKey;$startTime");
+	if ($signature !== $_GET['sig'])
+	{
+		jsonError('signature mismatch');
+	}
+	$_SESSION["game_start_$gameId"] = $startTime;
+	die(json_encode([
+		'id' => $user_info['id'],
+		'name' => $user_info['name'],
+	]));
+}
+
+function ArcadeSubmitNew()
+{
+	global $arcadeModSettings, $smcFunc, $user_info;
+
+	header('Content-Type: application/json');
+	if ($user_info['is_guest'])
+	{
+		jsonError('you must be logged in to submit scores');
+	}
+	foreach (['game', 'score', 'ts', 'sig'] as $param)
+	{
+		if (empty($_POST[$param]))
+		{
+			jsonError("missing required parameter: $param");
+		}
+	}
+	$score = floatval($_POST['score']);
+	if ($score < 0)
+	{
+		jsonError('score cannot be negative');
+	}
+	$endTime = intval($_POST['ts']);
+	$now = time();
+	if (abs($now * 1000 - $endTime) > 60 * 1000)
+	{
+		jsonError('timestamp is too far; possible replay attack');
+	}
+	$gameId = intval($_POST['game']);
+	if (empty($_SESSION["game_start_$gameId"]))
+	{
+		jsonError('game not started; please submit request to start game first');
+	}
+	$startTime = intval($_SESSION["game_start_$gameId"]);
+	if ($startTime > $endTime)
+	{
+		jsonError('time travel not allowed');
+	}
+	$encryptionKey = $arcadeModSettings['arcadeCookieEncryptionCipher'];
+	$gameKey = hash('sha256', "$encryptionKey$gameId");
+	$userId = $user_info['id'];
+	$signature = hash('sha256', "$gameKey;$userId;$score;$endTime");
+	if ($signature !== $_POST['sig'])
+	{
+		jsonError('signature mismatch');
+	}
+
+	$result = $smcFunc['db_query']('', '
+		SELECT g.score_type, g.id_champion_score,
+			COALESCE(s.score, 0) AS personal_best_score
+		FROM {db_prefix}arcade_games g
+		LEFT JOIN {db_prefix}arcade_scores s ON g.id_game = s.id_game
+			AND s.id_member = {int:member}
+			AND s.personal_best = 1
+		WHERE g.id_game = {int:game}
+		LIMIT 1',
+		[
+			'game' => $gameId,
+			'member' => $userId,
+		],
+	);
+	$game = $smcFunc['db_fetch_assoc']($result);
+	$smcFunc['db_free_result']($result);
+	$reverse = !empty($game['score_type']) && $game['score_type'] == 1;
+
+	// Get position
+	$result = $smcFunc['db_query']('', '
+		SELECT COUNT(*)
+		FROM {db_prefix}arcade_scores
+		WHERE score ' . ($reverse ? '<=' : '>=') . ' {float:score}
+			AND id_game = {int:game}',
+		[
+			'score' => $score,
+			'game' => $gameId,
+		],
+	);
+	[$position] = $smcFunc['db_fetch_row']($result);
+	$position++;
+	$smcFunc['db_free_result']($result);
+
+	if ($position == 1)
+		$championFrom = floor($endTime / 1000);
+	else
+		$championFrom = 0;
+
+	// Update positions
+	$smcFunc['db_query']('', '
+		UPDATE {db_prefix}arcade_scores
+		SET position = position + 1
+		WHERE id_game = {int:game}
+			AND position >= {int:position}',
+		[
+			'game' => $gameId,
+			'position' => $position,
+		],
+	);
+
+	$isPersonalBest = $reverse ?
+		($game['personal_best_score'] > $score) :
+		($game['personal_best_score'] < $score);
+
+	if ($isPersonalBest)
+	{
+		$smcFunc['db_query']('', '
+			UPDATE {db_prefix}arcade_scores
+			SET personal_best = 0
+			WHERE id_game = {int:game}
+				AND id_member = {int:member}',
+			[
+				'game' => $gameId,
+				'member' => $userId,
+			],
+		);
+	}
+
+	$smcFunc['db_insert']('insert',
+		'{db_prefix}arcade_scores',
+		[
+			'id_game' => 'int',
+			'id_member' => 'int',
+			'player_name' => 'string',
+			'member_ip' => 'string',
+			'score' => 'float',
+			'position' => 'int',
+			'duration' => 'float',
+			'end_time' => 'int',
+			'champion_from' => 'int',
+			'personal_best' => 'int',
+		],
+		[
+			$gameId,
+			$userId,
+			$user_info['name'],
+			$user_info['ip'],
+			$score,
+			$position,
+			($endTime - $startTime) / 1000,
+			floor($endTime / 1000),
+			intval($championFrom),
+			intval($isPersonalBest),
+		],
+		['id_game']
+	);
+	$scoreId = $smcFunc['db_insert_id']('{db_prefix}arcade_scores', 'id_score');
+
+	if ($position == 1)
+	{
+		$smcFunc['db_query']('', '
+			UPDATE {db_prefix}arcade_scores
+			SET champion_to = {int:end_time}
+			WHERE id_score = {int:score}',
+			[
+				'end_time' => $championFrom,
+				'score' => $game['id_champion_score'],
+			],
+		);
+		$smcFunc['db_query']('', '
+			UPDATE {db_prefix}arcade_games
+			SET id_champion = {int:member}, id_champion_score = {int:score}
+			WHERE id_game = {int:game}',
+			[
+				'member' => $userId,
+				'score' => $scoreId,
+				'game' => $gameId,
+			],
+		);
+	}
+	send_http_status(204);
+	die();
+}
+
 function ArcadeSave_Guest()
 {
 	global $scripturl, $txt, $db_prefix, $arcadeModSettings, $context, $func, $boarddir, $sourcedir, $smcFunc, $user_info;
