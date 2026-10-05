@@ -1,4 +1,5 @@
 (function() {
+    'use strict';
     if(window.location.href.indexOf('/index.php/topic') != -1) {
         const audio_group_52 = new Audio("https://deltaruneboards.net/assets/audio/yourtakingtoolong.mp3");
         const audio_group_59 = new Audio("https://deltaruneboards.net/assets/audio/tropic.mp3");
