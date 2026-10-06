@@ -89,7 +89,7 @@ function template_html_above()
 	loadJavaScriptFile('randChar.js', ['minimize' => true]);
 	loadJavaScriptFile('bbcode.js', ['minimize' => true]);
 	loadJavaScriptFile('goHome.js', ['minimize' => true]);
-	loadJavaScriptFile('specialTitles.js', ['minimize' => true]);
+	loadJavaScriptFile('specialTitles.js', ['minimize' => false]);
 	loadCSSFile('fonts.css', ['minimize' => true]);
 	loadCSSFile('bbcode.css', ['minimize' => true]);
 	loadCSSFile('banner.css', ['minimize' => true]);

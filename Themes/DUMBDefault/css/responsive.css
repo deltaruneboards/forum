@@ -17,9 +17,6 @@
 	.lastpost {
 		margin: 0 0 0 20px;
 	}
-	.topic_grid .board_stats {
-		display: none;
-	}
 	#alerts .alert_time {
 		display: none;
 	}
@@ -40,10 +37,6 @@
 	}
 	#member_list .ip, #member_list .last_active, #member_list .user_name {
 		display: none !important;
-	}
-
-	#topic_header, #topic_container .windowbg {
-		display: block;
 	}
 }
 
@@ -315,6 +308,9 @@
 		display: grid;
 		grid-template-columns: 1fr max-content;
 		padding: 0.5em;
+	}
+	#topic_header > .board_icon {
+		display: block;
 	}
 	.message_index_title {
 		grid-column: 1;

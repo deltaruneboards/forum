@@ -326,7 +326,7 @@ a.new_posts:visited {
 	opacity: 1;
 }
 
-.info_block {
+.topic_grid .windowbg {
 	border-left: 1px solid var(--border-color);
 	border-top: 1px solid var(--border-color);
 }
@@ -3435,6 +3435,7 @@ img.avatar {
 }
 .poster img.avatar {
 	max-width: 100%;
+	max-height:160px;
 	padding: 0.5em;
 }
 .postarea, .moderatorbar {
