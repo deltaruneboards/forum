@@ -1,4 +1,4 @@
-(function() {
+document.addEventListener('DOMContentLoaded', () => {
     'use strict';
     if(window.location.href.indexOf('/index.php/topic') != -1) {
         const audio_group_52 = new Audio("https://deltaruneboards.net/assets/audio/yourtakingtoolong.mp3");
@@ -83,4 +83,4 @@
             });
         }
     }
-})();
+});

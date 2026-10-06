@@ -326,7 +326,7 @@ a.new_posts:visited {
 	opacity: 1;
 }
 
-.topic_grid .windowbg {
+.topic_grid.windowbg {
 	border-left: 1px solid var(--border-color);
 	border-top: 1px solid var(--border-color);
 }
