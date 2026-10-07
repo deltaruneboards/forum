@@ -520,14 +520,15 @@ class Trade
 		// Item info
 		$this->_item = Database::Get('','','', 'stshop_inventory AS si', array_merge(Database::$inventory, Database::$items), 'WHERE si.id = {int:id} AND si.trading = 1 AND s.status = 1', true, 'LEFT JOIN {db_prefix}stshop_items AS s ON (s.itemid = si.itemid)', ['id' => $this->_trade]);
 
-		// How many of this item does the user own?
-		$this->_limit = Database::Count('stshop_inventory AS si', Database::$inventory, 'WHERE itemid = {int:id} AND userid = {int:userid}', '', ['id' => $this->_item['itemid'], 'userid' => $user_info['id']]);
-
 		// Is that id actually valid?
 		if (empty($this->_item))
 			fatal_error(Shop::getText('item_notfound'), false);
+
+		// How many of this item does the user own?
+		$this->_limit = Database::Count('stshop_inventory AS si', Database::$inventory, 'WHERE itemid = {int:id} AND userid = {int:userid}', '', ['id' => $this->_item['itemid'], 'userid' => $user_info['id']]);
+
 		// Already reached the limit?
-		elseif (($this->_item['itemlimit'] != 0) && ($this->_item['itemlimit'] <= $this->_limit))
+		if (($this->_item['itemlimit'] != 0) && ($this->_item['itemlimit'] <= $this->_limit))
 			fatal_error(Shop::getText('item_limit_reached'), false);
 		// Are you really so stupid to buy your own item?
 		elseif ($this->_item['userid'] == $user_info['id'])
