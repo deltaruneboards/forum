@@ -304,20 +304,10 @@
 		padding-left: 0;
 	}
 	/* Topic grid styles */
-	#topic_container .topic_grid {
+	#topic_container .topic_grid, #topic_container .windowbg {
 		display: grid;
 		grid-template-columns: 1fr max-content;
 		padding: 0.5em;
-	}
-	#topic_header > .board_icon {
-		display: block;
-	}
-	#topic_header {
-		display:flex;
-		flex-flow:row nowrap;
-	}
-	#topic_container .windowbg {
-		display:block;
 	}
 	.message_index_title {
 		grid-column: 1;
