@@ -309,6 +309,9 @@
 		grid-template-columns: 1fr max-content;
 		padding: 0.5em;
 	}
+	#topic_header > .board_icon {
+		display: block;
+	}
 	.message_index_title {
 		grid-column: 1;
 		grid-row: 1;
