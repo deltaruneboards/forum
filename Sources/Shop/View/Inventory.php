@@ -1,8 +1,6 @@
 <?php
 
 /**
- * @package ST Shop
- * @version 4.0
  * @author Diego Andrés <diegoandres_cortes@outlook.com>
  * @copyright Copyright (c) 2020, SMF Tricks
  * @license https://www.mozilla.org/en-US/MPL/2.0/
@@ -132,7 +130,7 @@ class Inventory
 	{
 		$this->_tabs = [
 			'inventory' => [
-				'action' => ['inventory', 'invtrade', 'invtrade2', 'invuse'],
+				'action' => ['inventory', 'invtrade', 'invtrade2', 'invuse', 'invdeleted'],
 				'label' => Shop::getText('inventory_myinventory'),
 			],
 			'search' => [
@@ -242,6 +240,8 @@ class Inventory
 								$message = '<a href="'. $scripturl. '?action=shop;sa=invuse;id='. $row['id']. '">' . Shop::getText('item_useit') . '</a>';
 							else
 								$message = '<strong>'. Shop::getText('item_notusable'). '</strong>';
+
+                            $message .= '<br><a href="' . $scripturl . '?action=shop;sa=invdel;id=' . $row['id'] . '">' . Shop::getText('item_delete') . '</a>';
 
 							return $message;
 						},
@@ -707,4 +707,67 @@ class Inventory
 			]
 		);
 	}
+
+    function invdelete()
+    {
+        global $context, $scripturl;
+
+		// Set page stuff
+		$context['page_title'] = Shop::getText('main_button') . ' - ' . Shop::getText('main_inventory'). ' - ' . $item['name'];
+
+        // no idea what this means but it seems important
+		$context['linktree'][] = [
+			'url' => $scripturl . '?action=shop;sa=invdel=' . $use,
+			'name' => sprintf(Shop::getText('item_using'), $item['name'])
+		];
+
+		// Get the item id
+		$use = (int) $_REQUEST['id'];
+
+		// Item details
+		$item = Database::Get('', '', '', 'stshop_inventory AS si', array_merge(array_merge(Database::$inventory, Database::$items), ['sm.file']), 'WHERE si.id = {int:use} AND s.status = 1', true, 'LEFT JOIN {db_prefix}stshop_items AS s ON (s.itemid = si.itemid) LEFT JOIN {db_prefix}stshop_modules AS sm ON (sm.id = s.module)', ['use' => $use]);
+
+		$context['page_title'] = Shop::getText('main_button') . ' - ' . Shop::getText('main_inventory'). ' - ' . $item['name'];
+		$context['template_layers'][] = 'options';
+		$context['sub_template'] = 'invdel';
+		$context['item'] = $item;
+    }
+
+    function invdeleted()
+    {
+        global $context, $scripturl, $user_info;
+
+		// Set page stuff
+		$context['page_title'] = Shop::getText('main_button') . ' - ' . Shop::getText('main_inventory');
+
+        // no idea what this means but it seems important
+		$context['linktree'][] = [
+			'url' => $scripturl . '?action=shop;sa=invdeleted=' . $use,
+			'name' => sprintf(Shop::getText('item_using'), $item['name'])
+		];
+
+		// Check session
+		checkSession();
+
+		// Get the item id
+		$use = (int) $_REQUEST['id'];
+
+		// Item details
+		$item = Database::Get('', '', '', 'stshop_inventory AS si', array_merge(array_merge(Database::$inventory, Database::$items), ['sm.file']), 'WHERE si.id = {int:use} AND s.status = 1', true, 'LEFT JOIN {db_prefix}stshop_items AS s ON (s.itemid = si.itemid) LEFT JOIN {db_prefix}stshop_modules AS sm ON (sm.id = s.module)', ['use' => $use]);
+
+        // panic check against deleting other ppls items
+        // no idea if its needed but better to check too much than not enough
+        if ($item['userid'] != $user_info['id'])
+            fatal_error($txt['Shop_item_delete_other']);
+
+		$context['page_title'] = Shop::getText('main_button') . ' - ' . Shop::getText('main_inventory'). ' - ' . $item['name'];
+		$context['template_layers'][] = 'options';
+		$context['sub_template'] = 'invdeleted';
+		$context['item'] = $item;
+
+        // Check session
+		checkSession();
+
+        Database::Delete('stshop_inventory', 'id', $use);
+    }
 }
