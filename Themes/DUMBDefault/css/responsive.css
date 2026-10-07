@@ -312,6 +312,13 @@
 	#topic_header > .board_icon {
 		display: block;
 	}
+	#topic_header {
+		display:flex;
+		flex-flow:row nowrap;
+	}
+	#topic_container .windowbg {
+		display:block;
+	}
 	.message_index_title {
 		grid-column: 1;
 		grid-row: 1;
