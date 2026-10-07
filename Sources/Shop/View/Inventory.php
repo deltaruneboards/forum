@@ -714,15 +714,16 @@ class Inventory
 
 		// Set page stuff
 		$context['page_title'] = Shop::getText('main_button') . ' - ' . Shop::getText('main_inventory'). ' - ' . $item['name'];
+        //
+		// Get the item id
+		$use = (int) $_REQUEST['id'];
 
         // no idea what this means but it seems important
 		$context['linktree'][] = [
-			'url' => $scripturl . '?action=shop;sa=invdel=' . $use,
+			'url' => $scripturl . '?action=shop;sa=invdel;id=' . $use,
 			'name' => sprintf(Shop::getText('item_using'), $item['name'])
 		];
 
-		// Get the item id
-		$use = (int) $_REQUEST['id'];
 
 		// Item details
 		$item = Database::Get('', '', '', 'stshop_inventory AS si', array_merge(array_merge(Database::$inventory, Database::$items), ['sm.file']), 'WHERE si.id = {int:use} AND s.status = 1', true, 'LEFT JOIN {db_prefix}stshop_items AS s ON (s.itemid = si.itemid) LEFT JOIN {db_prefix}stshop_modules AS sm ON (sm.id = s.module)', ['use' => $use]);
@@ -740,17 +741,17 @@ class Inventory
 		// Set page stuff
 		$context['page_title'] = Shop::getText('main_button') . ' - ' . Shop::getText('main_inventory');
 
+		// Get the item id
+		$use = (int) $_REQUEST['id'];
+
         // no idea what this means but it seems important
 		$context['linktree'][] = [
-			'url' => $scripturl . '?action=shop;sa=invdeleted=' . $use,
+			'url' => $scripturl . '?action=shop;sa=invdel;id=' . $use,
 			'name' => sprintf(Shop::getText('item_using'), $item['name'])
 		];
 
 		// Check session
 		checkSession();
-
-		// Get the item id
-		$use = (int) $_REQUEST['id'];
 
 		// Item details
 		$item = Database::Get('', '', '', 'stshop_inventory AS si', array_merge(array_merge(Database::$inventory, Database::$items), ['sm.file']), 'WHERE si.id = {int:use} AND s.status = 1', true, 'LEFT JOIN {db_prefix}stshop_items AS s ON (s.itemid = si.itemid) LEFT JOIN {db_prefix}stshop_modules AS sm ON (sm.id = s.module)', ['use' => $use]);
@@ -764,9 +765,6 @@ class Inventory
 		$context['template_layers'][] = 'options';
 		$context['sub_template'] = 'invdeleted';
 		$context['item'] = $item;
-
-        // Check session
-		checkSession();
 
         Database::Delete('stshop_inventory', 'id', $use);
     }
