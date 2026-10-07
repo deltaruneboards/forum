@@ -56,6 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function group50(title) {
             title.parentElement.innerHTML = title.parentElement.innerHTML.replace(/\bLV\d{1,}\b/, "LV99");
+            var btn = document.createElement("button");
+            btn.classList.add('group-50-playbutton');
+            btn.addEventListener("click", () => {
+                var track = Math.floor(Math.random() * 38) + 1;
+                new Audio("https://deltaruneboards.net/assets/audio/flowery_lines/"+track+".mp3").play(); // This feels illegal
+            });
+            title.parentElement.append(btn);
         }
 
         function group52(title) {

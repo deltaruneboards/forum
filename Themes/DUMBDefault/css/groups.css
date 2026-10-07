@@ -328,11 +328,20 @@ img.group-34, img.group-35 {
 	-webkit-text-stroke: 2px #033b68;
 	paint-order: stroke fill;
 }
-	  
-img.group-59 {
+
+.group-50-playbutton {
+	display: inline-block;
+	position: absolute;
+	background: url(https://deltaruneboards.net/assets/titles/flowery_audio_icon.png);
+	height: 11px;
+	width: 13px;
+	border: 0px;
 	cursor: pointer;
-	position: relative;
-	z-index: 1;
+	margin-top: 2px;
+	margin-left: -38px;
+}
+.group-50-playbutton:hover {
+	filter: brightness(200%);
 }
 
 .group-52-playbutton {
@@ -351,6 +360,11 @@ img.group-59 {
 	background: url(https://deltaruneboards.net/assets/titles/jack_button2.png);
 }
 
+img.group-59 {
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+}
 
 img.oflove {
 	background: linear-gradient(to right, #ccbe23 0, #ccbe23 17px, #00d8c4 18px, #00d8c4 35px, #ff4c76 35px, #ff4c76 53px, #0f0 54px, #0f0 71px, #c300ff 71px, #c300ff 89px, #1142e1 89px, #1142e1 107px);
