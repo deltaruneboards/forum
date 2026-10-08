@@ -1,10 +1,6 @@
 (function () {
 	'use strict';
 
-	if (!window.MoodMod) {
-		return;
-	}
-
 	function initPicker() {
 		const grid = document.querySelector('.moodmod-grid');
 		if (!grid) {

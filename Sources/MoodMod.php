@@ -187,16 +187,8 @@ function MoodMod_load_theme()
 	if (empty($modSettings['moodmod_enabled']))
 		return;
 
-	loadCSSFile('moodmod.css', array('default_theme' => true), 'smf_moodmod');
-	loadJavaScriptFile('moodmod.js', array('default_theme' => true, 'defer' => true), 'smf_moodmod');
-
-	// Initialise the JS namespace early — memberContext calls will populate it.
-	addInlineJavaScript('
-var MoodMod = {
-	showInPosts : ' . (empty($modSettings['moodmod_show_in_posts']) ? 'false' : 'true') . ',
-	ajaxUrl     : ' . JavaScriptEscape($scripturl . '?action=moodmod') . ',
-	userMoods   : {}
-};', false);
+	loadCSSFile('moodmod.css', ['minimize' => true], 'smf_moodmod');
+	loadJavaScriptFile('moodmod.js', ['defer' => true, 'minimize' => true], 'smf_moodmod');
 }
 
 /**
