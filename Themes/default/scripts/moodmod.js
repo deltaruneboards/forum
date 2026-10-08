@@ -1,190 +1,97 @@
-/**
- * MoodMod — Front-end badge injection
- */
 (function () {
 	'use strict';
 
-	/* Guard — integrate_load_theme always defines MoodMod before this runs. */
-	if (typeof MoodMod === 'undefined') return;
-
-	var PROFILE_RE = /[?&;]u=(\d+)/;
-
-	/* -----------------------------------------------------------------------
-	   Helpers
-	----------------------------------------------------------------------- */
-
-	function esc(str) {
-		return String(str)
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;');
+	if (!window.MoodMod) {
+		return;
 	}
-
-	function extractUid(href) {
-		var m = href.match(PROFILE_RE);
-		return m ? m[1] : null;
-	}
-
-	var HEX_RE = /^#[0-9a-fA-F]{6}$/;
-
-	/* Apply a user-chosen background colour and pick a readable text colour. */
-	function applyBadgeColor(badge, color) {
-		if (!color || !HEX_RE.test(color)) return;
-		var r = parseInt(color.substr(1, 2), 16),
-			g = parseInt(color.substr(3, 2), 16),
-			b = parseInt(color.substr(5, 2), 16);
-		// Relative luminance (0 = black, 1 = white).
-		var lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-		badge.style.background  = color;
-		badge.style.color       = lum > 0.6 ? '#000000' : '#ffffff';
-		badge.style.borderColor = lum > 0.6 ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)';
-	}
-
-	function buildBadge(mood) {
-		var d = document.createElement('div');
-		d.className = 'moodmod-badge';
-		/* Tooltip shows the mood's description; fall back to "Feeling <name>". */
-		d.title = (mood.description && mood.description.length) ? mood.description : ('Feeling ' + mood.name);
-		d.innerHTML =
-			'<span class="moodmod-badge-name">'  + esc(mood.name)  + '</span>' +
-			'<span class="moodmod-badge-emoji">' + mood.emoji + '</span>';
-			
-		applyBadgeColor(d, mood.color);
-		return d;
-	}
-
-	function injectBadge(container, uid) {
-		if (!MoodMod.userMoods[uid]) return;
-		/* Avoid duplicate badges. */
-		if (container.querySelector('.moodmod-badge')) return;
-
-		var badge = buildBadge(MoodMod.userMoods[uid]);
-
-		/*
-		 * Insert right after the avatar, falling back to group/position
-		 * elements for layouts that don't show an avatar.
-		 */
-
-		var anchor = 
-			container.parentElement.querySelector('.postinfo').querySelector('.spacer');
-
-		if (anchor)
-		{
-			var s = document.createElement('span');
-			s.innerHTML = '<span class="smalltext">Status:&nbsp;</span>';
-			anchor.insertAdjacentElement('afterend', badge);
-			anchor.insertAdjacentElement('afterend', s);
-			
-		}
-		else
-			container.appendChild(badge);
-	}
-
-	/* -----------------------------------------------------------------------
-	   Scan the page for profile links and inject badges
-	----------------------------------------------------------------------- */
-
-	function processKnownMoods() {
-		/* --- Posts: .poster divs ----------------------------------------- */
-		if (MoodMod.showInPosts) {
-			var posters = document.querySelectorAll('.poster, .poster_details');
-			for (var i = 0; i < posters.length; i++) {
-				var poster = posters[i];
-				var link   = poster.querySelector('a[href*="action=profile"]');
-				if (!link) continue;
-				var uid = extractUid(link.href);
-				if (uid) injectBadge(poster, uid);
-			}
-		}
-
-		/* --- Profile view sidebar ---------------------------------------- */
-		var profileContainers = document.querySelectorAll(
-			'#profile_left, .profile_details, #basicinfo, #profileinfo'
-		);
-		for (var j = 0; j < profileContainers.length; j++) {
-			var pc   = profileContainers[j];
-			var pln  = pc.querySelector('a[href*="action=profile"]');
-			var puid = pln ? extractUid(pln.href) : null;
-
-			/* Profile page: member ID also lives in the URL itself. */
-			if (!puid) {
-				var pm = window.location.href.match(PROFILE_RE);
-				if (pm) puid = pm[1];
-			}
-
-			if (puid) injectBadge(pc, puid);
-		}
-	}
-
-	/* -----------------------------------------------------------------------
-	   Collect UIDs on the page whose moods we do NOT yet have,
-	   fetch them in one batch, then re-run injection.
-	----------------------------------------------------------------------- */
-
-	function fetchMissingMoods() {
-		var needed = [];
-		var links  = document.querySelectorAll('a[href*="action=profile"]');
-
-		for (var i = 0; i < links.length; i++) {
-			var uid = extractUid(links[i].href);
-			if (uid && !MoodMod.userMoods.hasOwnProperty(uid) && needed.indexOf(uid) === -1)
-				needed.push(uid);
-		}
-
-		// Cap at 50 to match the server-side limit and avoid large requests.
-		if (needed.length > 50)
-			needed = needed.slice(0, 50);
-
-		if (!needed.length || !MoodMod.ajaxUrl) return;
-
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', MoodMod.ajaxUrl + ';sa=getmoods&users=' + needed.join(','), true);
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState !== 4 || xhr.status !== 200) return;
-			try {
-				var data = JSON.parse(xhr.responseText);
-				for (var uid in data) {
-					if (data.hasOwnProperty(uid))
-						MoodMod.userMoods[uid] = data[uid];
-				}
-				processKnownMoods();
-			} catch (e) { /* ignore JSON errors */ }
-		};
-		xhr.send();
-	}
-
-	/* -----------------------------------------------------------------------
-	   Profile picker UX — highlight selected option on click
-	----------------------------------------------------------------------- */
 
 	function initPicker() {
-		var grid = document.querySelector('.moodmod-grid');
-		if (!grid) return;
-
-		var options = grid.querySelectorAll('.moodmod-option');
-		for (var i = 0; i < options.length; i++) {
-			options[i].addEventListener('click', function () {
-				for (var k = 0; k < options.length; k++)
-					options[k].classList.remove('moodmod-selected');
-				this.classList.add('moodmod-selected');
+		const grid = document.querySelector('.moodmod-grid');
+		if (!grid) {
+			return;
+		}
+		const options = grid.querySelectorAll('.moodmod-option');
+		for (const option of options) {
+			option.addEventListener('click', e => {
+				options.forEach(opt => opt.classList.remove('moodmod-selected'));
+				e.currentTarget.classList.add('moodmod-selected');
 			});
 		}
 	}
 
-	/* -----------------------------------------------------------------------
-	   Boot
-	----------------------------------------------------------------------- */
+	async function initMoods() {
+		const posts = document.querySelectorAll('#forumposts .post_wrapper');
+		if (posts.length === 0) {
+			return;
+		}
+		const userPlaceholderPairs = Array.from(posts)
+			.map(post => [
+				Number(post
+					.querySelector('.poster > .user_info > li.avatar > a')
+					.href
+					.match(/;u=(\d+)$/)[1]),
+				post.querySelector('.postinfo .spacer'),
+			]);
+		const response = await fetch(`${smf_scripturl}?${new URLSearchParams({
+			action: 'moodmod',
+			sa: 'getmoods',
+			users: Array.from(new Set(userPlaceholderPairs.map(([id]) => id)))
+				.join(','),
+		})}`);
+		const moods = await response.json();
+		for (const [userId, spacer] of userPlaceholderPairs) {
+			if (!moods[userId]) {
+				continue;
+			}
+			const {emoji, name, description, color} = moods[userId];
 
-	function init() {
-		processKnownMoods();   /* instant — uses pre-loaded data */
-		fetchMissingMoods();   /* one batch XHR for anything extra */
-		initPicker();          /* profile page UX */
+			const status = document.createElement('div');
+			status.classList.add('moodmod');
+			spacer.after(status);
+
+			const statusText = document.createElement('span');
+			statusText.classList.add('smalltext');
+			statusText.innerHTML = 'Status: ';
+			status.appendChild(statusText);
+
+			var statusBadge = document.createElement('div');
+			statusBadge.classList.add('moodmod-badge');
+			statusBadge.title = description || `Feeling ${name}`;
+			status.appendChild(statusBadge);
+			if (color && /^#[0-9a-fA-F]{6}$/.test(color)) {
+				const r = parseInt(color.substr(1, 2), 16);
+				const g = parseInt(color.substr(3, 2), 16);
+				const b = parseInt(color.substr(5, 2), 16);
+				// Relative luminance (0 = black, 1 = white).
+				const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+				const lightBg = lum > 0.6;
+				statusBadge.style.backgroundColor = color;
+				statusBadge.style.color = lightBg ? 'black' : 'white';
+				statusBadge.style.borderColor = lightBg ?
+					'rgba(0, 0, 0, 0.35)' :
+					'rgba(255, 255, 255, 0.35)';
+			}
+
+			const statusBadgeName = document.createElement('span');
+			statusBadgeName.classList.add('moodmod-badge-name');
+			statusBadgeName.textContent = name;
+			statusBadge.appendChild(statusBadgeName);
+
+			const statusBadgeEmoji = document.createElement('span');
+			statusBadgeEmoji.classList.add('moodmod-badge-emoji');
+			statusBadgeEmoji.innerHTML = emoji;
+			statusBadge.appendChild(statusBadgeEmoji);
+		}
 	}
 
-	if (document.readyState === 'loading')
-		document.addEventListener('DOMContentLoaded', init);
-	else
-		init();
+	function init() {
+		initMoods();
+		initPicker();
+	}
 
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
 })();
