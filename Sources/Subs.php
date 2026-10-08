@@ -6020,6 +6020,12 @@ function call_helper($string, $return = false)
 			// Don't need to create a new instance for every method.
 			if (empty($context['instances'][$class]) || !($context['instances'][$class] instanceof $class))
 			{
+				if (!class_exists($class))
+				{
+					$backtrace = print_r(debug_backtrace(), true);
+					log_error("Failed to find class $class when calling helper $string.\nBacktrace: $backtrace");
+					return false;
+				}
 				$context['instances'][$class] = new $class;
 
 				// Add another one to the list.
