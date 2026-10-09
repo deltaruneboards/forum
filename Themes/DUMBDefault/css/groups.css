@@ -318,7 +318,7 @@ img.group-34, img.group-35 {
 }
 
 .group-34-35-text {
-	background-image: url(https://deltaruneboards.net/assets/titles/forecaster_text.gif);
+	background-image: url("/assets/titles/forecaster_text.gif");
 	width: 100px;
 	height: 24px;
 	position: absolute;
@@ -329,7 +329,7 @@ img.group-34, img.group-35 {
 	-webkit-text-stroke: 2px #033b68;
 	paint-order: stroke fill;
 	cursor: pointer;
-	padding-top:4px;
+	padding-top: 4px;
 }
 .group-34-35-text:hover {
 	color:color-mix(#f2c85a, #777 );
@@ -340,10 +340,10 @@ img.group-34, img.group-35 {
 .group-50-playbutton {
 	display: inline-block;
 	position: absolute;
-	background: url(https://deltaruneboards.net/assets/titles/flowery_audio_icon.png);
+	background: url("/assets/titles/flowery_audio_icon.png");
 	height: 11px;
 	width: 13px;
-	border: 0px;
+	border: 0;
 	cursor: pointer;
 	margin-top: 2px;
 	margin-left: -38px;
@@ -355,17 +355,17 @@ img.group-34, img.group-35 {
 .group-52-playbutton {
 	display: inline-block;
 	position: absolute;
-	background: url(https://deltaruneboards.net/assets/titles/jack_button.png);
+	background: url("/assets/titles/jack_button.png");
 	height: 18px;
 	width: 18px;
-	border: 0px;
+	border: 0;
 	cursor: pointer;
 	margin-top: 2px;
 	margin-left: -95px;
 }
 
 .group-52-playbutton:hover {
-	background: url(https://deltaruneboards.net/assets/titles/jack_button2.png);
+	background: url("/assets/titles/jack_button2.png");
 }
 
 img.group-59 {
@@ -381,12 +381,11 @@ img.oflove {
 	height: 24px;
 	width: 107px;
 	animation: group-59-anim 2.3s linear infinite;
-	animation-timing-function: linear;
 	animation-timing-function: steps(6, end);
-	-webkit-mask-image: url(https://deltaruneboards.net/Themes/default/images/membericons/tropic.gif);
-	mask-image: url(https://deltaruneboards.net/Themes/default/images/membericons/tropic.gif);
+	-webkit-mask-image: url("/shop_items/items/tropic.gif");
+	mask-image: url("/shop_items/items/tropic.gif");
 	pointer-events: none;
-	cursor: pointer
+	cursor: pointer;
 }
 
 @keyframes group-59-anim {
@@ -396,14 +395,21 @@ img.oflove {
 }
 
 .group-59-text {
-	background-image: url(https://deltaruneboards.net/assets/titles/tropic_text.gif);
+	background-image: url("/assets/titles/tropic_text.gif");
 	width: 107px;
 	height: 24px;
 	position: absolute;
 	display: inline-block;
 }
+
 @keyframes group-50-anim {
-	0%{background-position:0% 0%}
-	50%{background-position:-100% 0%}
-	100%{background-position:-200% 0%}
+	0% {
+		background-position: 0% 0%;
+	}
+	50% {
+		background-position: -100% 0%;
+	}
+	100% {
+		background-position: -200% 0%;
+	}
 } 
