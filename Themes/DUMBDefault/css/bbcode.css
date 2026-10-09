@@ -137,6 +137,13 @@ span[style="color: pink;"] {
 	max-width: 100%;
 }
 
+/* [video] styles */
+.video video {
+	max-height: 500px;
+	max-width: min(100%, 800px);
+	width: auto;
+}
+
 .spoilertxt:not(:hover),
 .spoilertxt:not(:hover) *,
 .spoilertxt:not(:hover) a { 
