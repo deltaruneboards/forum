@@ -52,6 +52,7 @@ function ShowXmlFeed()
 		'profile' => 'getXmlProfile',
 		'posts' => 'getXmlPosts',
 		'personal_messages' => 'getXmlPMs',
+        'tradecenter' => 'getTradeCenters'
 	);
 
 	// Easy adding of sub actions
@@ -2871,6 +2872,137 @@ function getXmlPMs($xml_format, $ascending = false)
 	$smcFunc['db_free_result']($request);
 
 	return $data;
+}
+
+function getTradeCenters($xml_format, $ascending = false)
+{
+    global $scripturl, $smcFunc, $txt, $context;
+
+    loadLanguage('Shop/Shop');
+
+    $requestDUMBIE = $smcFunc['db_query']('', '
+        SELECT itm.name, inv.tradecost, inv.tradedate, mbr.real_name, inv.id
+        FROM {db_prefix}stshop_inventory inv
+        INNER JOIN {db_prefix}stshop_items itm ON itm.itemid = inv.itemid
+        INNER JOIN {db_prefix}members mbr ON inv.userid = mbr.id_member
+        WHERE trading = 1
+        ORDER BY tradedate {raw:ascdesc}
+        LIMIT {int:limit}',
+        array(
+            'limit' => $context['xmlnews_limit'],
+            'ascdesc' => empty($ascending) ? "DESC" : "ASC"
+        ));
+
+    $data = array();
+    while ($row = $smcFunc['db_fetch_assoc']($requestDUMBIE))
+    {
+		$guid = 'tag:' . parse_iri($scripturl, PHP_URL_HOST) . ',' . gmdate('Y-m-d', $row['tradedate']) . ':item=' . $row['id'];
+        $title = sprintf($txt['Shop_xml_tradecenter_notiftitle'], $row['name']);
+        $desc = sprintf($txt['Shop_xml_tradecenter_notifdesc'], $row['name'], $row['real_name'], $row['tradecost']);
+        $link = $scripturl . '?action=shop;sa=tradelist';
+
+        if ($xml_format == 'rss' || $xml_format == 'rss2')
+            $data[] = array(
+                'tag' => 'item',
+                'content' => array(
+                    array(
+                        'tag' => 'title',
+                        'content' => $title,
+                        'cdata' => true
+                    ),
+                    array(
+                        'tag' => 'description',
+                        'content' => $desc,
+                        'cdata' => true
+                    ),
+                    array(
+                        'tag' => 'link',
+                        'content' => $link
+                    ),
+                    array(
+                        'tag' => 'pubDate',
+                        'content' => gmdate('D, d M Y H:i:s \G\M\T', $row['tradedate'])
+                    ),
+                    array(
+                        'tag' => 'guid',
+                        'content' => $guid,
+                        'attributes' => array('isPermaLink' => 'false')
+                    )
+                )
+            );
+        elseif ($xml_format == 'rdf')
+            $data[] = array(
+                'tag' => 'item',
+                'attributes' => array('rdf:about' => $link),
+                'content' =>  array(
+                    array(
+                        'tag' => 'dc:format',
+                        'content' => 'text/html'
+                    ),
+                    array(
+                        'tag' => 'title',
+                        'content' => $title,
+                        'cdata' => true,
+                    ),
+                    array(
+                        'tag' => 'link',
+                        'content' => $link
+                    ),
+                    array(
+                        'tag' => 'description',
+                        'content' => $desc,
+                        'cdata' => true
+                    )
+                )
+            );
+        elseif ($xml_format == 'atom')
+            $data[] = array(
+                'tag' => 'entry',
+                'content' => array(
+                    array(
+                        'tag' => 'title',
+                        'content' => $title,
+                        'attributes' => array('type' => 'html'),
+                        'cdata' => true
+                    ),
+                    array(
+                        'tag' => 'link',
+                        'attributes' => array(
+                            'rel' => 'alternate',
+                            'type' => 'text/html',
+                            'href' => $link
+                        )
+                    ),
+                    array(
+                        'tag' => 'summary',
+                        'attributes' => array('type' => 'html'),
+                        'content' => $desc,
+                        'cdata' => true,
+                    ),
+                    array(
+                        'tag' => 'author',
+                        'content' => array(
+                            array(
+                                'tag' => 'name',
+                                'content' => $row['real_name'],
+                                'cdata' => true
+                            )
+                        )
+                    ),
+                    array(
+                        'tag' => 'published',
+                        'content' => smf_gmstrftime('%Y-%m-%dT%H:%M:%sZ', $row['tradedate'])
+                    ),
+                    array(
+                        'tag' => 'id',
+                        'content' => $guid
+                    )
+                )
+            );
+    }
+    $smcFunc['db_free_result']($requestDUMBIE);
+
+    return $data;
 }
 
 ?>
