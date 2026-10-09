@@ -179,6 +179,34 @@ function template_invused()
 		</div>';
 }
 
+function template_invdel()
+{
+	global $context, $txt, $scripturl;
+
+		echo '
+		<div class="roundframe">
+			<form method="post" action="', $scripturl,'?action=shop;sa=invdeleted">
+				<input type="hidden" name="id" value="', $context['item']['id'], '">
+				', sprintf($txt['Shop_item_delete_confirm'], $context['item']['name']);
+				
+        echo '
+				<br />
+				<input class="button floatright" type="submit" value="', $txt['Shop_item_delete'], '" />
+				<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '">
+			</form>
+		</div>';
+}
+
+function template_invdeleted()
+{
+	global $context, $txt;
+
+		echo '
+		<div class="windowbg">
+			', sprintf($txt['Shop_item_delete_success'], $context['item']['name']), '<br /><br />
+		</div>';
+}
+
 function template_gift($message = true)
 {
 	global $context, $txt, $scripturl, $modSettings;
