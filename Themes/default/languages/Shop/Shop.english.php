@@ -272,3 +272,7 @@ $txt['Shop_who_games_lucky2'] = 'Playing <a href="'. $scripturl. '?action=shop;s
 $txt['Shop_who_games_number'] = 'Playing <a href="'. $scripturl. '?action=shop;sa=games;play=number">Number Slots</a> in the <a href="' . $scripturl . '?action=shop;sa=games">Games Room</a>';
 $txt['Shop_who_games_pairs'] = 'Playing <a href="'. $scripturl. '?action=shop;sa=games;play=pairs">Pairs</a> in the <a href="' . $scripturl . '?action=shop;sa=games">Games Room</a>';
 $txt['Shop_who_games_dice'] = 'Rolling the <a href="'. $scripturl. '?action=shop;sa=games;play=dice">Dice</a> in the <a href="' . $scripturl . '?action=shop;sa=games">Games Room</a>';
+
+// DUMBie extension: rss stuff
+$txt['Shop_xml_tradecenter_notiftitle'] = 'New item listed for sale: %s';
+$txt['Shop_xml_tradecenter_notifdesc'] = '%1$s has been listed in the trade center by %2$s for %3$d' . (!empty($modSettings['Shop_credits_suffix']) ? $modSettings['Shop_credits_suffix'] : 'Credits');
