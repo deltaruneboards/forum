@@ -143,6 +143,7 @@ $txt['Shop_dumbb_setting4'] = 'User can add custom description';
 $txt['Shop_dumbb_setting5'] = '(Optional) Sprite when applied';
 $txt['Shop_dumbb_setuser'] = 'Choose a user to gift this to';
 $txt['Shop_dumbb_setdesc'] = 'Input custom hover text (max of 255 characters)';
+$txt['Shop_dumbb_newsort'] = 'What sort number should this badge have?<br>(You can always change this later in Forum Profile!)';
 // DUMB Badge Remover
 $txt['Shop_dumbbrm_name'] = 'Badge Remover';
 $txt['Shop_dumbbrm_desc'] = 'Removes any number of duplicate badges and refunds them';
@@ -153,7 +154,10 @@ $txt['Shop_dumbbrm_success'] = 'You have successfully removed %d badges';
 // DUMB Usergroup Mod
 $txt['Shop_dumbgroup_name'] = 'Grant Title';
 $txt['Shop_dumbgroup_desc'] = 'Grants a specified title';
+$txt['Shop_dumbgroup_no_refund'] = 'No item found that grants your usergroup. You can still use the item to change your usergroup, but you will not get a refund for your existing group.';
+$txt['Shop_dumbgroup_refund_ex'] = 'Using this will also return the following items:';
 $txt['Shop_dumbgroup_noitem'] = 'No item found that corresponds to your usergroup. You may be in an exclusive usergroup that can not be easily replaced, or are a moderator or admin. Please contact admins to get your usergroup changed.';
+$txt['Shop_dumbgroup_admin_use'] = 'This item will deadmin you if used!';
 // DUMB Interest
 $txt['Shop_dumb_interest_name'] = 'Interest Modifier';
 $txt['Shop_dumb_interest_desc'] = 'Modifies your user Interest';
@@ -166,6 +170,7 @@ $txt['Shop_dumb_gamble_gambleheader'] = 'Current loot table:';
 $txt['Shop_dumb_gamble_setting1'] = 'Choose an item or category to add:';
 $txt['Shop_dumb_gamble_setting2'] = 'Weight this item will have, or a negative number to remove it from table';
 $txt['Shop_dumb_gamble_success'] = 'You got item %s!';
+$txt['Shop_dumb_gamble_odds'] = 'Odds for this item';
 // DUMB TextOnly
 $txt['Shop_dumb_texto_name'] = "DUMB TextOnly";
 $txt['Shop_dumb_texto_desc'] = "Displays a string on use";

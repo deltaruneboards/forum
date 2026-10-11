@@ -111,7 +111,7 @@ class DUMBBadge extends Module
 
     function getUseInput()
     {
-        global $context;
+        global $context, $smcFunc, $user_info;
 
         $retr = '<dl class="settings">';
         if (!empty($this->item_info[1])) {
@@ -137,6 +137,28 @@ class DUMBBadge extends Module
                         sItemListContainerId: \'membernameItemContainer\'
                     });
                 </script>';
+        }
+        else {  // you probably shouldnt be able to force a badge sort order onto someone else?
+            $requestDUMBIE = $smcFunc['db_query']('', '
+                SELECT awd.sortorder, itm.name
+                FROM {db_prefix}awards awd
+                INNER JOIN {db_prefix}stshop_items itm ON awd.ITEM_ID = itm.itemid
+                WHERE awd.ID_AWARDED_MEMBER = {int:userid}',
+                array(
+                    'userid' => $user_info['id']
+                ));
+            $curb = $smcFunc['db_fetch_all']($requestDUMBIE);
+            $smcFunc['db_free_result']($requestDUMBIE);
+
+            $retr .= '<dt>
+                        ' . Shop::getText('dumbb_newsort') . '
+                    </dt><dd>
+                        <input type="number" name="sortpos" id="sortpos" value="0"><br>';
+
+            foreach ($curb as $cb)
+                $retr .= '[sort ' . $cb['sortorder'] . '] ' . $cb['name'] . '<br>';
+
+            $retr .= '</dd>';
         }
 
         if (!empty($this->item_info[2])) {
@@ -260,16 +282,20 @@ class DUMBBadge extends Module
         }
 
 
+        $newsort = 0;
+        if (!empty($_REQUEST['sortpos']))
+            $newsort = $_REQUEST['sortpos'];
 
 
         $requestDUMBIE = $smcFunc['db_query']('', '
-            INSERT INTO {db_prefix}awards(ITEM_ID, ID_AWARDED_MEMBER, givenDate, ID_MEMBER)
-            VALUES({int:item_id}, {int:user_id}, {int:date}, {int:self_id})
+            INSERT INTO {db_prefix}awards(ITEM_ID, ID_AWARDED_MEMBER, givenDate, ID_MEMBER, sortorder)
+            VALUES({int:item_id}, {int:user_id}, {int:date}, {int:self_id}, {int:sortpos})
             RETURNING ID_AWARD',
             array(
                 'item_id' => $item_id[0],
                 'user_id' => $target_member,
                 'self_id' => $user_info['id'],
+                'sortpos' => $newsort,
                 'date' => time()
             ));
 
