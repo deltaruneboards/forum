@@ -198,7 +198,7 @@ function template_summary()
 					<span>', $field['output_html'], '</span>';
 
 	echo '
-					<span class="position">', (!empty($context['member']['group']) ? $context['member']['group'] : $context['member']['post_group']), '</span>
+					<span class="position group-' .$context['member']['group_id']  . '">', (!empty($context['member']['group']) ? $context['member']['group'] : $context['member']['post_group']), '</span>
 				</h4>
 			</div>
 			', $context['member']['avatar']['image'];
