@@ -219,27 +219,21 @@ class DUMBGambling extends Module
             array(
                 'inst_id' => $_REQUEST['id']
             ));
-        $loottable = $smcFunc['db_fetch_all']($requestDUMBIE);
+
+        // more proper one-pass resivour sampling with weights rather than the kinda messy solution from before!!
+        // source: https://arxiv.org/html/2403.20256v4#S2
+        $candidate = $smcFunc['db_fetch_assoc']($requestDUMBIE);
+        $seen_weight = $candidate['weight'];
+
+        while ($row = $smcFunc['db_fetch_assoc']($requestDUMBIE))
+        {
+            $seen_weight += $row['weight'];
+            if (rand(1, $seen_weight) <= $row['weight'])
+                $candidate = $row;
+        }
+
         $smcFunc['db_free_result']($requestDUMBIE);
 
-        # copied this from stackoverflow
-        $weight_sum = 0;
-        foreach ($loottable as $lt)
-            $weight_sum += $lt['weight'];
-
-        $rtd = rand(1, $weight_sum);
-        $candidate = null;
-
-        // this is set up so its IMPOSSIBLE for this to not get SOME item
-        // probably better than crashing and burning
-        while ($rtd > 0) {
-            $candidate = array_pop($loottable);
-            if ($rtd > $candidate['weight']) {
-                $rtd -= $candidate['weight'];
-                continue;
-            }
-            break;
-        }
 
         $item_granted = $candidate['ID_GRANTING'];
         if ($candidate['is_category'] == 1) {
