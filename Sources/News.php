@@ -63,7 +63,7 @@ function ShowXmlFeed()
 	$context['xmlnews_uid'] = isset($_GET['u']) ? (int) $_GET['u'] : $user_info['id'];
 
 	// Default to latest 5.  No more than 255, please.
-	$context['xmlnews_limit'] = empty($_GET['limit']) || (int) $_GET['limit'] < 1 ? 5 : min((int) $_GET['limit'], 255);
+	$context['xmlnews_limit'] = empty($_GET['limit']) || (int) $_GET['limit'] < 1 ? 75 : min((int) $_GET['limit'], 255);
 
 	// Users can always export their own profile data
 	if (in_array($subaction, array('profile', 'posts', 'personal_messages')) && !$user_info['is_guest'] && $context['xmlnews_uid'] == $user_info['id'])
@@ -76,7 +76,8 @@ function ShowXmlFeed()
 	loadLanguage('Stats');
 
 	// Show in rss or proprietary format?
-	$xml_format = $_GET['type'] = isset($_GET['type']) && in_array($_GET['type'], array('smf', 'rss', 'rss2', 'atom', 'rdf')) ? $_GET['type'] : 'rss2';
+    // atom
+	$xml_format = $_GET['type'] = isset($_GET['type']) && in_array($_GET['type'], array('smf', 'rss', 'rss2', 'atom', 'rdf')) ? $_GET['type'] : 'atom';
 
 	// Some general metadata for this feed. We'll change some of these values below.
 	$feed_meta = array(
