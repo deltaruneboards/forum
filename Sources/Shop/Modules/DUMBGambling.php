@@ -228,7 +228,7 @@ class DUMBGambling extends Module
         while ($row = $smcFunc['db_fetch_assoc']($requestDUMBIE))
         {
             $seen_weight += $row['weight'];
-            if (rand(1, $seen_weight) <= $row['weight'])
+            if (rand(1, $seen_weight) >= $row['weight'])
                 $candidate = $row;
         }
 
