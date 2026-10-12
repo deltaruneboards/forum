@@ -143,7 +143,8 @@ class DUMBBadge extends Module
                 SELECT awd.sortorder, itm.name
                 FROM {db_prefix}awards awd
                 INNER JOIN {db_prefix}stshop_items itm ON awd.ITEM_ID = itm.itemid
-                WHERE awd.ID_AWARDED_MEMBER = {int:userid}',
+                WHERE awd.ID_AWARDED_MEMBER = {int:userid}
+                ORDER BY awd.sortorder',
                 array(
                     'userid' => $user_info['id']
                 ));

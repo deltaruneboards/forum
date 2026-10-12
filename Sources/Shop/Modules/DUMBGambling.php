@@ -125,6 +125,8 @@ class DUMBGambling extends Module
     {
         global $smcFunc;
 
+        return '';
+
         $requestDUMBIE = $smcFunc['db_query']('', '
             SELECT CASE WHEN ltt.is_category = 1 THEN cat.name ELSE itm.name END AS name, weight, is_category
             FROM {db_prefix}loottable ltt
