@@ -146,6 +146,11 @@ function BoardIndex()
 		'markread' => array('text' => 'mark_as_read', 'image' => 'markread.png', 'custom' => 'data-confirm="' . $txt['are_sure_mark_read'] . '"', 'class' => 'you_sure', 'url' => $scripturl . '?action=markasread;sa=all;' . $context['session_var'] . '=' . $context['session_id']),
 	);
 
+    // rss feed button
+    $context['rss_feed_button'] = array(
+        'rssfeed' => array('text' => 'rss_feed', 'url' => $scripturl . '?action=.xml;type=atom')
+    );
+
 	profileSpanStart('recent_activity');
 	$context['recent_topics'] = getRecentActivity();
 	profileSpanEnd('recent_activity');

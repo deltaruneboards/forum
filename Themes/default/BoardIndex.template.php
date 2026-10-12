@@ -132,11 +132,16 @@ function template_main()
 
 	echo '<div class="main_container">', template_recent_activity(), '</div>';
 
+
 	// Show the mark all as read button?
 	if ($context['user']['is_logged'] && !empty($context['categories']))
 		echo '
 	<div class="mark_read">
 		', template_button_strip($context['mark_read_button'], 'right'), '
+	</div>';
+
+	echo '<div class="mark_read">
+		', template_button_strip($context['rss_feed_button'], 'left'), '
 	</div>';
 
 
