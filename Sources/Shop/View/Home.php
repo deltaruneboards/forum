@@ -78,6 +78,7 @@ class Home
 			'invfav' => 'Inventory::fav',
 			'owners' => 'Inventory::owners',
 			'invdisp' => 'Inventory::display_extend',
+            'badge' => 'Home::badgeredir',
 			'gift' => 'Gift::main',
 			'senditem' => 'Gift::main',
 			'sendmoney' => 'Gift::main',
@@ -123,6 +124,12 @@ class Home
 				'permission' => 'shop_viewInventory',
 				'enable' => 'Shop_enable_shop'
 			],
+            'badge' => [
+                'action' => ['badgeredir'],
+                'label' => Shop::getText('main_badgeredir'),
+                'permission' => 'shop_viewInventory',
+                'enable' => 'Shop_enable_shop'
+            ],
 			'gift' => [
 				'action' => ['gift','senditem','sendmoney','gift2','gift3'],
 				'label' => Shop::getText('main_gift'),
@@ -229,6 +236,11 @@ class Home
 		];
 		$context['stats_blocks'] += $this->_stats->home_stats();
 	}
+
+    // idk how else to do this since it seems to require a function ? 
+    public function badgeredir() {
+        redirectexit('action=profile;area=badgeadmin');
+    }
 
 	/**
 	 * Home::copyright()
