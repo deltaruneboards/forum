@@ -85,6 +85,7 @@ $txt['alert_group_shop'] = 'Shop alerts';
 $txt['alert_shop_usercredits'] = 'When I receive ' . (!empty($modSettings['Shop_credits_suffix']) ? $modSettings['Shop_credits_suffix'] : 'Credits') . ' from someone';
 $txt['alert_shop_useritems'] = 'When I receive a shop gift from someone';
 $txt['alert_shop_usertraded'] = 'When someone purchased an item from my trades list';
+$txt['alert_shop_usermodule_lancer'] = 'When someone sends me money';
 $txt['alert_shop_usermodule_steal'] = 'When someone steals from my pocket';
 $txt['alert_shop_credits'] = '{member_link} has sent you {amount}';
 $txt['alert_shop_items'] = '{member_link} has sent you a gift';
