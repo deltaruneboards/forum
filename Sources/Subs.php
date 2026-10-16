@@ -8701,6 +8701,7 @@ const CANONICAL_TAGS = [
 	'ama',
 	'trading',
 	'shop',
+	'blog',
 
 	// Roleplay
 	'deltarune',

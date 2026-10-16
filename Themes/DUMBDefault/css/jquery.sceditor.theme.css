@@ -6,6 +6,7 @@ div.sceditor-grip {
 	border: 2px groove var(--ter-bg-color);
 	color: var(--txt-color);
 	border-radius: 0;
+	min-height:620px;
 }
 .sceditor-container textarea {
 	font-size: medium;
