@@ -171,3 +171,10 @@ $txt['Shop_dumb_texto_name'] = "DUMB TextOnly";
 $txt['Shop_dumb_texto_desc'] = "Displays a string on use";
 $txt['Shop_dumb_texto_setting1'] = "Text to display (renders HTML)";
 $txt['Shop_dumb_texto_error'] = "THIS IS NOT SUPPOSED TO BE DISPLAYED!!! THIS STRING MEANS THAT THE CORRESPONDING STRING WAS NOT LOCATED, PLEASE CONTACT ADMINS IMMEDIATELY!!";
+// DUMB Lancer
+$txt['Shop_dumb_lancer_name'] = 'Mr. Generousity';
+$txt['Shop_dumb_lancer_desc'] = 'Grants 75D$ to a random online person on the board';
+$txt['Shop_dumb_lancer_setting1'] = 'How much to grant';
+$txt['Shop_dumb_lancer_nobody'] = 'Nobody else is online!';
+$txt['Shop_dumb_lancer_success'] = 'Successfully sent money to %s!';
+$txt['alert_shop_module_lancer'] = '{member_link} just gave you {amount}';
