@@ -37,7 +37,7 @@ class DUMBGambling extends Module
         $this->desc = Shop::getText('dumb_gamble_desc');
         $this->price = 50;
 
-		$this->require_input = false;
+		$this->require_input = true;
 		$this->can_use_item = true;
 		$this->addInput_editable = true;
     }
@@ -121,6 +121,47 @@ class DUMBGambling extends Module
             </dl>';
     }
 
+    function getUseInput()
+    {
+        global $smcFunc;
+
+        return '';
+
+        $requestDUMBIE = $smcFunc['db_query']('', '
+            SELECT CASE WHEN ltt.is_category = 1 THEN cat.name ELSE itm.name END AS name, weight, is_category
+            FROM {db_prefix}loottable ltt
+            LEFT JOIN {db_prefix}stshop_items itm ON ltt.ID_GRANTING = itm.itemid
+            LEFT JOIN {db_prefix}stshop_categories cat ON ltt.ID_GRANTING = cat.catid
+            WHERE ITEM_ID = (
+                SELECT itm.itemid FROM {db_prefix}stshop_inventory inv
+                INNER JOIN {db_prefix}stshop_items itm ON itm.itemid = inv.itemid
+                WHERE inv.id = {int:inst_id}
+            )',
+            array(
+                'inst_id' => $_REQUEST['id']
+            ));
+        $loottable = $smcFunc['db_fetch_all']($requestDUMBIE);
+        $smcFunc['db_free_result']($requestDUMBIE);
+
+        // unfortunately this time theres no way around looping across the whole list twice:(
+        $totalweight = 0;
+        foreach ($loottable as $lt)
+            $totalweight += $lt['weight'];
+
+        $renderedString = '';
+        foreach ($loottable as $lt)
+            $renderedString .= $lt['name'] . ' (' . round(($lt['weight'] / $totalweight) * 100, 2) . '%)<br>';
+
+        return '<dl class="settings">
+            <dt>
+                ' . Shop::getText('dumb_gamble_odds') . '
+            </dt>
+            <dd>
+                ' . $renderedString . '
+            </dd>
+        </dl>';
+    }
+
     // DUMBie extension note: postAddInput is a custom function called after saving an item edit
     function postAddInput()
     {
@@ -180,27 +221,21 @@ class DUMBGambling extends Module
             array(
                 'inst_id' => $_REQUEST['id']
             ));
-        $loottable = $smcFunc['db_fetch_all']($requestDUMBIE);
+
+        // more proper one-pass resivour sampling with weights rather than the kinda messy solution from before!!
+        // source: https://arxiv.org/html/2403.20256v4#S2
+        $candidate = $smcFunc['db_fetch_assoc']($requestDUMBIE);
+        $seen_weight = $candidate['weight'];
+
+        while ($row = $smcFunc['db_fetch_assoc']($requestDUMBIE))
+        {
+            $seen_weight += $row['weight'];
+            if (rand(0, $seen_weight) < $row['weight'])
+                $candidate = $row;
+        }
+
         $smcFunc['db_free_result']($requestDUMBIE);
 
-        # copied this from stackoverflow
-        $weight_sum = 0;
-        foreach ($loottable as $lt)
-            $weight_sum += $lt['weight'];
-
-        $rtd = rand(1, $weight_sum);
-        $candidate = null;
-
-        // this is set up so its IMPOSSIBLE for this to not get SOME item
-        // probably better than crashing and burning
-        while ($rtd > 0) {
-            $candidate = array_pop($loottable);
-            if ($rtd > $candidate['weight']) {
-                $rtd -= $candidate['weight'];
-                continue;
-            }
-            break;
-        }
 
         $item_granted = $candidate['ID_GRANTING'];
         if ($candidate['is_category'] == 1) {
