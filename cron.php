@@ -171,11 +171,27 @@ if (time() - TIME_START < ceil(MAX_CRON_TIME / 2))
 if (FROM_CLI)
 	die(0);
 
-header('Content-Type: application/json');
-echo json_encode([
+$isOvertime = microtime(true) - TIME_START > MAX_CRON_TIME;
+$returnData = [
+	'error' => false,
 	'done' => $tasksDone,
 	'failed' => $tasksFailed,
-]);
+	'overtime' => $isOvertime,
+];
+
+if (FROM_WORKER && !$isOvertime)
+{
+	[$load1, $load5, $load15] = sys_getloadavg();
+	$returnData += [
+		'load1' => $load1,
+		'load5' => $load5,
+		'load15' => $load15,
+	];
+	// TODO: Figure out if any other metrics are worth reporting here
+}
+
+header('Content-Type: application/json');
+echo json_encode($returnData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
 exit;
 
 /**
