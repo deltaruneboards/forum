@@ -1030,7 +1030,7 @@ function showPosts($memID)
 		else
 		{
 			$request = $smcFunc['db_query']('', '
-				SELECT
+				SELECT STRAIGHT_JOIN
 					b.id_board, b.name AS bname, c.id_cat, c.name AS cname, m.id_topic, m.id_msg,
 					t.id_member_started, t.id_first_msg, t.id_last_msg, m.body, m.smileys_enabled,
 					m.subject, m.poster_time, m.approved
