@@ -974,7 +974,7 @@ function ArcadeStartGame()
 	}
 	foreach (['game', 'ts', 'sig'] as $param)
 	{
-		if (empty($_GET[$param]))
+		if (!isset($_GET[$param]))
 		{
 			jsonError("missing required parameter: $param");
 		}
@@ -1011,7 +1011,7 @@ function ArcadeSubmitNew()
 	}
 	foreach (['game', 'score', 'ts', 'sig'] as $param)
 	{
-		if (empty($_POST[$param]))
+		if (!isset($_POST[$param]))
 		{
 			jsonError("missing required parameter: $param");
 		}
