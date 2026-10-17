@@ -94,7 +94,7 @@
 		createPermanentDropDown: function () {
 			var emoticons = $.extend({}, this.opts.emoticons.dropdown);
 			var popup_exists = false;
-			content = $('<div class="sceditor-insertemoticon">');
+			content = $('<div class="freeze sceditor-insertemoticon">');
 			line = $('<div>');
 			var base = this;
 

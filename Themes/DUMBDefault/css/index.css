@@ -4393,10 +4393,10 @@ img.theme_thumbnail {
 	overflow-y: auto;
 }
 
-.dumb_badge img {
+.dumb_badge img, .dumb_badge canvas {
 	align-self: center;
 	flex: 0 0 auto;
-	padding: 1px;
+	margin: 1px;
 }
 
 img[src*="NPC_SING_BLANK.png"] {

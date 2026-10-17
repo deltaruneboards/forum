@@ -1896,8 +1896,9 @@ function loadMemberContext($user, $display_custom_fields = false)
 
         $printlist = "";
         foreach ($badgelist as $b) {
-            $printlist = $printlist . '<img src="/shop_items/items/' . $b["image"] .
-                '" title="' . htmlspecialchars($b["hover_text"]) . '" loading=lazy >';
+            list($width, $height) = getimagesize('shop_items/items/' . $b["image"]);
+            $printlist = $printlist . '<img width=' . $width .' height=' . $height . ' src="/shop_items/items/' . $b["image"] .
+                '" title="' . htmlspecialchars($b["hover_text"]) . '" loading=lazy ">';
         }
         $memberContext[$user]['DUMB_Badge_render'] = $printlist;
 
