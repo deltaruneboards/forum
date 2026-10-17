@@ -907,7 +907,7 @@ function Arcade_viewModLog(&$listOptions, &$moderation_menu_name)
 		SELECT
 			lm.id_action, lm.id_member, lm.ip, lm.log_time, lm.action, lm.id_board, lm.id_topic, lm.id_msg, lm.extra,
 			mem.real_name, mg.group_name
-		FROM {db_prefix}log_actions AS lm
+		FROM {db_prefix}log_actions AS lm FORCE INDEX (idx_id_log)
 			LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = lm.id_member)
 			LEFT JOIN {db_prefix}membergroups AS mg ON (mg.id_group = CASE WHEN mem.id_group = {int:reg_group_id} THEN mem.id_post_group ELSE mem.id_group END)
 			LEFT JOIN {db_prefix}boards AS b ON (b.id_board = lm.id_board)
