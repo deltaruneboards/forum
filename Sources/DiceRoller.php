@@ -55,7 +55,7 @@ class DiceRoller
 		global $txt, $settings;
 		loadLanguage('DiceRoller/DiceRoller');
 
-		$image = $settings['default_theme_url'] . '/diceimages/dice_warn.gif';
+		$image = $settings['default_theme_url'] . '/images/icons/warn.png';
 
 		// Remove anyone who posted with the [dicerolled] tag, bah, ye cheating riffraff!
 		$message = preg_replace('~\[/dicerolled\]~i', '', $message);
