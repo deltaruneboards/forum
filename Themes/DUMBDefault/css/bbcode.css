@@ -301,3 +301,9 @@ blockquote.bbc_standard_quote blockquote {
 	margin: 5px 20px;
 	padding: 6px;
 }
+
+@media screen and (max-width: 720px) {
+	.txtbox, .utxtbox {
+		width: unset;
+	}
+}
