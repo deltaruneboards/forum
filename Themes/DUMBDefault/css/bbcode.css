@@ -135,17 +135,33 @@ span[style="color: pink;"] {
 	margin-left: 1em;
 	clear: right;
 }
+
+/* Images */
 .bbc_img {
 	object-fit: contain;
 }
 .postarea .bbc_img.resized:hover {
 	cursor: pointer;
 }
+.postarea .bbc_img,
+.list_posts .bbc_img,
+.post .inner .bbc_img,
+form#reported_posts .bbc_img,
+#preview_body .bbc_img {
+	max-width: min(100%, 800px);
+}
 .bbc_img.original_size {
 	height: auto !important;
 	width: auto !important;
 	max-height: none;
 	max-width: 100%;
+}
+.postarea .bbc_table .bbc_img,
+.list_posts .bbc_table .bbc_img,
+.post .inner .bbc_table .bbc_img,
+form#reported_posts .bbc_table .bbc_img,
+#preview_body .bbc_table .bbc_img {
+	max-width: min(80vw, 800px);
 }
 
 /* [video] styles */

@@ -4454,6 +4454,7 @@ function setupThemeContext($forceload = false)
 		addInlineCss('
 	img.avatar { max-width: ' . $modSettings['avatar_max_width_external'] . 'px !important; max-height: ' . $modSettings['avatar_max_height_external'] . 'px !important; }');
 
+	/* DUMB change: we do this in bbcode.css
 	// Add max image limits
 	if (!empty($modSettings['max_image_width']))
 		addInlineCss('
@@ -4462,6 +4463,7 @@ function setupThemeContext($forceload = false)
 	if (!empty($modSettings['max_image_height']))
 		addInlineCss('
 	.postarea .bbc_img, .list_posts .bbc_img, .post .inner .bbc_img, form#reported_posts .bbc_img, #preview_body .bbc_img { max-height: ' . $modSettings['max_image_height'] . 'px; }');
+	*/
 
 	// This looks weird, but it's because BoardIndex.php references the variable.
 	$context['common_stats']['latest_member'] = array(
