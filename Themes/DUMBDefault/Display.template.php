@@ -612,7 +612,7 @@ function template_single_post($message)
         // this probably wont stick once themes are finalized
         if (!empty($message['member']['DUMB_Badge_render']))
             echo '
-                <li class="freeze dumb_badge">', $message['member']['DUMB_Badge_render'], '</li>';
+                <li class="dumb_badge">', $message['member']['DUMB_Badge_render'], '</li>';
 	}
 	// Otherwise, show the guest's email.
 	elseif (!empty($message['member']['email']) && $message['member']['show_email'])

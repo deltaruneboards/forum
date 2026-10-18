@@ -7,7 +7,7 @@ function isGif(src) {
 class FreezeImages {
     constructor(options = {}) {
       // Set default params
-      this.selector = options.selector || "freeze"
+      this.selector = options.selector
       this.imgCls = "ff-img";
       this.canvasCls = "ff-canvas";
       this.hover = (options.hover === true || options.hover === "true") ? true : false;
@@ -15,7 +15,7 @@ class FreezeImages {
   
       // Finds all images with selector class and within elements with the selected class
       //  and creates list
-      const imgList = Array.from(document.querySelectorAll(`img.${this.selector}, .${this.selector} img`)).filter(img => isGif(img.src));;
+      const imgList = Array.from(document.querySelectorAll(`${this.selector}`)).filter(img => isGif(img.src));
       this.imgList = imgList;
       if (!this.imgList.length) return;
   
@@ -34,13 +34,15 @@ class FreezeImages {
           }
   
           .ff-container.ff-hover:hover .ff-active,
-          .freeze:hover .ff-active {
+          .freeze:hover .ff-active,
+          .signature:hover .ff-active {
             position: absolute;
             opacity: 0;
           }
 
           .ff-container.ff-hover:hover .ff-inactive,
-          .freeze:hover .ff-inactive {
+          .freeze:hover .ff-inactive,
+          .signature:hover .ff-inactive {
             position: static;
             opacity: 1;
             z-index: 1;
@@ -65,6 +67,10 @@ class FreezeImages {
   
       // Loops through all images
       for (const img of this.imgList) {
+          if(!img.parentElement.className.includes("freeze")) {
+            img.parentElement.className += " freeze";
+          }
+
           // Gives <img> the inactive class, which hides GIF by default
           img.className = `${this.imgCls} ff-inactive`;
 
@@ -121,6 +127,8 @@ class FreezeImages {
     }
   }
   
+
+function freezeFrame() {
   // Waits for page to finish loading
   window.addEventListener("load", function () {
     
@@ -128,7 +136,7 @@ class FreezeImages {
       
       const f = new FreezeImages (
         {
-          selector: "freeze",
+          selector: ".dumb_badge img, .sceditor-insertemoticon img, img.freeze, .freeze img",
           hover: true,
           noCss: false,
         }
@@ -147,4 +155,5 @@ class FreezeImages {
         el.addEventListener('click', () => f.toggle());
       }
     
-  });
+  });   
+}

@@ -511,7 +511,11 @@ function template_body_below()
 */
 function template_html_below()
 {
+	global $options;
 	// Load in any javascipt that could be deferred to the end of the page
+	if (array_key_exists('cust_disabl', $options)) {
+		echo '<script>freezeFrame();</script>';
+	}
 	template_javascript(true);
 
 	echo '
