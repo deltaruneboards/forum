@@ -185,13 +185,14 @@ form#reported_posts .bbc_table .bbc_img,
 	display: inline;
 }
 
-.vertical-align-top img {
+/* [valign] */
+.vertical-align[data-align="top"] img {
 	vertical-align: top !important;
 }
-.vertical-align-bottom img {
+.vertical-align[data-align="bottom"] img {
 	vertical-align: bottom !important;
 }
-.vertical-align-middle img {
+.vertical-align[data-align="middle"] img {
 	vertical-align: middle !important;
 }
 
