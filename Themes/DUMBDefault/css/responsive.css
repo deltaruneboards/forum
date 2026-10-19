@@ -866,9 +866,6 @@
 	td.recentboard, td.recenttime {
 		display: none;
 	}
-	.sceditor-container {
-		min-height: 375px;
-	}
 
 	/* Memberlist */
 	th.website_url,

@@ -66,6 +66,10 @@ div.sceditor-dropdown label {
 	text-align: center;
 }
 
+.sceditor-button-maximize {
+	display:none;
+}
+
 @media screen and (min-width: 720px) {
 	.sceditor-container {
 		display: block;
