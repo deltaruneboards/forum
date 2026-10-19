@@ -2470,6 +2470,13 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'disabled_content' => '<a href="https://www.youtube.com/watch?v=$1&t={start}" target="_blank" rel="noopener">https://www.youtube.com/watch?v=$1&t={start}</a>',
 				'block_level' => true,
 			),
+			[
+				'tag' => 'title',
+				'type' => 'unparsed_equals',
+				'test' => '(\d+)\]',
+				'before' => '<span class="group-$1">',
+				'after' => '</span>',
+			],
 		);
 
 		// Inside these tags autolink is not recommendable.
