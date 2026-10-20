@@ -2039,6 +2039,8 @@ function badge_admin($memID)
         $actionTake = 'add';
     else if (isset($_POST['badge_delete']))
         $actionTake = 'delete';
+    else if (isset($_POST['badge_rendermode']))
+        $actionTake = 'setmode';
 
     if (!is_null($actionTake)) {
         if (empty($badgeTarget)) 
@@ -2052,13 +2054,14 @@ function badge_admin($memID)
         SELECT a.ID_AWARD, nfo.name, nfo.description,
             COALESCE(ovr.image, nfo.image) AS image,
             COALESCE(ovr.hover_text, ext.hover_text) AS hover_text,
-            a.sortorder,
+            a.sortorder, rnd.rendermode,
             IF (a.ID_MEMBER != a.ID_AWARDED_MEMBER, gfr.real_name, \'\') AS gifter_name
         FROM {db_prefix}awards AS a
         INNER JOIN {db_prefix}stshop_items nfo ON a.ITEM_ID = nfo.itemid
         LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID
         LEFT JOIN {db_prefix}awards_overrides ovr ON a.ID_AWARD = ovr.ID_AWARD
         LEFT JOIN {db_prefix}members gfr ON a.ID_MEMBER = gfr.id_member
+        LEFT JOIN {db_prefix}awards_render rnd ON a.ID_AWARD = rnd.ID_AWARD
         WHERE a.ID_AWARDED_MEMBER = {int:userid}
         ORDER BY a.sortorder DESC, nfo.name ASC',
         array(
@@ -2092,7 +2095,7 @@ function make_badge_changes($memID, $badgeTarget, $actionTake)
             break;
 
         case "add":
-            $actsuccess = $smcFunc['db_query']('', '
+            return $smcFunc['db_query']('', '
                 UPDATE {db_prefix}awards
                 SET sortorder = sortorder + {int:theorder}
                 WHERE ID_AWARD IN ({array_int:target})',
@@ -2145,6 +2148,17 @@ function make_badge_changes($memID, $badgeTarget, $actionTake)
                     'target' => $badgeTarget,
                     'userid' => $memID
                 ));
+            break;
+        case "setmode":
+            return $smcFunc['db_query']('', '
+                INSERT INTO {db_prefix}awards_render(ID_AWARD, rendermode)
+                VALUES({array_int:target}, {int:newmode})
+                ON DUPLICATE KEY UPDATE rendermode = {int:newmode}',
+            array(
+                'newmode' => $_POST['rendermode'],
+                'target' => $badgeTarget
+            ));
+            break;
     }
 }
 

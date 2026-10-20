@@ -106,9 +106,15 @@ $txt['badge_admin_desc'] = 'This page lets you manage and remove any equipped ba
 $txt['badge_admin_delete'] = 'Unequip selected badges';
 $txt['badge_admin_set'] = 'Set order number';
 $txt['badge_admin_add'] = 'Add to order number';
+$txt['badge_admin_rendermode'] = 'Set render mode';
 $txt['badge_admin_success'] = "Updated badges";
 $txt['profile_error_badge_admin_noselecty'] = 'Select badges to operate on.';
 $txt['profile_error_badge_admin_specil'] = 'A selected badge has special metadata, please contact an admin to remove.';
+
+// short labels are used for the table, long for the hover and dropdown selector
+$txt['badge_render_short1'] = "INV";
+$txt['badge_render_long1'] = "Invisible";
+
 $txt['watched_topics'] = 'Watched Topics';
 $txt['watched_topics_desc'] = 'This page lets you review which topics you are watching; when topics that you are watching have been replied to, you can be notified.';
 $txt['watched_boards'] = 'Watched Boards';
