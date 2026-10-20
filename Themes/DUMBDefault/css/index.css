@@ -4399,30 +4399,30 @@ img.theme_thumbnail {
 	margin: 1px;
 }
 
-img[src*="NPC_SING_BLANK.png"] {
+img[src*="ENEMY_SILENT_BLANK.png"] {
 	width: 16px;
 	height: 16px;
 	padding: 0px;
-	background-image: url("https://deltaruneboards.net/assets/items/ENEMY_SILENT.png");
+	background-image: url("/assets/items/ENEMY_SILENT.png");
 }
 	
-img[src*="NPC_SING_BLANK.png"]:hover {
+img[src*="ENEMY_SILENT_BLANK.png"]:hover {
 	width: 16px;
 	height: 16px;
 	padding: 0px;
-	background-image: url("https://deltaruneboards.net/assets/items/ENEMY_SILENT_2.png");
+	background-image: url("/assets/items/ENEMY_SILENT_2.png");
 }
 	
 img[src*="NPC_CACTUS_BLANK.png"] {
 	width: 14px;
 	height: 16px;
 	padding: 0px;
-	background-image: url("https://deltaruneboards.net/assets/items/NPC_CACTUS.png");
+	background-image: url("/assets/items/NPC_CACTUS.png");
 }
 	
 img[src*="NPC_CACTUS_BLANK.png"]:hover {
 	width: 14px;
 	height: 16px;
 	padding: 0px;
-	background-image: url("https://deltaruneboards.net/assets/items/NPC_CACTUS_1.png");
+	background-image: url("/assets/items/NPC_CACTUS_1.png");
 }
