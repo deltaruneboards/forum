@@ -608,9 +608,8 @@ function template_single_post($message)
 								<li class="custom ', $custom['col_name'], '">', $custom['title'], ': ', $custom['value'], '</li>';
 
 
-        // DUMBie extension: implementing badges on the default theme
-        // this probably wont stick once themes are finalized
-        if (!empty($message['member']['DUMB_Badge_render']))
+        // DUMBie extension: implementing badges 
+        if (!empty($message['member']['DUMB_Badge_render']) && !$options['show_no_badges'])
             echo '
                 <li class="dumb_badge">', $message['member']['DUMB_Badge_render'], '</li>';
 	}

@@ -106,9 +106,15 @@ $txt['badge_admin_desc'] = 'This page lets you manage and remove any equipped ba
 $txt['badge_admin_delete'] = 'Unequip selected badges';
 $txt['badge_admin_set'] = 'Set order number';
 $txt['badge_admin_add'] = 'Add to order number';
+$txt['badge_admin_rendermode'] = 'Set render mode';
 $txt['badge_admin_success'] = "Updated badges";
 $txt['profile_error_badge_admin_noselecty'] = 'Select badges to operate on.';
 $txt['profile_error_badge_admin_specil'] = 'A selected badge has special metadata, please contact an admin to remove.';
+
+// short labels are used for the table, long for the hover and dropdown selector
+$txt['badge_render_short1'] = "INV";
+$txt['badge_render_long1'] = "Invisible";
+
 $txt['watched_topics'] = 'Watched Topics';
 $txt['watched_topics_desc'] = 'This page lets you review which topics you are watching; when topics that you are watching have been replied to, you can be notified.';
 $txt['watched_boards'] = 'Watched Boards';
@@ -344,6 +350,7 @@ $txt['show_children'] = 'Show sub-boards on every page inside boards, not just t
 $txt['show_no_avatars'] = 'Don\'t show users\' avatars';
 $txt['show_no_signatures'] = 'Don\'t show users\' signatures';
 $txt['show_no_censored'] = 'Leave words uncensored.';
+$txt['show_no_badges'] = 'Hide user\'s badges';
 $txt['topics_per_page'] = 'Topics to display per page';
 $txt['messages_per_page'] = 'Messages to display per page';
 $txt['per_page_default'] = 'forum default';

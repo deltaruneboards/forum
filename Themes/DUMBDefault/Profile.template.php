@@ -1898,15 +1898,29 @@ function template_badge_admin()
             <th>Gifter</th>
         </tr>';
 
-    foreach ($context['badge_list'] as $badger)
+    foreach ($context['badge_list'] as $badger) {
+        print_r($badger);
+        $render_mode = $badger['rendermode'];
+        $render_rendered = '';
+        if ($render_mode > 0) 
+            $render_rendered = '<span title="' . $txt['badge_render_long' . $render_mode] . '"> (' .
+                            $txt['badge_render_short' . $render_mode] . ')</span>';
+            
         echo '<tr class="windowbg' . (in_array(strval($badger['ID_AWARD']), $context['badge_targets']) ? ' highlight"' : "") . '">
-                <td>' . htmlspecialchars($badger['sortorder']) . '</td>
+                <td>' . htmlspecialchars($badger['sortorder']) . $render_rendered . '</td>
                 <td><input type="checkbox" id="' . $badger['ID_AWARD'] . '" name="badge-' . $badger['ID_AWARD'] . '" value="1"></td>
                 <td><img src="/shop_items/items/' . $badger['image'] . '" loading=lazy ></td>
                 <td>' . htmlspecialchars($badger['name']) . ' </td>
                 <td>' . htmlspecialchars($badger['hover_text']) . ' </td>
                 <td>' . htmlspecialchars($badger['gifter_name']) . ' </td>
               </tr>';
+    }
+    
+    $i = 0;
+    $renderopts = '<option value="0">Clear rendermode</option>';
+    while ($rtx = $txt['badge_render_long' . ++$i])
+        $renderopts  .= '<option value="' . $i . '">' . $rtx . '</option>';
+    
 
     echo '
         </table>
@@ -1916,6 +1930,10 @@ function template_badge_admin()
             <input id="coeff" type="number" name="coeff" value="0">
             <input id="badge_set" type="submit" name="badge_set" value="', $txt['badge_admin_set'], '" class="button">
             <input id="badge_add" type="submit" name="badge_add" value="', $txt['badge_admin_add'], '" class="button">
+            <br><br>
+            <select name="rendermode" id="rendermode">' . $renderopts . '</select>
+            <input id="badge_rendermode" type="submit" name="badge_rendermode" value="' . $txt['badge_admin_rendermode'] . '" class="button"</input>
+            
             <input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '">', !empty($context['token_check']) ? '
             <input type="hidden" name="' . $context[$context['token_check'] . '_token_var'] . '" value="' . $context[$context['token_check'] . '_token'] . '">' : '', '
             <input type="hidden" name="u" value="', $context['id_member'], '">
