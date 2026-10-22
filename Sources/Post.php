@@ -2401,6 +2401,7 @@ function Post2()
 		'body' => $_POST['message'],
 		'icon' => preg_replace('~[\./\\\\*:"\'<>]~', '', $_POST['icon']),
 		'smileys_enabled' => !isset($_POST['ns']),
+		'sig_enabled' => isset($_POST['showsig']) ? 1 : 0,
 		'description' => $form_description,
 		'attachments' => empty($attachIDs) ? array() : $attachIDs,
 		'approved' => $becomesApproved,

@@ -874,7 +874,7 @@ function template_single_post($message)
 	}
 
 	// Show the member's signature?
-	if (!empty($message['member']['signature']) && empty($options['show_no_signatures']) && $context['signature_enabled'])
+	if (!empty($message['member']['signature']) && empty($options['show_no_signatures']) && $context['signature_enabled'] && $message['showSIG'] == 1)
 		echo '
 							<div class="signature" id="msg_', $message['id'], '_signature"', $ignoring ? ' style="display:none;"' : '', '>
 								', $message['member']['signature'], '

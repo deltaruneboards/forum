@@ -192,6 +192,8 @@ function ModifyPostSettings($return_config = false)
 		array('check', 'disable_wysiwyg'),
 		array('check', 'additional_options_collapsable'),
 		array('check', 'guest_post_no_email'),
+		//Sig Option mod	
+		array('check', 'sig_topic'),
 		'',
 
 		// Posting limits...
