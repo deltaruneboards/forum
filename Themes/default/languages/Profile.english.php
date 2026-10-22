@@ -350,6 +350,7 @@ $txt['show_children'] = 'Show sub-boards on every page inside boards, not just t
 $txt['show_no_avatars'] = 'Don\'t show users\' avatars';
 $txt['show_no_signatures'] = 'Don\'t show users\' signatures';
 $txt['show_no_censored'] = 'Leave words uncensored.';
+$txt['show_no_badges'] = 'Hide user\'s badges';
 $txt['topics_per_page'] = 'Topics to display per page';
 $txt['messages_per_page'] = 'Messages to display per page';
 $txt['per_page_default'] = 'forum default';

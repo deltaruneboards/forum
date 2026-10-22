@@ -99,6 +99,11 @@ function template_options()
 			'enabled' => !empty($modSettings['allow_no_censored']),
 		),
 		array(
+		    'id' => 'show_no_badges',
+			'label' => 'show_no_badges',
+			'default' => false
+		),
+		array(
 			'id' => 'posts_apply_ignore_list',
 			'label' => $txt['posts_apply_ignore_list'],
 			'default' => false,
