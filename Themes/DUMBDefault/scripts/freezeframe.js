@@ -11,59 +11,12 @@ class FreezeImages {
       this.imgCls = "ff-img";
       this.canvasCls = "ff-canvas";
       this.hover = (options.hover === true || options.hover === "true") ? true : false;
-      this.noCSS = (options.no_css === true || options.hover === "true") ? true : false;
   
       // Finds all images with selector class and within elements with the selected class
       //  and creates list
       const imgList = Array.from(document.querySelectorAll(`${this.selector}`)).filter(img => isGif(img.src));
       this.imgList = imgList;
       if (!this.imgList.length) return;
-  
-      // Creates <style> tag for new elements
-      if (!this.noCSS) {
-        const style = document.createElement('style');
-        style.textContent = `
-          .ff-container {
-            display: inline-flex;
-            position: relative;
-          }
-  
-          .ff-container img,
-          .ff-container canvas {
-            align-self: start;
-          }
-  
-          .ff-container.ff-hover:hover .ff-active,
-          .freeze:hover .ff-active,
-          .signature:hover .ff-active {
-            position: absolute;
-            opacity: 0;
-          }
-
-          .ff-container.ff-hover:hover .ff-inactive,
-          .freeze:hover .ff-inactive,
-          .signature:hover .ff-inactive {
-            position: static;
-            opacity: 1;
-            z-index: 1;
-          }
-  
-          .ff-inactive {
-            position: absolute;
-            opacity: 0;
-            z-index: -99;
-          }
-          .sceditor-insertemoticon .ff-container {
-            margin: 6px 7px 0 0;
-	          vertical-align: middle;
-          }
-            
-          .sceditor-insertemoticon .ff-container img {
-            margin:0;
-          }
-          `;
-        document.head.appendChild(style);
-      }
   
       // Loops through all images
       for (const img of this.imgList) {
@@ -129,16 +82,57 @@ class FreezeImages {
   
 
 function freezeFrame() {
-  // Waits for page to finish loading
   window.addEventListener("load", function () {
-    
-      // Initialize script
+    const style = document.createElement('style');
+    style.textContent = `
+      .ff-container {
+        display: inline-flex;
+        position: relative;
+      }
+
+      .ff-container img,
+      .ff-container canvas {
+        align-self: start;
+      }
+
+        .ff-container.ff-hover:hover .ff-active,
+        .freeze:hover .ff-active,
+        .signature:hover .ff-active {
+          position: absolute;
+          opacity: 0;
+        }
+
+        .ff-container.ff-hover:hover .ff-inactive,
+        .freeze:hover .ff-inactive,
+        .signature:hover .ff-inactive {
+          position: static;
+          opacity: 1;
+          z-index: 1;
+        }
+
+        .ff-inactive {
+          position: absolute;
+          opacity: 0;
+          z-index: -99;
+        }
+        .sceditor-insertemoticon .ff-container {
+          margin: 6px 7px 0 0;
+          vertical-align: middle;
+        }
+          
+        .sceditor-insertemoticon .ff-container img {
+          margin:0;
+        }
+        span.group-50, a.group-50, a.group-50:visited {
+          animation: none;
+        }
+        `;
+      document.head.appendChild(style);
       
       const f = new FreezeImages (
         {
-          selector: ".dumb_badge img, .sceditor-insertemoticon img, img.freeze, .freeze img",
+          selector: ".avatar img, .signature img, .dumb_badge img, .sceditor-insertemoticon img, img.freeze, .freeze img",
           hover: true,
-          noCss: false,
         }
       )
   
