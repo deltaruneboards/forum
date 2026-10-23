@@ -126,6 +126,10 @@ function freezeFrame() {
         span.group-50, a.group-50, a.group-50:visited {
           animation: none;
         }
+        .avatar canvas {
+          max-width: 160px;
+          max-height: 160px;
+        }
         `;
       document.head.appendChild(style);
       
