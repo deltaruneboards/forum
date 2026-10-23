@@ -2210,6 +2210,8 @@ function modifyPost(&$msgOptions, &$topicOptions, &$posterOptions)
 		$messages_columns['icon'] = $msgOptions['icon'];
 	if (isset($msgOptions['subject']))
 		$messages_columns['subject'] = $msgOptions['subject'];
+	if (isset($msgOptions['sig_enabled']))
+		$messages_columns['showSIG'] = $msgOptions['sig_enabled'];
 	if (isset($msgOptions['body']))
 	{
 		$messages_columns['body'] = $msgOptions['body'];
