@@ -964,7 +964,8 @@ function template_quickreply()
 						<input type="hidden" name="goback" value="', empty($options['return_to_post']) ? '0' : '1', '">
 						<input type="hidden" name="last_msg" value="', $context['topic_last_message'], '">
 						<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '">
-						<input type="hidden" name="seqnum" value="', $context['form_sequence_number'], '">';
+						<input type="hidden" name="seqnum" value="', $context['form_sequence_number'], '">
+						<input type="hidden" name="showsig" id="check_sig"', (!empty($modSettings['sig_topic']) ? ' checked="checked"' : ''), ' value="1" />';
 
 	// Guests just need more.
 	if ($context['user']['is_guest'])
