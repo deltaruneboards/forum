@@ -159,6 +159,7 @@ if (empty($modSettings['rand_seed']) || mt_rand(1, 250) == 69)
 require_once($sourcedir . '/Session.php');
 require_once($sourcedir . '/Logging.php');
 require_once($sourcedir . '/Class-BrowserDetect.php');
+require_once($sourcedir . "/Event.php");
 
 // If a Preflight is occurring, lets stop now.
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS')
@@ -188,6 +189,7 @@ set_exception_handler('smf_exception_handler');
 // Start the session. (assuming it hasn't already been.)
 loadSession();
 
+
 // What function shall we execute? (done like this for memory's sake.)
 profileSpanEnd('setup');
 profileSpanStart('pre-action');
@@ -207,6 +209,7 @@ function smf_main()
 {
 	global $modSettings, $settings, $user_info, $board, $topic;
 	global $board_info, $maintenance, $sourcedir, $should_log;
+
 
 	// Special case: session keep-alive, output a transparent pixel.
 	if (isset($_GET['action']) && $_GET['action'] == 'keepalive')
@@ -273,6 +276,10 @@ function smf_main()
 	profileSpanEnd('pre-action');
 	profileSpanStart('action');
 
+   	// i think (hope) this is a good place to dump this
+    // DUMBie extension obviously
+    global_event_preload();
+    
 	// Is the forum in maintenance mode? (doesn't apply to administrators.)
 	if (!empty($maintenance) && !allowedTo('admin_forum'))
 	{
@@ -360,6 +367,7 @@ function smf_main()
 		'dlattach' => array('ShowAttachments.php', 'showAttachment'),
 		'editpoll' => array('Poll.php', 'EditPoll'),
 		'editpoll2' => array('Poll.php', 'EditPoll2'),
+		'event' => array('Event.php', 'EventMain'),
 		'findmember' => array('Subs-Auth.php', 'JSMembers'),
 		'groups' => array('Groups.php', 'Groups'),
 		'help' => array('Help.php', 'ShowHelp'),
@@ -461,6 +469,7 @@ function smf_main()
 	if (!empty($actionArray[$_REQUEST['action']][0]))
 		require_once($sourcedir . '/' . $actionArray[$_REQUEST['action']][0]);
 
+	
 	// Do the right thing.
 	$retval = call_helper($actionArray[$_REQUEST['action']][1], true);
 	profileSpanEnd('action');

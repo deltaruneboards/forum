@@ -688,6 +688,7 @@ $txt['unread_topics_visit_none'] = 'No unread topics found since your last visit
 $txt['updated_topics_visit_none'] = 'No updated topics found since your last visit.';
 $txt['unread_topics_all'] = 'All Unread Topics';
 $txt['unread_replies'] = 'Updated Topics';
+$txt["dumb_event_tab"] = 'Current Event';
 
 $txt['who_title'] = 'Who\'s Online';
 $txt['who_and'] = ' and ';

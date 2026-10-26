@@ -215,6 +215,8 @@ function template_html_above()
 function template_body_above()
 {
 	global $context, $settings, $scripturl, $txt, $modSettings, $maintenance, $options;
+	
+	event_precontent();
 
 	// Wrapper div now echoes permanently for better layout options. h1 a is now target for "Go up" links.
 	echo '
@@ -410,6 +412,8 @@ function template_body_above()
 							<li>
 								<a href="', $scripturl, '?action=unreadreplies" title="', $txt['show_unread_replies'], '">', $txt['unread_replies'], '</a>
 							</li>
+							<li>
+							    <a href="', $scripturl, '?action=event;sa=candybox">', $txt["dumb_event_tab"], '</a>
 						</ul>';
 
 	echo '
