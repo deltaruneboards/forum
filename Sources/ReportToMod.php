@@ -133,7 +133,7 @@ function ReportToModerator()
 	var error_box = $("#error_box");
 	$("#report_comment").keyup(function() {
 		var post_too_long = $("#error_post_too_long");
-		if ($(this).val().length > 254)
+		if ($(this).val().length > 65534)
 		{
 			if (post_too_long.length == 0)
 			{
@@ -194,7 +194,7 @@ function ReportToModerator2()
 
 	$poster_comment = strtr($smcFunc['htmlspecialchars']($_POST['comment']), array("\r" => '', "\t" => ''));
 
-	if ($smcFunc['strlen']($poster_comment) > 254)
+	if ($smcFunc['strlen']($poster_comment) > 65534)
 		$post_errors[] = 'post_too_long';
 
 	// Any errors?
