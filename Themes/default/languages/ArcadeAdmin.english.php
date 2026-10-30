@@ -36,30 +36,30 @@ $txt['arcade_uninstall_remove_db_files'] = 'Selecting this option will remove al
 $txt['arcade_confirm_remove_db_files'] = 'This action is not reversable.\r\n\r\nPlease make sure you have a copy of all games files, gamedata files and the database prior to using this option!\r\n\r\nAre you sure you want to remove all game files, directories and database entries for the Arcade?';
 
 // Arcade Main Admin Titles
-$txt['arcade_title_specific_list'] = '<span style="font: italic bold 12px Georgia, serif;">List Settings</span>';
-$txt['arcade_title_specific_skin'] = '<span style="font: italic bold 12px Georgia, serif;">Skin Settings</span>';
-$txt['arcade_title_mobile_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Mobile Skin/List Settings</span>';
-$txt['arcade_title_path_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Path Settings</span>';
-$txt['arcade_title_general_pdl_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Advanced Settings</span>';
-$txt['arcade_title_general_enable'] = '<span style="font: italic bold 12px Georgia, serif;">General Settings</span>';
-$txt['arcade_title_discernible_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Visual Settings</span>';
-$txt['arcade_title_debug_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Debug Logging</span>';
-$txt['arcade_title_posting_settings'] = '<span style="font: italic bold 12px Georgia, serif;">New Game Notifications</span>';
-$txt['arcade_title_upload_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Game Uploading</span>';
-$txt['arcade_title_download_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Game Downloading</span>';
-$txt['arcade_title_report_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Game Reporting</span>';
-$txt['arcade_title_score_settings'] = '<span style="font: italic bold 12px Georgia, serif;">High Score Settings</span>';
-$txt['arcade_title_arena_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Arena Settings</span>';
-$txt['arcade_title_cache_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Cache/Cookie Settings</span>';
-$txt['arcade_title_api_translate_settings'] = '<span style="font: italic bold 12px Georgia, serif;">API Translation Settings</span>';
-$txt['arcade_title_azure_translate_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Azure API V3 Translation Settings</span>';
-$txt['arcade_title_deepL_translate_settings'] = '<span style="font: italic bold 12px Georgia, serif;">DeepL API V2 Translation Settings</span>';
-$txt['arcade_title_cat_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Systemic Category Settings</span>';
-$txt['arcade_title_emulatorjs_gamesettings'] = '<span style="font: italic bold 12px Georgia, serif;">EmulatorJS Game Template Settings</span>';
-$txt['arcade_emulatorjs_console_debug_msg'] = '<span style="font: italic bold 12px Georgia, serif;border: 0.1rem dotted;">All EmulatorJS Settings Enabled</span>';
-$txt['arcade_emulatorjs_console_debug'] = '<span style="font: italic bold 12px Georgia, serif;border: 0.1rem dotted;">Console Debug Enabled</span>';
-$txt['arcade_title_icon_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Systemic Image Settings</span>';
-$txt['arcade_title_navigation_settings'] = '<span style="font: italic bold 12px Georgia, serif;">Navigation Settings</span>';
+$txt['arcade_title_specific_list'] = '<span>List Settings</span>';
+$txt['arcade_title_specific_skin'] = '<span>Skin Settings</span>';
+$txt['arcade_title_mobile_settings'] = '<span>Mobile Skin/List Settings</span>';
+$txt['arcade_title_path_settings'] = '<span>Path Settings</span>';
+$txt['arcade_title_general_pdl_settings'] = '<span>Advanced Settings</span>';
+$txt['arcade_title_general_enable'] = '<span>General Settings</span>';
+$txt['arcade_title_discernible_settings'] = '<span>Visual Settings</span>';
+$txt['arcade_title_debug_settings'] = '<span>Debug Logging</span>';
+$txt['arcade_title_posting_settings'] = '<span>New Game Notifications</span>';
+$txt['arcade_title_upload_settings'] = '<span>Game Uploading</span>';
+$txt['arcade_title_download_settings'] = '<span>Game Downloading</span>';
+$txt['arcade_title_report_settings'] = '<span>Game Reporting</span>';
+$txt['arcade_title_score_settings'] = '<span>High Score Settings</span>';
+$txt['arcade_title_arena_settings'] = '<span>Arena Settings</span>';
+$txt['arcade_title_cache_settings'] = '<span>Cache/Cookie Settings</span>';
+$txt['arcade_title_api_translate_settings'] = '<span>API Translation Settings</span>';
+$txt['arcade_title_azure_translate_settings'] = '<span>Azure API V3 Translation Settings</span>';
+$txt['arcade_title_deepL_translate_settings'] = '<span>DeepL API V2 Translation Settings</span>';
+$txt['arcade_title_cat_settings'] = '<span>Systemic Category Settings</span>';
+$txt['arcade_title_emulatorjs_gamesettings'] = '<span>EmulatorJS Game Template Settings</span>';
+$txt['arcade_emulatorjs_console_debug_msg'] = '<span>All EmulatorJS Settings Enabled</span>';
+$txt['arcade_emulatorjs_console_debug'] = '<span>Console Debug Enabled</span>';
+$txt['arcade_title_icon_settings'] = '<span>Systemic Image Settings</span>';
+$txt['arcade_title_navigation_settings'] = '<span>Navigation Settings</span>';
 
 // Information
 $txt['arcade_status'] = 'Version Information';
@@ -308,7 +308,7 @@ $txt['arcadeAzureSubKeyMsg2'] = 'Current Azure Key #2 Entry: %s';
 $txt['arcadeAzureEndpointMsg'] = 'Current Azure API Endpoint Entry: %s';
 $txt['arcadeAzurePathMsg'] = 'Current Azure API Path Entry: %s';
 $txt['arcadeAzureRegionCodeMsg'] = 'Leave this entry blank if you are using the global region setting.';
-$txt['arcadeAzure'] = 'Register at <a href="https://azure.microsoft.com/en-us/services/cognitive-services/translator/" style="font-weight: bold;font-style: italic;">Azure Translator Service</a> to use their API.';
+$txt['arcadeAzure'] = 'Register at <a href="https://azure.microsoft.com/en-us/services/cognitive-services/translator/">Azure Translator Service</a> to use their API.';
 $txt['arcadeAzureAutoFill'] = '<span style="font-weight: 580;">[Auto-Fill Default API Endpoint & Path Settings]  --></span>';
 
 // Arcade DeepL settings (translation API)
@@ -707,7 +707,7 @@ $txt['arcadeDisableArchive'] = 'Disable Saving Archives In The Download Folder';
 $txt['arcadeDownPass'] = 'Prefix For Restricted Game Files';
 $txt['pdl_DownMax'] = 'Global Daily Download Limit';
 $txt['arcade_MembergroupDownMax'] = 'Daily Download Limit For: %s';
-$txt['arcadeGroupLimits'] = '<span style="font: italic bold 12px Georgia, serif;">Membergroups Daily Download Limit<br />(Highest Precedence || 0 = Unlimited)</span>';
+$txt['arcadeGroupLimits'] = '<span>Membergroups Daily Download Limit<br />(Highest Precedence || 0 = Unlimited)</span>';
 $txt['pdl_DownMax_Info'] = 'This limit will take effect if no membergroup limit exists.<br />[ 0 = unlimited ]';
 $txt['pdl_settings_desc'] = 'Here you can edit SMF Arcade advanced settings.';
 $txt['pdl_admin_settings'] = 'SMF Arcade Advanced Settings';

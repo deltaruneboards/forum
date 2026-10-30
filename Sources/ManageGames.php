@@ -105,32 +105,6 @@ function ManageGames()
 	$context[$context['admin_menu_name']]['tab_data']['title'] = $txt['arcade_manage_games'];
 	$context[$context['admin_menu_name']]['tab_data']['description'] = $txt['arcade_manage_games_desc'];
 	$context['arcade_game_types_search_list']  = !empty($context['arcade_game_types_search_list']) ? $context['arcade_game_types_search_list']  : array();
-	$context['html_headers'] .= '
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
-		});
-	</script>' . (empty($_SESSION['arcade_isMobile']) ? '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin.css?' . $suffixVersion . '" />' : '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin-mobile.css?' . $suffixVersion . '" />');
 
 	$smfVersion = version_compare((!empty($arcadeModSettings['smfVersion']) ? substr($arcadeModSettings['smfVersion'], 0, 3) : '2.0'), '2.1', '<') ? 'v2.0' : 'v2.1';
 	$subActions[$_REQUEST['sa']][0]();

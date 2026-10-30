@@ -334,8 +334,6 @@ function loadArcadeSettings($memID = 0)
 	{
 		$arcadeModSettings['arcadeSkin'] = !empty($arcadeModSettings['arcadeSkin']) ? (int)$arcadeModSettings['arcadeSkin'] : 0;
 		$arcadeModSettings['arcadeList'] = !empty($arcadeModSettings['arcadeList']) ? (int)$arcadeModSettings['arcadeList'] : 0;
-		//$arcadeModSettings['arcadeSkinMobile'] = !empty($arcadeModSettings['arcadeSkinMobile']) ? (int)$arcadeModSettings['arcadeSkinMobile'] : 0;
-		//$arcadeModSettings['arcadeListMobile'] = !empty($arcadeModSettings['arcadeListMobile']) ? (int)$arcadeModSettings['arcadeListMobile'] : 0;
 		$arcadeModSettings['arcade_gz'] = !empty($arcadeModSettings['arcade_gz']) ? $arcadeModSettings['arcade_gz'] : (class_exists('ZipArchive') ? 0 : 1);
 		$changeSettings =  array(
 			'archive_type' => !empty($arcadeSettings['archive_type']) ? $arcadeSettings['archive_type'] : $arcadeModSettings['arcade_gz'],

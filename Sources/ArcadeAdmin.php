@@ -42,25 +42,16 @@ function ArcadeAdmin()
 	$arcadeModSettings['pdl_DownMax'] = empty($arcadeModSettings['pdl_DownMax']) ? '0' : $arcadeModSettings['pdl_DownMax'];
 
 	// Device detection depends on 3rd party PHP classes
-	if (!class_exists('Mobile_Detect'))
-	{
-		require_once($boarddir . '/ArcadeSources/Mobile_Detect.php');
-	}
 	if (!class_exists('Detect'))
 	{
 		require_once($boarddir . '/ArcadeSources/Detect.php');
 	}
 
-	if (class_exists('Mobile_Detect') && class_exists('Detect'))
+	if (class_exists('Detect'))
 	{
-		// Boolean ~ output is true or false
-		$_SESSION['arcade_isMobile'] = Detect::isMobile();
-
 		// String ~ output is "Computer", "Phone" or "Tablet"
 		$_SESSION['arcade_deviceType'] = Detect::deviceType();
 	}
-	$context['html_headers'] .= '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin.css?' . $suffixVersion . '" />';
 
 	if (isset($subActions[$_REQUEST['sa']][1]))
 		isAllowedTo($subActions[$_REQUEST['sa']][1]);
@@ -551,11 +542,6 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 			$("[id^=arcade_emulatorjs_]").css("height", "0rem");
 			$("[id^=arcade_emulatorjs_]").css("position", "absolute");
 			$("[id^=arcade_emulatorjs_]").css("visibility", "hidden");
-			$("[id^=arcade_emulatorjs_]").each(function( index ) {
-				let arcadeCheckBox = $(this).prop("id");
-				$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-				$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-			});
 			$("[id^=arcade_emulatorjs_]").parent().append(\'<input class="arcade_admin_checkbox" title="' . $txt['arcade_emulatorjs_disable_msg'] . '" style="cursor: pointer;" type="checkbox" class="checkbox" checked disabled />\');
 		}
 		function arcadeNavigationButton() {
@@ -585,24 +571,6 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 			arcadeNavigationButton();
 			arcadeAdminEvents();
 			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
 			for (let i = 0; i < coverArtArray.length; ++i) {
 				$("#arcade_coverFullWidth" + coverArtArray[i]).click(function(){
 					if ($(this).prop("checked")) {
@@ -1097,25 +1065,6 @@ function ArcadeAdminSettings($return_config = false)
 		}
 		$(document).ready(function() {
 			arcadeAdminEvents();
-			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
 			arcadeCacheSettings();' . ($arcadeMaxPacket[0] < 0 ? '
 			arcadeMaxPacketDb();' : '') . '
 			arcadeDownloadAdminScript();
@@ -1384,31 +1333,6 @@ function ArcadeAdminPermission($return_config = false)
 	$context['post_url'] = $scripturl . '?action=admin;area=arcade;sa=permission;save';
 	$context['settings_title'] = $txt['arcade_general_permissions'];
 	$context['sub_template'] = 'show_settings';
-	$context['html_headers'] .= '
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
-		});
-	</script>
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin.css?' . $suffixVersion . '" />';
 	arcadePrepareDBSettingContext($config_vars);
 }
 
@@ -1424,30 +1348,6 @@ function ArcadeAdminCategory()
 	$suffixVersion = 'v' . (!empty($arcadeModSettings['arcadeGameTesting']) ? str_pad(dechex(mt_rand(0, 0xFFFFF)), 5, '0', STR_PAD_LEFT) : preg_replace('/[^0-9a-zA-Z]+/', '', $arcadeModSettings['arcadeVersion']));
 	$context[$context['admin_menu_name']]['tab_data']['title'] = $txt['arcade_manage_category'];
 	$context[$context['admin_menu_name']]['tab_data']['description'] = $txt['arcade_manage_category_desc'];
-	$context['html_headers'] .= '
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
-		});
-	</script>';
 
 	$subActions = array(
 		'list' => array('ArcadeCategoryList', 'arcade_admin'),
@@ -1771,30 +1671,6 @@ function ArcadePdlReports($return_config = false)
 		'url' => $scripturl . '?action=arcade;action=admin;area=arcade;sa=pdl_reports;sesc=' . $context['session_id'],
 		'name' => $txt['pdl_admin_reports'],
 	);
-	$context['html_headers'] .= '
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
-		});
-	</script>';
 
 	loadTemplate('ArcadeReports');
 	return;
