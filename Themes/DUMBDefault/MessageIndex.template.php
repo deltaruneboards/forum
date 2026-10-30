@@ -235,7 +235,7 @@ function template_main()
 							<p class="floatleft">
 								', $txt['started_by'], ' ', $topic['first_post']['member']['link'], '
 							</p>
-							', !empty($topic['pages']) ? '<span id="pages' . $topic['first_post']['id'] . '" class="topic_pages">' . $topic['pages'] . '</span>' : '', '' . ($topicDescriptionWhere === 'below' ? '<br>' . $topicDescription : '') . '
+							', !empty($topic['pages']) ? '<span id="pages' . $topic['first_post']['id'] . '" class="topic_pages">' . $topic['pages'] . '</span>' : '', '' . ($topicDescriptionWhere === 'below' ? $topicDescription : '') . '
 						</div><!-- #topic_[first_post][id] -->
 					</div><!-- .info -->
 					<div class="board_stats centertext">
