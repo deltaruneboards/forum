@@ -43,12 +43,10 @@ function template_main()
 		echo '
 			<p>', htmlspecialchars($context['topicinfo']['description']), '</p>';
 
-	echo '
-			<p>', $txt['started_by'], ' ', $context['topic_poster_name'], ', ', $context['topic_started_time'], '</p>';
-
+	//echo '<p>', $txt['started_by'], ' ', $context['topic_poster_name'], ', ', $context['topic_started_time'], '</p>';
+	
 	// Next - Prev
-	echo '
-			<span class="nextlinks floatright">', $context['previous_next'], '</span>';
+	echo '<span class="nextlinks">', $context['previous_next'], '</span>';
 
 	if (!empty($settings['display_who_viewing']))
 	{

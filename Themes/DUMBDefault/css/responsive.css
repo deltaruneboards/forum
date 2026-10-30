@@ -372,6 +372,19 @@
 	}
 
 	/* Display (Topics) */
+	#display_head {
+		display: flex;
+		flex-flow: column wrap;
+		word-wrap: break-word;
+		overflow-wrap: anywhere;
+	}
+	#display_head p {
+		margin-bottom: 1em;
+	}
+	#display_head span {
+		text-align: center;
+	}
+
 	.poster {
 		display: grid;
 		grid-auto-flow: row dense;
