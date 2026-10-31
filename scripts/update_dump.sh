@@ -59,6 +59,7 @@ DELETE FROM smf_breeze_options;
 DELETE FROM smf_breeze_status;
 DELETE FROM smf_calendar;
 DELETE FROM smf_calendar_holidays;
+DELETE FROM smf_eventscore;
 DELETE FROM smf_group_moderators;
 DELETE FROM smf_interestmod;
 DELETE FROM smf_log_actions;
