@@ -46,7 +46,8 @@ function candyBox() {
 				'event' => $event,
 			]
 		);
-		$val = $smcFunc['db_fetch_row']($requestDUMBIE)[0];
+		$scoreRow = $smcFunc['db_fetch_row']($requestDUMBIE);
+		$val = $scoreRow ? $scoreRow[0] : 0;
 		$smcFunc['db_free_result']($requestDUMBIE);
 		$context['page_label'] = sprintf($txt['dumb_event_halloweenself'], $val);
 	}
