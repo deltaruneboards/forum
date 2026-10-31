@@ -1,15 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let click = document.getElementById("trickCandy");
-
-    click.style.top = getRandom(20, window.innerHeight) + "px";
-    click.style.left = getRandom(20, window.innerWidth) + "px";
-    click.style.position = "absolute";
-
-    document.body.insertBefore(click, document.getElementById("wrapper"));
-    
-    console.log("spawned candy");
+	const candy = document.getElementById('trickCandy');
+	const random = (min, max) => Math.random() * (max - min) + min;
+	candy.style.top = `${random(20, window.innerHeight)}px`;
+	candy.style.left = `${random(20, window.innerWidth)}px`;
+	candy.style.display = 'block';
 });
-
-function getRandom(min, max) {
-    return Math.random() * (max - min) + min;
-}
