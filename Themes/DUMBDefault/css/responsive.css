@@ -215,6 +215,10 @@
 		width: auto;
 		max-width: initial;
 	}
+	#inner_wrap .user {
+		display: flex;
+		flex-flow: row wrap;
+	}
 	#languages_form {
 		padding-right: 10px;
 	}
