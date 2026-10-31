@@ -360,6 +360,7 @@ function smf_main()
 		'dlattach' => array('ShowAttachments.php', 'showAttachment'),
 		'editpoll' => array('Poll.php', 'EditPoll'),
 		'editpoll2' => array('Poll.php', 'EditPoll2'),
+		'event' => array('Event.php', 'EventMain'),
 		'findmember' => array('Subs-Auth.php', 'JSMembers'),
 		'groups' => array('Groups.php', 'Groups'),
 		'help' => array('Help.php', 'ShowHelp'),

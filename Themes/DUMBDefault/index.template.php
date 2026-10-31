@@ -216,6 +216,18 @@ function template_body_above()
 {
 	global $context, $settings, $scripturl, $txt, $modSettings, $maintenance, $options;
 
+	if ($context['has_candy'])
+	{
+		[
+			'candy_token' => $candyToken,
+			'candy_token_var' => $candyTokenVar,
+		] = createToken('candy', 'get');
+		echo '<a id="trickCandy" href="', $scripturl, '?action=event&sa=candybox&candy=get&',
+				$candyTokenVar, '=', $candyToken, '">
+				<img src="/assets/special/candy-' . rand(1, 3) . '.png">
+			</a>';
+	}
+
 	// Wrapper div now echoes permanently for better layout options. h1 a is now target for "Go up" links.
 	echo '
 	<div id="top_section">
@@ -409,6 +421,9 @@ function template_body_above()
 							</li>
 							<li>
 								<a href="', $scripturl, '?action=unreadreplies" title="', $txt['show_unread_replies'], '">', $txt['unread_replies'], '</a>
+							</li>
+							<li>
+								<a href="', $scripturl, '?action=event;sa=candybox">', $txt["dumb_event_tab"], '</a>
 							</li>
 						</ul>';
 
