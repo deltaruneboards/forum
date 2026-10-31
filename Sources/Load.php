@@ -1885,8 +1885,11 @@ function loadMemberContext($user, $display_custom_fields = false)
         INNER JOIN {db_prefix}stshop_items nfo ON a.ITEM_ID = nfo.itemid
         LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID
         LEFT JOIN {db_prefix}awards_overrides ovr ON a.ID_AWARD = ovr.ID_AWARD
+        LEFT JOIN {db_prefix}awards_render rnd ON a.ID_AWARD = rnd.ID_AWARD
         WHERE a.ID_AWARDED_MEMBER = {int:userid}
-        ORDER BY ext.sort_order DESC, a.sortorder DESC, nfo.name',
+        AND rnd.rendermode <> 1
+        ORDER BY ext.sort_order DESC, a.sortorder DESC, nfo.name
+        LIMIT 100',
         array(
             'userid' => $profile['id_member'],
         ));

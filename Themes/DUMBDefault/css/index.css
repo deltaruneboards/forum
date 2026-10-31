@@ -4398,6 +4398,7 @@ img.theme_thumbnail {
 	max-height: 90px;
 	max-width: 152px;
 	overflow-y: auto;
+	overflow-x: clip;
 }
 
 .dumb_badge img, .dumb_badge canvas {
