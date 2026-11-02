@@ -18,6 +18,7 @@ $txt['Shop_admin_button'] = 'Seap Admin';
 $txt['Shop_main_home'] = 'Home';
 $txt['Shop_main_buy'] = 'Buy Items';
 $txt['Shop_main_inventory'] = 'Inventory';
+$txt['Shop_main_badgeredir'] = 'BadgeMGMT';
 $txt['Shop_main_stats'] = 'Stats';
 $txt['Shop_main_gift'] = 'Send A Gift';
 $txt['Shop_main_bank'] = 'Bank';

@@ -69,7 +69,13 @@ class Buy
 		$context['items_url'] = $boardurl . Shop::$itemsdir;
 		$context['shop_images_list'] = Images::list();
 		// ... and categories
-		$context['shop_categories_list'] = Database::Get(0, 1000, 'sc.name', 'stshop_categories AS sc', Database::$categories);
+        // doing complex stuff under db::get kinda sucks :(
+        $context['shop_categories_list'] = Database::Get(0, 1000, 'sc.name', 'stshop_categories AS sc', Database::$categories, '
+                                                        WHERE catid IN (
+                                                            SELECT DISTINCT catid
+                                                            FROM {db_prefix}stshop_items
+                                                            WHERE stock > 0
+                                                        )');
 		$context['form_url'] = '?action=shop;sa=buy'. (isset($_REQUEST['cat']) && $_REQUEST['cat'] >= 0 ? ';cat='.$_REQUEST['cat'] : '');
 
 		// The entire list
@@ -86,7 +92,7 @@ class Buy
 			],
 			'get_count' => [
 				'function' => 'Shop\Helper\Database::Count',
-				'params' => ['stshop_items AS s', Database::$items, 'WHERE s.status = 1'. (isset($_REQUEST['cat']) && $_REQUEST['cat'] >= 0 ? ' AND s.catid = {int:cat}' : ''), '', ['cat' => isset($_REQUEST['cat']) ? $_REQUEST['cat'] : 0]],
+				'params' => ['stshop_items AS s', Database::$items, 'WHERE s.status = 1 AND s.stock > 0'. (isset($_REQUEST['cat']) && $_REQUEST['cat'] >= 0 ? ' AND s.catid = {int:cat}' : ''), '', ['cat' => isset($_REQUEST['cat']) ? $_REQUEST['cat'] : 0]],
 			],
 			'no_items_label' => Shop::getText('no_items'),
 			'no_items_align' => 'center',
