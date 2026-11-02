@@ -170,7 +170,6 @@ $txt['Shop_dumb_gamble_gambleheader'] = 'Current loot table:';
 $txt['Shop_dumb_gamble_setting1'] = 'Choose an item or category to add:';
 $txt['Shop_dumb_gamble_setting2'] = 'Weight this item will have, or a negative number to remove it from table';
 $txt['Shop_dumb_gamble_success'] = 'You got item %s!';
-$txt['Shop_dumb_gamble_odds'] = 'Odds for this item';
 // DUMB TextOnly
 $txt['Shop_dumb_texto_name'] = "DUMB TextOnly";
 $txt['Shop_dumb_texto_desc'] = "Displays a string on use";
