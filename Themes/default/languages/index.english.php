@@ -340,6 +340,7 @@ $txt['your_ban_expires_never'] = 'This ban is not set to expire.';
 $txt['ban_continue_browse'] = 'You may continue to browse the forum as a guest.';
 
 $txt['mark_as_read'] = 'Mark ALL messages as read';
+$txt['rss_feed'] = 'RSS Feed';
 
 $txt['locked_topic'] = 'Locked Topic';
 $txt['normal_topic'] = 'Normal Topic';
