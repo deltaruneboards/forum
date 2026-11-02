@@ -35,7 +35,7 @@ class DUMBUsergroup extends Module
         $this->desc = Shop::getText('dumbgroup_desc');
         $this->price = 100;
 
-		$this->require_input = false;
+		$this->require_input = true;
 		$this->can_use_item = true;
 		$this->addInput_editable = true;
     }
@@ -76,6 +76,43 @@ class DUMBUsergroup extends Module
 		}
 	}
 
+    function getUseInput()
+    {
+        global $smcFunc, $user_info;
+
+        $curgroup = $user_info['groups'][0];
+
+        // hardcoded ones since we know some membergroups will be consistent
+        if ($curgroup == 0)
+            return;                             // zero ugroup means there will never be any conflict or special info needed!
+        if ($curgroup == 1 || $curgroup == 2)   // specil message for admins/mods specifically
+            fatal_error(Shop::getText("dumbgroup_admin_use"), false);
+
+        $requestDUMBIE = $smcFunc['db_query']('', '
+            SELECT image, name FROM {db_prefix}stshop_items
+            WHERE info1 = {int:usergroup}
+            AND module = (SELECT id FROM {db_prefix}stshop_modules WHERE file = "DUMBUserGroup")
+            ',
+            ['usergroup' => $curgroup]
+        );
+
+        $title_item = $smcFunc['db_fetch_assoc']($requestDUMBIE);
+        $smcFunc['db_free_result']($requestDUMBIE);
+
+        if (empty($title_item))
+            return Shop::getText('dumbgroup_no_refund');
+
+        return '
+            <dl class="settings">
+                <dt>
+                    ' . Shop::getText("dumbgroup_refund_ex") . '
+                </dt>
+                <dd>
+                    <img src="/shop_items/items/' . $title_item['image'] . '">  ' . $title_item['name'] . '
+                </dd>
+            </dl>';
+    }
+
     function onUse()
     {
 		global $user_info, $sourcedir, $smcFunc;
@@ -86,28 +123,28 @@ class DUMBUsergroup extends Module
 		// Check sesh
 		checkSession();
 
-        // if the current member is not in any membergroups we dont need to do any checks
-        // to refund any items
+        $curgroup = $user_info['groups'][0];
 
-        if ($user_info['groups'][0] > 0) {
+        // not sure how exactly they got past the use screen error but sure...
+        if ($curgroup == 1 || $curgroup == 2)
+            fatal_error(Shop::getText("dumbgroup_admin_use"), false);
+
+        if ($curgroup > 0) {
             $requestDUMBIE = $smcFunc['db_query']('', '
                 SELECT itemid FROM {db_prefix}stshop_items
-                WHERE info1 = (SELECT id_group FROM {db_prefix}members WHERE id_member = {int:user_id})
+                WHERE info1 = {int:curgroup}
                 AND module = (SELECT id FROM {db_prefix}stshop_modules WHERE file = "DUMBUserGroup")
                 ',
-                ['user_id' => $user_info['id']]
+                ['curgroup' => $curgroup]
             );
 
             $title_item = $smcFunc['db_fetch_row']($requestDUMBIE);
             $smcFunc['db_free_result']($requestDUMBIE);
 
-            if (empty($title_item)) {
-                return '
-                    <div class="infobox">
-                        ' . Shop::getText('dumbgroup_noitem') . '
-                    </div>';
-            }
-            else {
+            // we explicitly warn the user in the use menu if they wont get something back
+            // so its cool if we just dont handle the case they dont
+            if (!empty($title_item)) 
+            {
                 // see me complaining about this in DUMBBadgeRM
                 $smcFunc['db_query']('', '
                     INSERT INTO {db_prefix}stshop_inventory
@@ -127,9 +164,9 @@ class DUMBUsergroup extends Module
                         'count' => 1,
                         'date' => time(),
                         'msg' => 'title removal'
-                    ));
-                }
+                ));
             }
+        }
 
 		// Add user to the group
         // overriding the existing primary group
