@@ -78,13 +78,11 @@ function topic_descriptions_post_JavascriptModify(array &$post_errors): void
 		$max_descriptionLength = min(!empty($modSettings['topic_descriptions_maxlen']) ? (int) $modSettings['topic_descriptions_maxlen'] : 25, 140);
 		if ($smcFunc['strlen']($_POST['description']) > $max_descriptionLength)
 		{
+			loadLanguage('TopicDescriptions');
 			$txt['error_long_description'] = sprintf($txt['error_long_description'], $max_descriptionLength);
 			$post_errors[] = 'long_description';
 			unset($_POST['description']);
 		}
-
-		// Maximum number of bytes allowed.
-		$_POST['description'] = $smcFunc['truncate']($_POST['description'], 0, 255);
 	}
 }
 
