@@ -99,6 +99,7 @@ function candyBox() {
 function event_load_theme() {
 	global $context, $user_info;
 
+	return;
 	$context['has_candy'] = false;
 	if ($user_info['is_guest'] || ($_GET['action'] ?? '') === 'event')
 		return;
