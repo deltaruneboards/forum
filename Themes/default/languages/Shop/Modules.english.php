@@ -156,7 +156,6 @@ $txt['Shop_dumbgroup_name'] = 'Grant Title';
 $txt['Shop_dumbgroup_desc'] = 'Grants a specified title';
 $txt['Shop_dumbgroup_no_refund'] = 'No item found that grants your usergroup. You can still use the item to change your usergroup, but you will not get a refund for your existing group.';
 $txt['Shop_dumbgroup_refund_ex'] = 'Using this will also return the following items:';
-$txt['Shop_dumbgroup_noitem'] = 'No item found that corresponds to your usergroup. You may be in an exclusive usergroup that can not be easily replaced, or are a moderator or admin. Please contact admins to get your usergroup changed.';
 $txt['Shop_dumbgroup_admin_use'] = 'This item will deadmin you if used!';
 // DUMB Interest
 $txt['Shop_dumb_interest_name'] = 'Interest Modifier';
