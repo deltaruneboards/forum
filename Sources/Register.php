@@ -9,10 +9,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -501,7 +501,7 @@ function Register2()
 			// Any masks to apply?
 			if ($row['field_type'] == 'text' && !empty($row['mask']) && $row['mask'] != 'none')
 			{
-				if ($row['mask'] == 'email' && (!filter_var($value, FILTER_VALIDATE_EMAIL) || strlen($value) > 255))
+				if ($row['mask'] == 'email' && (!filter_var($value, FILTER_VALIDATE_EMAIL) || filter_var($value, FILTER_SANITIZE_EMAIL) !== $value || strlen($value) > 255))
 					$custom_field_errors[] = array('custom_field_invalid_email', array($row['field_name']));
 				elseif ($row['mask'] == 'number' && preg_match('~[^\d]~', $value))
 					$custom_field_errors[] = array('custom_field_not_number', array($row['field_name']));
@@ -650,7 +650,7 @@ function Activate()
 		if (empty($modSettings['registration_method']) || $modSettings['registration_method'] == 3)
 			fatal_lang_error('no_access', false);
 
-		if (!filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL))
+		if (!filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL) || filter_var($_POST['new_email'], FILTER_SANITIZE_EMAIL) !== $_POST['new_email'])
 			fatal_error(sprintf($txt['valid_email_needed'], $smcFunc['htmlspecialchars']($_POST['new_email'])), false);
 
 		// Make sure their email isn't banned.
@@ -904,7 +904,12 @@ function VerificationCode()
  */
 function RegisterCheckUsername()
 {
-	global $sourcedir, $context;
+	global $sourcedir, $context, $scripturl, $cookiename, $smcFunc;
+
+	// Who are you again?
+	if (empty($_COOKIE) || empty($_COOKIE[$cookiename]) || empty($_SERVER['HTTP_REFERER']) || stripos($_SERVER['HTTP_REFERER'], $scripturl) !== 0) {
+		send_http_status(403);
+	}
 
 	// This is XML!
 	loadTemplate('Xml');
@@ -917,6 +922,7 @@ function RegisterCheckUsername()
 
 	require_once($sourcedir . '/Subs-Auth.php');
 	$errors = validateUsername(0, $context['checked_username'], true);
+	$context['checked_username'] = $smcFunc['htmlspecialchars']($context['checked_username']);
 
 	$context['valid_username'] = empty($errors);
 }

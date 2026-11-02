@@ -53,10 +53,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2022 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.3
+ * @version 2.1.8
  */
 
 use SMF\Cache\CacheApi;
@@ -939,7 +939,7 @@ function ModifyLoadBalancingSettings($return_config = false)
 		$modSettings['load_average'] = @file_get_contents('/proc/loadavg');
 		if (!empty($modSettings['load_average']) && preg_match('~^([^ ]+?) ([^ ]+?) ([^ ]+)~', $modSettings['load_average'], $matches) !== 0)
 			$modSettings['load_average'] = (float) $matches[1];
-		elseif (($modSettings['load_average'] = @`uptime`) !== null && preg_match('~load averages?: (\d+\.\d+), (\d+\.\d+), (\d+\.\d+)~i', $modSettings['load_average'], $matches) !== 0)
+		elseif (($modSettings['load_average'] = @shell_exec('uptime')) !== null && preg_match('~load averages?: (\d+\.\d+), (\d+\.\d+), (\d+\.\d+)~i', $modSettings['load_average'], $matches) !== 0)
 			$modSettings['load_average'] = (float) $matches[1];
 		else
 			unset($modSettings['load_average']);
@@ -1839,35 +1839,25 @@ function registerSMStats()
 	if (!empty($modSettings['sm_stats_key']))
 		return true;
 
-	$fp = @fsockopen('www.simplemachines.org', 443, $errno, $errstr);
-	if (!$fp)
-		$fp = @fsockopen('www.simplemachines.org', 80, $errno, $errstr);
-	if ($fp)
+	$data = fetch_web_data('https://www.simplemachines.org/smf/stats/register_stats.php?site=' . base64_encode($boardurl));
+
+	// Try one more time, this time without https.
+	if (empty($data)) {
+		$data = fetch_web_data('http://www.simplemachines.org/smf/stats/collect_stats.php?site=' . base64_encode($boardurl));
+	}
+
+	// Get the unique site ID.
+	preg_match('~SITE-ID:\s(\w{10})~', $data, $ID);
+
+	if (!empty($ID[1]))
 	{
-		$out = 'GET /smf/stats/register_stats.php?site=' . base64_encode($boardurl) . ' HTTP/1.1' . "\r\n";
-		$out .= 'Host: www.simplemachines.org' . "\r\n";
-		$out .= 'Connection: Close' . "\r\n\r\n";
-		fwrite($fp, $out);
-
-		$return_data = '';
-		while (!feof($fp))
-			$return_data .= fgets($fp, 128);
-
-		fclose($fp);
-
-		// Get the unique site ID.
-		preg_match('~SITE-ID:\s(\w{10})~', $return_data, $ID);
-
-		if (!empty($ID[1]))
-		{
-			$smcFunc['db_insert']('replace',
-				'{db_prefix}settings',
-				array('variable' => 'string', 'value' => 'string'),
-				array('sm_stats_key', $ID[1]),
-				array('variable')
-			);
-			return true;
-		}
+		$smcFunc['db_insert']('replace',
+			'{db_prefix}settings',
+			array('variable' => 'string', 'value' => 'string'),
+			array('sm_stats_key', $ID[1]),
+			array('variable')
+		);
+		return true;
 	}
 
 	return false;

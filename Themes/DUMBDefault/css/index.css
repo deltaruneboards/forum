@@ -34,11 +34,12 @@ body.color-scheme-light {
 	--pri-bg-color: #e9e9e9;
 	--sec-bg-color: #c3c3c3;
 	--ter-bg-color: #B0B0B0;
-	--txt-color: #3b3b3b;
-	--txt-color-off: #3b3b3b85;
+	--txt-color: #111;
+	--txt-color-off: #3b3b3b;
 	--skeuomorphism-end-color: #b9b9b9;
 	--skeuomorphism: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
 	--skeuomorphism-header: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
+	
 	--poll-color: #ffbf2f;
 	--border-color: #878787;
 
@@ -62,11 +63,12 @@ body.color-scheme-light {
 		--pri-bg-color: #e9e9e9;
 		--sec-bg-color: #c3c3c3;
 		--ter-bg-color: #B0B0B0;
-		--txt-color: #3b3b3b;
-		--txt-color-off: #3b3b3b85;
+		--txt-color: #111;
+		--txt-color-off: #3b3b3b;
 		--skeuomorphism-end-color: #b9b9b9;
 		--skeuomorphism: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
 		--skeuomorphism-header: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
+		
 		--poll-color: #ffbf2f;
 		--border-color: #878787;
 
@@ -2536,9 +2538,18 @@ dl {
 
 /* Signature preview */
 
-#preview_signature, #preview_signature_display {
-	width: 100%;
-	overflow: hidden;
+dt#preview_signature, dt#current_signature {
+	margin: 0;
+	margin-left: 12px;
+	width: 175px;
+}
+
+dd#preview_signature_display, dd#current_signature_display {
+	margin: 0;
+	margin-right: 12px;
+	padding: 0;
+	padding-left: 0.5em;
+	width: calc(100% - 175px - 12px - 12px);
 }
 
 /* Issue a warning */
@@ -2921,14 +2932,12 @@ dl.addrules dt.floatleft {
 /* Highlight the target item */
 .windowbg:target {
 	background: var(--ter-bg-color);
-	color: var(--accent-label-color-ter);
 }
 
 /* Add some hover on table rows */
 tr.windowbg:hover,
 tr.windowbg:hover a,
 tr.windowbg:hover a:visited {
-	color: var(--accent-label-color-ter);
 	background: var(--ter-color);
 }
 
@@ -3232,6 +3241,7 @@ span.postby {
 #topic_container .windowbg_recent {
 	display: grid;
 	grid-template-columns: 4% 76% 20% 0%;
+	border: 1px solid var(--border-color);
 	place-items: stretch;
 	place-content: stretch;
 }
@@ -4110,12 +4120,19 @@ h3.profile_hd::before,
 	background-image: var(--skeuomorphism-header);
 	clear: both;
 	margin: -7px 0 15px 0;
+	display:grid;
+    grid-template-columns: 3fr 1fr;
 }
 #display_head p {
-	display: none;
+	grid-column: 1 / 3;
+	grid-row: 2;
+    word-wrap: break-word;
+    color: var(--txt-color-off);
+	font-size: smaller;
 }
 #display_head span {
 	margin: -4px 0 0 0;
+	justify-self: end;
 }
 .display_title {
 	display: inline-block;
@@ -4383,36 +4400,36 @@ img.theme_thumbnail {
 	overflow-y: auto;
 }
 
-.dumb_badge img {
+.dumb_badge img, .dumb_badge canvas {
 	align-self: center;
 	flex: 0 0 auto;
-	padding: 1px;
+	margin: 1px;
 }
 
-img[src*="NPC_SING_BLANK.png"] {
+img[src*="ENEMY_SILENT_BLANK.png"] {
 	width: 16px;
 	height: 16px;
 	padding: 0px;
-	background-image: url("https://deltaruneboards.net/assets/items/ENEMY_SILENT.png");
+	background-image: url("/assets/items/ENEMY_SILENT.png");
 }
 	
-img[src*="NPC_SING_BLANK.png"]:hover {
+img[src*="ENEMY_SILENT_BLANK.png"]:hover {
 	width: 16px;
 	height: 16px;
 	padding: 0px;
-	background-image: url("https://deltaruneboards.net/assets/items/ENEMY_SILENT_2.png");
+	background-image: url("/assets/items/ENEMY_SILENT_2.png");
 }
 	
 img[src*="NPC_CACTUS_BLANK.png"] {
 	width: 14px;
 	height: 16px;
 	padding: 0px;
-	background-image: url("https://deltaruneboards.net/assets/items/NPC_CACTUS.png");
+	background-image: url("/assets/items/NPC_CACTUS.png");
 }
 	
 img[src*="NPC_CACTUS_BLANK.png"]:hover {
 	width: 14px;
 	height: 16px;
 	padding: 0px;
-	background-image: url("https://deltaruneboards.net/assets/items/NPC_CACTUS_1.png");
+	background-image: url("/assets/items/NPC_CACTUS_1.png");
 }

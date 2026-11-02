@@ -42,37 +42,16 @@ function ArcadeAdmin()
 	$arcadeModSettings['pdl_DownMax'] = empty($arcadeModSettings['pdl_DownMax']) ? '0' : $arcadeModSettings['pdl_DownMax'];
 
 	// Device detection depends on 3rd party PHP classes
-	if (!class_exists('Mobile_Detect'))
-	{
-		require_once($boarddir . '/ArcadeSources/Mobile_Detect.php');
-	}
 	if (!class_exists('Detect'))
 	{
 		require_once($boarddir . '/ArcadeSources/Detect.php');
 	}
 
-	if (class_exists('Mobile_Detect') && class_exists('Detect'))
+	if (class_exists('Detect'))
 	{
-		// Boolean ~ output is true or false
-		$_SESSION['arcade_isMobile'] = Detect::isMobile();
-
 		// String ~ output is "Computer", "Phone" or "Tablet"
 		$_SESSION['arcade_deviceType'] = Detect::deviceType();
 	}
-	$context['html_headers'] .= '
-	<script src="' . $settings['default_theme_url'] . '/arcade_scripts/arcadeMobileDetect.js?' . $suffixVersion . '"></script>' . (empty($_SESSION['arcade_isMobile']) ? '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin.css?' . $suffixVersion . '" />' : '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin-mobile.css?' . $suffixVersion . '" />');
-
-	if (!empty($_SESSION['arcade_isMobile']) && $context['arcade_smf_version'] !== 'v2.1')
-		$context['html_headers'] .= '
-	<meta name="viewport" content="width=device-width, maximum-scale=1.0">';
-
-	/*
-	if (!empty($_SESSION['arcade_isMobile']))
-		$context['html_headers'] .= '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-mobile.css?' . $suffixVersion . '" />';
-	*/
 
 	if (isset($subActions[$_REQUEST['sa']][1]))
 		isAllowedTo($subActions[$_REQUEST['sa']][1]);
@@ -139,15 +118,13 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 	$arcadeModSettings['arcadeGamesNameLength'] = !empty($arcadeModSettings['arcadeGamesNameLength']) ? $arcadeModSettings['arcadeGamesNameLength'] : 100;
 	$arcadeModSettings['arcadeGamesNameLengthA'] = !empty($arcadeModSettings['arcadeGamesNameLengthA']) ? $arcadeModSettings['arcadeGamesNameLengthA'] : 100;
 	$arcadeModSettings['arcadeGamesNameLengthB'] = !empty($arcadeModSettings['arcadeGamesNameLengthB']) ? $arcadeModSettings['arcadeGamesNameLengthB'] : 100;
-	list($custom_skin_vars, $customMobileLists, $customMobileSkins, $customArcadeSkins, $customArcadeLists, $customSkins, $customLists, $mobileSkins, $mobileLists, $checkRar) = array(array(), array(), array(), array(), array(), array(), array(), array(), array(), false);
+	list($custom_skin_vars, $customArcadeSkins, $customArcadeLists, $customSkins, $customLists, $checkRar) = array(array(), array(), array(), array(), array(), array(), false);
 	$php_OS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? $txt['arcadeShowOS'][1] : $txt['arcadeShowOS'][0];
 	$arcadeRarText = ("<div style=\"display: inline;\" id=\"rarIndex\">" . sprintf($txt['arcadeDownloadRarNotDetected'], $php_OS) . "</div>");
 	$customArcadeSkins = Arcade_integrate_skins('desktop', true, 0);
 	$customArcadeLists = Arcade_integrate_lists('desktop', true, 0);
-	$customMobileLists = Arcade_integrate_lists('mobile', true, 0);
-	$customMobileSkins = Arcade_integrate_skins('mobile', true, 0);
-	list($skinConfigs, $listConfigs, $mobileSkinConfigs, $mobileListConfigs, $skin_settings) = array(array(), array(), array(), array(), array());
-	list($customSkins, $mobileSkins, $customLists, $mobileLists, $custom_settings) = array(array(), array(), array(), array(), array());
+	list($skinConfigs, $listConfigs, $skin_settings) = array(array(), array(), array());
+	list($customSkins, $customLists, $custom_settings) = array(array(), array(), array());
 
 	foreach($customArcadeSkins as $skin)
 	{
@@ -161,20 +138,6 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 					$skinConfigs[$skin['id_skin']]['admin_vars'] = $skin['admin_function']();
 			}
 			$customSkins[$skin['id_skin']] = !empty($txt[$skin['skin_name']]) ? $txt[$skin['skin_name']] : $skin['skin_name'];
-		}
-	}
-	foreach($customMobileSkins as $skin)
-	{
-		if (!empty($skin['id_skin']) && $skin['id_skin'] > 2) {
-			if (!empty($skin['skin_source_file']) && file_exists($boarddir . '/ArcadeSources/' . $skin['skin_source_file'])) {
-				require_once($boarddir . '/ArcadeSources/' . $skin['skin_source_file']);
-				if (!empty($skin['lang_function']) && function_exists($skin['lang_function'])) {
-					$skin['lang_function']();
-				}
-				if (!empty($skin['admin_function']) && function_exists($skin['admin_function']))
-					$mobileSkinConfigs[$skin['id_skin']]['admin_vars'] = $skin['admin_function']();
-			}
-			$mobileSkins[$skin['id_skin']] = !empty($txt[$skin['skin_name']]) ? $txt[$skin['skin_name']] : $skin['skin_name'];
 		}
 	}
 	foreach($customArcadeLists as $list)
@@ -191,20 +154,6 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 			$customLists[$list['id_list']] = !empty($txt[$list['list_name']]) ? $txt[$list['list_name']] : $list['list_name'];
 		}
 
-	}
-	foreach($customMobileLists as $list)
-	{
-		if (!empty($list['id_list']) && $list['id_list'] > 2) {
-			if (!empty($list['list_source_file']) && file_exists($boarddir . '/ArcadeSources/' . $list['list_source_file'])) {
-				require_once($boarddir . '/ArcadeSources/' . $list['list_source_file']);
-				if (!empty($list['lang_function']) && function_exists($list['lang_function'])) {
-					$list['lang_function']();
-				}
-				if (!empty($list['admin_function']) && function_exists($list['admin_function']))
-					$mobileListConfigs[$list['id_skin']]['admin_vars'] = $list['admin_function']();
-			}
-			$mobileLists[$list['id_list']] = !empty($txt[$list['list_name']]) ? $txt[$list['list_name']] : $list['list_name'];
-		}
 	}
 
 	$discernible_settings = array(
@@ -358,12 +307,6 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 		'',
 			array('message', 'arcade_title_mobile_settings'),
 		'',
-			array('select', 'arcadeSkinMobile',
-				array_merge(array($txt['arcade_skin_mobile_generic'], $txt['arcade_skin_mobile0']), $mobileSkins)
-			),
-			array('select', 'arcadeListMobile',
-				array_merge(array($txt['arcade_list_mobile_generic'], $txt['arcade_list_mobile0']), $mobileLists)
-			),
 	);
 
 	$list_select = array(
@@ -386,9 +329,7 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 		'',
 	);
 
-	// add possible custom mobile & regular skin/list admin settings
-	$custom_settings = !empty($mobileSkinConfigs) ? array_merge($custom_settings, array(''), $mobileSkinConfigs) : $custom_settings;
-	$custom_settings = !empty($mobileListConfigs) ? array_merge($custom_settings, array(''), $mobileListConfigs) : $custom_settings;
+	// add possible custom regular skin/list admin settings
 	$custom_settings = !empty($listConfigs) ? array_merge($custom_settings, array(''), $listConfigs) : $custom_settings;
 	$custom_settings = !empty($skinConfigs) ? array_merge($custom_settings, array(''), $skinConfigs) : $custom_settings;
 	$custom_settings = array_merge($custom_settings, $skin_select);
@@ -601,11 +542,6 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 			$("[id^=arcade_emulatorjs_]").css("height", "0rem");
 			$("[id^=arcade_emulatorjs_]").css("position", "absolute");
 			$("[id^=arcade_emulatorjs_]").css("visibility", "hidden");
-			$("[id^=arcade_emulatorjs_]").each(function( index ) {
-				let arcadeCheckBox = $(this).prop("id");
-				$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-				$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-			});
 			$("[id^=arcade_emulatorjs_]").parent().append(\'<input class="arcade_admin_checkbox" title="' . $txt['arcade_emulatorjs_disable_msg'] . '" style="cursor: pointer;" type="checkbox" class="checkbox" checked disabled />\');
 		}
 		function arcadeNavigationButton() {
@@ -635,24 +571,6 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 			arcadeNavigationButton();
 			arcadeAdminEvents();
 			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
 			for (let i = 0; i < coverArtArray.length; ++i) {
 				$("#arcade_coverFullWidth" + coverArtArray[i]).click(function(){
 					if ($(this).prop("checked")) {
@@ -676,7 +594,6 @@ function ArcadeAdminDiscernibleSettings($return_config = false)
 					}
 				});
 			}
-			$("#arcadeListMobile, #arcadeSkinMobile").css({"min-width":"50%"});
 			arcadeListenSettings();
 			arcadeShoutboxSettings();' . (!empty($arcadeModSettings['arcade_log_emulatorjs_console']) ? '
 			arcadeConsoleDebugMode();' : '') . '
@@ -1148,25 +1065,6 @@ function ArcadeAdminSettings($return_config = false)
 		}
 		$(document).ready(function() {
 			arcadeAdminEvents();
-			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
 			arcadeCacheSettings();' . ($arcadeMaxPacket[0] < 0 ? '
 			arcadeMaxPacketDb();' : '') . '
 			arcadeDownloadAdminScript();
@@ -1435,32 +1333,6 @@ function ArcadeAdminPermission($return_config = false)
 	$context['post_url'] = $scripturl . '?action=admin;area=arcade;sa=permission;save';
 	$context['settings_title'] = $txt['arcade_general_permissions'];
 	$context['sub_template'] = 'show_settings';
-	$context['html_headers'] .= '
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
-		});
-	</script>' . (empty($_SESSION['arcade_isMobile']) ? '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin.css?' . $suffixVersion . '" />' : '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin-mobile.css?' . $suffixVersion . '" />');
 	arcadePrepareDBSettingContext($config_vars);
 }
 
@@ -1476,32 +1348,6 @@ function ArcadeAdminCategory()
 	$suffixVersion = 'v' . (!empty($arcadeModSettings['arcadeGameTesting']) ? str_pad(dechex(mt_rand(0, 0xFFFFF)), 5, '0', STR_PAD_LEFT) : preg_replace('/[^0-9a-zA-Z]+/', '', $arcadeModSettings['arcadeVersion']));
 	$context[$context['admin_menu_name']]['tab_data']['title'] = $txt['arcade_manage_category'];
 	$context[$context['admin_menu_name']]['tab_data']['description'] = $txt['arcade_manage_category_desc'];
-	$context['html_headers'] .= '
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
-		});
-	</script>' . (empty($_SESSION['arcade_isMobile']) ? '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin.css?' . $suffixVersion . '" />' : '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin-mobile.css?' . $suffixVersion . '" />');
 
 	$subActions = array(
 		'list' => array('ArcadeCategoryList', 'arcade_admin'),
@@ -1825,32 +1671,6 @@ function ArcadePdlReports($return_config = false)
 		'url' => $scripturl . '?action=arcade;action=admin;area=arcade;sa=pdl_reports;sesc=' . $context['session_id'],
 		'name' => $txt['pdl_admin_reports'],
 	);
-	$context['html_headers'] .= '
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("input:checkbox").addClass("arcade_admin_checkbox");
-			$(".arcade_admin_checkbox").each(function( index ) {
-				if ($(this).prop("checked")) {
-					let arcadeCheckBox = $(this).prop("id");
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-			});
-			$(".arcade_admin_checkbox").click(function(){
-				let arcadeCheckBox = $(this).prop("id");
-				if ($(this).prop("checked")) {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "bolder");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "oblique 23deg");
-				}
-				else {
-					$("label[for=" + arcadeCheckBox + "]").css("font-weight", "initial");
-					$("label[for=" + arcadeCheckBox + "]").css("font-style", "initial");
-				}
-			});
-		});
-	</script>' . (empty($_SESSION['arcade_isMobile']) ? '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin.css?' . $suffixVersion . '" />' : '
-	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-admin-mobile.css?' . $suffixVersion . '" />');
 
 	loadTemplate('ArcadeReports');
 	return;

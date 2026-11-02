@@ -90,12 +90,14 @@ function template_html_above()
 	loadJavaScriptFile('bbcode.js', ['minimize' => true]);
 	loadJavaScriptFile('goHome.js', ['minimize' => true]);
 	loadJavaScriptFile('specialTitles.js', ['minimize' => true]);
+	loadJavaScriptFile('freezeframe.js', ['minimize' => true]);
 	loadCSSFile('fonts.css', ['minimize' => true]);
 	loadCSSFile('bbcode.css', ['minimize' => true]);
 	loadCSSFile('banner.css', ['minimize' => true]);
 	loadCSSFile('tags.css', ['minimize' => true]);
 	loadCSSFile('groups.css', ['minimize' => true]);
 	loadCSSFile('randChar.css', ['minimize' => true]);
+	loadCSSFile('arcade.css', ['minimize' => true]);
 
 	// Show right to left, the language code, and the character set for ease of translating.
 	echo '<!DOCTYPE html>
@@ -213,6 +215,18 @@ function template_html_above()
 function template_body_above()
 {
 	global $context, $settings, $scripturl, $txt, $modSettings, $maintenance, $options;
+
+	// if ($context['has_candy'])
+	// {
+	// 	[
+	// 		'candy_token' => $candyToken,
+	// 		'candy_token_var' => $candyTokenVar,
+	// 	] = createToken('candy', 'get');
+	// 	echo '<a id="trickCandy" href="', $scripturl, '?action=event&sa=candybox&candy=get&',
+	// 			$candyTokenVar, '=', $candyToken, '">
+	// 			<img src="/assets/special/candy-' . rand(1, 3) . '.png">
+	// 		</a>';
+	// }
 
 	// Wrapper div now echoes permanently for better layout options. h1 a is now target for "Go up" links.
 	echo '
@@ -509,7 +523,11 @@ function template_body_below()
 */
 function template_html_below()
 {
+	global $options;
 	// Load in any javascipt that could be deferred to the end of the page
+	if (array_key_exists('cust_disabl', $options)) {
+		echo '<script>freezeFrame();</script>';
+	}
 	template_javascript(true);
 
 	echo '

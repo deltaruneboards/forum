@@ -8,10 +8,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2022 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.2
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -217,6 +217,11 @@ function ModifyBasicSettings($return_config = false)
 		// Statistics.
 		array('check', 'trackStats'),
 		array('check', 'hitStats'),
+		'',
+
+		// Guest stats
+		array('check', 'no_guest_logging'),
+		array('check', 'no_guest_views'),
 		'',
 
 		// Option-ish things... miscellaneous sorta.

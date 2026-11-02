@@ -75,6 +75,8 @@ class Home
 			'search2' => 'Inventory::search_inventory',
 			'invuse' => 'Inventory::use',
 			'invused' => 'Inventory::used',
+            'invdel' => 'Inventory::invdelete',
+            'invdeleted' => 'Inventory::invdeleted',
 			'invfav' => 'Inventory::fav',
 			'owners' => 'Inventory::owners',
 			'invdisp' => 'Inventory::display_extend',

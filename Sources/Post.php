@@ -8,10 +8,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -1938,9 +1938,13 @@ function Post2()
 			SELECT id_member, poster_name, poster_email, poster_time, approved
 			FROM {db_prefix}messages
 			WHERE id_msg = {int:id_msg}
+				AND id_topic = {int:id_topic}
+				AND id_board = {int:id_board}
 			LIMIT 1',
 			array(
 				'id_msg' => $_REQUEST['msg'],
+				'id_topic' => $topic,
+				'id_board' => $board,
 			)
 		);
 		if ($smcFunc['db_num_rows']($request) == 0)
@@ -2069,7 +2073,7 @@ function Post2()
 			{
 				if (!allowedTo('moderate_forum') && (!isset($_POST['email']) || $_POST['email'] == ''))
 					$post_errors[] = 'no_email';
-				if (!allowedTo('moderate_forum') && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+				if (!allowedTo('moderate_forum') && (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) !== $_POST['email']))
 					$post_errors[] = 'bad_email';
 			}
 
@@ -2105,11 +2109,6 @@ function Post2()
 		if ($user_info['is_guest'])
 			$user_info['name'] = $_POST['guestname'];
 		preparsecode($_POST['message']);
-
-		// Let's see if there's still some content left without the tags.
-		if ($smcFunc['htmltrim'](strip_tags(parse_bbc($_POST['message'], false), implode('', $context['allowed_html_tags']))) === '' && (!allowedTo('bbc_html') || strpos($_POST['message'], '[html]') === false))
-			$post_errors[] = 'no_message';
-
 	}
 	if (isset($_POST['calendar']) && !isset($_REQUEST['deleteevent']) && $smcFunc['htmltrim']($_POST['evtitle']) === '')
 		$post_errors[] = 'no_event';
@@ -2139,9 +2138,11 @@ function Post2()
 		$_POST['options'] = empty($_POST['options']) ? array() : htmltrim__recursive($_POST['options']);
 
 		// Get rid of empty ones.
-		foreach ($_POST['options'] as $k => $option)
+		foreach ($_POST['options'] as $k => &$option) {
+			preparsecode($option);
 			if ($option == '')
 				unset($_POST['options'][$k], $_POST['options'][$k]);
+		}
 
 		// What are you going to vote between with one choice?!?
 		if (count($_POST['options']) < 2)
@@ -2400,6 +2401,7 @@ function Post2()
 		'body' => $_POST['message'],
 		'icon' => preg_replace('~[\./\\\\*:"\'<>]~', '', $_POST['icon']),
 		'smileys_enabled' => !isset($_POST['ns']),
+		'sig_enabled' => isset($_POST['showsig']) ? 1 : 0,
 		'description' => $form_description,
 		'attachments' => empty($attachIDs) ? array() : $attachIDs,
 		'approved' => $becomesApproved,

@@ -7,10 +7,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -1668,7 +1668,7 @@ function buildEventDatetimes($row)
 
 	// Datetime string without timezone  (e.g. '2016-12-28 22:45:30')
 	$start['datetime'] = date_format($start_object, 'Y-m-d H:i:s');
-	$end['datetime'] = date_format($start_object, 'Y-m-d H:i:s');
+	$end['datetime'] = date_format($end_object, 'Y-m-d H:i:s');
 
 	// ISO formatted datetime string, relative to UTC (e.g. '2016-12-29T05:45:30+00:00')
 	$start['iso_gmdate'] = gmdate('c', $start['timestamp']);

@@ -334,8 +334,6 @@ function loadArcadeSettings($memID = 0)
 	{
 		$arcadeModSettings['arcadeSkin'] = !empty($arcadeModSettings['arcadeSkin']) ? (int)$arcadeModSettings['arcadeSkin'] : 0;
 		$arcadeModSettings['arcadeList'] = !empty($arcadeModSettings['arcadeList']) ? (int)$arcadeModSettings['arcadeList'] : 0;
-		$arcadeModSettings['arcadeSkinMobile'] = !empty($arcadeModSettings['arcadeSkinMobile']) ? (int)$arcadeModSettings['arcadeSkinMobile'] : 0;
-		$arcadeModSettings['arcadeListMobile'] = !empty($arcadeModSettings['arcadeListMobile']) ? (int)$arcadeModSettings['arcadeListMobile'] : 0;
 		$arcadeModSettings['arcade_gz'] = !empty($arcadeModSettings['arcade_gz']) ? $arcadeModSettings['arcade_gz'] : (class_exists('ZipArchive') ? 0 : 1);
 		$changeSettings =  array(
 			'archive_type' => !empty($arcadeSettings['archive_type']) ? $arcadeSettings['archive_type'] : $arcadeModSettings['arcade_gz'],
@@ -352,19 +350,13 @@ function loadArcadeSettings($memID = 0)
 	}
 
 	list($customArcadeSkins, $customMobileSkins, $customArcadeLists, $customMobileLists, $default, $custom) = array(array(), array(), array(), array(), array(), array());
-	list($default['skin'], $default['skin_rom'], $default['skin_mobile'], $default['list'], $default['list_rom'], $default['list_mobile'], $ds, $dms, $cl, $cml) = array($arcadeModSettings['arcadeSkin']+1, $arcadeModSettings['arcadeSkin']+1, $arcadeModSettings['arcadeSkinMobile']+1, $arcadeModSettings['arcadeList']+1, $arcadeModSettings['arcadeList']+1, $arcadeModSettings['arcadeListMobile']+1, 4, 2, 4, 2);
+	list($default['skin'], $default['skin_rom'], $default['list'], $default['list_rom'], $ds, $dms, $cl, $cml) = array($arcadeModSettings['arcadeSkin']+1, $arcadeModSettings['arcadeSkin']+1, $arcadeModSettings['arcadeList']+1, $arcadeModSettings['arcadeList']+1, 4, 2, 4, 2);
 
 	if ($default['skin'] > 3 || (int)$arcadeSettings['skin'] > 3 || (int)$arcadeSettings['skin_rom'] > 3) {
 		$customArcadeSkins = Arcade_integrate_skins('desktop', true);
 	}
-	if ($default['skin_mobile'] > 1 || (int)$arcadeSettings['skin_mobile'] > 2) {
-		$customMobileSkins = Arcade_integrate_skins('mobile', true);
-	}
 	if ($default['list'] > 3 || (int)$arcadeSettings['list'] > 3 || (int)$arcadeSettings['list_rom'] > 3) {
 		$customArcadeLists = Arcade_integrate_lists('desktop', true);
-	}
-	if ($default['list_mobile'] > 1 || (int)$arcadeSettings['list_mobile'] > 2) {
-		$customMobileLists = Arcade_integrate_lists('mobile', true);
 	}
 	foreach($customArcadeSkins as $skin) {
 		if ($skin['id_skin'] < 4) {
@@ -422,7 +414,7 @@ function loadArcadeSettings($memID = 0)
 		$cml++;
 	}
 
-	foreach(array('skin', 'skin_rom', 'list', 'list_rom', 'skin_mobile', 'list_mobile') as $set) {
+	foreach(array('skin', 'skin_rom', 'list', 'list_rom') as $set) {
 		if (empty($arcadeSettings[$set])) {
 			$arcadeSettings[$set] = $default[$set];
 		}

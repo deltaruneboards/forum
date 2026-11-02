@@ -43,12 +43,10 @@ function template_main()
 		echo '
 			<p>', htmlspecialchars($context['topicinfo']['description']), '</p>';
 
-	echo '
-			<p>', $txt['started_by'], ' ', $context['topic_poster_name'], ', ', $context['topic_started_time'], '</p>';
-
+	//echo '<p>', $txt['started_by'], ' ', $context['topic_poster_name'], ', ', $context['topic_started_time'], '</p>';
+	
 	// Next - Prev
-	echo '
-			<span class="nextlinks floatright">', $context['previous_next'], '</span>';
+	echo '<span class="nextlinks">', $context['previous_next'], '</span>';
 
 	if (!empty($settings['display_who_viewing']))
 	{
@@ -874,7 +872,7 @@ function template_single_post($message)
 	}
 
 	// Show the member's signature?
-	if (!empty($message['member']['signature']) && empty($options['show_no_signatures']) && $context['signature_enabled'])
+	if (!empty($message['member']['signature']) && empty($options['show_no_signatures']) && $context['signature_enabled'] && $message['showSIG'] == 1)
 		echo '
 							<div class="signature" id="msg_', $message['id'], '_signature"', $ignoring ? ' style="display:none;"' : '', '>
 								', $message['member']['signature'], '
@@ -964,7 +962,8 @@ function template_quickreply()
 						<input type="hidden" name="goback" value="', empty($options['return_to_post']) ? '0' : '1', '">
 						<input type="hidden" name="last_msg" value="', $context['topic_last_message'], '">
 						<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '">
-						<input type="hidden" name="seqnum" value="', $context['form_sequence_number'], '">';
+						<input type="hidden" name="seqnum" value="', $context['form_sequence_number'], '">
+						<input type="hidden" name="showsig" id="check_sig"', (!empty($modSettings['sig_topic']) ? ' checked="checked"' : ''), ' value="1" />';
 
 	// Guests just need more.
 	if ($context['user']['is_guest'])

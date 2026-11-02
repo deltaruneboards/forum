@@ -9,10 +9,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.5
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -1796,7 +1796,7 @@ function ApproveAttach()
 	while ($row = $smcFunc['db_fetch_assoc']($request))
 	{
 		// We can only add it if we can approve in this board!
-		if ($allowed_boards = array(0) || in_array($row['id_board'], $allowed_boards))
+		if ($allowed_boards === array(0) || in_array($row['id_board'], $allowed_boards))
 		{
 			$attachments[] = $row['id_attach'];
 

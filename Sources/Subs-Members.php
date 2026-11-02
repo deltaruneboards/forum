@@ -7,10 +7,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -566,7 +566,7 @@ function registerMember(&$regOptions, $return_errors = false)
 	$regOptions['username'] = $smcFunc['htmlspecialchars']($regOptions['username']);
 
 	// @todo Separate the sprintf?
-	if (empty($regOptions['email']) || !filter_var($regOptions['email'], FILTER_VALIDATE_EMAIL) || strlen($regOptions['email']) > 255)
+	if (empty($regOptions['email']) || !filter_var($regOptions['email'], FILTER_VALIDATE_EMAIL) || filter_var($regOptions['email'], FILTER_SANITIZE_EMAIL) !== $regOptions['email'] || strlen($regOptions['email']) > 255)
 		$reg_errors[] = array('lang', 'profile_error_bad_email');
 
 	$username_validation_errors = validateUsername(0, $regOptions['username'], true, !empty($regOptions['check_reserved_name']));
@@ -626,10 +626,11 @@ function registerMember(&$regOptions, $return_errors = false)
 	$request = $smcFunc['db_query']('', '
 		SELECT id_member
 		FROM {db_prefix}members
-		WHERE email_address = {string:email_address}
-			OR email_address = {string:username}
+		WHERE {raw:email_address_field} = {string:email_address}
+			OR {raw:email_address_field} = {string:username}
 		LIMIT 1',
 		array(
+			'email_address_field' => $smcFunc['db_case_sensitive'] ? 'LOWER(email_address)' : 'email_address',
 			'email_address' => $regOptions['email'],
 			'username' => $regOptions['username'],
 		)

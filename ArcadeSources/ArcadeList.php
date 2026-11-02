@@ -26,10 +26,9 @@ function ArcadeList($rom = 0)
 	if (empty($user_info['arcade_settings'])) {
 		$user_info['arcade_settings'] = loadMyArcadeSettings($user_info['id']);
 	}
-	list($arcadeList, $arcadeMobileList) = array($user_info['arcade_settings']['list' . $rom2], $user_info['arcade_settings']['list_mobile']);
+	list($arcadeList) = array($user_info['arcade_settings']['list' . $rom2]);
 	$imagickImages = array();
 	$customListSettings = !empty($user_info['arcade_settings']['custom_list']) ? $user_info['arcade_settings']['custom_list'] : '';
-	$customMobileListSettings = !empty($user_info['arcade_settings']['custom_list_mobile']) ? $user_info['arcade_settings']['custom_list_mobile'] : '';
 
 	// Sorting methods
 	$sort_methods = array(
@@ -171,7 +170,6 @@ function ArcadeList($rom = 0)
 		$_REQUEST['sa'] = 'search';
 
 	$listAction = empty($rom) ? 'arcade' : 'retro_arch';
-	$_SESSION['arcade_isMobile'] = empty($user_info['arcade_settings']['detect_mobile']) && !empty($_SESSION['arcade_isMobile']) ? $_SESSION['arcade_isMobile'] : 0;
 	$skinAlt = !empty($arcadeModSettings['arcadeSkinAlt']) ? explode('|', $arcadeModSettings['arcadeSkinAlt']) : array();
 	$context['arcadeSkinAlt'] = !empty($skinAlt) && in_array($settings['theme_id'], $skinAlt) ? true : false;
 	$context['arcadeGameIconSizeB'] = !empty($context['arcadeSkinAlt']) ? '50' : '70';
@@ -196,13 +194,8 @@ function ArcadeList($rom = 0)
 	switch ($context['sort_by'])
 	{
 		case 'a2z':
-			if (empty($_SESSION['arcade_isMobile']))
-				$_REQUEST['dir'] = 'asc';
-			else
-			{
-				$gameListDir = isset($_REQUEST['dir']) && is_string($_REQUEST['dir']) ? mb_strtolower($_REQUEST['dir']) : '';
-				$_REQUEST['dir'] = in_array($gameListDir, array('asc', 'desc')) ? $gameListDir : 'asc';
-			}
+			$gameListDir = isset($_REQUEST['dir']) && is_string($_REQUEST['dir']) ? mb_strtolower($_REQUEST['dir']) : '';
+			$_REQUEST['dir'] = in_array($gameListDir, array('asc', 'desc')) ? $gameListDir : 'asc';
 			break;
 		case 'z2a':
 			$_REQUEST['dir'] = 'desc';
@@ -374,7 +367,7 @@ function ArcadeList($rom = 0)
 
 	$gameCount = (int)$gameCount;
 	// round up if necessary for the Vintage list
-	if (empty($_SESSION['arcade_isMobile']) && !empty($arcadeList) && $arcadeList == 3) {
+	if (!empty($arcadeList) && $arcadeList == 3) {
 		$round = !empty($arcadeModSettings['gamesPerRowVintage']) ? intval($arcadeModSettings['gamesPerRowVintage']) : 4;
 		$value = (round($context['games_per_page'] / $round, 0)) * $round;
 		$context['games_per_page'] = (ceil($value / $round)) * $round;
@@ -551,13 +544,8 @@ function ArcadeList($rom = 0)
 	switch ($context['sort_by'])
 	{
 		case 'a2z':
-			if (empty($_SESSION['arcade_isMobile']))
-				$direction = 'asc';
-			else
-			{
-				$gameListDir = isset($_REQUEST['dir']) && is_string($_REQUEST['dir']) ? mb_strtolower($_REQUEST['dir']) : '';
-				$direction = in_array($gameListDir, array('asc', 'desc')) ? $gameListDir : 'asc';
-			}
+			$gameListDir = isset($_REQUEST['dir']) && is_string($_REQUEST['dir']) ? mb_strtolower($_REQUEST['dir']) : '';
+			$direction = in_array($gameListDir, array('asc', 'desc')) ? $gameListDir : 'asc';
 			break;
 		case 'z2a':
 			$direction = 'desc';
@@ -631,73 +619,6 @@ function ArcadeList($rom = 0)
 		$context['arcade_online_link'] = sprintf($txt['arcade_info_who'], $context['arcade_online'][0], $context['arcade_online'][1], empty($context['arcade_online'][0]) || $context['arcade_online'][0] > 1 ? 's' : '', empty($context['arcade_online'][1]) || $context['arcade_online'][1] > 1 ? 's' : '');
 
 	// Arcade lists
-	if (!empty($_SESSION['arcade_isMobile']))
-	{
-		//ArcadeIconAdjustment();
-		switch ($arcadeMobileList)
-		{
-			case 1:
-				$context['html_headers'] .= '	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-mobile-generic-list.css?' . $suffixVersion . '" />';
-				loadTemplate('ArcadeListMobileGeneric');
-				$context['sub_template'] = 'arcade_list';
-				$context['page_title'] = $txt['arcade_game_list'];
-				break;
-			case 2:
-				$context['html_headers'] .= '	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-mobile-light-list.css?' . $suffixVersion . '" />';
-				loadTemplate('ArcadeListMobileLight');
-				$context['sub_template'] = 'arcade_list';
-				$context['page_title'] = $txt['arcade_game_list'];
-				break;
-			default:
-				if (!empty($customMobileListSettings) && !empty($customMobileListSettings['list_name']) && !empty($customMobileListSettings['list_source_file']) && file_exists($boarddir . '/ArcadeSources/' . $customMobileListSettings['list_source_file']))
-				{
-					if (!function_exists($customMobileListSettings['list_function'])) {
-						require_once($boarddir . '/ArcadeSources/' . $customMobileListSettings['list_source_file']);
-						if (!empty($customMobileListSettings['lang_function']) && function_exists($customMobileListSettings['lang_function'])) {
-							$customMobileListSettings['lang_function']();
-						}
-						if (!empty($customMobileListSettings['list_function']) && function_exists($customMobileListSettings['list_function'])) {
-							$context['arcade_list'] = $customMobileListSettings['list_function']();
-							loadTemplate($customMobileListSettings['list_template']);
-							$context['sub_template'] = 'arcade_list';
-							$context['page_title'] = $txt['arcade_game_list'];
-						}
-						else {
-							loadTemplate('ArcadeListMobileLight');
-							$context['sub_template'] = 'arcade_list';
-							$context['page_title'] = $txt['arcade_game_list'];
-						}
-					}
-					elseif (function_exists($customMobileListSettings['list_function'])) {
-						if (!empty($customMobileListSettings['lang_function']) && function_exists($customMobileListSettings['lang_function'])) {
-							$customMobileListSettings['lang_function']();
-						}
-						loadTemplate($customMobileListSettings['list_template']);
-						$context['sub_template'] = 'arcade_list';
-						$context['page_title'] = $txt['arcade_game_list'];
-					}
-					else {
-						$context['html_headers'] .= '	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-mobile-light-list.css?' . $suffixVersion . '" />';
-						loadTemplate('ArcadeListMobileLight');
-						$context['sub_template'] = 'arcade_list';
-						$context['page_title'] = $txt['arcade_game_list'];
-					}
-				}
-				elseif (!empty($customMobileListSettings) && !empty($customMobileListSettings['list_name']) && !empty($customMobileListSettings['list_template'])) {
-					loadTemplate($customMobileListSettings['list_template']);
-					$context['sub_template'] = 'arcade_list';
-					$context['page_title'] = $txt['arcade_game_list'];
-				}
-				else {
-					$context['html_headers'] .= '	<link rel="stylesheet" href="' . $settings['default_theme_url'] . '/css/arcade-mobile-light-list.css?' . $suffixVersion . '" />';
-					loadTemplate('ArcadeListMobileLight');
-					$context['sub_template'] = 'arcade_list';
-					$context['page_title'] = $txt['arcade_game_list'];
-				}
-		}
-	}
-	else
-	{
 		switch ($arcadeList)
 		{
 			case 3:
@@ -773,7 +694,7 @@ function ArcadeList($rom = 0)
 					$context['page_title'] = $txt['arcade_game_list'];
 				}
 		}
-	}
+	
 
 	return;
 }

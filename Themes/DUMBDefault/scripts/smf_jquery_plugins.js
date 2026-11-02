@@ -92,6 +92,8 @@
 			{
 				oPosition.y = oPosition.y - (((oPosition.y + oPosition.h) - (oLimits.y + oLimits.h)) + 24);
 			}
+			if (oPosition.x < 0)
+				oPosition.x = 0;
 
 			// finally set the position we determined
 			$('#' + oSettings.tooltipID).css({'left': oPosition.x + 'px', 'top': oPosition.y + 'px'});
@@ -131,6 +133,14 @@
 			{
 				// plain old hover it is
 				$(this).hover(smf_tooltip_on, smf_tooltip_off);
+			}
+			if ($(window).width() <= 720 && !$(this).is(':has(a)')) {
+				$(this).click(function() {
+					if ($('#smf_tooltip').length > 0)
+						smf_tooltip_off();
+					else
+						smf_tooltip_on();
+				});
 			}
 
 			// create the on tip action

@@ -8,10 +8,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2023 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.4
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -126,8 +126,14 @@ function Display()
 		$_REQUEST['start'] = 'new';
 	}
 
-	// Add 1 to the number of views of this topic (except for robots).
-	if (!$user_info['possibly_robot'] && (empty($_SESSION['last_read_topic']) || $_SESSION['last_read_topic'] != $topic))
+	// Add 1 to the number of views of this topic (except for guests/bots, per setting).
+	// no_guest_views is stricter, & won't log bots or guests.
+	if (empty($modSettings['no_guest_views']))
+		$check = !$user_info['possibly_robot'];
+	else
+		$check = !$user_info['is_guest'];
+
+	if ($check && (empty($_SESSION['last_read_topic']) || $_SESSION['last_read_topic'] != $topic))
 	{
 		$smcFunc['db_query']('', '
 			UPDATE {db_prefix}topics
@@ -1097,7 +1103,7 @@ function Display()
 		loadMemberData($posters);
 		$messages_request = $smcFunc['db_query']('', '
 			SELECT
-				id_msg, icon, subject, poster_time, poster_ip, id_member, modified_time, modified_name, modified_reason, body,
+				id_msg, icon, subject, showSIG, poster_time, poster_ip, id_member, modified_time, modified_name, modified_reason, body,
 				smileys_enabled, poster_name, poster_email, approved, likes,
 				id_msg_modified < {int:new_from} AS is_read
 				' . (!empty($msg_selects) ? (', ' . implode(', ', $msg_selects)) : '') . '
@@ -1517,6 +1523,7 @@ function prepareDisplayContext($reset = false)
 		'time' => timeformat($message['poster_time']),
 		'timestamp' => $message['poster_time'],
 		'counter' => $counter,
+		'showSIG' => $message['showSIG'],
 		'modified' => array(
 			'time' => timeformat($message['modified_time']),
 			'timestamp' => $message['modified_time'],

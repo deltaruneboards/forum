@@ -214,7 +214,7 @@ class Shop
 			'actions' => 'hookActions',
 		];
 		foreach ($hooks as $point => $callable)
-			add_integration_function('integrate_' . $point, __CLASS__ . '::' . $callable, false);
+			add_integration_function('integrate_' . $point, '$sourcedir/Shop/Shop.php|' . __CLASS__ . '::' . $callable, false);
 	}
 
 	/**
@@ -281,16 +281,16 @@ class Shop
 			// I can simple load the language file, but...
 			// I'll load this hook just to flex on using yet another hook
 			case 'helpadmin':
-				add_integration_function('integrate_helpadmin', __NAMESPACE__ . '\Integration\Permissions::language', false);
+				add_integration_function('integrate_helpadmin', '$sourcedir/Shop/Integration/Permissions.php|' . __NAMESPACE__ . '\Integration\Permissions::language', false);
 				break;
 			// Shop Admin
 			case 'admin':
-				add_integration_function('integrate_admin_areas', __NAMESPACE__ . '\Manage\Dashboard::hookAreas#', false);
+				add_integration_function('integrate_admin_areas', '$sourcedir/Shop/Manage/Dashboard.php|' . __NAMESPACE__ . '\Manage\Dashboard::hookAreas#', false);
 				break;
 			// Give points/credits on posting
 			case 'post':
 			case 'post2':
-				add_integration_function('integrate_after_create_post', __NAMESPACE__ . '\Integration\Posting::after_create_post#', false);
+				add_integration_function('integrate_after_create_post', '$sourcedir/Shop/Integration/Posting.php|' . __NAMESPACE__ . '\Integration\Posting::after_create_post#', false);
 				break;
 			// Who actions
 			case 'who':
@@ -299,16 +299,16 @@ class Shop
 				break;
 			// Profile
 			case 'profile':
-				add_integration_function('integrate_pre_profile_areas', __NAMESPACE__ . '\Integration\Profile::hookAreas#', false);
+				add_integration_function('integrate_pre_profile_areas', '$sourcedir/Shop/Integration/Profile.php|' . __NAMESPACE__ . '\Integration\Profile::hookAreas#', false);
 				break;
 			// Register
 			case 'signup':
 			case 'signup2':
-				add_integration_function('integrate_register', __NAMESPACE__ . '\Integration\Signup::register', false);
+				add_integration_function('integrate_register', '$sourcedir/Shop/Integration/Signup.php|' . __NAMESPACE__ . '\Integration\Signup::register', false);
 				break;
 			// Likes
 			case 'likes':
-				add_integration_function('integrate_issue_like_before', __NAMESPACE__ . '\Integration\Likes::likePost#', false);
+				add_integration_function('integrate_issue_like_before', '$sourcedir/Shop/Integration/Likes.php|' . __NAMESPACE__ . '\Integration\Likes::likePost#', false);
 				break;
 		}
 	}
@@ -330,7 +330,7 @@ class Shop
 			'fetch_alerts',
 		];
 		foreach ($hooks as $hook)
-			add_integration_function('integrate_' . $hook, __NAMESPACE__ . '\Integration\User::' . $hook.'#', false);
+			add_integration_function('integrate_' . $hook, '$sourcedir/Shop/Integration/User.php|' . __NAMESPACE__ . '\Integration\User::' . $hook.'#', false);
 	}
 
 	/**

@@ -7,10 +7,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.5
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -2239,7 +2239,7 @@ function get_defined_functions_in_file(string $file): array
 {
 	$source = file_get_contents($file);
 	// token_get_all() is too slow so use a nice little regex instead.
-	preg_match_all('/\bnamespace\s++((?P>label)(?:\\\(?P>label))*+)\s*+;|\bclass\s++((?P>label))[\w\s]*+{|\bfunction\s++((?P>label))\s*+\(.*\)[:\|\w\s]*+{(?(DEFINE)(?<label>[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*+))/i', $source, $matches, PREG_SET_ORDER);
+	preg_match_all('/\bnamespace\s++((?P>label)(?:\\\(?P>label))*+)\s*+;|\bclass\s++((?P>label))[\w\s]*+{|\bfunction\s++((?P>label))\s*+\(.*?\)[:\|\w\s]*+{(?(DEFINE)(?<label>[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*+))/is', $source, $matches, PREG_SET_ORDER);
 
 	$functions = array();
 	$namespace = '';

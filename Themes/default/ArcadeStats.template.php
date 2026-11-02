@@ -258,7 +258,7 @@ function template_arcade_statistics()
 		</div>
 		<span class="lowerframe"><span>&nbsp;</span></span>';
 
-	if(empty($arcadeTempSettings['arcade_hide_buttons']) && empty($_SESSION['arcade_isMobile']))
+	if(empty($arcadeTempSettings['arcade_hide_buttons']))
 	{
 		echo '
 		<div style="clear: both;width:100%;display: flex;align-self: flex-end;flex-direction: column;" class="smalltext">

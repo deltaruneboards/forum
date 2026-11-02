@@ -245,26 +245,18 @@ function arcadeSettings($memID)
 	$arcadeRomUserSettings = arcadeGetRomSettings($arcadeRomSettings);
 	list(
 		$default['skins'],
-		$default['mobileSkins'],
-		$default['lists'],
-		$default['mobileLists']
+		$default['lists']
 	) = [
 		(int)$arcadeModSettings['arcadeSkin']+1,
-		(int)$arcadeModSettings['arcadeSkinMobile']+1,
 		(int)$arcadeModSettings['arcadeList']+1,
-		(int)$arcadeModSettings['arcadeListMobile']+1
 	];
 	list($default['romSkins'], $default['romLists']) = [$default['skins'], $default['lists']];
 	list(
 		$arcade['lists'],
-		$arcade['skins'],
-		$arcade['mobileSkins'],
-		$arcade['mobileLists']
+		$arcade['skins']
 	) = [
 		Arcade_integrate_lists('desktop', true, 0),
-		Arcade_integrate_skins('desktop', true, 0),
-		Arcade_integrate_skins('mobile', true, 0),
-		Arcade_integrate_lists('mobile', true, 0)
+		Arcade_integrate_skins('desktop', true, 0)
 	];
 	list($arcade['romLists'], $arcade['romSkins']) = [$arcade['lists'], $arcade['skins']];
 	list($shaders, $romSelectIds) = [array_values($txt['arcade_profile_shaders']), ''];
@@ -278,20 +270,12 @@ function arcadeSettings($memID)
 		'3' => $txt['arcade_skin_b'],
 	);
 	$romSkins = $skins;
-	$mobileSkins = array(
-		'1' => $txt['arcade_skin_mobile_generic'],
-		'2' => $txt['arcade_skin_mobile0'],
-	);
 	$lists = array(
 		'1' => $txt['arcade_list0'],
 		'2' => $txt['arcade_list1'],
 		'3' => $txt['arcade_list2'],
 	);
 	$romLists = $lists;
-	$mobileLists = array(
-		'1' => $txt['arcade_list_mobile_generic'],
-		'2' => $txt['arcade_list_mobile0'],
-	);
 
 	foreach($arcade['skins'] as $skin)
 	{
@@ -307,21 +291,6 @@ function arcadeSettings($memID)
 			if ($skin['id_skin'] == $default['skins']) {
 				$skins['default'] = !empty($txt[$skin['skin_name']]) ? $txt[$skin['skin_name']] : $skin['skin_name'];
 				$romSkins['default'] = !empty($txt[$skin['skin_name']]) ? $txt[$skin['skin_name']] : $skin['skin_name'];
-			}
-		}
-	}
-	foreach($arcade['mobileSkins'] as $skin)
-	{
-		if (!empty($skin['id_skin']) && $skin['id_skin'] > 2) {
-			if (!empty($skin['skin_source_file']) && file_exists($boarddir . '/ArcadeSources/' . $skin['skin_source_file'])) {
-				require_once($boarddir . '/ArcadeSources/' . $skin['skin_source_file']);
-				if (!empty($skin['lang_function']) && function_exists($skin['lang_function'])) {
-					$skin['lang_function']();
-				}
-			}
-			$mobileSkins[$skin['id_skin']] = !empty($txt[$skin['skin_name']]) ? $txt[$skin['skin_name']] : $skin['skin_name'];
-			if ($skin['id_skin'] == $default['mobileSkins']) {
-				$mobileSkins['default'] = !empty($txt[$skin['skin_name']]) ? $txt[$skin['skin_name']] : $skin['skin_name'];
 			}
 		}
 	}
@@ -343,23 +312,8 @@ function arcadeSettings($memID)
 		}
 
 	}
-	foreach($arcade['mobileLists'] as $list)
-	{
-		if (!empty($list['id_list']) && $list['id_list'] > 2) {
-			if (!empty($list['list_source_file']) && file_exists($boarddir . '/ArcadeSources/' . $list['list_source_file'])) {
-				require_once($boarddir . '/ArcadeSources/' . $list['list_source_file']);
-				if (!empty($list['lang_function']) && function_exists($list['lang_function'])) {
-					$list['lang_function']();
-				}
-			}
-			$mobileLists[$list['id_list']] = !empty($txt[$list['list_name']]) ? $txt[$list['list_name']] : $list['list_name'];
-			if ($list['id_list'] == $default['mobileLists']) {
-				$mobileLists['default'] = !empty($txt[$list['list_name']]) ? $txt[$list['list_name']] : $list['list_name'];
-			}
-		}
-	}
 
-	foreach (array('skins', 'lists', 'romSkins', 'romLists', 'mobileSkins', 'mobileLists') as $var) {
+	foreach (array('skins', 'lists', 'romSkins', 'romLists') as $var) {
 		$type = stripos($var, 'skin') !== FALSE ? 'skin' : 'list';
 		$name = !empty($default[$var]) && !empty($arcade[$var][$default[$var]]) && !empty($txt[$arcade[$var][$default[$var]][$type . '_name']]) ? $txt[$arcade[$var][$default[$var]][$type . '_name']] : (!empty($$var[$default[$var]]) ? $$var[$default[$var]] : $txt['arcade_profile_unknown']);
 		$$var[0] = !empty($$var['default']) ? sprintf($txt['arcade_user_default'], $$var['default']) : sprintf($txt['arcade_user_default'], $name);
@@ -507,51 +461,6 @@ function arcadeSettings($memID)
 		);
 	}
 
-	$context['profile_fields'] += array(
-		'detect_mobile' => array(
-			'label' => $txt['arcade_user_mobile_detection'],
-			'type' => 'select',
-			'options' => array(
-				0 => $txt['arcade_mobile_auto'],
-				1 => $txt['arcade_mobile_desktop'],
-			),
-			'cast' => 'int',
-			'validate' => 'int',
-			'input_attr' => '',
-			'value' => isset($arcadeSettings['detect_mobile']) ? $arcadeSettings['detect_mobile'] : 0,
-		),
-	);
-
-	if (allowedTo('arcade_skin'))
-	{
-		$context['profile_fields'] += array(
-			'skin_mobile' => array(
-				'label' => $txt['arcade_user_skin_mobile'],
-				'type' => 'select',
-				'options' => $mobileSkins,
-				'cast' => 'int',
-				'validate' => 'int',
-				'input_attr' => '',
-				'value' => isset($arcadeSettings['skin_mobile']) ? $arcadeSettings['skin_mobile'] : 0,
-			),
-		);
-	}
-
-	if (allowedTo('arcade_list'))
-	{
-		$context['profile_fields'] += array(
-			'list_mobile' => array(
-				'label' => $txt['arcade_user_list_mobile'],
-				'type' => 'select',
-				'options' => $mobileLists,
-				'cast' => 'int',
-				'validate' => 'int',
-				'input_attr' => '',
-				'value' => isset($arcadeSettings['list_mobile']) ? $arcadeSettings['list_mobile'] : 0,
-			),
-		);
-	}
-
 	if (!empty($arcadeModSettings['disableCustomPerPage']))
 	{
 		unset($context['profile_fields']['games_per_page']);
@@ -649,7 +558,7 @@ function arcadeSettings($memID)
 			else
 			{
 				$member = $memID == 0 ? $user_info['id'] : $memID;
-				$variables = array('id_member', 'arena_invite', 'arena_match_end', 'arena_new_round', 'champion_email', 'champion_pm', 'new_game', 'notify_game_reports', 'games_per_page', 'archive_type', 'arcade_gametype', 'arcade_gametype_rom', 'new_champion_any', 'new_champion_own', 'scores_per_page', 'skin', 'list', 'skin_rom', 'list_rom', 'skin_mobile', 'list_mobile', 'detect_mobile', 'download_count', 'arcade_emulatorjs_rom');
+				$variables = array('id_member', 'arena_invite', 'arena_match_end', 'arena_new_round', 'champion_email', 'champion_pm', 'new_game', 'notify_game_reports', 'games_per_page', 'archive_type', 'arcade_gametype', 'arcade_gametype_rom', 'new_champion_any', 'new_champion_own', 'scores_per_page', 'skin', 'list', 'skin_rom', 'list_rom', 'download_count', 'arcade_emulatorjs_rom');
 				foreach ($updates as $update) {
 					$new[$update[1]] = $update[2];
 				}
@@ -684,9 +593,6 @@ function arcadeSettings($memID)
 						'list' => 'int',
 						'skin_rom' => 'int',
 						'list_rom' => 'int',
-						'skin_mobile' => 'int',
-						'list_mobile' => 'int',
-						'detect_mobile' => 'int',
 						'download_count' => 'int',
 						'arcade_emulatorjs_rom' => 'text'
 					),
@@ -710,9 +616,6 @@ function arcadeSettings($memID)
 						(int)$new['list'],
 						(int)$new['skin_rom'],
 						(int)$new['list_rom'],
-						(int)$new['skin_mobile'],
-						(int)$new['list_mobile'],
-						(int)$new['detect_mobile'],
 						(int)$new['download_count'],
 						serialize($arcadeRomSettings),
 					),

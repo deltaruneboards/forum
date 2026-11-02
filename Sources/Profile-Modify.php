@@ -9,10 +9,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -926,9 +926,9 @@ function saveProfileFields()
 	if ($changeOther && empty($post_errors))
 	{
 		makeThemeChanges($context['id_member'], isset($_POST['id_theme']) ? (int) $_POST['id_theme'] : $old_profile['id_theme']);
-		if (!empty($_REQUEST['sa']))
+		if (!empty($_REQUEST['area']))
 		{
-			$custom_fields_errors = makeCustomFieldChanges($context['id_member'], $_REQUEST['sa'], false, true);
+			$custom_fields_errors = makeCustomFieldChanges($context['id_member'], $_REQUEST['area'], false, true);
 
 			if (!empty($custom_fields_errors))
 				$post_errors = array_merge($post_errors, $custom_fields_errors);
@@ -997,8 +997,8 @@ function saveProfileChanges(&$profile_vars, &$post_errors, $memID)
 		makeThemeChanges($memID, isset($_POST['id_theme']) ? (int) $_POST['id_theme'] : $old_profile['id_theme']);
 		//makeAvatarChanges($memID, $post_errors);
 
-		if (!empty($_REQUEST['sa']))
-			makeCustomFieldChanges($memID, $_REQUEST['sa'], false);
+		if (!empty($_REQUEST['area']))
+			makeCustomFieldChanges($memID, $_REQUEST['area'], false);
 
 		foreach ($profile_bools as $var)
 			if (isset($_POST[$var]))
@@ -1275,39 +1275,6 @@ function makeCustomFieldChanges($memID, $area, $sanitize = true, $returnErrors =
 			// Any masks?
 			if ($row['field_type'] == 'text' && !empty($row['mask']) && $row['mask'] != 'none')
 			{
-				// Regex to match HTML tags, including opening tags, closing tags, comments,
-				// processing instructions, declarations, and CDATA sections. Matches both
-				// standard HTML5 tag names and custom tag names.
-				$html_tag_regex = '(' .
-					'(?P>opening_tag)' .
-					'|' .
-					'(?P>closing_tag)' .
-					'|' .
-					'(?P>comment)' .
-					'|' .
-					'(?P>processing_instruction)' .
-					'|' .
-					'(?P>declaration)' .
-					'|' .
-					'(?P>cdata)' .
-				')' .
-				'(?(DEFINE)' .
-					'(?<tag_name>[a-zA-Z][a-zA-Z0-9\-]*)' .
-					'(?<attribute_value_unquoted>[^\s"\'=<>`])' .
-					'(?<attribute_value_single_quoted>\'[^\']*\')' .
-					'(?<attribute_value_double_quoted>"[^"]*")' .
-					'(?<attribute_value>(?P>attribute_value_unquoted)|(?P>attribute_value_single_quoted)|(?P>attribute_value_double_quoted))' .
-					'(?<attribute_value_specification>\s*=\s*(?P>attribute_value))' .
-					'(?<attribute_name>[a-zA-Z_:][a-zA-Z0-9_.:\-]*)' .
-					'(?<attribute>\s+(?P>attribute_name)(?P>attribute_value_specification)?)' .
-					'(?<opening_tag><(?P>tag_name)(?P>attribute)*\s*/?>)' .
-					'(?<closing_tag></(?P>tag_name)\s*>)' .
-					'(?<comment><!--(?!-?>)\X*?-->)' .
-					'(?<processing_instruction><' . '\?\X*?\?' . '>)' .
-					'(?<declaration><![A-Z]+\s+[^>]+>)' .
-					'(?<cdata><!\[CDATA\[\X*?\]\]>)' .
-				')';
-
 				// Decode all entities, including double-encoded ones.
 				while ($value !== html_entity_decode($value)) {
 					$value = html_entity_decode($value);
@@ -1319,7 +1286,7 @@ function makeCustomFieldChanges($memID, $area, $sanitize = true, $returnErrors =
 				if (empty($value) && !is_numeric($value))
 					$value = '';
 
-				if ($row['mask'] == 'nohtml' && preg_match('~' . $html_tag_regex . '~u', $value))
+				if ($row['mask'] == 'nohtml' && $value !== strip_tags($value))
 				{
 					if ($returnErrors)
 						$errors[] = 'custom_field_nohtml_fail';
@@ -1327,7 +1294,7 @@ function makeCustomFieldChanges($memID, $area, $sanitize = true, $returnErrors =
 					else
 						$value = '';
 				}
-				elseif ($row['mask'] == 'email' && !empty($value) && (!filter_var($value, FILTER_VALIDATE_EMAIL) || strlen($value) > 255))
+				elseif ($row['mask'] == 'email' && !empty($value) && (!filter_var($value, FILTER_VALIDATE_EMAIL) || filter_var($value, FILTER_SANITIZE_EMAIL) !== $value || strlen($value) > 255))
 				{
 					if ($returnErrors)
 						$errors[] = 'custom_field_mail_fail';
@@ -1388,10 +1355,7 @@ function makeCustomFieldChanges($memID, $area, $sanitize = true, $returnErrors =
 	}
 	$smcFunc['db_free_result']($request);
 
-	$hook_errors = call_integration_hook('integrate_save_custom_profile_fields', array(&$changes, &$log_changes, &$errors, $returnErrors, $memID, $area, $sanitize, &$deletes));
-
-	if (!empty($hook_errors) && is_array($hook_errors))
-		$errors = array_merge($errors, $hook_errors);
+	call_integration_hook('integrate_save_custom_profile_fields', array(&$changes, &$log_changes, &$errors, $returnErrors, $memID, $area, $sanitize, &$deletes));
 
 	// Make those changes!
 	if ((!empty($changes) || !empty($deletes)) && empty($context['password_auth_failed']) && empty($errors))
@@ -3663,6 +3627,7 @@ function profileSaveAvatarData(&$value)
 		return false;
 
 	require_once($sourcedir . '/ManageAttachments.php');
+	require_once($sourcedir . '/Subs-Graphics.php');
 
 	call_integration_hook('before_profile_save_avatar', array(&$value));
 
@@ -3724,7 +3689,7 @@ function profileSaveAvatarData(&$value)
 	elseif ($value == 'gravatar' && !empty($modSettings['gravatarEnabled']))
 	{
 		// One wasn't specified, or it's not allowed to use extra email addresses, or it's not a valid one, reset to default Gravatar.
-		if (empty($_POST['gravatarEmail']) || empty($modSettings['gravatarAllowExtraEmail']) || !filter_var($_POST['gravatarEmail'], FILTER_VALIDATE_EMAIL))
+		if (empty($_POST['gravatarEmail']) || empty($modSettings['gravatarAllowExtraEmail']) || !filter_var($_POST['gravatarEmail'], FILTER_VALIDATE_EMAIL) || filter_var($_POST['gravatarEmail'], FILTER_SANITIZE_EMAIL) !== $_POST['gravatarEmail'])
 			$profile_vars['avatar'] = 'gravatar://';
 		else
 			$profile_vars['avatar'] = 'gravatar://' . ($_POST['gravatarEmail'] != $cur_profile['email_address'] ? $_POST['gravatarEmail'] : '');
@@ -4188,7 +4153,7 @@ function profileValidateEmail($email, $memID = 0)
 	// Check the name and email for validity.
 	if (trim($email) == '')
 		return 'no_email';
-	if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL) || filter_var($email, FILTER_SANITIZE_EMAIL) !== $email)
 		return 'bad_email';
 
 	// Email addresses should be and stay unique.
@@ -4196,9 +4161,10 @@ function profileValidateEmail($email, $memID = 0)
 		SELECT id_member
 		FROM {db_prefix}members
 		WHERE ' . ($memID != 0 ? 'id_member != {int:selected_member} AND ' : '') . '
-			email_address = {string:email_address}
+			{raw:email_address_field} = {string:email_address}
 		LIMIT 1',
 		array(
+			'email_address_field' => $smcFunc['db_case_sensitive'] ? 'LOWER(email_address)' : 'email_address',
 			'selected_member' => $memID,
 			'email_address' => $email,
 		)
@@ -4459,7 +4425,7 @@ function groupMembership2($profile_vars, $post_errors, $memID)
 		}
 
 		// If this is their old primary, can we change it?
-		if ($row['id_group'] == $old_profile['id_group'] && ($row['group_type'] > 1 || $context['can_manage_membergroups']) && $canChangePrimary !== false)
+		if ($row['id_group'] == $old_profile['id_group'] && ($row['group_type'] > 1 || $context['can_manage_membergroups']) && $canChangePrimary !== false && isset($addGroups[$row['id_group']]))
 			$canChangePrimary = 1;
 
 		// If we are not doing a force primary move, don't do it automatically if current primary is not 0.

@@ -7,10 +7,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.5
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -123,6 +123,10 @@ function get_tzid_metazones($when = 'now')
 		'America/Denver' => 'North_America_Mountain',
 
 		// Uses DST
+		// OPTIONS: America/Edmonton, America/Inuvik
+		'America/Edmonton' => 'America_Edmonton',
+
+		// Uses DST
 		'America/Nuuk' => 'North_America_Greenland_Western',
 
 		// No DST
@@ -153,7 +157,7 @@ function get_tzid_metazones($when = 'now')
 		'America/Manaus' => 'South_America_Amazon',
 
 		// Uses DST
-		'America/Mexico_City' => 'North_America_Mexico_Central',
+		'America/Mexico_City' => 'North_America_Central',
 
 		// Uses DST
 		'America/Miquelon' => 'North_America_St_Pierre_Miquelon',
@@ -2010,11 +2014,6 @@ function get_tzid_fallbacks($tzids, $when = 'now')
 		'America/Punta_Arenas' => array(
 			array(
 				'ts' => PHP_INT_MIN,
-				'tzid' => '',
-			),
-			// Chile/Continental is an otherwise unused link to America/Santiago.
-			array(
-				'ts' => strtotime('1890-01-01T04:43:40+0000'),
 				'tzid' => 'Chile/Continental',
 			),
 			array(
@@ -2073,11 +2072,6 @@ function get_tzid_fallbacks($tzids, $when = 'now')
 		'America/Coyhaique' => array(
 			array(
 				'ts' => PHP_INT_MIN,
-				'tzid' => '',
-			),
-			array(
-				'ts' => strtotime('1890-01-01T04:48:16+0000'),
-				// Chile/Continental is an otherwise unused link to America/Santiago.
 				'tzid' => 'Chile/Continental',
 			),
 			array(

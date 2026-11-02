@@ -7,10 +7,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 use SMF\Cache\CacheApi;
@@ -376,7 +376,7 @@ function reloadSettings()
 			$modSettings['load_average'] = @file_get_contents('/proc/loadavg');
 			if (!empty($modSettings['load_average']) && preg_match('~^([^ ]+?) ([^ ]+?) ([^ ]+)~', $modSettings['load_average'], $matches) != 0)
 				$modSettings['load_average'] = (float) $matches[1];
-			elseif (($modSettings['load_average'] = @`uptime`) != null && preg_match('~load average[s]?: (\d+\.\d+), (\d+\.\d+), (\d+\.\d+)~i', $modSettings['load_average'], $matches) != 0)
+			elseif (($modSettings['load_average'] = @shell_exec('uptime')) != null && preg_match('~load average[s]?: (\d+\.\d+), (\d+\.\d+), (\d+\.\d+)~i', $modSettings['load_average'], $matches) != 0)
 				$modSettings['load_average'] = (float) $matches[1];
 			else
 				unset($modSettings['load_average']);
@@ -940,7 +940,7 @@ function loadUserSettings()
 		$languages = getLanguages();
 
 		// Is it valid?
-		if (!empty($_GET['language']) && isset($languages[strtr($_GET['language'], './\\:', '____')]))
+		if (!empty($_GET['language']) && is_string($_GET['language']) && isset($languages[strtr($_GET['language'], './\\:', '____')]))
 		{
 			$user_info['language'] = strtr($_GET['language'], './\\:', '____');
 
@@ -1896,8 +1896,9 @@ function loadMemberContext($user, $display_custom_fields = false)
 
         $printlist = "";
         foreach ($badgelist as $b) {
-            $printlist = $printlist . '<img src="/shop_items/items/' . $b["image"] .
-                '" title="' . htmlspecialchars($b["hover_text"]) . '" loading=lazy >';
+            list($width, $height) = getimagesize('shop_items/items/' . $b["image"]);
+            $printlist = $printlist . '<img width=' . $width .' height=' . $height . ' src="/shop_items/items/' . $b["image"] .
+                '" title="' . htmlspecialchars($b["hover_text"]) . '" loading=lazy ">';
         }
         $memberContext[$user]['DUMB_Badge_render'] = $printlist;
 
@@ -2497,8 +2498,8 @@ function loadTheme($id_theme = 0, $initialize = true)
 	call_integration_hook('integrate_simple_actions', array(&$simpleActions, &$simpleAreas, &$simpleSubActions, &$extraParams, &$xmlActions));
 
 	$context['simple_action'] = in_array($context['current_action'], $simpleActions) ||
-		(isset($simpleAreas[$context['current_action']]) && isset($_REQUEST['area']) && in_array($_REQUEST['area'], $simpleAreas[$context['current_action']])) ||
-		(isset($simpleSubActions[$context['current_action']]) && in_array($context['current_subaction'], $simpleSubActions[$context['current_action']]));
+		(isset($context['current_action'], $simpleAreas[$context['current_action']]) && isset($_REQUEST['area']) && in_array($_REQUEST['area'], $simpleAreas[$context['current_action']])) ||
+		(isset($context['current_action'], $simpleSubActions[$context['current_action']]) && in_array($context['current_subaction'], $simpleSubActions[$context['current_action']]));
 
 	// See if theres any extra param to check.
 	$requiresXML = false;

@@ -6,10 +6,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2022 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.0
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -133,7 +133,7 @@ function RemindPick()
 		sendmail($row['email_address'], $emaildata['subject'], $emaildata['body'], null, 'reminder', $emaildata['is_html'], 1);
 
 		// Set the password in the database.
-		updateMemberData($row['id_member'], array('validation_code' => substr(md5($password), 0, 10)));
+		updateMemberData($row['id_member'], array('validation_code' => substr(md5($password), 0, 10) . '|' . time()));
 
 		// Set up the template.
 		$context['sub_template'] = 'sent';
@@ -224,7 +224,9 @@ function setPassword2()
 	if ($smcFunc['db_num_rows']($request) == 0)
 		fatal_lang_error('invalid_userid', false);
 
-	list ($realCode, $username, $email, $flood_value) = $smcFunc['db_fetch_row']($request);
+	list ($code, $username, $email, $flood_value) = $smcFunc['db_fetch_row']($request);
+	list ($realCode, $issuedTime) = explode('|', $code);
+	$issuedTime = empty($issuedTime) ? 0 : (int) $issuedTime;
 	$smcFunc['db_free_result']($request);
 
 	// Is the password actually valid?
@@ -241,7 +243,7 @@ function setPassword2()
 	require_once($sourcedir . '/LogInOut.php');
 
 	// Quit if this code is not right.
-	if (empty($_POST['code']) || substr($realCode, 0, 10) !== substr(md5($_POST['code']), 0, 10))
+	if (empty($_POST['code']) || substr($realCode, 0, 10) !== substr(md5($_POST['code']), 0, 10) || $issuedTime + 3600 < time())
 	{
 		// Stop brute force attacks like this.
 		validatePasswordFlood($_POST['u'], $flood_value, false);

@@ -1,0 +1,51 @@
+/*
+ * SMF Arcade - DUMB Version
+ *
+ * @package SMF Arcade
+ * @version 2.7
+ * @license https://web-develop.ca/index.php?page=arcade_license_BSD2 BSD 2
+ */
+#arccomments > div {
+	display: grid;
+	width:100%;
+	grid-template-columns: 9% 26% 51% 14%;
+}
+.score_table {
+	padding-top: 1em;
+}
+.first_th {
+	text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.4em;
+}
+
+.arcade-score {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+}
+
+.arcade-edit-button {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.arcade-row {
+	text-align: center;
+	padding: 0.5em 0 0.5em 0;
+	border-bottom: 1px solid var(--border-color);
+	overflow: auto;
+}
+
+.arcade-comment {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+}
+
+.arcade-member {
+	overflow-wrap: anywhere;
+}

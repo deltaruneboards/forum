@@ -17,11 +17,11 @@
  * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 define('SMF', 'BACKGROUND');
-define('SMF_VERSION', '2.1.7');
+define('SMF_VERSION', '2.1.8');
 define('SMF_FULL_VERSION', 'SMF ' . SMF_VERSION);
 define('SMF_SOFTWARE_YEAR', '2026');
 define('FROM_CLI', empty($_SERVER['REQUEST_METHOD']));
@@ -171,11 +171,27 @@ if (time() - TIME_START < ceil(MAX_CRON_TIME / 2))
 if (FROM_CLI)
 	die(0);
 
-header('Content-Type: application/json');
-echo json_encode([
+$isOvertime = microtime(true) - TIME_START > MAX_CRON_TIME;
+$returnData = [
+	'error' => false,
 	'done' => $tasksDone,
 	'failed' => $tasksFailed,
-]);
+	'overtime' => $isOvertime,
+];
+
+if (FROM_WORKER && !$isOvertime)
+{
+	[$load1, $load5, $load15] = sys_getloadavg();
+	$returnData += [
+		'load1' => $load1,
+		'load5' => $load5,
+		'load15' => $load15,
+	];
+	// TODO: Figure out if any other metrics are worth reporting here
+}
+
+header('Content-Type: application/json');
+echo json_encode($returnData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
 exit;
 
 /**

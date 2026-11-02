@@ -17,12 +17,12 @@
  * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 // Get everything started up...
 define('SMF', 1);
-define('SMF_VERSION', '2.1.7');
+define('SMF_VERSION', '2.1.8');
 define('SMF_FULL_VERSION', 'SMF ' . SMF_VERSION);
 define('SMF_SOFTWARE_YEAR', '2026');
 
@@ -99,9 +99,11 @@ loadDatabase();
  *
  * @param string $class The fully-qualified class name.
  */
-spl_autoload_register(function ($class) use ($sourcedir)
-{
-	$classMap = array(
+spl_autoload_register(function($class) use ($sourcedir) {
+	global $modSettings;
+
+	static $hook_value = '';
+	static $class_map = array(
 		'ReCaptcha\\' => 'ReCaptcha/',
 		'MatthiasMullie\\Minify\\' => 'minify/src/',
 		'MatthiasMullie\\PathConverter\\' => 'minify/path-converter/src/',
@@ -109,9 +111,13 @@ spl_autoload_register(function ($class) use ($sourcedir)
 	);
 
 	// Do any third-party scripts want in on the fun?
-	call_integration_hook('integrate_autoload', array(&$classMap));
+	if ($hook_value !== (isset($modSettings['integrate_autoload']) ? $modSettings['integrate_autoload'] : ''))
+	{
+		call_integration_hook('integrate_autoload', array(&$class_map));
+		$hook_value = $modSettings['integrate_autoload'];
+	}
 
-	foreach ($classMap as $prefix => $dirName)
+	foreach ($class_map as $prefix => $dirname)
 	{
 		// does the class use the namespace prefix?
 		$len = strlen($prefix);
@@ -121,17 +127,17 @@ spl_autoload_register(function ($class) use ($sourcedir)
 		}
 
 		// get the relative class name
-		$relativeClass = substr($class, $len);
+		$relative_class = substr($class, $len);
 
 		// replace the namespace prefix with the base directory, replace namespace
 		// separators with directory separators in the relative class name, append
 		// with .php
-		$fileName = $dirName . strtr($relativeClass, '\\', '/') . '.php';
+		$filename = $dirname . strtr($relative_class, '\\', '/') . '.php';
 
 		// if the file exists, require it
-		if (file_exists($fileName = $sourcedir . '/' . $fileName))
+		if (file_exists($filename = $sourcedir . '/' . $filename))
 		{
-			require_once $fileName;
+			require_once $filename;
 
 			return;
 		}
@@ -262,18 +268,6 @@ function smf_main()
 	);
 	call_integration_hook('integrate_pre_log_stats', array(&$no_stat_actions));
 
-	$should_log = !is_filtered_request($no_stat_actions, 'action');
-	if ($should_log)
-	{
-		// Log this user as online.
-		writeLog();
-
-		// Track forum statistics and hits...?
-		if (!empty($modSettings['hitStats']))
-			trackStats(array('hits' => '+'));
-	}
-	unset($no_stat_actions);
-
 	// Make sure that our scheduled tasks have been running as intended
 	check_cron();
 	profileSpanEnd('pre-action');
@@ -337,6 +331,18 @@ function smf_main()
 		}
 	}
 
+	$should_log = !is_filtered_request($no_stat_actions, 'action');
+	if ($should_log)
+	{
+		// Log this user as online.
+		writeLog();
+
+		// Track forum statistics and hits...?
+		if (!empty($modSettings['hitStats']))
+			trackStats(array('hits' => '+'));
+	}
+	unset($no_stat_actions);
+
 	// Here's the monstrous $_REQUEST['action'] array - $_REQUEST['action'] => array($file, $function).
 	$actionArray = array(
 		'agreement' => array('Agreement.php', 'Agreement'),
@@ -354,6 +360,7 @@ function smf_main()
 		'dlattach' => array('ShowAttachments.php', 'showAttachment'),
 		'editpoll' => array('Poll.php', 'EditPoll'),
 		'editpoll2' => array('Poll.php', 'EditPoll2'),
+		'event' => array('Event.php', 'EventMain'),
 		'findmember' => array('Subs-Auth.php', 'JSMembers'),
 		'groups' => array('Groups.php', 'Groups'),
 		'help' => array('Help.php', 'ShowHelp'),

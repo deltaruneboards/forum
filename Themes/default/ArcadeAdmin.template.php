@@ -41,24 +41,6 @@ function template_arcade_admin_main()
 	</div>
 	<br style="clear: both" />
 	<script>
-		function setArcadeNews()
-		{
-			if (typeof(window.arcadeNews) == "undefined" || typeof(window.arcadeNews.length) == "undefined")
-					return;
-
-				var str = "<div style=\"margin: 4px; font-size: 0.85em;\">";
-
-				for (var i = 0; i < window.arcadeNews.length; i++)
-				{
-					str += "\n	<div style=\"padding-bottom: 2px;\"><a href=\"" + window.arcadeNews[i].url + "\">" + window.arcadeNews[i].subject + "</a> on " + window.arcadeNews[i].time + "</div>";
-					str += "\n	<div style=\"padding-left: 2ex; margin-bottom: 1.5ex; border-top: 1px dashed;\">"
-					str += "\n		" + window.arcadeNews[i].message;
-					str += "\n	</div>";
-				}
-
-				setInnerHTML(document.getElementById("arcade_news"), str + "</div>");
-		}
-
 		function setArcadeVersion()
 		{
 			if (typeof(window.arcadeCurrentVersion) == "undefined")
@@ -68,7 +50,6 @@ function template_arcade_admin_main()
 		}
 		var arcadeVer = "', $arcade_version, '";
 	</script>
-	<script src="https://web-develop.ca/Themes/default/scripts/arcade_news.js?v=', urlencode($arcade_version), '.' . (str_repeat('0', rand(1,20))) . '" defer="defer"></script>
 	<div style="padding-top: 20px;display: block;"><span><span style="display: none;">&nbsp;</span></span></div>';
 }
 

@@ -8,10 +8,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -27,7 +27,7 @@ if (!defined('SMF'))
  */
 function Login()
 {
-	global $txt, $context, $scripturl, $user_info;
+	global $txt, $context, $scripturl, $user_info, $modSettings, $smcFunc;
 
 	// You are already logged in, go take a tour of the boards
 	if (!empty($user_info['id']))
@@ -72,7 +72,7 @@ function Login()
 
 	// Get the template ready.... not really much else to do.
 	$context['page_title'] = $txt['login'];
-	$context['default_username'] = &$_REQUEST['u'];
+	$context['default_username'] = $smcFunc['htmlspecialchars']($_REQUEST['u'] ?? '');
 	$context['default_password'] = '';
 	$context['never_expire'] = false;
 
@@ -81,6 +81,11 @@ function Login()
 		'url' => $scripturl . '?action=login',
 		'name' => $txt['login'],
 	);
+
+	// Ensure the session data persists.
+	if (empty($_COOKIE)) {
+		setLoginCookie(60 * $modSettings['cookieTime'], 0, '');
+	}
 
 	// Set the login URL - will be used when the login process is done (but careful not to send us to an attachment).
 	if (isset($_SESSION['old_url']) && strpos($_SESSION['old_url'], 'dlattach') === false && preg_match('~(board|topic)[=,]~', $_SESSION['old_url']) != 0)
@@ -263,6 +268,7 @@ function Login2()
 	// Cookies are required...
 	if (empty($_COOKIE))
 	{
+		setLoginCookie(60 * $modSettings['cookieTime'], 0, '');
 		$context['login_errors'] = array($txt['login_cookie_error']);
 		return;
 	}

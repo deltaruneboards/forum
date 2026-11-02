@@ -29,7 +29,6 @@
 .bbc_spoiler .spoiler_content {
 	background: var(--sec-bg-color);
 	border: 1px solid var(--sec-bg-color);
-	line-height: 26px;
 	padding: 10px;
 }
 

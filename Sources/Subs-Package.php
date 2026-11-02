@@ -10,10 +10,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.5
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -171,7 +171,17 @@ function read_tgz_data($data, $destination, $single_file = false, $overwrite = f
 		elseif ($destination !== null && !$single_file)
 		{
 			// Protect from accidental parent directory writing...
-			$current['filename'] = strtr($current['filename'], array('../' => '', '/..' => ''));
+			do {
+				$prev = $current['filename'];
+				$current['filename'] = strtr($current['filename'], array(
+					'../' => '',
+					'/..' => '',
+					'..' . DIRECTORY_SEPARATOR => '',
+					DIRECTORY_SEPARATOR . '..' => '',
+					'..\\' => '',
+					'\\..' => '',
+				));
+			} while ($prev !== $current['filename']);
 
 			if (!file_exists($destination . '/' . $current['filename']))
 				mktree($destination . '/' . $current['filename'], 0777);

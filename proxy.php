@@ -10,14 +10,14 @@
  * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
 	define('SMF', 'PROXY');
 
 if (!defined('SMF_VERSION'))
-	define('SMF_VERSION', '2.1.7');
+	define('SMF_VERSION', '2.1.8');
 
 if (!defined('SMF_FULL_VERSION'))
 	define('SMF_FULL_VERSION', 'SMF ' . SMF_VERSION);
@@ -115,16 +115,15 @@ class ProxyServer
 	 */
 	public function checkRequest()
 	{
-		if (!$this->enabled)
+		global $boardurl;
+
+		if (!$this->enabled || $this->secret === 'smfisawesome')
 			return false;
 
 		// Try to create the image cache directory if it doesn't exist
 		if (!file_exists($this->cache))
 			if (!mkdir($this->cache) || !copy(dirname($this->cache) . '/index.php', $this->cache . '/index.php'))
 				return false;
-
-		// Basic sanity check
-		$_GET['request'] = validate_iri($_GET['request']);
 
 		// We aren't going anywhere without these
 		if (empty($_GET['hash']) || empty($_GET['request']))
@@ -133,7 +132,19 @@ class ProxyServer
 		$hash = $_GET['hash'];
 		$request = $_GET['request'];
 
-		if (hash_hmac('sha1', $request, $this->secret) != $hash)
+		// Just in case...
+		if (
+			// Basic sanity check.
+			!validate_iri($request)
+			// Don't proxy our own resources.
+			|| parse_url($request, PHP_URL_HOST) === parse_url($boardurl, PHP_URL_HOST)
+			// SSRF protection: don't proxy localhost, private or reserved IPs, etc.
+			|| !is_fetch_safe($request)
+		) {
+			return false;
+		}
+
+		if (!hash_equals(hash_hmac('sha1', $request, $this->secret), $hash))
 			return false;
 
 		// Ensure any non-ASCII characters in the URL are encoded correctly

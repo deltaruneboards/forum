@@ -4,10 +4,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 /**
@@ -469,7 +469,7 @@ function template_main()
  */
 function template_single_post($message)
 {
-	global $context, $settings, $options, $txt, $scripturl, $modSettings;
+	global $context, $settings, $options, $txt, $scripturl, $modSettings, $user_info;
 
 	$ignoring = false;
 
@@ -856,7 +856,8 @@ function template_single_post($message)
 			$base .= (isset($txt[$base . $count])) ? $count : 'n';
 
 			// Remove link if no cookies; session reference won't work
-			if (empty($_COOKIE))
+			// Also, don't show link to guests
+			if (empty($_COOKIE) || !empty($user_info['is_guest']))
 				$txt[$base] = preg_replace('~</?a\b[^>]*>~', '', $txt[$base]);
 
 			echo '

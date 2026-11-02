@@ -3146,7 +3146,6 @@ function ManageRomGamesList()
 						$romSystem = $key !== false && !empty($saveTypeArrayLong[$key]) ? $saveTypeArrayLong[$key] : $dbrowData['rom_system'];
 						if (!empty($dbrowData['error']))
 							$link .= '<div class="alert smalltext">' . $dbrowData['error'] . '</div>';
-						$link .= !empty($_SESSION['arcade_isMobile']) ? '' : '<div style="display: inline;float: right;">' . $romSystem . '</div>';
 						return $link;
 					},
 				),

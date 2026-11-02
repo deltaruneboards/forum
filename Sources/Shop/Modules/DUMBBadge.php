@@ -8,12 +8,9 @@
  * @license ???
  */
 
-// DUMBie extension: like all of this obviously
-
 namespace Shop\Modules;
 
 use Shop\Shop;
-use Shop\Helper\Database;
 use Shop\Helper\Module;
 
 if (!defined('SMF'))
@@ -21,8 +18,6 @@ if (!defined('SMF'))
 
 class DUMBBadge extends Module
 {
-    private $_order;
-
     /**
      * DUMBBadge::getItemDetails()
      * 
@@ -50,7 +45,7 @@ class DUMBBadge extends Module
     {
         global $smcFunc, $context;
 
-        $existing_info = [0, '', ''];
+        $existing_info = [1000, '', ''];
         if (!empty($_REQUEST['id'])) {
             $requestDUMBIE = $smcFunc['db_query']('', '
                 SELECT ext.sort_order, ext.hover_text, ext.badge_sprite
@@ -60,7 +55,10 @@ class DUMBBadge extends Module
                 [
                     'instanceid' => $_REQUEST['id'],
                 ]);
-            $existing_info = $smcFunc['db_fetch_row']($requestDUMBIE);
+            $dbRow = $smcFunc['db_fetch_row']($requestDUMBIE);
+            if (!empty($dbRow)) {
+                $existing_info = $dbRow;
+            }
             $smcFunc['db_free_result']($requestDUMBIE);
         }
 

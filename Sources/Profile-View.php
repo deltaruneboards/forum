@@ -5,10 +5,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.5
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -86,7 +86,7 @@ function summary($memID)
 	if (allowedTo('moderate_forum'))
 	{
 		// Make sure it's a valid ip address; otherwise, don't bother...
-		if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $memberContext[$memID]['ip']) == 1 && empty($modSettings['disableHostnameLookup']))
+		if (filter_var($memberContext[$memID]['ip'], FILTER_VALIDATE_IP) && empty($modSettings['disableHostnameLookup']))
 			$context['member']['hostname'] = host_from_ip($memberContext[$memID]['ip']);
 		else
 			$context['member']['hostname'] = '';
@@ -1030,7 +1030,7 @@ function showPosts($memID)
 		else
 		{
 			$request = $smcFunc['db_query']('', '
-				SELECT
+				SELECT STRAIGHT_JOIN
 					b.id_board, b.name AS bname, c.id_cat, c.name AS cname, m.id_topic, m.id_msg,
 					t.id_member_started, t.id_first_msg, t.id_last_msg, m.body, m.smileys_enabled,
 					m.subject, m.poster_time, m.approved

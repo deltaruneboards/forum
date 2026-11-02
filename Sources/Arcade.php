@@ -131,9 +131,9 @@ function Arcade($rom = 0)
 			'romGame' => array('Submit-ROM.php', 'ArcadeROMGame'),
 			'romRemoteGet' => array('ArcadeRetroArch.php', 'ArcadeRetroArchRemoteGet'),
 			// Shoutbox
-			'shouts' => array('ArcadeShoutbox.php', 'ArcadeShouts'),
-			'newShout' => array('ArcadeShoutbox.php', 'add_to_arcade_shoutbox_ajax'),
-			'imageenhancement' => array('Subs-Arcade.php', 'ArcadeListImageEnhance'),
+			//'shouts' => array('ArcadeShoutbox.php', 'ArcadeShouts'),
+			//'newShout' => array('ArcadeShoutbox.php', 'add_to_arcade_shoutbox_ajax'),
+			//'imageenhancement' => array('Subs-Arcade.php', 'ArcadeListImageEnhance'),
 		);
 
 		if (!empty($rom)) {
@@ -149,7 +149,7 @@ function Arcade($rom = 0)
 			$full = isset($_REQUEST['full']) && is_numeric($_REQUEST['full']) && intval($_REQUEST['full']) == 1 ? 1 : 0;
 			$pop = isset($_REQUEST['pop']) && is_numeric($_REQUEST['pop']) && intval($_REQUEST['pop']) == 1 ? 1 : 0;
 
-			if (!empty($full) || !empty($pop) || !empty($_SESSION['arcade_isMobilePlay']))
+			if (!empty($full) || !empty($pop))
 				$subActions['play'] = array('ArcadeRetroArch.php', 'ArcadeRetroArch');
 
 			// Template
@@ -245,8 +245,7 @@ function Arcade($rom = 0)
 		$sort = ($_SESSION['current_cat'] == 0 || $_SESSION['current_cat'] == 'all') && $_SESSION['arcade_sortby' . $rom2] == 'a2z' ? '' : ';sortby=reset';
 		$smfVersion = version_compare((!empty($arcadeModSettings['smfVersion']) ? substr($arcadeModSettings['smfVersion'], 0, 3) : '2.0'), '2.1', '<') ? 'v2.0' : 'v2.1';
 		list($user_gametype, $javascript, $checkRar, $countGames, $archivetype, $archiveContent, $gametype, $gametypeContent) = array('', '', false, 0, array(), array(), array(), array());
-		$_SESSION['arcade_isMobile'] = empty($user_info['arcade_settings']['detect_mobile']) && !empty($_SESSION['arcade_isMobile']) ? $_SESSION['arcade_isMobile'] : 0;
-		$_SESSION['arcadeNewSessionCheck'] = !empty($_SESSION['arcadeNewSessionCheck']) && !empty($_SESSION['arcade_isMobilePlay']) ? 1 : 0;
+		$_SESSION['arcadeNewSessionCheck'] = !empty($_SESSION['arcadeNewSessionCheck']);
 		$arcadeModSettings['arcadeRandomIdVar'] = !empty($arcadeModSettings['arcadeRandomIdVar']) ? $arcadeModSettings['arcadeRandomIdVar'] : 'smfarcade20201017';
 		$arcadeModSettings['arcadeEnableDownload'] = !empty($arcadeModSettings['arcadeEnableDownload']) ? $arcadeModSettings['arcadeEnableDownload'] : false;
 		$enableGameDownload = !empty($arcadeModSettings['arcadeDownloadHideLink']) && !allowedTo('arcade_download') ? false : $arcadeModSettings['arcadeEnableDownload'];
@@ -395,33 +394,10 @@ function Arcade($rom = 0)
 			});
 		</script>';
 
-		if (!empty($_SESSION['arcade_isMobilePlay']) && isset($_REQUEST['sa']) && in_array(strtolower($_REQUEST['sa']), array('arena', 'newmatch', 'newmatch2', 'viewmatch')))
-			$context['html_headers'] .= '
-			<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-			<meta name="mobile-web-app-capable" content="yes">
-			<meta name="HandheldFriendly" content="true">';
-		elseif (!empty($_SESSION['arcade_isMobilePlay']) && isset($_REQUEST['sa']) && $_REQUEST['sa'] != 'highscore')
-			$context['html_headers'] .= '
-			<meta id="Viewport" name="viewport" content="width=device-width, maximum-scale=3.0, user-scalable=yes">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-			<meta name="mobile-web-app-capable" content="yes">
-			<meta name="HandheldFriendly" content="true">';
-		elseif (!empty($_SESSION['arcade_isMobilePlay']))
-			$context['html_headers'] .= '
-			<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-			<meta name="mobile-web-app-capable" content="yes">
-			<meta name="HandheldFriendly" content="true">';
-
-		/*$context['html_headers'] .= '
-		<script type="text/javascript" src="' . $settings['default_theme_url'] . '/arcade_scripts/arcadeMobileDetect.js?' . $suffixVersion. '"></script>';*/
-
 		if (substr($scripturl, 0, 6) == 'https:' && empty($arcadeModSettings['arcade_contentSecurityPolicy']))
 			$context['html_headers'] .= '
 		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">';
 
-		// a new session sometimes requires a second page load to properly detect mobile
 		if (empty($arcadeModSettings['arcadeRomToggle']) && allowedTo('arcade_view_retro_arch') && !empty($rom)) {
 			$context['arcade_tabs']['romarcade'] =  array(
 				'text' => 'rom_arcade',
@@ -725,9 +701,6 @@ function Arcade($rom = 0)
 				}
 			}
 			function smfArcadeDropDown() {' . $addAdminJavaScript . '
-				if (' . (!empty($_SESSION['arcade_isMobilePlay']) ? 'true' : 'false') . ' == false && ' . (!empty($_SESSION['arcadeNewSessionCheck']) ? 'true' : 'false') . ' == false && arcadeIsMobile == false)
-					window.location.replace(window.location.href);
-				// var arcadeBgColor = propertyFromSmfStylesheet(".event", "", "color");
 				var arcadeHover, arcadeNoHover;
 				var arcadeBgColor = propertyFromSmfStylesheet("button", "", "background-color");
 				arcadeBgColor = arcadeBgColor == "undefined" || arcadeBgColor == null ? "gray" : arcadeBgColor;
@@ -940,59 +913,10 @@ function loadArcadeSkin($rom = 0, $head = true)
 	list($files, $custom, $headers, $arcade_version) = array(array(), false, '', $arcadeModSettings['arcadeVersion']);
 	$suffixVersion = 'v' . (!empty($arcadeModSettings['arcadeGameTesting']) ? str_pad(dechex(mt_rand(0, 0xFFFFF)), 5, '0', STR_PAD_LEFT) : preg_replace('/[^0-9a-zA-Z]+/', '', $arcade_version));
 	$action = isset($_REQUEST['action']) && is_string($_REQUEST['action']) && in_array($_REQUEST['action'], array('arcade', 'retro_arch')) ? 1 : 0;
-	list($arcadeSkin, $arcadeMobileSkin) = array($user_info['arcade_settings']['skin' . $rom2], $user_info['arcade_settings']['skin_mobile']);
+	list($arcadeSkin) = array($user_info['arcade_settings']['skin' . $rom2]);
 	$customSkinSettings = !empty($user_info['arcade_settings']['custom_skin']) ? $user_info['arcade_settings']['custom_skin'] : '';
-	$customMobileSkinSettings = !empty($user_info['arcade_settings']['custom_skin_mobile']) ? $user_info['arcade_settings']['custom_skin_mobile'] : '';
 
-	if (!empty($_SESSION['arcade_isMobile']) && !empty($head))
-	{
-		switch ($arcadeMobileSkin) {
-			case 1:
-				$files[] = array('type' => 'css', 'file' => $settings['default_theme_url'] . '/css/arcade-mobile-generic-skin.css?' . $suffixVersion);
-				break;
-			case 2:
-				$files[] = array('type' => 'css', 'file' => $settings['default_theme_url'] . '/css/arcade-mobile-light-skin.css?' . $suffixVersion);
-				break;
-			default:
-				if (!empty($action) && !empty($customMobileSkinSettings) && !empty($customMobileSkinSettings['skin_name']) && !empty($customMobileSkinSettings['skin_source_file']) && file_exists($boarddir . '/ArcadeSources/' . $customMobileSkinSettings['skin_source_file']))
-				{
-					if (!function_exists($customMobileSkinSettings['skin_function'])) {
-						require_once($boarddir . '/ArcadeSources/' . $customMobileSkinSettings['skin_source_file']);
-						if (!empty($customMobileSkinSettings['skin_function']) && function_exists($customMobileSkinSettings['skin_function']))
-						{
-							// css & javascript should be loaded within the custom skin function
-							$context['arcade_skin'] = $customMobileSkinSettings['skin_function']();
-							$custom = true;
-						}
-						else {
-							// use the defaults if the above is unavailable
-							$files[] = array('type' => 'css', 'file' => $settings['default_theme_url'] . '/css/arcade-mobile-light-skin.css?' . $suffixVersion);
-						}
-					}
-					elseif (function_exists($customMobileSkinSettings['skin_function'])) {
-						// css must already be loaded?
-					}
-					else {
-						$files[] = array('type' => 'css', 'file' => $settings['default_theme_url'] . '/css/arcade-mobile-light-skin.css?' . $suffixVersion);
-					}
-				}
-		}
-		foreach ($files as $filedata) {
-			switch ($filedata['type']) {
-				case 'css':
-					$headers .= !empty($custom) ? '' : '
-	<link rel="stylesheet" href="' . $filedata['file'] . '" />';
-					break;
-				case 'js':
-					$headers .= '
-	<script type="text/javascript" src="' . $filedata['file'] . '"></script>';
-					break;
-				default:
-					$headers .= '';
-			}
-		}
-	}
-	elseif (!empty($head))
+	if (!empty($head))
 	{
 		switch ($arcadeSkin)
 		{
@@ -1086,16 +1010,14 @@ function loadArcade($mode = 'normal', $index = '', $rom = 0)
 	$arcade_version = $arcadeModSettings['arcadeVersion'];
 	$suffixVersion = 'v' . (!empty($arcadeModSettings['arcadeGameTesting']) ? str_pad(dechex(mt_rand(0, 0xFFFFF)), 5, '0', STR_PAD_LEFT) : preg_replace('/[^0-9a-zA-Z]+/', '', $arcade_version));
 	$arcade_lang_version = '2.6';
-	$_SESSION['arcade_isMobile'] = empty($user_info['arcade_settings']['detect_mobile']) && !empty($_SESSION['arcade_isMobile']) ? $_SESSION['arcade_isMobile'] : 0;
 	$_SESSION['arcade_sortby' . $rom2] = !empty($_SESSION['arcade_sortby' . $rom2]) ? $_SESSION['arcade_sortby' . $rom2] : '';
 	$skinAlt = array();
 	$context['arcadeSkinAlt'] = !empty($skinAlt) && in_array($settings['theme_id'], $skinAlt) ? true : false;
 	$context['arcade'] = array();
 	$context['arcade_smf_version'] = 'v2.1';
 	$context['arcade_new_no_cats'] = ArcadeNewGamesNoCat(array(), $rom);
-	list($arcadeSkin, $arcadeMobileSkin) = array($user_info['arcade_settings']['skin' . $rom2], $user_info['arcade_settings']['skin_mobile']);
+	list($arcadeSkin) = array($user_info['arcade_settings']['skin' . $rom2]);
 	$customSkinSettings = !empty($user_info['arcade_settings']['custom_skin' . $rom2]) ? $user_info['arcade_settings']['custom_skin' . $rom2] : '';
-	$customMobileSkinSettings = !empty($user_info['arcade_settings']['custom_skin_mobile']) ? $user_info['arcade_settings']['custom_skin_mobile'] : '';
 	$whererom = empty($arcadeModSettings['arcadeRomToggle']) || !allowedTo('arcade_view_retro_arch') ? ' AND rom_flag = {int:rom_flag}' : '';
 	$action = isset($_REQUEST['action']) && is_string($_REQUEST['action']) && in_array($_REQUEST['action'], array('arcade', 'retro_arch')) ? 1 : 0;
 	// Arcade stats
@@ -1119,67 +1041,9 @@ function loadArcade($mode = 'normal', $index = '', $rom = 0)
 		$context['arcade']['stats']['longest_champion'] = ArcadeStats_LongestChampions(1, null, 'current');
 		$context['arcade']['stats']['most_played'] = ArcadeStats_MostPlayed(1, $rom);
 	}
-
-	if (!empty($_SESSION['arcade_isMobile']))
-	{
-		switch ($arcadeMobileSkin)
-		{
-			case 1:
-				require_once($boarddir . '/ArcadeSources/Subs-ArcadeSkinCrux.php');
-				if ($mode == 'normal' || $mode == 'arena')
-					loadTemplate('ArcadeSkinMobileGeneric');
-				$context['nameCharLength'] = 60;
-				break;
-			case 2:
-				// mobile support should have a simple layout
-				require_once($boarddir . '/ArcadeSources/Subs-ArcadeSkinCrux.php');
-				if ($mode == 'normal' || $mode == 'arena')
-					loadTemplate('ArcadeSkinMobileLight');
-				$context['nameCharLength'] = 60;
-				break;
-			default:
-				if (!empty($action) && !empty($customMobileSkinSettings) && !empty($customMobileSkinSettings['skin_name']) && !empty($customMobileSkinSettings['skin_source_file']) && file_exists($boarddir . '/ArcadeSources/' . $customMobileSkinSettings['skin_source_file']))
-				{
-					if (!function_exists($customMobileSkinSettings['skin_function'])) {
-						require_once($boarddir . '/ArcadeSources/' . $customMobileSkinSettings['skin_source_file']);
-						if (!empty($customMobileSkinSettings['lang_function']) && function_exists($customMobileSkinSettings['lang_function'])) {
-							$customMobileSkinSettings['lang_function']();
-						}
-						if (!empty($customMobileSkinSettings['skin_function']) && function_exists($customMobileSkinSettings['skin_function'])) {
-							$context['arcade_skin'] = $customMobileSkinSettings['skin_function']();
-							loadTemplate($customMobileSkinSettings['skin_template']);
-						}
-						else
-						{
-							require_once($boarddir . '/ArcadeSources/Subs-ArcadeSkinCrux.php');
-							if ($mode == 'normal' || $mode == 'arena')
-								loadTemplate('ArcadeSkinMobileLight');
-							$context['nameCharLength'] = 60;
-						}
-					}
-					else {
-						if (!empty($customMobileSkinSettings['lang_function']) && function_exists($customMobileSkinSettings['lang_function'])) {
-							$customMobileSkinSettings['lang_function']();
-						}
-						$context['arcade_skin'] = $customMobileSkinSettings['skin_function']();
-						loadTemplate($customMobileSkinSettings['skin_template']);
-					}
-				}
-				elseif(!empty($action) && !empty($customMobileSkinSettings) && !empty($customMobileSkinSettings['skin_name']) && !empty($customMobileSkinSettings['skin_template']))
-				{
-					loadTemplate($customMobileSkinSettings['skin_template']);
-				}
-				else
-				{
-					require_once($boarddir . '/ArcadeSources/Subs-ArcadeSkinCrux.php');
-					if ($mode == 'normal' || $mode == 'arena')
-						loadTemplate('ArcadeSkinMobileLight');
-					$context['nameCharLength'] = 60;
-				}
-		}
-	}
-	else
-	{
+	
+	
+	
 		switch ($arcadeSkin)
 		{
 			case 3:
@@ -1282,7 +1146,7 @@ function loadArcade($mode = 'normal', $index = '', $rom = 0)
 					$context['nameCharLength'] = !empty($arcadeModSettings['arcadeGamesNameLength']) ? $arcadeModSettings['arcadeGamesNameLength'] : 100;
 				}
 		}
-	}
+	
 
 	// Load language
 	loadLanguage('Arcade');
@@ -1368,7 +1232,6 @@ function arcadeLogin($rom = '')
 	);
 
 	$rom = isset($_REQUEST['retro_arch']) && $_REQUEST['retro_arch'] == 'rom' ? 1 : $rom;
-	$_SESSION['arcade_isMobile'] = empty($user_info['arcade_settings']['detect_mobile']) && !empty($_SESSION['arcade_isMobile']) ? $_SESSION['arcade_isMobile'] : 0;
 	$_REQUEST['sa'] = (!empty($_REQUEST['sa'])) ? trim($_REQUEST['sa']) : '';
 	$sa = (!empty($_REQUEST['sa'])) && in_array($_REQUEST['sa'], $sub_actions) ? $_REQUEST['sa'] : '';
 	$gameId = isset($_REQUEST['game']) ? (int)$_REQUEST['game'] : 0;
@@ -1397,17 +1260,9 @@ function arcadeLogin($rom = '')
 		'name' => $txt['arcade_login_top'],
 	);
 
-	// we only need the login template from regular or mobile display
-	if (empty($_SESSION['arcade_isMobilePlay']))
-	{
 		$context['sub_template'] = 'arcade_login';
 		loadTemplate('Arcade');
-	}
-	else
-	{
-		$context['sub_template'] = 'arcade_mobile_login';
-		loadTemplate('ArcadeSkinMobileLight');
-	}
+	
 }
 
 function arcade_log_online($romCheck = 0)
@@ -1617,9 +1472,6 @@ function loadMyArcadeSettings($memID = 0)
 	loadArcadeSubs();
 	$arcadeModSettings['arcadeSkin'] = !empty($arcadeModSettings['arcadeSkin']) ? (int)$arcadeModSettings['arcadeSkin'] : 0;
 	$arcadeModSettings['arcadeList'] = !empty($arcadeModSettings['arcadeList']) ? (int)$arcadeModSettings['arcadeList'] : 0;
-	$arcadeModSettings['arcadeSkinMobile'] = !empty($arcadeModSettings['arcadeSkinMobile']) ? (int)$arcadeModSettings['arcadeSkinMobile'] : 0;
-	$arcadeModSettings['arcadeListMobile'] = !empty($arcadeModSettings['arcadeListMobile']) ? (int)$arcadeModSettings['arcadeListMobile'] : 0;
-	$_SESSION['arcade_isMobile'] = empty($user_info['arcade_settings']['detect_mobile']) && !empty($_SESSION['arcade_isMobile']) ? $_SESSION['arcade_isMobile'] : 0;
 	$arcadeSettings = array();
 
 	if ($memID == 0 || $user_info['is_guest']) {
@@ -1648,7 +1500,6 @@ function loadMyArcadeSettings($memID = 0)
 				'champion_pm' => !empty($row['champion_pm']) ? $row['champion_pm'] : 0,
 				'notify_game_reports' => (!empty($row['notify_game_reports']) && memberAllowedTo('arcade_admin', $memID) ? $row['notify_game_reports'] : 0),
 				'new_game' => !empty($row['new_game']) ? $row['new_game'] : 0,
-				'detect_mobile' => !empty($row['detect_mobile']) ? (int)$row['detect_mobile'] : 0,
 				'games_per_page' => !empty($row['games_per_page']) ? $row['games_per_page'] : (!empty($arcadeModSettings['gamesPerPage']) ? $arcadeModSettings['gamesPerPage'] : 28),
 				'archive_type' => isset($row['archive_type']) && !empty($arcadeModSettings['arcade_gz_user']) ? $row['archive_type'] : (!empty($arcadeModSettings['arcade_gz']) ? $arcadeModSettings['arcade_gz'] : 1),
 				'arcade_gametype' => !empty($row['arcade_gametype']) ? $row['arcade_gametype'] : 0,
@@ -1660,8 +1511,6 @@ function loadMyArcadeSettings($memID = 0)
 				'list' => !empty($row['list']) && memberAllowedTo('arcade_list', $memID) ? $row['list'] : 0,
 				'skin_rom' => !empty($row['skin_rom']) && memberAllowedTo('arcade_skin', $memID) ? $row['skin_rom'] : 0,
 				'list_rom' => !empty($row['list_rom']) && memberAllowedTo('arcade_list', $memID) ? $row['list_rom'] : 0,
-				'skin_mobile' => (!empty($row['skin_mobile']) && memberAllowedTo('arcade_skin', $memID) ? (int)$row['skin_mobile'] : 0),
-				'list_mobile' => (!empty($row['list_mobile']) && memberAllowedTo('arcade_list', $memID) ? (int)$row['list_mobile'] : 0),
 				'download_count' => !empty($row['download_count']) ? $row['download_count'] : 0,
 				'arcade_emulatorjs_rom' => !empty($row['arcade_emulatorjs_rom']) ? $row['arcade_emulatorjs_rom'] : '',
 			);
@@ -1680,7 +1529,6 @@ function loadMyArcadeSettings($memID = 0)
 			'champion_email' => 0,
 			'champion_pm' => 0,
 			'new_game' => 0,
-			'detect_mobile' => 0,
 			'games_per_page' => !empty($arcadeModSettings['gamesPerPage']) ? (int)$arcadeModSettings['gamesPerPage'] : 28,
 			'archive_type' => !empty($arcadeModSettings['arcade_gz']) ? (int)$arcadeModSettings['arcade_gz'] : 2,
 			'arcade_gametype' => 0,
@@ -1692,22 +1540,17 @@ function loadMyArcadeSettings($memID = 0)
 			'list' => $arcadeModSettings['arcadeList']+1,
 			'skin_rom' => $arcadeModSettings['arcadeSkin']+1,
 			'list_rom' => $arcadeModSettings['arcadeList']+1,
-			'skin_mobile' => $arcadeModSettings['arcadeSkinMobile']+1,
-			'list_mobile' => $arcadeModSettings['arcadeListMobile']+1,
 			'download_count' => 0,
 			'arcade_emulatorjs_rom' => '',
 		);
 	}
 
-	$_SESSION['arcade_isMobile'] = empty($arcadeSettings['detect_mobile']) && !empty($_SESSION['arcade_isMobile']) ? $_SESSION['arcade_isMobile'] : 0;
-	list($customArcadeSkins, $customMobileSkins, $customArcadeLists, $customMobileLists, $default, $custom) = array(array(), array(), array(), array(), array(), array());
-	list($default['skin'], $default['skin_rom'], $default['skin_mobile'], $default['list'], $default['list_rom'], $default['list_mobile'], $ds, $dms, $cl, $cml) = array($arcadeModSettings['arcadeSkin']+1, $arcadeModSettings['arcadeSkin']+1, $arcadeModSettings['arcadeSkinMobile']+1, $arcadeModSettings['arcadeList']+1, $arcadeModSettings['arcadeList']+1, $arcadeModSettings['arcadeListMobile']+1, 1, 1, 1, 1);
+	list($customArcadeSkins, $customArcadeLists, $default, $custom) = array(array(), array(), array(), array());
+	list($default['skin'], $default['skin_rom'], $default['list'], $default['list_rom'], $ds, $dms, $cl, $cml) = array($arcadeModSettings['arcadeSkin']+1, $arcadeModSettings['arcadeSkin']+1, $arcadeModSettings['arcadeList']+1, $arcadeModSettings['arcadeList']+1, 1, 1, 1, 1);
 	$arcadeSettings['skin'] = !empty($arcadeSettings['skin']) ? $arcadeSettings['skin'] : (int)$default['skin'];
 	$arcadeSettings['skin_rom'] = !empty($arcadeSettings['skin_rom']) ? $arcadeSettings['skin_rom'] : (int)$default['skin'];
-	$arcadeSettings['skin_mobile'] = !empty($arcadeSettings['skin_mobile']) ? $arcadeSettings['skin_mobile'] : (int)$default['skin_mobile'];
 	$arcadeSettings['list'] = !empty($arcadeSettings['list']) ? $arcadeSettings['list'] : (int)$default['list'];
 	$arcadeSettings['list_rom'] = !empty($arcadeSettings['list_rom']) ? $arcadeSettings['list_rom'] : (int)$default['list'];
-	$arcadeSettings['list_mobile'] = !empty($arcadeSettings['list_mobile']) ? $arcadeSettings['list_mobile'] : (int)$default['list_mobile'];
 
 
 	if ($arcadeSettings['skin'] > 3) {
@@ -1718,10 +1561,6 @@ function loadMyArcadeSettings($memID = 0)
 		$customArcadeRomSkin = Arcade_integrate_skins('desktop', true, $arcadeSettings['skin_rom']);
 		$arcadeSettings['custom_skin_rom'] = !empty($customArcadeRomSkin[$arcadeSettings['skin_rom']]) ? $customArcadeRomSkin[$arcadeSettings['skin_rom']] : 1;
 	}
-	if ($arcadeSettings['skin_mobile'] > 2) {
-		$customMobileSkin = Arcade_integrate_skins('mobile', true, $arcadeSettings['skin_mobile']);
-		$arcadeSettings['custom_skin_mobile'] = !empty($customMobileSkin[$arcadeSettings['skin_mobile']]) ? $customMobileSkin[$arcadeSettings['skin_mobile']] : 1;
-	}
 	if ($arcadeSettings['list'] > 3) {
 		$customArcadeList = Arcade_integrate_lists('desktop', true, $arcadeSettings['list']);
 		$arcadeSettings['custom_list'] = !empty($customArcadeList[$arcadeSettings['list']]) ? $customArcadeList[$arcadeSettings['list']] : 1;
@@ -1729,10 +1568,6 @@ function loadMyArcadeSettings($memID = 0)
 	if ($arcadeSettings['list_rom'] > 3) {
 		$customArcadeRomList = Arcade_integrate_lists('desktop', true, $arcadeSettings['list_rom']);
 		$arcadeSettings['custom_list_rom'] = !empty($customArcadeRomList[$arcadeSettings['list_rom']]) ? $customArcadeRomList[$arcadeSettings['list_rom']] : 1;
-	}
-	if ($arcadeSettings['list_mobile'] > 2) {
-		$customMobileList = Arcade_integrate_lists('mobile', true, $arcadeSettings['list_mobile']);
-		$arcadeSettings['custom_list_mobile'] = !empty($customMobileList[$arcadeSettings['list_mobile']]) ? $customMobileList[$arcadeSettings['list_mobile']] : 1;
 	}
 
 	return $arcadeSettings;

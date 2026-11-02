@@ -645,45 +645,42 @@ function template_arcade_game_highscore()
 			<div style="padding-top: 8em;"><span style="display: none;">&nbsp;</span></div>
 			<div class="title_bar">
 				<h3 class="titlebg centertext" style="vertical-align: middle;">
-					<span class="smalltext">', $txt['arcade_highscores'], '</span>
+					<span>', $txt['arcade_highscores'], '</span>
 				</h3>
 			</div>
-			<div style="padding-top: 1em;"><span style="display: none;">&nbsp;</span></div>
-			<div class="score_table smalltext">
-				<div style="display: table;border-collapse: collapse;width: 100%;position: relative;" class="table_grid" id="arccomments">
-					<div style="display: table-row;" class="windowbg2">';
+			<div class="score_table">
+				<div class="table_grid" id="arccomments">
+					<div class="first_th">';
 
 	// Is there games?
 	if (!empty($context['arcade']['scores']))
 	{
 			echo '
-						<div scope="col" class="first_th" style="display: table-cell;width: 5px;border-bottom: 1px double;height: 1.5em;max-height: 1.5em;">', $txt['arcade_position'], '</div>
-						<div scope="col" style="display: table-cell;border-bottom: 1px double;padding-left: 1.0em;height: 1.5em;max-height: 1.5em;"><a href="' . $context['arcade_scorelist_toggle'] . '">', $txt['arcade_member'], '</a></div>
-						<div scope="col" style="display: table-cell;border-bottom: 1px double;padding-left: 1.0em;height: 1.5em;max-height: 1.5em;"> ', $txt['arcade_comment'], '</div>
-						', (!$context['arcade']['can_admin_arcade'] ? $context['arcade_empty_title_cell'] : str_repeat($context['arcade_empty_title_cell'], 2)) . '
-						' . (!$context['arcade']['can_admin_arcade'] ? '<div scope="col" class="last_th" style="display: table-cell;border-bottom: 1px double;text-align: center;height: 1.5em;max-height: 1.5em;"></div>' : '') . '
-						<div scope="col" class="', !$context['arcade']['can_admin_arcade'] ? ' last_th' : '', '" style="display: table-cell;border-bottom: 1px double;text-align: center;padding-left: 1.0em;height: 1.5em;max-height: 1.5em;">', $txt['arcade_score'], '</div>';
+				<div>', $txt['arcade_position'], '</div>
+				<div><a href="' . $context['arcade_scorelist_toggle'] . '">', $txt['arcade_member'], '</a></div>
+				<div> ', $txt['arcade_comment'], '</div>
+				' . '
+				<div class="arcade-score">', $txt['arcade_score'];
 
-		if ($context['arcade']['can_admin_arcade'])
+		if ($context['arcade']['can_admin_arcade']) {
 			echo '
-						<div scope="col" class="last_th centertext" style="display: table-cell;width: 15px;height: 1.5em;max-height: 1.5em;"><input type="checkbox" onclick="invertAll(this, this.form, \'scores[]\');" class="check" /></div>';
+				<div class="last_th"><input type="checkbox" onclick="invertAll(this, this.form, \'scores[]\');" class="check" /></div>';
+		}
+			echo '</div>';
 	}
 	else
 	{
 		echo '
-						<div scope="col" class="first_th" style="display: table-cell;width: 8%;border-bottom: 1px double;height: 1.5em;max-height: 1.5em;">&nbsp;</div>
-						<div class="smalltext" style="display: table-cell;border-bottom: 1px double;height: 1.5em;max-height: 1.5em;"><strong>', $txt['arcade_no_scores'], '</strong></div>
-						', (!$context['arcade']['can_admin_arcade'] ? $context['arcade_empty_cell'] : str_repeat($context['arcade_empty_cell'], 2)) . '
-						<div scope="col" class="last_th" style="display: table-cell;width: 8%;border-bottom: 1px double;height: 1.5em;max-height: 1.5em;">&nbsp;</div>';
+			<div class="first_th">&nbsp;</div>
+			<div class="smalltext"><strong>', $txt['arcade_no_scores'], '</strong></div>
+			' . '
+			<div class="last_th">&nbsp;</div>';
 	}
 
 	echo '
-					</div>
-					<div style="display: table-row;" class="windowbg2">
-						', (!$context['arcade']['can_admin_arcade'] ? str_repeat(str_replace('display: table-cell;', 'display: table-cell;padding-bottom: 1em;', $context['arcade_empty_cell']), 5) : str_repeat(str_replace('display: table-cell;', 'display: table-cell;padding-bottom: 1em;', $context['arcade_empty_cell']), 6)) . '
-					</div>';
+		</div>';
 
-		$edit_button = '<span style="width: 16px;height: 16px;display: inline-block;background: url(' . $settings['default_images_url'] . '/arc_icons/arcade_edit.gif) no-repeat;vertical-align: middle;">&nbsp;</span>';
+		$edit_button = '<span class="arcade-edit-button" style="background: url(' . $settings['default_images_url'] . '/arc_icons/arcade_edit.gif) no-repeat;">&nbsp;</span>';
 
 	foreach ($context['arcade']['scores'] as $score)
 	{
@@ -693,19 +690,19 @@ function template_arcade_game_highscore()
 		$div_con = addslashes(sprintf($txt['arcade_when'], $score['time'], duration_format($score['duration'])));
 		$currentScore = !empty($_SESSION['arcade_current_score_id']) && $score['id'] == $_SESSION['arcade_current_score_id'] ? '<span style="font-weight: 900;font-style: oblique 40deg;">' . $score['score'] . '</span>' : $score['score'];
 		echo '
-					<div class="', $score['own'] ? 'windowbg2 arcade_own_score' : 'windowbg2', '"', !empty($score['highlight']) ? ' style="clear: both;width: 100%;display: table-row;"' : ' style="clear: both;width: 100%;display: table-row;font-weight: bold;"', ' onmouseover="arcadeBox(\'', $div_con, '\')" onmousemove="arcadeBoxMove(event)" onmouseout="arcadeBox(\'\')">
-						<div style="display: table-cell;height: 1.5em;max-height: 1.5em;" class="windowbg2 centertext">', $score['position'], '</div>
-						<div style="display: table-cell;padding-left: 1.0em;height: 1.5em;max-height: 1.5em;" class="windowbg2">', $score['member']['link'], '</div>
-						<div style="display: table-cell;width: 300px;padding-left: 1.0em;height: 1.5em;max-height: 1.5em;" class="windowbg2">';
+					<div class="arcade-row ', $score['own'] ? 'arcade_own_score' : '', '"', ' onmouseover="arcadeBox(\'', $div_con, '\')" onmousemove="arcadeBoxMove(event)" onmouseout="arcadeBox(\'\')">
+						<div>', $score['position'], '</div>
+						<div class="arcade-member">', $score['member']['link'], '</div>
+						<div class="arcade-comment">';
 
 		if ($score['can_edit'] && empty($score['edit']) && empty($arcadeModSettings['arcadeDisableComments']))
 			echo '
-							<div id="comment', $score['id'], '" class="floatleft">', $score['comment'], '</div>
-							<div id="edit', $score['id'], '" class="floatleft" style="display: none;">
+							<div id="comment', $score['id'], '">', $score['comment'], '</div>
+							<div id="edit', $score['id'], '" style="display: none;">
 								<input name="new_comment', $score['id'], '" onkeydown="enterkey(event)" type="text" id="c', $score['id'], '" value="', $score['raw_comment'], '" style="width: 95%;" maxlength="50" />
 								<input id="okClick_' . $score['id'] . '" type="hidden" onclick="myformxyz(\'commentform3\', \'', $score['id'], '\')" name="csave" value="', $txt['arcade_save'], '" />
 							</div>
-								<p style="text-align: right;"><a style="height: 1.5em;max-height: 1.5em;text-align: right;" id="editlink', $score['id'], '" onclick="arcadeCommentEdit(', $score['id'], ', ', $context['game']['id'], ', 1); myformxyz(\'commentform3\', \'', $score['id'], '\');" href="', $scripturl, '?action=arcade;sa=highscore;game=', $context['game']['id'], ';edit;score=', $score['id'], '#commentform3">', $edit_button, '</a></p>';
+								<a class="arcade-edit-button" id="editlink', $score['id'], '" onclick="arcadeCommentEdit(', $score['id'], ', ', $context['game']['id'], ', 1); myformxyz(\'commentform3\', \'', $score['id'], '\');" href="', $scripturl, '?action=arcade;sa=highscore;game=', $context['game']['id'], ';edit;score=', $score['id'], '#commentform3">', $edit_button, '</a>';
 		elseif ($score['can_edit'] && !empty($score['edit']) && empty($arcadeModSettings['arcadeDisableComments']))
 		{
 			echo '
@@ -720,19 +717,16 @@ function template_arcade_game_highscore()
 
 		echo '
 						</div>
-						', str_repeat($context['arcade_empty_cell'], 2), '
-						<div style="display: table-cell;padding-left: 1.0em;height: 1.5em;max-height: 1.5em;" class="centertext windowbg2">', $currentScore, '</div>';
+						<div class="arcade-score">', $currentScore;
 
 
-		if ($context['arcade']['can_admin_arcade'])
+		if ($context['arcade']['can_admin_arcade']) {
 			echo '
-						<div style="display: table-cell;height: 1.5em;max-height: 1.5em;" class="windowbg2 centertext"><input type="checkbox" name="scores[]" value="', $score['id'], '" class="check" /></div>';
+						<div><input type="checkbox" name="scores[]" value="', $score['id'], '" class="check" /></div>';
+		}
 
 		echo '
-					</div>
-					<div style="display: table-row;" class="windowbg2">
-						', (!$context['arcade']['can_admin_arcade'] ? str_repeat(str_replace('display: table-cell;', 'display: table-cell;padding-bottom: 0.7em;', $context['arcade_empty_cell']), 5) : str_repeat(str_replace('display: table-cell;', 'display: table-cell;padding-bottom: 0.7em;', $context['arcade_empty_cell']), 6)) . '
-					</div>';
+					</div> </div>';
 	}
 
 	echo '

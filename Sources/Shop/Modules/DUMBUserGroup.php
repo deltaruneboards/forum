@@ -135,10 +135,10 @@ class DUMBUsergroup extends Module
         // overriding the existing primary group
         // dear god i really hope this doesnt break somehow
         // and deadmin someon
-        if ($this->item_info > 0)
+        if ($this->item_info[1] > 0)
             addMembersToGroup($user_info['id'], $this->item_info[1], 'force_primary', true);
         else
-            removeMembersFromGroup($user_info['id'], null, true);
+            removeMembersFromGroups($user_info['id'], null, true);
         // hopefully this doesnt break anything in the future??
         // on the other hand idk how mad smf would get about having a member
         // with no primary mgroup but also having subgroups

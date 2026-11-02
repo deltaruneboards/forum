@@ -7,11 +7,12 @@
 	--blazer-color: #8dedfe;
 	--forecaster-color: linear-gradient(90deg, rgba(242, 200, 90, 1) 13%, rgba(204, 254, 255, 1) 55%, rgba(148, 188, 241, 1) 87%);;
 	--snowcaster-color: #96f1ff;
+	--ex-horse-color: linear-gradient(180deg, rgb(227, 227, 227) 0%, rgb(250, 255, 211) 30%, rgb(171, 171, 171) 50%, rgb(81, 106, 49) 90%, rgb(37, 61, 30) 100%);
 
 	--hover-color: white;
 }
 
-body.color-scheme-light, body.color-scheme-os {
+body.color-scheme-light {
 	--lucky-color: linear-gradient(180deg, rgba(255, 8, 8, 1) 0%, rgba(255, 196, 196, 1) 10%, rgb(0 0 0) 37%, rgba(255, 8, 8, 1) 90%, rgba(87, 23, 23, 1) 100%);
 	--big-shot-color: linear-gradient(180deg, rgb(255, 49, 78) 0%, rgb(255, 46, 203) 10%, rgb(251, 177, 61) 30%, rgb(227, 163, 39) 43%, rgb(255, 78, 161) 63%, rgb(205, 41, 121) 100%);
 	--hopes-dreams-color: linear-gradient(to right, rgb(246, 0, 55), rgb(255, 103, 54), rgb(255, 173, 46), rgb(61, 191, 49), rgb(65, 196, 171), rgb(2, 141, 255), rgb(166, 0, 242));
@@ -20,8 +21,25 @@ body.color-scheme-light, body.color-scheme-os {
 	--blazer-color: #57c4cb;
 	--forecaster-color: linear-gradient(90deg, rgb(218, 166, 31) 25%, rgb(31, 184, 187) 55%, rgb(116, 171, 245) 100%);
 	--snowcaster-color: #0293FD;
+	--ex-horse-color: linear-gradient(180deg, rgb(132, 132, 132) 0%, rgb(160, 164, 125) 30%, rgb(171, 171, 171) 50%, rgb(81, 106, 49) 90%, rgb(37, 61, 30) 100%);
 
 	--hover-color: #D5390D;
+}
+
+@media (prefers-color-scheme: light) {
+	body.color-scheme-os {
+		--lucky-color: linear-gradient(180deg, rgba(255, 8, 8, 1) 0%, rgba(255, 196, 196, 1) 10%, rgb(0 0 0) 37%, rgba(255, 8, 8, 1) 90%, rgba(87, 23, 23, 1) 100%);
+		--big-shot-color: linear-gradient(180deg, rgb(255, 49, 78) 0%, rgb(255, 46, 203) 10%, rgb(251, 177, 61) 30%, rgb(227, 163, 39) 43%, rgb(255, 78, 161) 63%, rgb(205, 41, 121) 100%);
+		--hopes-dreams-color: linear-gradient(to right, rgb(246, 0, 55), rgb(255, 103, 54), rgb(255, 173, 46), rgb(61, 191, 49), rgb(65, 196, 171), rgb(2, 141, 255), rgb(166, 0, 242));
+		--ice-trancer-color: linear-gradient(0deg, rgb(44, 34, 50) 0%, rgb(103 90 160) 27%, rgb(130 193 218) 52%, rgb(21 101 171) 78%, rgb(53, 73, 132) 100%);
+		--joker-color: linear-gradient(90deg, #88c500 25%, #7f7fff 30%, #7f7fff 50%, #88c500 55%, #88c500 75%, #7f7fff 80%, #7f7fff 100%);
+		--blazer-color: #57c4cb;
+		--forecaster-color: linear-gradient(90deg, rgb(218, 166, 31) 25%, rgb(31, 184, 187) 55%, rgb(116, 171, 245) 100%);
+		--snowcaster-color: #0293FD;
+		--ex-horse-color: linear-gradient(180deg, rgb(132, 132, 132) 0%, rgb(160, 164, 125) 30%, rgb(171, 171, 171) 50%, rgb(81, 106, 49) 90%, rgb(37, 61, 30) 100%);
+
+		--hover-color: #D5390D;
+	}
 }
 
 span[class*="group-"], a[class*="group-"], a[class*="group-"]:visited {
@@ -45,7 +63,7 @@ span.group-2, a.group-2, a.group-2:visited, span.group-3, a.group-3, a.group-3:v
 }
 
 /* Bed Inspector */
-a.group-26, a.group-26:visited {
+span.group-26, a.group-26, a.group-26:visited {
 	color: black;
 	-webkit-text-stroke: 3px white;
 	font-family: serif;
@@ -54,49 +72,16 @@ a.group-26, a.group-26:visited {
 	font-size: larger;
 }
 
-/* Human */
-span.group-40, a.group-40, a.group-40:visited {
-	color: #de1c0c;
+/* BLAZER */
+span.group-27, a.group-27, a.group-27:visited {
+	color: var(--blazer-color);
 }
 
-/* Mean Girl*/
-span.group-54, a.group-54, a.group-54:visited {
-	color: #AD30DF;
-	text-shadow: 0 0 2px black;
-}
-
-/* Lonely Prince */
-span.group-53, a.group-53, a.group-53:visited {
-	color: #1f9775;
-}
-
-/* Tactician */
-span.group-56, a.group-56, a.group-56:visited {
-	color: #5581fc;
-}
-
-/* Moss Finder */
-span.group-48, a.group-48, a.group-48:visited {
-	color: #55c621;
-	text-shadow: 0 0 2px #3e89ff;
-	-webkit-text-stroke: 3px #1e7969;
-	paint-order: stroke fill;
-}
-
-/* Lightner */
-span.group-44, a.group-44, a.group-44:visited {
-	color: #FC3;
-	text-shadow: 0 0 2px #FF5400;
-	-webkit-text-stroke: 3px #cc5600;
-	paint-order: stroke fill;
-}
-
-
-/* Darkner */
-span.group-30, a.group-30, a.group-30:visited {
-	color: #3DAEEE;
-	text-shadow: 0 0 2px #0004FF;
-	-webkit-text-stroke: 3px #002d52;
+/* Dark Knight*/
+span.group-28, a.group-28, a.group-28:visited {
+	color: #ff00e3;
+	text-shadow: 0 0 4px #00645b;
+	-webkit-text-stroke: 2px #2c0188;
 	paint-order: stroke fill;
 }
 
@@ -108,24 +93,11 @@ span.group-29, a.group-29, a.group-29:visited {
 	paint-order: stroke fill;
 }
 
-/* Dark Knight*/
-span.group-28, a.group-28, a.group-28:visited {
-	color: #ff00e3;
-	text-shadow: 0 0 4px #00645b;
-	-webkit-text-stroke: 2px #2c0188;
-	paint-order: stroke fill;
-}
-
-/* Milk Looker */
-span.group-47, a.group-47, a.group-47:visited {
-	color: #FFE600;
-	text-shadow: 0 0 2px black;
-}
-
-/* Monster */
-span.group-55, a.group-55, a.group-55:visited {
-	color: #8469E3;
-	-webkit-text-stroke: 1px #000;
+/* Darkner */
+span.group-30, a.group-30, a.group-30:visited {
+	color: #3DAEEE;
+	text-shadow: 0 0 2px #0004FF;
+	-webkit-text-stroke: 3px #002d52;
 	paint-order: stroke fill;
 }
 
@@ -135,6 +107,35 @@ span.group-31, a.group-31, a.group-31:visited {
 	-webkit-text-stroke: 3px #000;
 	paint-order: stroke fill;
 	font-weight: bold;
+}
+
+/* The Youthful Days*/
+span.group-32, a.group-32, a.group-32:visited {
+	color: #97CA88;
+}
+
+/* Ex-Horse */
+span.group-33, a.group-33, a.group-33:visited {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	font-weight: bold;
+	background-image: var(--ex-horse-color);
+}
+
+/* Forecaster */
+span.group-34, a.group-34, a.group-34:visited, span.group-35, a.group-35, a.group-35:visited {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	background-image: var(--forecaster-color);
+}
+
+/* Frostmancer */
+span.group-36, a.group-36, a.group-36:visited {
+	color: black;
+	-webkit-text-stroke: 3px #517184;
+	paint-order: stroke fill;
 }
 
 /* Hopes & Dreams, SpecialUltraRainbowMilkLooker */
@@ -147,57 +148,20 @@ span.group-57, a.group-57, a.group-57:visited {
 	font-weight: bold;
 }
 
-/* The Youthful Days*/
-span.group-32, a.group-32, a.group-32:visited {
-	color: #97CA88;
+/* Horse */
+span.group-39, a.group-39, a.group-39:visited {
+	color: #99d14d;
+	font-weight: bold;
 }
 
-/* BLAZER */
-span.group-27, a.group-27, a.group-27:visited {
-	color: var(--blazer-color);
+/* Human */
+span.group-40, a.group-40, a.group-40:visited {
+	color: #de1c0c;
 }
 
 /* ICE BLAZER */
 span.group-41, a.group-41, a.group-41:visited {
 	color: #6c50d5;
-}
-
-/* YOUR TAKING TOO LONG */
-span.group-52, a.group-52, a.group-52:visited {
-	color: #000;
-	-webkit-text-stroke: 3px #ed1c24;
-	paint-order: stroke fill;
-}
-
-/* BIG SHOT */
-span.group-58, a.group-58, a.group-58:visited {
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-	font-weight: normal;
-	font-family: "UT Comic Sans";
-	background-image: var(--big-shot-color);
-}
-
-/* Lucky */
-span.group-45, a.group-45, a.group-45:visited {
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-	font-weight: bold;
-	background-image: var(--lucky-color);
-}
-
-/* Snowcaster */
-span.group-51, a.group-51, a.group-51:visited {
-	color: var(--snowcaster-color);
-}
-
-/* Frostmancer */
-span.group-36, a.group-36, a.group-36:visited {
-	color: black;
-	-webkit-text-stroke: 3px #517184;
-	paint-order: stroke fill;
 }
 
 /* Ice Trancer */
@@ -207,25 +171,6 @@ span.group-42, a.group-42, a.group-42:visited {
 	background-clip: text;
 	background-image: var(--ice-trancer-color);
 	text-shadow: 1px 1px 3px #b0e1ff3d;
-}
-
-/* SOUTH OF THE BORDER */
-span.group-59, a.group-59, a.group-59:visited {
-	color: #ff4c76;
-}
-
-/* Forecaster */
-span.group-34, a.group-34, a.group-34:visited, span.group-35, a.group-35, a.group-35:visited {
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
-	background-image: var(--forecaster-color);
-}
-
-/* Mew Mew Fan */
-span.group-46, a.group-46, a.group-46:visited {
-	color: #fba3b0;
-	font-family: "UT Comic Sans";
 }
 
 /* Joker */
@@ -239,19 +184,41 @@ span.group-43, a.group-43, a.group-43:visited {
 	background-image: var(--joker-color);
 }
 
-/* Horse */
-span.group-39, a.group-39, a.group-39:visited {
-	color: #99d14d;
-	font-weight: bold;
+/* Lightner */
+span.group-44, a.group-44, a.group-44:visited {
+	color: #FC3;
+	text-shadow: 0 0 2px #FF5400;
+	-webkit-text-stroke: 3px #cc5600;
+	paint-order: stroke fill;
 }
 
-/* Ex-Horse */
-span.group-33, a.group-33, a.group-33:visited {
+/* Lucky */
+span.group-45, a.group-45, a.group-45:visited {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
 	font-weight: bold;
-	background-image: linear-gradient(180deg, rgb(227, 227, 227) 0%, rgb(250, 255, 211) 30%, rgb(171, 171, 171) 50%, rgb(81, 106, 49) 90%, rgb(37, 61, 30) 100%);
+	background-image: var(--lucky-color);
+}
+
+/* Mew Mew Fan */
+span.group-46, a.group-46, a.group-46:visited {
+	color: #fba3b0;
+	font-family: "UT Comic Sans";
+}
+
+/* Milk Looker */
+span.group-47, a.group-47, a.group-47:visited {
+	color: #FFE600;
+	text-shadow: 0 0 2px black;
+}
+
+/* Moss Finder */
+span.group-48, a.group-48, a.group-48:visited {
+	color: #55c621;
+	text-shadow: 0 0 2px #3e89ff;
+	-webkit-text-stroke: 3px #1e7969;
+	paint-order: stroke fill;
 }
 
 /* Roommate */
@@ -262,6 +229,69 @@ span.group-50, a.group-50, a.group-50:visited {
 	background-size: 200% 100%;
 	color: #0000;
 	animation: group-50-anim 4000ms linear infinite;
+
+	--drop-shadow-color: #000;
+	--drop-shadow-radius: 1px;
+	filter: drop-shadow(var(--drop-shadow-color) 0 0 var(--drop-shadow-radius)) drop-shadow(var(--drop-shadow-color) 0 0 var(--drop-shadow-radius)) drop-shadow(var(--drop-shadow-color) 0 0 var(--drop-shadow-radius));
+}
+
+/* Snowcaster */
+span.group-51, a.group-51, a.group-51:visited {
+	color: var(--snowcaster-color);
+}
+
+/* YOUR TAKING TOO LONG */
+span.group-52, a.group-52, a.group-52:visited {
+	color: #000;
+	-webkit-text-stroke: 3px #ed1c24;
+	paint-order: stroke fill;
+}
+
+/* Lonely Prince */
+span.group-53, a.group-53, a.group-53:visited {
+	color: #1f9775;
+}
+
+/* Mean Girl*/
+span.group-54, a.group-54, a.group-54:visited {
+	color: #AD30DF;
+	text-shadow: 0 0 2px black;
+}
+
+/* Monster */
+span.group-55, a.group-55, a.group-55:visited {
+	color: #8469E3;
+	-webkit-text-stroke: 1px #000;
+	paint-order: stroke fill;
+}
+
+/* Tactician */
+span.group-56, a.group-56, a.group-56:visited {
+	color: #5581fc;
+}
+
+/* BIG SHOT */
+span.group-58, a.group-58, a.group-58:visited {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	font-weight: normal;
+	font-family: "UT Comic Sans";
+	background-image: var(--big-shot-color);
+}
+
+/* SOUTH OF THE BORDER */
+span.group-59, a.group-59, a.group-59:visited {
+	color: #ff4c76;
+}
+
+/* Seapkeeper */
+span.group-60, a.group-60, a.group-60:visited {
+	color:#231555;
+	-webkit-text-stroke:3px #ff912b;
+	paint-order:stroke fill;
+	text-shadow:0 0 5px #ff7f08;
+	font-weight:700;
 }
 
 /* BLAZER, ICE BLAZER, SOUTH OF THE BORDER, The Youthful Days */
@@ -310,7 +340,7 @@ img.group-34, img.group-35 {
 }
 
 .group-34-35-text {
-	background-image: url(https://deltaruneboards.net/assets/titles/forecaster_text.gif);
+	background-image: url("/assets/titles/forecaster_text.gif");
 	width: 100px;
 	height: 24px;
 	position: absolute;
@@ -321,7 +351,7 @@ img.group-34, img.group-35 {
 	-webkit-text-stroke: 2px #033b68;
 	paint-order: stroke fill;
 	cursor: pointer;
-	padding-top:4px;
+	padding-top: 4px;
 }
 .group-34-35-text:hover {
 	color:color-mix(#f2c85a, #777 );
@@ -332,10 +362,10 @@ img.group-34, img.group-35 {
 .group-50-playbutton {
 	display: inline-block;
 	position: absolute;
-	background: url(https://deltaruneboards.net/assets/titles/flowery_audio_icon.png);
+	background: url("/assets/titles/flowery_audio_icon.png");
 	height: 11px;
 	width: 13px;
-	border: 0px;
+	border: 0;
 	cursor: pointer;
 	margin-top: 2px;
 	margin-left: -38px;
@@ -347,17 +377,17 @@ img.group-34, img.group-35 {
 .group-52-playbutton {
 	display: inline-block;
 	position: absolute;
-	background: url(https://deltaruneboards.net/assets/titles/jack_button.png);
+	background: url("/assets/titles/jack_button.png");
 	height: 18px;
 	width: 18px;
-	border: 0px;
+	border: 0;
 	cursor: pointer;
 	margin-top: 2px;
 	margin-left: -95px;
 }
 
 .group-52-playbutton:hover {
-	background: url(https://deltaruneboards.net/assets/titles/jack_button2.png);
+	background: url("/assets/titles/jack_button2.png");
 }
 
 img.group-59 {
@@ -373,12 +403,11 @@ img.oflove {
 	height: 24px;
 	width: 107px;
 	animation: group-59-anim 2.3s linear infinite;
-	animation-timing-function: linear;
 	animation-timing-function: steps(6, end);
-	-webkit-mask-image: url(https://deltaruneboards.net/Themes/default/images/membericons/tropic.gif);
-	mask-image: url(https://deltaruneboards.net/Themes/default/images/membericons/tropic.gif);
+	-webkit-mask-image: url("/shop_items/items/tropic.gif");
+	mask-image: url("/shop_items/items/tropic.gif");
 	pointer-events: none;
-	cursor: pointer
+	cursor: pointer;
 }
 
 @keyframes group-59-anim {
@@ -388,14 +417,21 @@ img.oflove {
 }
 
 .group-59-text {
-	background-image: url(https://deltaruneboards.net/assets/titles/tropic_text.gif);
+	background-image: url("/assets/titles/tropic_text.gif");
 	width: 107px;
 	height: 24px;
 	position: absolute;
 	display: inline-block;
 }
+
 @keyframes group-50-anim {
-	0%{background-position:0% 0%}
-	50%{background-position:-100% 0%}
-	100%{background-position:-200% 0%}
+	0% {
+		background-position: 0% 0%;
+	}
+	50% {
+		background-position: -100% 0%;
+	}
+	100% {
+		background-position: -200% 0%;
+	}
 } 

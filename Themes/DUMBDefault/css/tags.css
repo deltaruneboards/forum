@@ -191,7 +191,9 @@ a.tag-crossover:visited {
 }
 
 a.tag-off-topic,
-a.tag-off-topic:visited {
+a.tag-off-topic:visited,
+a.tag-blog,
+a.tag-blog:visited {
 	color: black;
 	background: #38190f;
 	background: linear-gradient(0deg,rgba(245, 245, 245, 1) 3%, rgba(165, 194, 72, 1) 63%, rgba(255, 255, 255, 1) 100%);

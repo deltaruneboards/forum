@@ -180,7 +180,7 @@ function ArcadePlay()
 		'last_id' => $context['game']['id'],
 	);
 
-	if (!empty($context['game']['type']) && $context['game']['type'] == 'fullscreen' && empty($_SESSION['arcade_isMobilePlay']))
+	if (!empty($context['game']['type']) && $context['game']['type'] == 'fullscreen')
 	{
 		$_REQUEST['pop'] = 1;
 		$_REQUEST['full'] = 1;
@@ -322,14 +322,7 @@ function ArcadePlay()
 			var arcade_game_dir = "' . $arcadeModSettings['gamesUrl'] . '/' . $context['game']['directory'] . '";
 			// ]]></script>';
 
-			if (empty($_SESSION['arcade_isMobilePlay']))
-				loadTemplate('ArcadeGame');
-			else
-			{
-				$context['html_headers'] .= '
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">';
-				loadTemplate('ArcadeGameMobile');
-			}
+			loadTemplate('ArcadeGame');
 
 			return;
 		}
@@ -375,14 +368,8 @@ function ArcadePlay()
 				<script type="text/javascript"><!-- // --><![CDATA[
 				var arcade_game_dir = "' . $arcadeModSettings['gamesUrl'] . '/' . $context['game']['directory'] . '";
 				// ]]></script>';
-				if (empty($_SESSION['arcade_isMobilePlay']))
-					loadTemplate('ArcadeGame');
-				else
-				{
-					$context['html_headers'] .= '
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">';
-					loadTemplate('ArcadeGameMobile');
-				}
+				
+				loadTemplate('ArcadeGame');
 
 				return;
 			}
@@ -402,14 +389,8 @@ function ArcadePlay()
 				<script type="text/javascript"><!-- // --><![CDATA[
 				var arcade_game_dir = "' . $arcadeModSettings['gamesUrl'] . '/' . $context['game']['directory'] . '";
 				// ]]></script>';
-				if (empty($_SESSION['arcade_isMobilePlay']))
-					loadTemplate('ArcadeGame');
-				else
-				{
-					$context['html_headers'] .= '
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">';
-					loadTemplate('ArcadeGameMobile');
-				}
+
+				loadTemplate('ArcadeGame');
 
 				return;
 			}
@@ -479,14 +460,8 @@ function ArcadePlay()
 				'name' => $context['game']['name'],
 			);
 
-			if (empty($_SESSION['arcade_isMobilePlay']))
-				loadTemplate('ArcadeGame');
-			else
-			{
-				$context['html_headers'] .= '
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">';
-				loadTemplate('ArcadeGameMobile');
-			}
+
+			loadTemplate('ArcadeGame');
 
 			return;
 		}
@@ -517,13 +492,7 @@ function ArcadePlay()
 					'name' => $context['game']['name'],
 				);
 
-				if (empty($_SESSION['arcade_isMobilePlay']))
-					loadTemplate('ArcadeGame');
-				else
-				{
-					$context['html_headers'] .= '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">';
-					loadTemplate('ArcadeGameMobile');
-				}
+				loadTemplate('ArcadeGame');
 
 				return;
 				// ignore...
@@ -547,14 +516,7 @@ function ArcadePlay()
 					'name' => $context['game']['name'],
 				);
 
-				if (empty($_SESSION['arcade_isMobilePlay']))
-					loadTemplate('ArcadeGame');
-				else
-				{
-					$context['html_headers'] .= '
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">';
-					loadTemplate('ArcadeGameMobile');
-				}
+				loadTemplate('ArcadeGame');
 				return;
 			}
 		}
@@ -1012,7 +974,7 @@ function ArcadeStartGame()
 	}
 	foreach (['game', 'ts', 'sig'] as $param)
 	{
-		if (empty($_GET[$param]))
+		if (!isset($_GET[$param]))
 		{
 			jsonError("missing required parameter: $param");
 		}
@@ -1049,7 +1011,7 @@ function ArcadeSubmitNew()
 	}
 	foreach (['game', 'score', 'ts', 'sig'] as $param)
 	{
-		if (empty($_POST[$param]))
+		if (!isset($_POST[$param]))
 		{
 			jsonError("missing required parameter: $param");
 		}
@@ -1369,21 +1331,11 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 	// Is game set
 	if (!isset($_REQUEST['game'])) {
 		arcadeClearSession();
-		/*
-		if (!empty($user_info['is_guest'])) {
-			redirectexit($scripturl . '?action=' . $action);
-		}
-		*/
 		fatal_lang_error('arcade_game_not_found', false);
 	}
 	// Get game info
 	if (!($game = getGameInfo($_REQUEST['game'], false, $rom))) {
 		arcadeClearSession();
-		/*
-		if (!empty($user_info['is_guest'])) {
-			redirectexit($scripturl . '?action=' . $action);
-		}
-		*/
 		fatal_lang_error('arcade_game_not_found', false);
 	}
 	if (!$game['highscore_support']) {
@@ -1540,7 +1492,8 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 			IFNULL(mem.real_name, sc.player_name) AS real_name
 		FROM  {db_prefix}arcade_scores AS sc
 			LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = sc.id_member)
-		WHERE sc.id_game = {int:game}' . ($selfScorelist == 'myhighscore' && !empty($user_info['is_guest']) ? ' AND sc.id_member = {int:memberid}' : '') . '
+		WHERE sc.id_game = {int:game} AND ' .
+		($selfScorelist == 'myhighscore' && !empty($user_info['is_guest']) ? 'sc.id_member = {int:memberid}' : 'sc.personal_best = 1') . '
 		ORDER BY position
 		LIMIT {int:start}, {int:scores_per_page}',
 		array(
@@ -1647,7 +1600,7 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 
 	// Template
 	$popScore = !empty($scoreId) ? (int)$scoreId : -1;
-	$context['arcade_empty_title_cell'] = '<div class="arcade_bottom_border" style="display: table-cell;border-bottom: 1px double;height: 1.5em;max-height: 1.5em;"><span style="display: none;">&nbsp;</span></div>';
+	$context['arcade_empty_title_cell'] = '<div class="arcade_empty_cell"><span style="display: none;">&nbsp;</span></div>';
 	$context['arcade_empty_cell'] = '<div class="minwidth" style="display: table-cell;width: 0px;height: 1.5em;max-height: 1.5em;"><span style="display: none;">&nbsp;</span></div>';
 	$context['page_title'] = sprintf($txt['arcade_view_highscore'], $game['name']);
 	$context['linktree'][] = array(
@@ -1696,12 +1649,8 @@ function ArcadeHighscore($selfScorelist = 'highscore')
 
 		// Do we show remove score functions?
 		$context['arcade']['show_editor'] = $context['arcade']['can_admin_arcade'];
-		if (empty($_SESSION['arcade_isMobilePlay']))
-			loadTemplate('ArcadeGame');
-		else
-		{
-			loadTemplate('ArcadeGameMobile');
-		}
+
+		loadTemplate('ArcadeGame');
 	}
 
 	return true;

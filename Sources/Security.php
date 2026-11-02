@@ -8,10 +8,10 @@
  *
  * @package SMF
  * @author Simple Machines https://www.simplemachines.org
- * @copyright 2025 Simple Machines and individual contributors
+ * @copyright 2026 Simple Machines and individual contributors
  * @license https://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.1.7
+ * @version 2.1.8
  */
 
 if (!defined('SMF'))
@@ -104,8 +104,6 @@ function is_not_guest($message = '')
 		return;
 
 	// Log what they were trying to do didn't work)
-	if (!empty($modSettings['who_enabled']))
-		$_GET['error'] = 'guest_login';
 	writeLog(true);
 
 	// Just die.
@@ -220,7 +218,7 @@ function is_not_banned($forceCheck = false)
 				'cannot_post',
 				'cannot_register',
 			);
-			$request = $smcFunc['db_query']('', '
+			$request = $smcFunc['db_query']('ban_like', '
 				SELECT bi.id_ban, bi.email_address, bi.id_member, bg.cannot_access, bg.cannot_register,
 					bg.cannot_post, bg.cannot_login, bg.reason, COALESCE(bg.expire_time, 0) AS expire_time
 				FROM {db_prefix}ban_items AS bi
@@ -680,7 +678,6 @@ function checkSession($type = 'post', $from_action = '', $is_fatal = true)
 		if (isset($parsed_url['host']) && strtolower($referrer['host']) != strtolower($parsed_url['host']) && strtolower($referrer['host']) != strtolower($real_host))
 		{
 			$error = 'verify_url_fail';
-			$log_error = true;
 		}
 	}
 
