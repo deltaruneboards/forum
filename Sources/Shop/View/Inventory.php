@@ -144,6 +144,27 @@ class Inventory
 	{
 		global $modSettings, $user_info, $context, $settings, $scripturl;
 
+		// sql is very very finicky with groupby and values not in the groupby statement
+		// so we have to make all of these "maximum" aggregates so it returns the most recent values for each item stack
+		$stack_fix = [];
+		foreach (Database::$inventory as $inv)
+            array_push($stack_fix, "MAX(" . $inv . ") AS " . explode('.', $inv)[1]);
+        foreach (Database::$items as $itm)
+            array_push($stack_fix, "MAX(" . $itm . ") AS " . explode('.', $itm)[1]);
+
+        // tldr this completely shatters the trade center
+        // so we have to handle this out here instead yipee
+        $param_mode = [
+				    'stshop_inventory AS si',
+					array_merge($stack_fix, ['MAX(sc.name) AS category', 'MAX(mem.real_name)', 'COUNT(*) AS item_count', 's.itemid AS grouping_id']),
+					'WHERE si.userid '. (empty($notin) ? '=' : '<>') . ' {int:user} AND si.trading = {int:trading} AND s.status = 1'. (isset($_REQUEST['cat']) && $_REQUEST['cat'] >= 0 ? ' AND s.catid = {int:cat}' : '') . ' GROUP BY grouping_id',
+            				false,
+                            'LEFT JOIN {db_prefix}stshop_items AS s ON (s.itemid = si.itemid) LEFT JOIN {db_prefix}stshop_categories AS sc ON (s.catid = sc.catid) LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = si.userid)',
+                            ['cat' => isset($_REQUEST['cat']) ? $_REQUEST['cat'] : 0, 'user' => $memberResult['id'], 'trading' => empty($trading) ? 0 : 1]];
+        if ($trading)
+            $param_mode = ['stshop_inventory AS si', array_merge(Database::$inventory, array_merge(Database::$items, ['sc.name AS category', 'mem.real_name'])), 'WHERE si.userid '. (empty($notin) ? '=' : '<>') . ' {int:user} AND si.trading = {int:trading} AND s.status = 1'. (isset($_REQUEST['cat']) && $_REQUEST['cat'] >= 0 ? ' AND s.catid = {int:cat}' : ''), false, 'LEFT JOIN {db_prefix}stshop_items AS s ON (s.itemid = si.itemid) LEFT JOIN {db_prefix}stshop_categories AS sc ON (s.catid = sc.catid) LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = si.userid)', ['cat' => isset($_REQUEST['cat']) ? $_REQUEST['cat'] : 0, 'user' => $memberResult['id'], 'trading' => empty($trading) ? 0 : 1]];
+
+            
 		$listOptions = [
 			'id' => 'inventory',
 			'items_per_page' => !empty($modSettings['Shop_items_perpage']) ? $modSettings['Shop_items_perpage'] : 15,
@@ -152,7 +173,8 @@ class Inventory
 			'default_sort_dir' => 'DESC',
 			'get_items' => [
 				'function' => 'Shop\Helper\Database::Get',
-				'params' => ['stshop_inventory AS si', array_merge(Database::$inventory, array_merge(Database::$items, ['sc.name AS category', 'mem.real_name'])), 'WHERE si.userid '. (empty($notin) ? '=' : '<>') . ' {int:user} AND si.trading = {int:trading} AND s.status = 1'. (isset($_REQUEST['cat']) && $_REQUEST['cat'] >= 0 ? ' AND s.catid = {int:cat}' : ''), false, 'LEFT JOIN {db_prefix}stshop_items AS s ON (s.itemid = si.itemid) LEFT JOIN {db_prefix}stshop_categories AS sc ON (s.catid = sc.catid) LEFT JOIN {db_prefix}members AS mem ON (mem.id_member = si.userid)', ['cat' => isset($_REQUEST['cat']) ? $_REQUEST['cat'] : 0, 'user' => $memberResult['id'], 'trading' => empty($trading) ? 0 : 1]],
+				// DUMBie extension: makes this group by item to make items "stack"
+				'params' => $param_mode,
 			],
 			'get_count' => [
 				'function' => 'Shop\Helper\Database::Count',
@@ -183,7 +205,11 @@ class Inventory
 					'data' => [
 						'function' => function($row)
 						{
-							return '<span style="font-size:110%">'.$row['name'] .'</span>' . (!empty($row['description']) ? '<br/><span class="smalltext">' . $row['description'] . '</span>' : '');
+    						$ext = "";
+    						if (isset($row["item_count"]))
+                                $ext = ' (x' . $row['item_count'];
+                                
+							return '<span style="font-size:110%">'.$row['name'] . $ext . '</span>' . (!empty($row['description']) ? '<br/><span class="smalltext">' . $row['description'] . '</span>' : '');
 						},
 						'class' => 'lefttext',
 						'style' => 'width: 32%',
