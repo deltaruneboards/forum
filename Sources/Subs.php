@@ -2343,7 +2343,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'tag' => 'size',
 				'type' => 'unparsed_equals',
 				'test' => '([1-9][\d]?p[xt]|small(?:er)?|large[r]?|x[x]?-(?:small|large)|medium|(0\.[1-9]|[1-9](\.[\d][\d]?)?)?em)\]',
-				'before' => '<span style="font-size: $1;" class="bbc_size">',
+				'before' => '<span style="font-size: max($1, 8px);" class="bbc_size">',
 				'after' => '</span>',
 			),
 			array(
@@ -2354,8 +2354,8 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'after' => '</span>',
 				'validate' => function(&$tag, &$data, $disabled)
 				{
-					$sizes = array(1 => 0.7, 2 => 1.0, 3 => 1.35, 4 => 1.45, 5 => 2.0, 6 => 2.65, 7 => 3.95);
-					$data = $sizes[$data] . 'em';
+					$sizes = array(1 => 0.5, 2 => 0.7, 3 => 1, 4 => 1.05, 5 => 1.45, 6 => 1.9, 7 => 2.9);
+					$data = $sizes[$data] . 'rem';
 				},
 			),
 			array(
