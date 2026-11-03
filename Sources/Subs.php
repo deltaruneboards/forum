@@ -2354,7 +2354,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'after' => '</span>',
 				'validate' => function(&$tag, &$data, $disabled)
 				{
-					$sizes = array(1 => 0.5, 2 => 1, 3 => 1.25, 4 => 1.55, 5 => 2, 6 => 2.45, 7 => 3);
+					$sizes = array(1 => 0.5, 2 => 0.8, 3 => 1.1, 4 => 1.4, 5 => 1.8, 6 => 2.3, 7 => 2.8);
 					$data = $sizes[$data] . 'rem';
 				},
 			),
