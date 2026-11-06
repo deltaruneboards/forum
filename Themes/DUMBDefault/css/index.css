@@ -812,7 +812,7 @@ ul.dropmenu li:hover,
 ul.dropmenu li li:hover,
 .button:hover {
 	background-color: var(--sec-color);
-	color: var(-accent-label-color-sec);
+	color: var(--accent-label-color-sec);
 	border-top: 1px solid var(--pri-color);
 	border-left: 1px solid var(--pri-color);
 	border-right: 1px solid var(--ter-color);
