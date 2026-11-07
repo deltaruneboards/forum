@@ -67,7 +67,7 @@ function template_home()
 	global $context, $txt, $scripturl, $modSettings, $settings;
 
 	echo '
-	<div id="basicinfo" style="float: right; text-align: center;">
+	<div id="basicinfo" style="float: right; text-align: center; width:20%;">
 		<div class="title_bar">
 			<h3 class="titlebg">
 				', $context['user']['name'], '
@@ -83,7 +83,7 @@ function template_home()
 	echo '
 		</div>
 	</div>
-	<div id="detailedinfo" style="float: left;">
+	<div id="detailedinfo">
 		<div class="title_bar">
 			<h3 class="titlebg">
 				', $context['shop']['forum_welcome'], '
