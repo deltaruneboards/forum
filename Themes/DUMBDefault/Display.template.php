@@ -571,9 +571,13 @@ function template_single_post($message)
 	// Are there any custom fields below the avatar?
 	if (!empty($message['custom_fields']['below_avatar']))
 		foreach ($message['custom_fields']['below_avatar'] as $custom)
+			if ($custom['col_name'] === 'cust_pronou') {
+				echo '<li class="pronouns">', $custom['value'], '</li>';
+			} else {
 			echo '
 								<li class="custom ', $custom['col_name'], '">', $custom['title'], ': ', $custom['value'], '</li>';
-
+			}
+			
 	// Don't show these things for guests.
 	if (!$message['member']['is_guest'])
 	{

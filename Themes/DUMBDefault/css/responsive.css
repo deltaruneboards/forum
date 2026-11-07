@@ -482,12 +482,27 @@
 	#creator dd {
 		width: 65%;
 	}
-	#basicinfo, #detailedinfo {
-		width: 100%;
+	#profile_top {
+		grid-template-columns: 1fr;
+		grid-template-areas: "avatar" "info" "buttons";
 	}
-	#basicinfo {
-		margin: 0 0 5px 0; /* For UX */
+	.profile_top_info {
+		grid-template-columns:1fr;
 	}
+	.profile_top_buttons {
+		flex-flow:row wrap;
+		padding:1em;
+	}
+	#profile_bottom {
+		grid-template-columns:1fr;
+	}
+	#profile_top img.avatar, .cust_person img {
+		max-height:200px;
+	}
+	.profile_top_info .username {
+		text-align:center;
+	}
+
 	/* Buddies & Ignore List */
 	#edit_buddies .buddy_custom_fields {
 		display: none;

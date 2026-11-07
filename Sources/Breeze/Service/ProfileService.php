@@ -65,7 +65,9 @@ class ProfileService extends BaseService implements ProfileServiceInterface
 			'isCurrentUserOwner' => $currentUserId === $profileId,
 			'canShowAddBuddyButton' => $this->canShowAddBuddyButton($profileId, $currentUserId, $wallUserSettings),
 			UserSettingsEntity::ENABLE_BUDDIES_TAB => $wallUserSettings->getEnableBuddiesTab(),
+			/* DUMB change: No more extra about me section
 			UserSettingsEntity::ABOUT_ME => !in_array($wallUserSettings->getAboutMe(), ['', '0'], true),
+			*/
 			UserSettingsEntity::CONFIRM_POST => $currentUserSettings->getConfirmPost(),
 			'csrfTokenVar' => $token[ResponseInterface::CSRF_TOKEN_ACTION . '_token_var'],
 			'csrfTokenValue' => $token[ResponseInterface::CSRF_TOKEN_ACTION . '_token'],

@@ -124,7 +124,7 @@ input, button, select, textarea {
 	font: 83.33%/150% "Segoe UI", "Helvetica Neue", "Nimbus Sans L", Arial, "Liberation Sans", sans-serif;
 	background: var(--pri-bg-color);
 	outline: none;
-	border: 1px solid #bbb;
+	border: 1px solid var(--txt-color);
 	vertical-align: middle;
 	padding: 0.3em 0.4em;
 }
@@ -328,21 +328,22 @@ a.new_posts:visited {
 	opacity: 1;
 }
 
-.topic_grid.windowbg {
+.topic_grid.windowbg, .up_contain {
 	border-left: 1px solid var(--border-color);
 	border-top: 1px solid var(--border-color);
 }
 
 div.topic_info_grid {
 	display: grid;
-	grid-template-areas: "title title icons" "name  page  page " "desc  desc  desc ";
-	grid-template-columns: min-content 1fr 0.2fr;
+	grid-template-areas: "title title icons" "desc desc desc" "page  page  name ";
+	grid-template-columns: 1fr 1fr 0.3fr;
 }
 
 .info_block div .floatleft {
 	grid-area: name;
     white-space: nowrap;
 	text-align: right;
+	margin-left:0.2em;
 }
 
 .message_index_title {
@@ -562,7 +563,6 @@ strong[id^='child_list_']::after {
 /* Posts and personal messages displayed throughout the forum. */
 .post, #preview_section {
 	overflow: auto;
-	line-height: 1.4em;
 	padding: 1px 0;
 }
 .post .inner, #preview_body {
@@ -800,12 +800,7 @@ img.sort, .sort {
 }
 
 ul.dropmenu li {
-	border: 1px solid transparent;
 	padding: .3em 0;
-}
-
-ul.dropmenu li li, .button {
-	border: 1px solid transparent;
 }
 
 ul.dropmenu li:hover,
@@ -878,7 +873,6 @@ a[class^="mobile_generic_menu_"] {
 }
 
 /* User information. */
-#profileview { padding: 1em;}
 #profile_menu_top::after {
 	content: " \25BC";
 }
@@ -1148,7 +1142,7 @@ html[lang="el-GR"] .inline_mod_check {
 }
 
 /* Set maximum width limit for content */
-#top_section .inner_wrap, #wrapper, #header, #footer .inner_wrap, #top_section, #footer {
+#wrapper, #header, #footer .inner_wrap, #top_section, #footer {
 	max-width: 1000px;
 	margin: 0 auto;
 	width: 90%;
@@ -1159,10 +1153,12 @@ html[lang="el-GR"] .inline_mod_check {
 #top_section {
 	z-index: 7;
 }
-#top_section::after {
-	content: "";
-	display: block;
-	clear: both;
+#top_section .inner_wrap{
+	display:flex;
+	flex-flow: row wrap;
+	justify-content:space-between;
+	align-items:center;
+	padding:5px;
 }
 #top_info {
 	padding: 5px 0;
@@ -1191,7 +1187,7 @@ html[lang="el-GR"] .inline_mod_check {
 	font-weight: bold;
 }
 
-#languages_form, #search_form {
+#languages_form {
 	padding: 5px 0;
 }
 #languages_form {
@@ -1224,18 +1220,12 @@ h1.forumtitle a {
 #inner_wrap {
 	padding: 10px 10px 2px 10px;
 }
-#inner_section::after {
-	content: "";
-	display: block;
-	clear: both;
-}
 /* The upper_section, float the two each way */
 #inner_wrap {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 12px;
-	background: var(--pri-bg-color);
 }
 #upper_section {
 	background: var(--transparent-bg);
@@ -1285,10 +1275,7 @@ ul li.greeting {
 	align-items: baseline;
 	max-width: 50%;
 }
-#inner_wrap .news h2 {
-	line-height: initial;
-}
-#inner_wrap .news h2,
+#inner_wrap .news h4,
 #inner_wrap .news p {
 	display: inline;
 	padding-left: 1ch;
@@ -1788,6 +1775,9 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 .generic_menu {
 	margin: 0 0 15px 0;
 }
+.generic_menu .dropmenu li {
+	border:1px solid transparent;
+}
 /* Some lovely generic icons.
 ------------------------------------------------- */
 .main_icons::before {
@@ -2283,80 +2273,117 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 
 /* Styles for the profile section.
 ------------------------------------------------- */
-
-dl {
-	overflow: auto;
+#profileview {
+	background-color:var(--pri-bg-color);
+	overflow:auto;
+}
+#profile_top {
+	display:grid;
+	grid-template-columns:20% 1fr 0.3fr;
+	grid-template-areas:"avatar info buttons";
+	padding:20px 0 20px 0;
+	border: 1px solid var(--border-color);
+}
+.profile_top_info {
+	grid-area:info;
+	display:grid;
+	grid-template-columns:1fr 0.5fr;
+	grid-template-rows: 1fr min-content;
+	margin: 0.3em;
+	font-size:smaller;
+}
+#profile_top img.avatar, .cust_person img {
+	justify-self:center;
+	height: auto;
+	padding:1em;
+	grid-area: avatar;
+	width:auto;
+}
+.username h4 {
+	font-size: x-large;
+}
+.username .position {
+	margin-top:0.5em;
+	display:block;
+	font-size:large;
 }
 
-/* The basic user info on the left */
+.custom_fields_below_avatar {
+	margin-top:1em;
+	grid-column: 1 / -1;
+	grid-row: 2 / -1;
+}
+.custom_fields_below_avatar li {
+	word-wrap:anywhere;
+}
+.icon_fields {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content:space-evenly;
+}
+.profile_top_buttons {
+	display:flex;
+	flex-flow: column wrap;
+	justify-content:space-evenly;
+	text-align:center;
+	background-color:var(--sec-bg-color);
+	border: 1px solid var(--border-color);
+	grid-area:buttons;
+}
 #basicinfo {
-	width: 20%;
-	float: left;
+	background-color:var(--sec-bg-color);
+	word-wrap:break-word;
+	grid-row: 1 / -1;
 }
-#detailedinfo {
-	width: 79.5%;
-	float: right;
+.custom_fields_bottom {
+	display:grid;
+	justify-items:center;
+	background-color:var(--ter-bg-color);
 }
-#basicinfo > * {
-	margin-bottom: 3px;
+.custom_fields_bottom h3 {
+	padding: 0.5em 0 0.5em 0;
+	text-align:center;
+	background-color:var(--pri-bg-color);
+	border: 1px solid var(--border-color);
+	width:100%
 }
-#basicinfo h4 {
-	font-size: 1.4em;
-	font-weight: normal;
-	-webkit-hyphens: auto;
-	-ms-hyphens: auto;
-	hyphens: auto;
-	word-wrap: break-word; /* IE fallback */
-	overflow-wrap: break-word;
+#basicinfo li {
+	margin:1px 0 1px 0;
+	padding: 0 5px 0 5px;
+	background-color: var(--pri-bg-color);
+	border-top: 1px solid var(--border-color);
+	border-left: 1px solid var(--border-color);
+	font-size:smaller;
 }
-#basicinfo h4 span.position {
-	font-size: 0.8em;
-	display: block;
+.standard_fields {
+	display:grid;
+	grid-template-columns:0.3fr 1fr;
+	background-color:var(--ter-bg-color);
+	gap:2px;
+	margin: 0 0 20px 0;
 }
-#basicinfo img.avatar, dl.settings img.avatar {
-	display: block;
-	max-width: 160px;
-	height: auto !important;
+.standard_fields dt, .standard_fields dd {
+	background-color:var(--pri-bg-color);
+	border: 1px solid var(--border-color);
+	word-wrap:anywhere;
+	padding:0.3em;
 }
-#basicinfo ul {
-	list-style-type: none;
+#profile_bottom {
+	display:grid;
+	grid-template-columns:20% 1fr;
+	grid-template-rows: 1fr;
 }
-#basicinfo .icon_fields li {
-	display: block;
-	float: left;
-	margin-right: 5px;
-	height: 20px;
-}
-#basicinfo #userstatus {
-	display: block;
-	clear: both;
-}
-#basicinfo #userstatus img {
-	vertical-align: middle;
-}
-#detailedinfo dl, #tracking dl {
-	clear: right;
-	overflow: auto;
-	margin: 0 0 18px 0;
-	padding: 0 0 15px 0;
-	border-bottom: 1px var(--txt-color) solid;
-}
-#detailedinfo dt, #tracking dt {
+
+#tracking dt {
 	width: 35%;
 	margin: 0 0 3px 0;
 	font-weight: bold;
 	color: var(--txt-color);
 }
-#detailedinfo dd, #tracking dd {
+#tracking dd {
 	width: 65%;
 	float: left;
 	margin: 0 0 3px 0;
-}
-#detailedinfo .noborder {
-	border-bottom: 0;
-}
-#detailedinfo dt.clear {
-	width: 100%;
 }
 #personal_picture {
 	display: block;
@@ -3056,15 +3083,13 @@ h3 .collapse {
 }
 .board_icon {
 	text-align: center;
-	padding: 8px 0 0 0;
 	vertical-align: center;
-	width: 35px;
 }
 .boardindex_table .board_icon {
 	width: 80px;
 }
 .boardindex_table .board_stats {
-	padding: 13px 10px 10px;
+	padding: 4px;
 }
 .boardindex_table h3.catbg {
 	align-items: center;
@@ -3086,13 +3111,6 @@ h3 .collapse {
 	font-size: 1.1em;
 	color: var(--pri-color);
 }
-.board_stats {
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-	font-size: 0.9em;
-	margin-right: 10px;
-	text-align: center;
-}
 .lastpost {
 	font-size: 0.9em;
 	padding: 0 10px;
@@ -3111,7 +3129,6 @@ h3 .collapse {
 	margin: 0 0 3px 0;
 	display: grid;
 	grid-template-columns: min-content 1fr 12% 25%;
-	flex-wrap: wrap;
 }
 /* Child boards */
 .children {
@@ -3252,10 +3269,13 @@ span.postby {
 .board_stats {
 	border-right: 3px groove var(--border-color);
 	border-left: 3px groove var(--border-color);
+	font-size: 0.9em;
+	text-align: center;
 	width: 100%;
 }
 .preview {
 	font-weight: bold;
+	word-wrap: anywhere;
 }
 #topic_container .lastpost, #topic_container .board_stats {
 	flex-shrink: 0;
@@ -3724,13 +3744,11 @@ ul.post_options li {
 	overflow: auto;
 	clear: right;
 	padding: 12px 0 3px 0;
-	border-top: 1px solid var(--txt-color);
 	line-height: 1.4em;
 	font-size: 0.9em;
 }
 .custom_fields_above_signature {
-	border-bottom: 1px solid var(--txt-color);
-	padding-bottom: 2em;
+	padding: 1em;
 }
 .signature,
 #current_signature_display,
@@ -4079,7 +4097,7 @@ h3.profile_hd::before,
 
 .dropmenu li ul, .top_menu, .dropmenu li li:hover, .button,
 .dropmenu li li:hover > a, .dropmenu li li a:focus, .dropmenu li li a:hover,
-#top_section, .quickbuttons > li,
+#top_section, .quickbuttons > li, .menu_nav li,
 .quickbuttons li ul, .quickbuttons li ul li a:hover, .quickbuttons ul li a:focus,
 .inline_mod_check, .popup_window, .post_options ul,
 .post_options ul a:hover, .post_options ul a:focus, .notify_dropdown a:hover, .notify_dropdown a:focus {

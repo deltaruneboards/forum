@@ -158,8 +158,8 @@ function template_summary()
 
 	// Display the basic information about the user
 	echo '
-	<div id="profileview" class="roundframe flow_auto noup">
-		<div id="basicinfo">';
+	<div id="profileview">
+		<div id="profile_top">';
 
 	// Are there any custom profile fields for above the name?
 	if (!empty($context['print_custom_fields']['above_member']))
@@ -178,8 +178,10 @@ function template_summary()
 			</div>';
 	}
 
-	echo '
-			<div class="username clear">
+	echo ' '.$context['member']['avatar']['image'];
+
+	echo '<div class="profile_top_info">
+			<div class="username">
 				<h4 class="group-' . $context['member']['group_id'] . '">';
 
 	if (!empty($context['print_custom_fields']['before_member']))
@@ -199,10 +201,12 @@ function template_summary()
 
 	echo '
 					<span class="position group-' .$context['member']['group_id']  . '">', (!empty($context['member']['group']) ? $context['member']['group'] : $context['member']['post_group']), '</span>
-				</h4>
-			</div>
-			', $context['member']['avatar']['image'];
+				</h4>';
 
+	echo '<span id="userstatus">
+	', $context['can_send_pm'] ? '<a href="' . $context['member']['online']['href'] . '" title="' . $context['member']['online']['text'] . '" rel="nofollow">' : '', $settings['use_image_buttons'] ? '<span class="' . ($context['member']['online']['is_online'] == 1 ? 'on' : 'off') . '" title="' . $context['member']['online']['text'] . '"></span>' : $context['member']['online']['label'], $context['can_send_pm'] ? '</a>' : '', $settings['use_image_buttons'] ? '<span class="smalltext"> ' . $context['member']['online']['label'] . '</span>' : '';
+	echo '
+		</span></div>';
 	// Are there any custom profile fields for below the avatar?
 	if (!empty($context['print_custom_fields']['below_avatar']))
 	{
@@ -210,87 +214,152 @@ function template_summary()
 		foreach ($context['print_custom_fields']['below_avatar'] as $field)
 			if (!empty($field['output_html']))
 				$fields .= '
-					<li>' . $field['output_html'] . '</li>';
+					<li>' . $field['name'] . ': '. $field['output_html']. '</li>';
 
 		if (!empty($fields))
 			echo '
 			<div class="custom_fields_below_avatar">
-				<ul>', $fields, '
-				</ul>
-			</div>';
+				<ul>', $fields;
+	}
+	if (!empty($modSettings['titlesEnable']) && !empty($context['member']['title'])) {
+		echo '
+				<li>'. $txt['custom_title']. ': '.$context['member']['title'].'</li>';
+	}
+	if (!empty($context['member']['blurb'])) {
+		echo '
+				<li>'. $txt['personal_text']. ': '.$context['member']['blurb'].'</li>';
 	}
 
-	echo '
-			<ul class="icon_fields clear">';
+	echo '</ul></div>
+			<ul>';
+			if ($context['user']['is_admin']) {
+				echo '
+						<li>', $txt['internal_name'], ': '.$context['member']['username'].'</li>';
+			}
+			if ($context['member']['show_email']) {
+				echo '
+						<li>'. $txt['email']. ': <a href="mailto:'. $context['member']['email']. '">'. $context['member']['email']. '</a></li>';
+			}
 
-	// Email is only visible if it's your profile or you have the moderate_forum permission
-	if ($context['member']['show_email'])
-		echo '
-				<li><a href="mailto:', $context['member']['email'], '" title="', $context['member']['email'], '" rel="nofollow"><span class="main_icons mail" title="' . $txt['email'] . '"></span></a></li>';
+			// If the person looking is allowed, they can check the members IP address and hostname.
+	if ($context['can_see_ip'])
+	{
+		if (!empty($context['member']['ip']))
+			echo '
+				<li>', $txt['ip'], ': <a href="', $scripturl, '?action=profile;area=tracking;sa=ip;searchip=', $context['member']['ip'], ';u=', $context['member']['id'], '">', $context['member']['ip'], '</a></li>';
+
+		if (empty($modSettings['disableHostnameLookup']) && !empty($context['member']['ip']))
+			echo '
+				<li>', $txt['hostname'], ': ', $context['member']['hostname'], '</li>';
+	}
+		echo '</ul>
+			</div><div class="profile_top_buttons">
+		<div class="icon_fields">';
 
 	// Don't show an icon if they haven't specified a website.
 	if ($context['member']['website']['url'] !== '' && !isset($context['disabled_fields']['website']))
-		echo '
-				<li><a href="', $context['member']['website']['url'], '" title="' . $context['member']['website']['title'] . '" target="_blank" rel="noopener">', ($settings['use_image_buttons'] ? '<span class="main_icons www" title="' . $context['member']['website']['title'] . '"></span>' : $txt['www']), '</a></li>';
+	echo '
+			<section><a href="', $context['member']['website']['url'], '" title="' . $context['member']['website']['title'] . '" target="_blank" rel="noopener">', ($settings['use_image_buttons'] ? '<span class="main_icons www" title="' . $context['member']['website']['title'] . '"></span>' : $txt['www']), '</a></section>';
 
 	// Are there any custom profile fields as icons?
 	if (!empty($context['print_custom_fields']['icons']))
 	{
-		foreach ($context['print_custom_fields']['icons'] as $field)
-			if (!empty($field['output_html']))
-				echo '
-				<li class="custom_field">', $field['output_html'], '</li>';
+	foreach ($context['print_custom_fields']['icons'] as $field)
+		if (!empty($field['output_html']))
+			echo '
+			<section class="custom_field">', $field['output_html'], '</section>';
 	}
 
-	echo '
-			</ul>
-			<span id="userstatus">
-				', $context['can_send_pm'] ? '<a href="' . $context['member']['online']['href'] . '" title="' . $context['member']['online']['text'] . '" rel="nofollow">' : '', $settings['use_image_buttons'] ? '<span class="' . ($context['member']['online']['is_online'] == 1 ? 'on' : 'off') . '" title="' . $context['member']['online']['text'] . '"></span>' : $context['member']['online']['label'], $context['can_send_pm'] ? '</a>' : '', $settings['use_image_buttons'] ? '<span class="smalltext"> ' . $context['member']['online']['label'] . '</span>' : '';
+	echo '</div>';
 
 	// Can they add this member as a buddy?
 	if (!empty($context['can_have_buddy']) && !$context['user']['is_owner'])
-		echo '
-				<br>
-				<a href="', $scripturl, '?action=buddy;u=', $context['id_member'], ';', $context['session_var'], '=', $context['session_id'], '">', $txt['buddy_' . ($context['member']['is_buddy'] ? 'remove' : 'add')], '</a>';
-
 	echo '
-			</span>';
+			<a href="', $scripturl, '?action=buddy;u=', $context['id_member'], ';', $context['session_var'], '=', $context['session_id'], '">', $txt['buddy_' . ($context['member']['is_buddy'] ? 'remove' : 'add')], '</a>';
 
 	if (!$context['user']['is_owner'] && $context['can_send_pm'])
-		echo '
-			<a href="', $scripturl, '?action=pm;sa=send;u=', $context['id_member'], '" class="infolinks">', $txt['profile_sendpm_short'], '</a>';
+	echo '
+	<a href="', $scripturl, '?action=pm;sa=send;u=', $context['id_member'], '" class="infolinks">', $txt['profile_sendpm_short'], '</a>';
 
 	echo '
-			<a href="', $scripturl, '?action=profile;area=showposts;u=', $context['id_member'], '" class="infolinks">', $txt['showPosts'], '</a>';
+		<a href="', $scripturl, '?action=profile;area=showposts;u=', $context['id_member'], '" class="infolinks">'. $txt['showPosts']. '</a>';
 
 	if ($context['user']['is_owner'] && !empty($modSettings['drafts_post_enabled']))
-		echo '
-			<a href="', $scripturl, '?action=profile;area=showdrafts;u=', $context['id_member'], '" class="infolinks">', $txt['drafts_show'], '</a>';
+	echo '
+		<a href="', $scripturl, '?action=profile;area=showdrafts;u=', $context['id_member'], '" class="infolinks">', $txt['drafts_show'], '</a>';
 
 	echo '
-			<a href="', $scripturl, '?action=profile;area=statistics;u=', $context['id_member'], '" class="infolinks">', $txt['statPanel'], '</a>';
+		<a href="', $scripturl, '?action=profile;area=statistics;u=', $context['id_member'], '" class="infolinks">', $txt['statPanel'], '</a>
+		<a href="', $scripturl, '?action=shop;sa=inventory;u=', $context['id_member'], '" class="infolinks">'.$txt['Shop_main_inventory'].'</a>';
 
-	// Are there any custom profile fields for bottom?
-	if (!empty($context['print_custom_fields']['bottom_poster']))
-	{
+
+	echo '</div>
+			</div>
+		<div id="profile_bottom">
+		<div id="basicinfo">';
+
+		// Are there any custom profile fields for bottom?
+		if (!empty($context['print_custom_fields']['bottom_poster']))
+		{
 		$fields = '';
 		foreach ($context['print_custom_fields']['bottom_poster'] as $field)
 			if (!empty($field['output_html']))
 				$fields .= '
-					<li>' . $field['output_html'] . '</li>';
-
+					<section class="'.$field['colname'].'">' . $field['output_html'] . '</section>';
+	
 		if (!empty($fields))
 			echo '
 			<div class="custom_fields_bottom">
-				<ul class="nolist">', $fields, '
-				</ul>
+				<h3>Personal Photo</h3>
+				'. $fields. '
 			</div>';
-	}
+		}
 
-	echo '
+		echo '<ul>';
+		if (!isset($context['disabled_fields']['posts'])) {
+			echo '
+					<li>'. $txt['profile_posts']. ': '.$context['member']['posts'], ' ('. $context['member']['posts_per_day']. ' '. $txt['posts_per_day'].')</li>';
+		}
+		echo '
+			<li>'. $txt['age'], ': '. $context['member']['age'] . ($context['member']['today_is_birthday'] ? ' &nbsp; <img src="' . $settings['images_url'] . '/cake.png" alt="">' : ''). '</li>';
+		echo '
+			<li>', $txt['date_registered'], ': ', $context['member']['registered'], '</li>';
+
+		echo '
+			<li>', $txt['local_time'], ': ', $context['member']['local_time'], '</li>';
+
+	if (!empty($modSettings['userLanguage']) && !empty($context['member']['language']))
+		echo '
+				<li>', $txt['language'], ': ', $context['member']['language'], '</li>';
+
+	if ($context['member']['show_last_login'])
+		echo '
+				<li>', $txt['lastLoggedIn'], ': ', $context['member']['last_login'], (!empty($context['member']['is_hidden']) ? ' (' . $txt['hidden'] . ')' : ''), '</li>';
+	
+	echo'</ul>
 		</div><!-- #basicinfo -->
 
 		<div id="detailedinfo">';
+
+		// Any custom fields for standard placement?
+	if (!empty($context['print_custom_fields']['standard']))
+	{
+		$fields = array();
+
+		foreach ($context['print_custom_fields']['standard'] as $field)
+			if (!empty($field['output_html']) && !($field['colname'] == 'cust_disabl'))
+				$fields[] = $field;
+
+		if (count($fields) > 0)
+		{
+			echo'<dl class="standard_fields">';
+			foreach ($fields as $field) {
+				echo '
+				<dt>', $field['name'], ':</dt><dd>', $field['output_html'], '</dd>';
+			}
+			echo'</dl>';
+		}
+	}
 
 	// Are there any custom profile fields for above the signature?
 	if (!empty($context['print_custom_fields']['above_signature']))
@@ -311,65 +380,6 @@ function template_summary()
 
 	echo '
 			<dl class="settings">';
-
-	if ($context['user']['is_admin'])
-		echo '
-				<dt>', $txt['internal_name'], ': </dt>
-				<dd>', $context['member']['username'], '</dd>';
-
-	if (!isset($context['disabled_fields']['posts']))
-		echo '
-				<dt>', $txt['profile_posts'], ': </dt>
-				<dd>', $context['member']['posts'], ' (', $context['member']['posts_per_day'], ' ', $txt['posts_per_day'], ')</dd>';
-
-	if ($context['member']['show_email'])
-		echo '
-				<dt>', $txt['email'], ': </dt>
-				<dd><a href="mailto:', $context['member']['email'], '">', $context['member']['email'], '</a></dd>';
-
-	if (!empty($modSettings['titlesEnable']) && !empty($context['member']['title']))
-		echo '
-				<dt>', $txt['custom_title'], ': </dt>
-				<dd>', $context['member']['title'], '</dd>';
-
-	if (!empty($context['member']['blurb']))
-		echo '
-				<dt>', $txt['personal_text'], ': </dt>
-				<dd>', $context['member']['blurb'], '</dd>';
-
-	echo '
-				<dt>', $txt['age'], ':</dt>
-				<dd>', $context['member']['age'] . ($context['member']['today_is_birthday'] ? ' &nbsp; <img src="' . $settings['images_url'] . '/cake.png" alt="">' : ''), '</dd>';
-
-	echo '
-			</dl>';
-
-	// Any custom fields for standard placement?
-	if (!empty($context['print_custom_fields']['standard']))
-	{
-		$fields = array();
-
-		foreach ($context['print_custom_fields']['standard'] as $field)
-			if (!empty($field['output_html']))
-				$fields[] = $field;
-
-		if (count($fields) > 0)
-		{
-			echo '
-			<dl class="settings">';
-
-			foreach ($fields as $field)
-				echo '
-				<dt>', $field['name'], ':</dt>
-				<dd>', $field['output_html'], '</dd>';
-
-			echo '
-			</dl>';
-		}
-	}
-
-	echo '
-			<dl class="settings noborder">';
 
 	// Can they view/issue a warning?
 	if ($context['can_view_warning'] && $context['member']['warning'])
@@ -419,46 +429,13 @@ function template_summary()
 	}
 
 	echo '
-				<dt>', $txt['date_registered'], ': </dt>
-				<dd>', $context['member']['registered'], '</dd>';
-
-	// If the person looking is allowed, they can check the members IP address and hostname.
-	if ($context['can_see_ip'])
-	{
-		if (!empty($context['member']['ip']))
-			echo '
-				<dt>', $txt['ip'], ': </dt>
-				<dd><a href="', $scripturl, '?action=profile;area=tracking;sa=ip;searchip=', $context['member']['ip'], ';u=', $context['member']['id'], '">', $context['member']['ip'], '</a></dd>';
-
-		if (empty($modSettings['disableHostnameLookup']) && !empty($context['member']['ip']))
-			echo '
-				<dt>', $txt['hostname'], ': </dt>
-				<dd>', $context['member']['hostname'], '</dd>';
-	}
-
-	echo '
-				<dt>', $txt['local_time'], ':</dt>
-				<dd>', $context['member']['local_time'], '</dd>';
-
-	if (!empty($modSettings['userLanguage']) && !empty($context['member']['language']))
-		echo '
-				<dt>', $txt['language'], ':</dt>
-				<dd>', $context['member']['language'], '</dd>';
-
-	if ($context['member']['show_last_login'])
-		echo '
-				<dt>', $txt['lastLoggedIn'], ': </dt>
-				<dd>', $context['member']['last_login'], (!empty($context['member']['is_hidden']) ? ' (' . $txt['hidden'] . ')' : ''), '</dd>';
-
-	echo '
 			</dl>';
 
 	// Show the users signature.
 	if ($context['signature_enabled'] && !empty($context['member']['signature']))
 		echo '
 			<div class="signature">
-				<h5>', $txt['signature'], ':</h5>
-				', $context['member']['signature'], '
+				'. $context['member']['signature']. '
 			</div>';
 
 	// Are there any custom profile fields for below the signature?
@@ -480,6 +457,7 @@ function template_summary()
 
 	echo '
 		</div><!-- #detailedinfo -->
+		</div>
 	</div><!-- #profileview -->';
 }
 
