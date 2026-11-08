@@ -772,12 +772,16 @@ img.sort, .sort {
 	border: 1px solid transparent;
 }
 /* Level 1 active button. */
-.dropmenu a.active, #top_info a.active {
+#top_info a.active {
 	color: var(--accent-label-color-ter);
 	font-weight: bold;
 	border-color: var(--ter-color);
 	background: var(--ter-color);
 	text-shadow: 0 0 2px #000;
+}
+.dropmenu > li:has(> a.active) {
+	border-color: var(--ter-color);
+	font-weight: bold;
 }
 /* Level 1 hover effects. */
 .dropmenu > li:hover > a, .dropmenu > li > a:focus,
@@ -827,13 +831,6 @@ ul.dropmenu li li:hover,
 	text-shadow: none;
 	background: none;
 	border: 1px solid transparent;
-}
-
-.dropmenu a.active,
-.dropmeny > li > a:active {
-	background: none;
-	color: var(--txt-color);
-	text-shadow: none;
 }
 
 .dropmenu li a.active:hover,
