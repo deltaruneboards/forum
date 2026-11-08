@@ -1284,7 +1284,7 @@ function template_statPanel()
 
 	// First, show a few text statistics such as post/topic count.
 	echo '
-	<div id="profileview" class="roundframe noup">
+	<div id="statview" class="roundframe noup">
 		<div id="generalstats">
 			<dl class="stats">';
 

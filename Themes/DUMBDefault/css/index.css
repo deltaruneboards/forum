@@ -2400,6 +2400,9 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 }
 
 /* Activity by time */
+#statview dl {
+	overflow: auto;
+}
 #activitytime {
 	margin: 6px 0;
 }
