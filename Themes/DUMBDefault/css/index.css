@@ -1192,18 +1192,6 @@ html[lang="el-GR"] .inline_mod_check {
 	display: flex;
 	justify-content: center;
 }
-/* The main title. */
-h1.forumtitle {
-	font-size: 1.8em;
-	font-family: "Tahoma", sans-serif;
-	padding: 22px 12px 6px 10px;
-	font-weight: normal;
-	flex: 1 1 auto;
-}
-h1.forumtitle a {
-	color: var(--pri-color);
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-}
 /* Even guests need to be aligned */
 .welcome {
 	padding: 0 10px;

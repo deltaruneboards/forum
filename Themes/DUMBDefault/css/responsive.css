@@ -750,11 +750,6 @@
 
 /* Entry level phones */
 @media (max-width: 480px) {
-	h1.forumtitle a, h1.forumtitle {
-		padding: 5px 0 0 4px;
-		max-width: 300px;
-		margin: 10px 0;
-	}
 	.board_moderators {
 		display: none;
 	}
