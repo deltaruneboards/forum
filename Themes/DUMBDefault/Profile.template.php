@@ -206,7 +206,9 @@ function template_summary()
 	echo '<span id="userstatus">
 	', $context['can_send_pm'] ? '<a href="' . $context['member']['online']['href'] . '" title="' . $context['member']['online']['text'] . '" rel="nofollow">' : '', $settings['use_image_buttons'] ? '<span class="' . ($context['member']['online']['is_online'] == 1 ? 'on' : 'off') . '" title="' . $context['member']['online']['text'] . '"></span>' : $context['member']['online']['label'], $context['can_send_pm'] ? '</a>' : '', $settings['use_image_buttons'] ? '<span class="smalltext"> ' . $context['member']['online']['label'] . '</span>' : '';
 	echo '
-		</span></div>';
+		</span></div>
+		<div class="custom_fields_below_avatar">
+		<ul>';
 	// Are there any custom profile fields for below the avatar?
 	if (!empty($context['print_custom_fields']['below_avatar']))
 	{
@@ -217,9 +219,7 @@ function template_summary()
 					<li>' . $field['name'] . ': '. $field['output_html']. '</li>';
 
 		if (!empty($fields))
-			echo '
-			<div class="custom_fields_below_avatar">
-				<ul>', $fields;
+			echo $fields;
 	}
 	if (!empty($modSettings['titlesEnable']) && !empty($context['member']['title'])) {
 		echo '

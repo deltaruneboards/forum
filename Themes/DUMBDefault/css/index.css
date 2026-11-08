@@ -3746,6 +3746,7 @@ ul.post_options li {
 }
 .custom_fields_above_signature {
 	padding: 1em;
+	max-width: 100vw;
 }
 .signature,
 #current_signature_display,

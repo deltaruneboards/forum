@@ -560,12 +560,6 @@ function template_single_post($message)
 		echo '<li class="icons">', ($message['member']['is_banned'] ?
 			'<img src="/shop_items/items/BANNED.png" alt="Banned" title="Banned">' :
 			($postgroup . ' ' . $message['member']['group_icons'])), '</li>';
-
-		// Show the pronouns
-		if (!empty($message['custom_fields']['standard']))
-			foreach ($message['custom_fields']['standard'] as $custom)
-				if ($custom['col_name'] === 'cust_pronou')
-					echo '<li class="pronouns">', $custom['value'], '</li>';
 	}
 
 	// Are there any custom fields below the avatar?
@@ -575,7 +569,7 @@ function template_single_post($message)
 				echo '<li class="pronouns">', $custom['value'], '</li>';
 			} else {
 			echo '
-								<li class="custom ', $custom['col_name'], '">', $custom['title'], ': ', $custom['value'], '</li>';
+				<li class="custom ', $custom['col_name'], '">', $custom['title'], ': ', $custom['value'], '</li>';
 			}
 			
 	// Don't show these things for guests.
