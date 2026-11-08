@@ -1856,9 +1856,8 @@ function MessagePost()
 	{
 		// How many messages have they sent this last hour?
 		$request = $smcFunc['db_query']('', '
-			SELECT COUNT(pr.id_pm) AS post_count
+			SELECT COUNT(*) AS post_count
 			FROM {db_prefix}personal_messages AS pm
-				INNER JOIN {db_prefix}pm_recipients AS pr ON (pr.id_pm = pm.id_pm)
 			WHERE pm.id_member_from = {int:current_member}
 				AND pm.msgtime > {int:msgtime}',
 			array(
