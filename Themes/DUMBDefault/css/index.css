@@ -15,6 +15,7 @@
 
 	--poll-color: #659ad6;
 	--border-color: #353535;
+	--link-color: #00FFEA;
 
 	--pri-color: #00FFEA;
 	--sec-color: #009EEE;
@@ -29,6 +30,7 @@
 	--background-image: url('/Themes/DUMBDefault/images/background.png');
 	--background-pos: -50px;
 }
+/* Light theme colors - when updating this block don't forget to update the block below */
 body.color-scheme-light {
 	--transparent-bg: rgba(255,255,255,0.85);
 	--pri-bg-color: #e9e9e9;
@@ -36,12 +38,16 @@ body.color-scheme-light {
 	--ter-bg-color: #B0B0B0;
 	--txt-color: #111;
 	--txt-color-off: #3b3b3b;
+	--accent-label-color-pri: #000;
+	--accent-label-color-sec: #fff;
+	--accent-label-color-ter: #fff;
 	--skeuomorphism-end-color: #b9b9b9;
 	--skeuomorphism: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
 	--skeuomorphism-header: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
-	
+
 	--poll-color: #ffbf2f;
 	--border-color: #878787;
+	--link-color: #D5390D;
 
 	--pri-color: #D5390D;
 	--sec-color: #9c1804;
@@ -56,8 +62,8 @@ body.color-scheme-light {
 	--background-image: url('/Themes/DUMBDefault/images/background_light.png');
 	--background-pos: 0;
 }
+/* System default theme colors - same as the above block */
 @media (prefers-color-scheme: light) {
-	/* Same as the above block */
 	body.color-scheme-os {
 		--transparent-bg: rgba(255,255,255,0.85);
 		--pri-bg-color: #e9e9e9;
@@ -65,12 +71,16 @@ body.color-scheme-light {
 		--ter-bg-color: #B0B0B0;
 		--txt-color: #111;
 		--txt-color-off: #3b3b3b;
+		--accent-label-color-pri: #000;
+		--accent-label-color-sec: #fff;
+		--accent-label-color-ter: #fff;
 		--skeuomorphism-end-color: #b9b9b9;
 		--skeuomorphism: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
 		--skeuomorphism-header: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
-		
+
 		--poll-color: #ffbf2f;
 		--border-color: #878787;
+		--link-color: #D5390D;
 
 		--pri-color: #D5390D;
 		--sec-color: #9c1804;
@@ -274,7 +284,7 @@ a, a:visited {
 	text-decoration: none;
 }
 a:hover {
-	color: var(--pri-color);
+	color: var(--link-color);
 	text-decoration: underline;
 	cursor: pointer;
 }
@@ -341,7 +351,7 @@ div.topic_info_grid {
 
 .info_block div .floatleft {
 	grid-area: name;
-    white-space: nowrap;
+	white-space: nowrap;
 	text-align: right;
 	margin-left:0.2em;
 }
@@ -615,7 +625,7 @@ a.moderation_link, a.moderation_link:visited {
 }
 
 #ajax_in_progress a {
-	color: var(--pri-color);
+	color: var(--link-color);
 	text-decoration: underline;
 	font-size: 0.9em;
 	float: right;
@@ -725,9 +735,9 @@ img.sort, .sort {
 	padding: 1px 4px;
 }
 .auto_suggest_item_hover {
-	background: var(--ter-bg-color);
+	background: var(--sec-bg-color);
 	cursor: pointer;
-	color: var(--pri-color);
+	color: var(--link-color);
 	padding: 1px 4px;
 }
 
@@ -1036,7 +1046,7 @@ a[class^="mobile_generic_menu_"] {
 }
 
 .dropmenu li li:hover > a, .dropmenu li li a:focus, .dropmenu li li a:hover {
-	color: var(--pri-color);
+	color: var(--link-color);
 	text-decoration: none;
 	border: 1px solid #cfcfcf;
 	border-top: 1px solid #d4dee6;
@@ -1100,7 +1110,7 @@ html[lang="el-GR"] .inline_mod_check {
 	text-decoration: none;
 }
 .button:hover, .button:focus {
-	color: var(--pri-color);
+	color: var(--link-color);
 }
 /* the active one */
 .button.active {
@@ -2894,7 +2904,7 @@ dl.addrules dt.floatleft {
 }
 .popup_heading {
 	padding: 10px 8px;
-	color: var(--pri-color);
+	color: var(--link-color);
 }
 .popup_content {
 	color: var(--txt-color);
@@ -3094,7 +3104,7 @@ h3 .collapse {
 .info .subject {
 	font-weight: 600;
 	font-size: 1.1em;
-	color: var(--pri-color);
+	color: var(--link-color);
 }
 .lastpost {
 	font-size: 0.9em;
@@ -4125,13 +4135,13 @@ h3.profile_hd::before,
 	clear: both;
 	margin: -7px 0 15px 0;
 	display:grid;
-    grid-template-columns: 3fr 1fr;
+	grid-template-columns: 3fr 1fr;
 }
 #display_head p {
 	grid-column: 1 / 3;
 	grid-row: 2;
-    word-wrap: break-word;
-    color: var(--txt-color-off);
+	word-wrap: break-word;
+	color: var(--txt-color-off);
 	font-size: smaller;
 }
 #display_head span {
