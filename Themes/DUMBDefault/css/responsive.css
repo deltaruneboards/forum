@@ -240,6 +240,7 @@
 	.up_contain {
 		width: 100%;
 		grid-template-columns: min-content 1fr 16%;
+		grid-template-areas: "icon info stats";
 	}
 	.up_contain .lastpost {
 		border-top: 1px solid var(--border-color);
@@ -270,7 +271,9 @@
 		display: inline-block;
 		grid-area:lastpost;
 	}
-	#messageindex .info {
+	#messageindex .info,
+	#topic_header .board_stats,
+	#topic_header .lastpost {
 		padding: 8px 10px;
 	}
 	.info_block {
@@ -315,7 +318,7 @@
 		grid-template-areas: "title" "desc" "name" "stats" "lastpost" "pages";
 		padding: 0.5em;
 	}
-	#topic_header > .board_icon {
+	#topic_header > .board_icon, #topic_header {
 		display: block;
 	}
 	.info_block div:not(:has(> .icons)) .message_index_title {
