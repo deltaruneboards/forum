@@ -1147,9 +1147,6 @@ html[lang="el-GR"] .inline_mod_check {
 
 /* The framing graphics */
 /* The top bar. */
-#top_section {
-	z-index: 7;
-}
 #top_section .inner_wrap{
 	display:flex;
 	flex-flow: row wrap;
