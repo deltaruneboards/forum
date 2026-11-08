@@ -268,6 +268,7 @@
 	}
 	#messageindex .lastpost {
 		display: inline-block;
+		grid-area:lastpost;
 	}
 	#messageindex .info {
 		padding: 8px 10px;
@@ -311,14 +312,11 @@
 	#topic_container .topic_grid, #topic_container .windowbg {
 		display: grid;
 		grid-template-columns: 1fr max-content;
+		grid-template-areas: "title" "desc" "name" "stats" "lastpost" "pages";
 		padding: 0.5em;
 	}
 	#topic_header > .board_icon {
 		display: block;
-	}
-	.message_index_title {
-		grid-column: 1;
-		grid-row: 1;
 	}
 	.info_block div:not(:has(> .icons)) .message_index_title {
 		grid-column: 1 / span 2;
@@ -343,11 +341,10 @@
 		font-size: 1em;
 		padding-left: 20px;
 		text-align: left;
+		grid-area:stats;
 	}
 	.topic_grid .lastpost {
 		font-size: 1em;
-		grid-column: 1 / span 2;
-		grid-row: 5;
 		min-height: initial;
 		padding-left: 20px;
 	}
@@ -362,10 +359,9 @@
 		padding-right: 0.5em;
 	}
 	.info_block div .floatleft {
-		grid-row: 3;
-		grid-column: 1 / span 2;
 		padding-left: 20px;
 		text-align: left;
+		margin:0;
 	}
 	/* Unread */
 	#unread .board_icon, #unread .lastpost, #unreadreplies .board_icon, #unreadreplies .lastpost {
