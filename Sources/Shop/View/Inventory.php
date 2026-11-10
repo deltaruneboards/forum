@@ -207,7 +207,7 @@ class Inventory
 						{
     						$ext = "";
     						if (isset($row["item_count"]))
-                                $ext = ' (x' . $row['item_count'];
+                                $ext = ' (x' . $row['item_count'] . ')';
                                 
 							return '<span style="font-size:110%">'.$row['name'] . $ext . '</span>' . (!empty($row['description']) ? '<br/><span class="smalltext">' . $row['description'] . '</span>' : '');
 						},

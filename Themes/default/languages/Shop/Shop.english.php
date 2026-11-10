@@ -29,51 +29,7 @@ $txt['Shop_main_yourinventory'] = 'Your Inventory';
 // Shop Home
 $txt['Shop_user_info'] = 'User information';
 $txt['Shop_welcome_to'] = 'Seap';
-$txt['Shop_welcome_text'] = '
-<p><strong>Hee hee... Welcome, %1$s.</strong></p>
-<p><img src="/assets/ui/seam.gif" alt="Seam"></p>
-<div id="random-shop-quote">
-	<p data-weight="3">The name\'s Seam. Pronounced <i>Shawm.</i><br>And this is my little <i>Seap</i>. Ha ha ha ha...</p>
-	<p data-weight="5">Take your time... Ain\'t like it\'s better spent.</p>
-	<p>There are many fresh faces in town, I see.<br>It warms this old fluff to see such hope.</p>
-	<p>Eh? That little salesman...?<br>... I don\'t know what you\'re talking about.</p>
-	<p>As long as I stay in my shop, these walls won\'t change.</p>
-	<p>You\'re a Lightner. Don\'t take your life, well, lightly!</p>
-	<p>Me? I\'m here offering the same old junk.</p>
-	<p>In a way, I suppose it\'s just a little bit amusing to see you again.</p>
-</div>
-<p>(Confused? Read the <a href="/index.php?action=pages;sa=view;id=5">shop guide</a>!)</p>
-<table class="shop-items-table">
-	<thead>
-		<tr>
-			<th>Category Name</th>
-			<th>Category Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><a href="/index.php?action=shop;sa=buy;cat=2">BADGES</a></td>
-			<td>BADGES to equip.</td>
-		</tr>
-		<tr>
-			<td><a href="/index.php?action=shop;sa=buy;cat=3">TITLES</a></td>
-			<td>TITLES to attain.</td>
-		</tr>
-		<tr>
-			<td><a href="/index.php?action=shop;sa=buy;cat=4">VARIOUS</a></td>
-			<td>VARIOUS items.</td>
-		</tr>
-		<tr>
-			<td><a href="/index.php?action=shop;sa=buy;cat=5">[CASINO]</a></td>
-			<td>Try your LUCK!</td>
-		</tr>
-		<tr>
-			<td><a href="/index.php?action=shop;sa=tradelist">TRADING</a></td>
-			<td>TRADE your items.</td>
-		</tr>
-	</tbody>
-</table>
-';
+$txt['Shop_welcome_text'] = 'Hee hee... Welcome, %1$s.';
 $txt['Shop_money_pocket'] = 'Pocket';
 $txt['Shop_money_bank'] = 'Bank';
 $txt['Shop_user_avatar'] = 'Avatar';

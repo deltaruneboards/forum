@@ -59,7 +59,7 @@ function template_shop_above()
 				', $context['page_title'], '
 			</h3>
 		</div>
-		<div class="windowbg">';
+		<div class="shop_main">';
 }
 
 function template_home()
@@ -67,31 +67,75 @@ function template_home()
 	global $context, $txt, $scripturl, $modSettings, $settings;
 
 	echo '
-	<div id="basicinfo" style="float: right; text-align: center; width:20%;">
-		<div class="title_bar">
-			<h3 class="titlebg">
-				', $context['user']['name'], '
-			</h3>
+	<div id="shop_info">
+		<div id="shop_welcome">
+			<section class="title_bar">
+				<h3 class="titlebg">
+					', $context['shop']['forum_welcome'], '
+				</h3>
+			</section>
+			<div>
+				<p><strong>', $context['shop']['welcome'], '</strong></p>
+				<p><img src="/assets/ui/seam.gif" alt="Seam"></p>
+				<div id="random-shop-quote">
+					<p data-weight="3">The name\'s Seam. Pronounced <i>Shawm.</i><br>And this is my little <i>Seap</i>. Ha ha ha ha...</p>
+					<p data-weight="5">Take your time... Ain\'t like it\'s better spent.</p>
+					<p>There are many fresh faces in town, I see.<br>It warms this old fluff to see such hope.</p>
+					<p>Eh? That little salesman...?<br>... I don\'t know what you\'re talking about.</p>
+					<p>As long as I stay in my shop, these walls won\'t change.</p>
+					<p>You\'re a Lightner. Don\'t take your life, well, lightly!</p>
+					<p>Me? I\'m here offering the same old junk.</p>
+					<p>In a way, I suppose it\'s just a little bit amusing to see you again.</p>
+				</div>
+				<p>(Confused? Read the <a href="/index.php?action=pages;sa=view;id=5">shop guide</a>!)</p>
+			</div>
 		</div>
-		<div class="information">
-			<a href="', $scripturl, '?action=profile;u=' . $context['user']['id'] . '"><img class="avatar" style="display: inline" src="', $context['user']['avatar']['href'], '" alt="" /></a><br />
-			<strong>', $txt['Shop_money_pocket'], ':</strong> ', Format::cash($context['user']['shopMoney']), '<br />
-			<strong>', $txt['Shop_money_bank'], ':</strong> ', Format::cash($context['user']['shopBank']);
-	if (!empty($modSettings['Shop_enable_games']))
-		echo '
-			<br /><strong>', $txt['Shop_main_games'], ':</strong> ', $context['user']['gamedays'], $txt['Shop_games_days'];
-	echo '
+		<div id="shop_profile">
+			<div class="title_bar">
+				<h3 class="titlebg">
+					', $context['user']['name'], '
+				</h3>
+			</div>
+			<div class="information">
+				<a href="', $scripturl, '?action=profile;u=' . $context['user']['id'] . '"><img class="avatar" style="display: inline" src="', $context['user']['avatar']['href'], '" alt="" /></a><br />
+				<strong>', $txt['Shop_money_pocket'], ':</strong> ', Format::cash($context['user']['shopMoney']), '<br />
+				<strong>', $txt['Shop_money_bank'], ':</strong> ', Format::cash($context['user']['shopBank']);
+			if (!empty($modSettings['Shop_enable_games']))
+				echo '
+					<br /><strong>', $txt['Shop_main_games'], ':</strong> ', $context['user']['gamedays'], $txt['Shop_games_days'];
+			echo '
+			</div>
 		</div>
-	</div>
-	<div id="detailedinfo">
-		<div class="title_bar">
-			<h3 class="titlebg">
-				', $context['shop']['forum_welcome'], '
-			</h3>
-		</div>
-		<div class="information">
-			', $context['shop']['welcome'], '
-		</div>
+			<table class="shop-items-table">
+				<thead>
+					<tr>
+						<th>Category Name</th>
+						<th>Category Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="/index.php?action=shop;sa=buy;cat=2">BADGES</a></td>
+						<td>BADGES to equip.</td>
+					</tr>
+					<tr>
+						<td><a href="/index.php?action=shop;sa=buy;cat=3">TITLES</a></td>
+						<td>TITLES to attain.</td>
+					</tr>
+					<tr>
+						<td><a href="/index.php?action=shop;sa=buy;cat=4">VARIOUS</a></td>
+						<td>VARIOUS items.</td>
+					</tr>
+					<tr>
+						<td><a href="/index.php?action=shop;sa=buy;cat=5">[CASINO]</a></td>
+						<td>Try your LUCK!</td>
+					</tr>
+					<tr>
+						<td><a href="/index.php?action=shop;sa=tradelist">TRADING</a></td>
+						<td>TRADE your items.</td>
+					</tr>
+				</tbody>
+			</table>
 		', template_stats(), '
 	</div>';
 }
