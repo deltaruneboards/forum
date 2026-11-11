@@ -2477,6 +2477,15 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'before' => '<span class="group-$1">',
 				'after' => '</span>',
 			],
+			[
+				'tag' => 'tag',
+				'type' => 'unparsed_content',
+				'validate' => function(&$tag, &$data, $disabled)
+				{
+					$unused = '';
+					$tag['content'] = makeThreadTag($data, $unused);
+				},
+			],
 		);
 
 		// Inside these tags autolink is not recommendable.
