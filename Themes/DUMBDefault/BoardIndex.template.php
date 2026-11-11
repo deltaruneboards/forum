@@ -590,7 +590,7 @@ function template_ic_block_online()
 		$bracketList[] = comma_format($context['num_spiders']) . ' ' . ($context['num_spiders'] == 1 ? $txt['spider'] : $txt['spiders']);
 
 	if (!empty($context['num_users_hidden']))
-		$bracketList[] = comma_format($context['num_users_hidden']) . ' ' . ($context['num_spiders'] == 1 ? $txt['hidden'] : $txt['hidden_s']);
+		$bracketList[] = comma_format($context['num_users_hidden']) . ' with hidden online status';
 
 	if (!empty($bracketList))
 		echo ' (' . implode(', ', $bracketList) . ')';
