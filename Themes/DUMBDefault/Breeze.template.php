@@ -22,7 +22,6 @@ function template_profile(): void
 
 	$profileSettings = $context[Breeze::NAME]['profileSettings'];
 	$buddiesData = $context[Breeze::NAME]['buddiesData'];
-	//$aboutMe = $profileSettings[UserSettingsEntity::ABOUT_ME] ?? '';
 	$enableBuddiesTab = $profileSettings[UserSettingsEntity::ENABLE_BUDDIES_TAB] ?? 0;
 
 	// DUMB change: display the summary above wall
@@ -35,13 +34,6 @@ function template_profile(): void
 	<div id="tab-wall" class="content">
 		', display_content() ,'
 	</div>';
-
-	// if (!empty($aboutMe)) {
-	// 	echo '
-	// 	<div id="tab-about" class="content" style="display: none;">
-	// 		' . parse_bbc($aboutMe) . '
-	// 	</div>';
-	// }
 
 	if ($enableBuddiesTab)
 	{
