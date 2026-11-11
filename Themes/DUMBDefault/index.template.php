@@ -204,7 +204,9 @@ function template_html_above()
 </head>
 <body id="', $context['browser_body_id'], '" class="action_', !empty($context['current_action']) ? $context['current_action'] : (!empty($context['current_board']) ?
 		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '',
-		' color-scheme-', $options['color_scheme'] ?? 'dark', '">';
+		' color-scheme-', $options['color_scheme'] ?? 'dark',
+		' font-size-', $options['font_size'] ?? 'small',
+		'">';
 }
 
 /**
