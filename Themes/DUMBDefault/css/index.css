@@ -108,6 +108,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+	text-size-adjust: none;
+	-webkit-text-size-adjust: 100%;
 }
 /* General reset */
 * {
