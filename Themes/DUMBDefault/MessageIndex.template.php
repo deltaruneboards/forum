@@ -192,7 +192,7 @@ function template_main()
 
 			// Now we handle the icons
 			echo '
-							<div class="icons floatright">';
+							<div class="icons">';
 
 			if ($topic['is_watched'])
 				echo '
@@ -232,7 +232,7 @@ function template_main()
 									<span id="msg_', $topic['first_post']['id'], '">', $topic['first_post']['link'], (!$topic['approved'] ? '&nbsp;<em>(' . $txt['awaiting_approval'] . ')</em>' : ''), '</span>' . ($topicDescriptionWhere === 'right' ? $topicDescription : '') . '
 								</span>
 							</div>
-							<p class="floatleft">
+							<p class="topic_starter">
 								', $txt['started_by'], ' ', $topic['first_post']['member']['link'], '
 							</p>
 							', !empty($topic['pages']) ? '<span id="pages' . $topic['first_post']['id'] . '" class="topic_pages">' . $topic['pages'] . '</span>' : '', '' . ($topicDescriptionWhere === 'below' ? $topicDescription : '') . '

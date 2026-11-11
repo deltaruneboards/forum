@@ -353,15 +353,14 @@ a.new_posts:visited {
 
 div.topic_info_grid {
 	display: grid;
-	grid-template-areas: "title title icons" "desc desc desc" "page  page  name ";
-	grid-template-columns: 1fr 1fr 0.3fr;
+	grid-template-areas: "title title title icons" "desc desc desc desc" "name name page page";
+	grid-template-columns: 1fr 1fr 1fr 0.55fr;
 }
 
-.info_block div .floatleft {
+.topic_starter {
 	grid-area: name;
 	white-space: nowrap;
-	text-align: right;
-	margin-left:0.2em;
+	margin: 10px 0 0 0;
 }
 
 .message_index_title {
@@ -3966,8 +3965,9 @@ p.information img {
 }
 .topic_pages {
 	font-size: 0.75em;
-	margin: 0 0 0 5px;
+	text-align: right;
 	grid-area: page;
+	align-self: end;
 }
 .topic_pages::before {
 	content: "\00ab ";
