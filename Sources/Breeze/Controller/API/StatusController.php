@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Breeze\Controller\API;
 
 use Breeze\Entity\StatusEntity;
-use Breeze\Enums\PermissionsEnum;
 use Breeze\Repository\InvalidStatusException;
 use Breeze\Service\PermissionsServiceInterface;
 use Breeze\Service\SecurityServiceInterface;

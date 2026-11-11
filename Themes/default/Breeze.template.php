@@ -84,8 +84,6 @@ function template_profile(): void
 		echo '
 		</div>';
 	}
-
-	echo template_javascript(true);
 }
 
 function template_wall(): void

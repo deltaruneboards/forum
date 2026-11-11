@@ -54,7 +54,7 @@ class UserSettingsEntity extends Entity implements EntityInterface
 			self::PAGINATION_NUM => SettingsEntity::TYPE_TEXT,
 			self::ENABLE_BUDDIES_TAB => SettingsEntity::TYPE_CHECK,
 			self::CONFIRM_POST => SettingsEntity::TYPE_CHECK,
-			/* DUMB change: No more extra about me section
+			/* DUMB change: Duplicate about me is confusing
 			self::ABOUT_ME => SettingsEntity::TYPE_TEXTAREA,
 			*/
 		];
@@ -71,7 +71,7 @@ class UserSettingsEntity extends Entity implements EntityInterface
 			self::PAGINATION_NUM => 5,
 			self::ENABLE_BUDDIES_TAB => 0,
 			self::CONFIRM_POST => 0,
-			/* DUMB change: No more extra about me section
+			/* DUMB change: Duplicate about me is confusing
 			self::ABOUT_ME => '',
 			*/
 		];
@@ -136,6 +136,7 @@ class UserSettingsEntity extends Entity implements EntityInterface
 		$this->confirmPost = $confirmPost;
 	}
 
+	/* DUMB change: Duplicate about me is confusing
 	public function getAboutMe(): string
 	{
 		return $this->aboutMe;
@@ -145,6 +146,7 @@ class UserSettingsEntity extends Entity implements EntityInterface
 	{
 		$this->aboutMe = $aboutMe;
 	}
+	*/
 
 	public function getPaginationNumber(): int
 	{
@@ -202,7 +204,9 @@ class UserSettingsEntity extends Entity implements EntityInterface
 			'wall' => $this->getWall(),
 			'generalWall' => $this->getGeneralWall(),
 			'paginationNumber' => $this->getPaginationNumber(),
-			//'aboutMe' => $this->getAboutMe(),
+			/* DUMB change: Duplicate about me is confusing
+			'aboutMe' => $this->getAboutMe(),
+			*/
 			'enableBuddiesTab' => $this->getEnableBuddiesTab(),
 			'confirmPost' => $this->getConfirmPost(),
 		];

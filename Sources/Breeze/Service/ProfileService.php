@@ -63,11 +63,15 @@ class ProfileService extends BaseService implements ProfileServiceInterface
 			'editorIsRich' => $editorContext['rich_active'],
 			'currentUserAvatar' => $userInfo['avatar']['url'],
 			'isCurrentUserOwner' => $currentUserId === $profileId,
+			/* DUMB change: Duplicate add to buddy list button is confusing
 			'canShowAddBuddyButton' => $this->canShowAddBuddyButton($profileId, $currentUserId, $wallUserSettings),
+			*/
+			'canShowAddBuddyButton' => false,
 			UserSettingsEntity::ENABLE_BUDDIES_TAB => $wallUserSettings->getEnableBuddiesTab(),
-			/* DUMB change: No more extra about me section
+			/* DUMB change: Duplicate about me is confusing
 			UserSettingsEntity::ABOUT_ME => !in_array($wallUserSettings->getAboutMe(), ['', '0'], true),
 			*/
+			UserSettingsEntity::ABOUT_ME => false,
 			UserSettingsEntity::CONFIRM_POST => $currentUserSettings->getConfirmPost(),
 			'csrfTokenVar' => $token[ResponseInterface::CSRF_TOKEN_ACTION . '_token_var'],
 			'csrfTokenValue' => $token[ResponseInterface::CSRF_TOKEN_ACTION . '_token'],
