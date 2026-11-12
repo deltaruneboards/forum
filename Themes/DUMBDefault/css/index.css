@@ -9,6 +9,7 @@
 	--accent-label-color-pri: #000;
 	--accent-label-color-sec: #fff;
 	--accent-label-color-ter: #fff;
+	--accent-label-color-shadow: #000;
 	--skeuomorphism-end-color: #0b0b0b;
 	--skeuomorphism: linear-gradient(180deg, var(--sec-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
 	--skeuomorphism-header: linear-gradient(180deg, var(--ter-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
@@ -34,24 +35,25 @@
 body.color-scheme-light {
 	--transparent-bg: rgba(255,255,255,0.85);
 	--pri-bg-color: #e9e9e9;
-	--sec-bg-color: #c3c3c3;
-	--ter-bg-color: #B0B0B0;
+	--sec-bg-color: #D4D4D4;
+	--ter-bg-color: #CBCBCB;
 	--txt-color: #111;
 	--txt-color-off: #3b3b3b;
 	--accent-label-color-pri: #000;
-	--accent-label-color-sec: #fff;
-	--accent-label-color-ter: #fff;
+	--accent-label-color-sec: #000;
+	--accent-label-color-ter: #000;
+	--accent-label-color-shadow: #fff;
 	--skeuomorphism-end-color: #b9b9b9;
 	--skeuomorphism: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
 	--skeuomorphism-header: linear-gradient(180deg, var(--pri-bg-color) 45%, var(--skeuomorphism-end-color) 55%);
 
 	--poll-color: #ffbf2f;
 	--border-color: #878787;
-	--link-color: #D5390D;
+	--link-color: #AA3D1A;
 
-	--pri-color: #D5390D;
-	--sec-color: #9c1804;
-	--ter-color: #88010b;
+	--pri-color: #FFB13A;
+	--sec-color: #f69c27;
+	--ter-color: #f75a40;
 
 	--info-color: #ffbf2f;
 	--valid-color: #03be25;
@@ -771,7 +773,8 @@ img.sort, .sort {
 	color: var(--accent-label-color-pri);
 	background: var(--pri-color);
 }
-.dropmenu li .active .amt, #top_info li .active .amt {
+.dropmenu li .active .amt,
+#top_info li .active .amt {
 	background: rgba(0, 0, 0, 0.2);
 	color: inherit;
 }
@@ -794,36 +797,35 @@ img.sort, .sort {
 	font-weight: bold;
 	border-color: var(--ter-color);
 	background: var(--ter-color);
-	text-shadow: 0 0 2px #000;
+	text-shadow: 0 0 2px var(--accent-label-color-shadow);
+}
+#top_info > li:hover > a,
+#top_info > li > a:focus,
+#top_info > li > a.open {
+	background: var(--sec-color);
+	border: 1px solid var(--border-color);
+	color: var(--accent-label-color-sec);
+	cursor: pointer;
+	text-decoration: none;
+}
+
+/* Level 1 active button. */
+.dropmenu li a.active:hover,
+.dropmenu li:hover a.active {
+	background: var(--pri-color);
+	border: 1px solid var(--pri-color);
+	color: var(--accent-label-color-pri);
 }
 .dropmenu > li:has(> a.active) {
 	border-color: var(--ter-color);
 	font-weight: bold;
-}
-/* Level 1 hover effects. */
-.dropmenu > li:hover > a, .dropmenu > li > a:focus,
-#top_info > li:hover > a, #top_info > li > a:focus, #top_info > li > a.open {
-	background: var(--sec-color);
-	border: 1px solid #4a6b8c;
-	color: var(--accent-label-color-sec);
-	cursor: pointer;
-	text-decoration: none;
-	box-shadow: 0 4px 4px rgba(255, 255, 255, 0.1) inset;
-	text-shadow: 0 0 2px #000;
-}
-/* Level 1 active button. */
-.dropmenu li a.active:hover, .dropmenu li:hover a.active {
-	background: var(--pri-color);
-	border: 1px solid var(--pri-color);
-	color: var(--accent-label-color-pri);
-	box-shadow: 0 5px 5px rgba(255, 255, 255, 0.2) inset;
-	text-shadow: none;
 }
 
 ul.dropmenu li {
 	padding: .3em 0;
 }
 
+/* Level 1 hover effects. */
 ul.dropmenu li:hover,
 ul.dropmenu li li:hover,
 .button:hover {
@@ -835,6 +837,18 @@ ul.dropmenu li li:hover,
 	border-bottom: 1px solid var(--ter-color);
 }
 
+.dropmenu > li:hover > a,
+.dropmenu > li > a:focus,
+#top_info > li:hover > a,
+#top_info > li > a:focus,
+#top_info > li > a.open {
+	background: var(--sec-color);
+	border: 1px solid var(--border-color);
+	color: var(--accent-label-color-sec);
+	cursor: pointer;
+	text-decoration: none;
+}
+
 .dropmenu li li a:hover,
 .dropmenu li li:hover > a {
 	background: none;
@@ -844,8 +858,6 @@ ul.dropmenu li li:hover,
 
 .dropmenu > li:hover > a,
 .dropmenu > li > a {
-	box-shadow: none;
-	text-shadow: none;
 	background: none;
 	border: 1px solid transparent;
 }
@@ -853,8 +865,6 @@ ul.dropmenu li li:hover,
 .dropmenu li a.active:hover,
 .dropmenu li:hover a.active {
 	background: none;
-	text-shadow: none;
-	box-shadow: none;
 	color: inherit;
 	border: 1px solid transparent;
 }
@@ -868,8 +878,6 @@ ul.dropmenu li li:hover,
 
 .dropmenu > li > a:focus,
 ul.dropmenu li:has(a:focus) {
-	box-shadow: none;
-	text-shadow: none;
 	background: color-mix(var(--sec-color), var(--pri-bg-color));
 }
 
