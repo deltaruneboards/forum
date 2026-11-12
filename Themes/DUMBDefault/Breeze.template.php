@@ -59,8 +59,6 @@ function template_profile(): void
     				</li>
     				<li>
     					', $buddy['link_color'] ,'
-    					<a href="', $scripturl , '?action=buddy;u=', $buddy['id'], ';', $context['session_var'], '=', $context['session_id'], '">
-    						<span class="main_icons ', $buddyIcon , '" title="', $txt['buddy_' . $buddyText] ,'" /></a>
 					</li>
   				</ul>';
 			}
