@@ -3,7 +3,7 @@
         'name' => 'suki/breeze',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '47e3c676b23eb208a9733533ee14f3ab49be6eb1',
+        'reference' => 'ce860f47becd7ff8e5d7cc232e1548884a487be7',
         'type' => 'smf-module',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -67,7 +67,7 @@
         'suki/breeze' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '47e3c676b23eb208a9733533ee14f3ab49be6eb1',
+            'reference' => 'ce860f47becd7ff8e5d7cc232e1548884a487be7',
             'type' => 'smf-module',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -45,15 +45,13 @@ function template_profile(): void
 				<ul class="reset buddyList">';
 
 			foreach ($buddiesData as $buddy) {
-				$buddyIcon = !empty($buddy['is_buddy']) ? 'delete' : 'plus';
-				$buddyText = !empty($buddy['is_buddy']) ? 'remove' : 'add';
 				echo '
 				<ul class="flow_auto">
     				<li class="avatar">
     					<a href="', $buddy['href'], '">
 			  				<img
 								src="', $buddy['avatar']['url'], '"
-								alt="', $buddy['username'], '"
+								alt="', $buddy['name'], '"
 								class="avatar" />
 						</a>
     				</li>
