@@ -50,8 +50,8 @@ function template_options()
 			'label' => 'Font size',
 			'options' => [
 				'small' => 'Small',
-				'medium' => 'Medium (Beta)',
-				'large' => 'Large (Beta)',
+				'medium' => 'Medium',
+				'large' => 'Large',
 			],
 			'default' => 'small',
 		],

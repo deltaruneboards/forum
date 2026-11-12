@@ -51,7 +51,7 @@ span[style="color: pink;"] {
 /* A code block */
 .bbc_code {
 	display: block;
-	font-size: 0.78rem;
+	font-size: 0.935rem;
 	background: var(--pri-bg-color);
 	border: 1px solid #dfdfdf;
 	border-top: 2px solid #bbb;
