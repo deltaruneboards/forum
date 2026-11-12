@@ -9,7 +9,7 @@ div.sceditor-grip {
 	min-height:620px;
 }
 .sceditor-container textarea {
-	font-size: medium;
+	font-size: 1.2rem;
 	color: var(--txt-color);
 	background: var(--pri-bg-color);
 }
