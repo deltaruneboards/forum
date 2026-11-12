@@ -423,10 +423,10 @@ div.topic_info_grid {
 	font-size: 1.4em;
 }
 h3.largetext {
-	font-size: large;
+	font-size: 1.44rem;
 }
 .xlargetext {
-	font-size: x-large;
+	font-size: 1.8rem;
 }
 .centertext, .centercol {
 	margin: 0 auto;
@@ -2303,7 +2303,7 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 	width:auto;
 }
 .username h4 {
-	font-size: x-large;
+	font-size: 1.8rem;
 }
 .username .position {
 	margin-top:0.5em;
@@ -4164,7 +4164,7 @@ h3.profile_hd::before,
 .display_title {
 	display: inline-block;
 	font-weight: bold;
-	font-size: x-large;
+	font-size: 1.8rem;
 	margin-bottom: 0.25em;
 	line-height: 1.05em;
 	overflow-wrap: break-word;
