@@ -100,7 +100,11 @@ function template_html_above()
 
 	// Show right to left, the language code, and the character set for ease of translating.
 	echo '<!DOCTYPE html>
-<html', $context['right_to_left'] ? ' dir="rtl"' : '', !empty($txt['lang_locale']) ? ' lang="' . str_replace("_", "-", substr($txt['lang_locale'], 0, strcspn($txt['lang_locale'], "."))) . '"' : '', '>
+<html',
+	$context['right_to_left'] ? ' dir="rtl"' : '',
+	!empty($txt['lang_locale']) ? ' lang="' . str_replace("_", "-", substr($txt['lang_locale'], 0, strcspn($txt['lang_locale'], "."))) . '"' : '',
+	'class="font-size-', $options['font_size'] ?? 'small', '"',
+'>
 <head>
 	<meta charset="', $context['character_set'], '">';
 
@@ -205,7 +209,6 @@ function template_html_above()
 <body id="', $context['browser_body_id'], '" class="action_', !empty($context['current_action']) ? $context['current_action'] : (!empty($context['current_board']) ?
 		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '',
 		' color-scheme-', $options['color_scheme'] ?? 'dark',
-		' font-size-', $options['font_size'] ?? 'small',
 		'">';
 }
 
