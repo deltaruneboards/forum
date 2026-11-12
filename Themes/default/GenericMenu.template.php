@@ -20,7 +20,7 @@ function template_generic_menu_dropdown_above()
 	// Which menu are we rendering?
 	$context['cur_menu_id'] = isset($context['cur_menu_id']) ? $context['cur_menu_id'] + 1 : 1;
 	$menu_context = &$context['menu_data_' . $context['cur_menu_id']];
-	$menu_label = isset($context['admin_menu_name']) ? $txt['admin_center'] : (isset($context['moderation_menu_name']) ? $txt['moderation_center'] : '');
+	$menu_label = isset($context['admin_menu_name']) ? $txt['admin_center'] : (isset($context['moderation_menu_name']) ? $txt['moderation_center'] : (isset($context['profile_menu_name']) ? $txt['profile'] : '' ));
 
 	// Load the menu
 	// Add mobile menu as well
@@ -50,8 +50,7 @@ function template_generic_menu_dropdown_above()
 	</script>';
 
 	// This is the main table - we need it so we can keep the content to the right of it.
-	echo '
-				<div id="admin_content">';
+	echo '<div id="admin_content">';
 
 	// It's possible that some pages have their own tabs they wanna force...
 // 	if (!empty($context['tabs']))
@@ -63,8 +62,7 @@ function template_generic_menu_dropdown_above()
  */
 function template_generic_menu_dropdown_below()
 {
-	echo '
-				</div><!-- #admin_content -->';
+	echo '</div><!-- #admin_content -->';
 }
 
 /**
