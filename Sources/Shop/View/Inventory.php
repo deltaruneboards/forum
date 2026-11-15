@@ -142,7 +142,7 @@ class Inventory
 
 	public static function inventory_list($memberResult, $form_url, $notin = false, $trading = false)
 	{
-		global $modSettings, $user_info, $context, $settings, $scripturl;
+		global $modSettings, $user_info, $context, $settings, $scripturl, $sourcedir;
 
 		// sql is very very finicky with groupby and values not in the groupby statement
 		// so we have to make all of these "maximum" aggregates so it returns the most recent values for each item stack
@@ -152,6 +152,8 @@ class Inventory
         foreach (Database::$items as $itm)
             array_push($stack_fix, "MAX(" . $itm . ") AS " . explode('.', $itm)[1]);
 
+            
+        require_once($sourcedir . '/Subs-Post.php');
 
 		$listOptions = [
 			'id' => 'inventory',
@@ -199,7 +201,11 @@ class Inventory
 					'data' => [
 						'function' => function($row)
 						{
-							return '<span style="font-size:110%">'.$row['name'] . ' (x' . $row['item_count'] .')</span>' . (!empty($row['description']) ? '<br/><span class="smalltext">' . $row['description'] . '</span>' : '');
+    						preparsecode($row["name"]);
+                            if (!empty($row["description"]))
+                                preparsecode($row["description"]);
+                                
+							return '<span style="font-size:110%">'.parse_bbc($row['name']) . ' (x' . $row['item_count'] .')</span>' . (!empty($row['description']) ? '<br/><span class="smalltext">' . parse_bbc($row['description']) . '</span>' : '');
 						},
 						'class' => 'lefttext',
 						'style' => 'width: 32%',

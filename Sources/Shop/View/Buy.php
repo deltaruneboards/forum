@@ -57,6 +57,7 @@ class Buy
 
 		// Set all the page stuff
 		require_once($sourcedir . '/Subs-List.php');
+		require_once($sourcedir . '/Subs-Post.php');
 		$context['sub_template'] = 'show_list';
 		$context['default_list'] = 'itemslist';
 		$context['page_title'] = Shop::getText('main_button') . ' - ' . Shop::getText('main_buy');
@@ -119,13 +120,13 @@ class Buy
 					'data' => [
 						'function' => function($row)
 						{
-						    $retr = '<span style="font-size:110%';
-							if ($row["module_name"] == "DUMBUserGroup" && $row['gid'] != 0)
-							    $retr .= '" class="group-' . $row["gid"];
-							$retr .= '">' . $row["name"] . '</span>';
+          					preparsecode($row["name"]);
+                  		    $retr = '<span style="font-size:110%">' . parse_bbc($row["name"]) . '</span>';
 							
-							if (!empty($row["description"]))
-							    $retr .= '<br><span class="smalltext">' . $row["description"] . "</span>";
+							if (!empty($row["description"])) {
+         						preparsecode($row["description"])	;
+                 			    $retr .= '<br><span class="smalltext">' . parse_bbc($row["description"]) . "</span>";
+							}
 							
 							return $retr;
 						},
