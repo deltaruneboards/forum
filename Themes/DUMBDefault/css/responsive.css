@@ -481,25 +481,21 @@
 	#creator dd {
 		width: 65%;
 	}
-	#profile_top {
+
+	#profileview {
+		display:flex;
+		flex-flow:column wrap;
+	}
+	#profile_main {
 		grid-template-columns: 1fr;
-		grid-template-areas: "avatar" "info" "buttons";
+		grid-template-areas: "avatar" "info" "buttons" "detail";
 	}
-	.profile_top_info {
-		grid-template-columns:1fr;
+	#profile_main .username {
+		text-align: center;
 	}
-	.profile_top_buttons {
-		flex-flow:row wrap;
-		padding:1em;
-	}
-	#profile_bottom {
-		grid-template-columns:1fr;
-	}
-	#profile_top img.avatar, .cust_person img {
-		max-height:200px;
-	}
-	.profile_top_info .username {
-		text-align:center;
+	#profile_main img.avatar, .cust_person img {
+		max-width:200px;
+		max-height: 200px;
 	}
 
 	/* Buddies & Ignore List */

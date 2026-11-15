@@ -2275,28 +2275,41 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 #profileview {
 	background-color:var(--pri-bg-color);
 	overflow:auto;
-}
-#profile_top {
 	display:grid;
-	grid-template-columns:20% 1fr 0.3fr;
-	grid-template-areas:"avatar info buttons";
-	padding:20px 0 20px 0;
+	grid-template-columns: 0.25fr 1fr;
+}
+#profile_main {
+	padding: 20px 0 20px 0;
+	display:grid;
+	grid-template-columns: 0.5fr 1.3fr;
+	grid-template-rows: min-content min-content min-content;
 	border: 1px solid var(--border-color);
+	grid-template-areas:"avatar info" "buttons buttons" "detail detail";
 }
-.profile_top_info {
-	grid-area:info;
-	display:grid;
-	grid-template-columns:1fr 0.5fr;
-	grid-template-rows: 1fr min-content;
-	margin: 0.3em;
-	font-size:smaller;
+.cust_person {
+	text-align: center;
 }
-#profile_top img.avatar, .cust_person img {
-	justify-self:center;
-	height: auto;
+.cust_person img {
 	padding:1em;
-	grid-area: avatar;
+}
+#profile_main img.avatar {
+	padding: 0 1em 1em 1em;
+	grid-area:avatar;
+	height:auto;
 	width:auto;
+	justify-self:center;
+	align-self:center;
+}
+.custom_fields_below_avatar {
+	padding: 0 0 20px 0;
+}
+
+.profile_main_info {
+	grid-area:info;
+	display:flex;
+	flex-flow:column wrap;
+	gap:1em;
+	font-size:smaller;
 }
 .username h4 {
 	font-size: x-large;
@@ -2306,71 +2319,48 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 	display:block;
 	font-size:large;
 }
-
-.custom_fields_below_avatar {
-	margin-top:1em;
-	grid-column: 1 / -1;
-	grid-row: 2 / -1;
-}
 .custom_fields_below_avatar li {
 	word-wrap:anywhere;
 }
-.icon_fields {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content:space-evenly;
-}
-.profile_top_buttons {
-	display:flex;
-	flex-flow: column wrap;
-	justify-content:space-evenly;
-	text-align:center;
-	background-color:var(--sec-bg-color);
-	border: 1px solid var(--border-color);
-	grid-area:buttons;
-}
 #basicinfo {
-	background-color:var(--sec-bg-color);
 	word-wrap:break-word;
-	grid-row: 1 / -1;
 }
-.custom_fields_bottom {
-	display:grid;
-	justify-items:center;
-	background-color:var(--ter-bg-color);
-}
-.custom_fields_bottom h3 {
+#basicinfo h3 {
 	padding: 0.5em 0 0.5em 0;
 	text-align:center;
 	background-color:var(--pri-bg-color);
 	border: 1px solid var(--border-color);
-	width:100%
+	border-right: none;
 }
 #basicinfo li {
-	margin:1px 0 1px 0;
 	padding: 0 5px 0 5px;
 	background-color: var(--pri-bg-color);
-	border-top: 1px solid var(--border-color);
-	border-left: 1px solid var(--border-color);
+	border: 1px solid var(--sec-bg-color);
 	font-size:smaller;
+	word-wrap: anywhere;
 }
-.standard_fields {
-	display:grid;
-	grid-template-columns:0.3fr 1fr;
-	background-color:var(--ter-bg-color);
-	gap:2px;
-	margin: 0 0 20px 0;
+.profile_buttons {
+	grid-area: buttons;
+	display:flex;
+	flex-flow:row wrap;
+	background-color: var(--sec-bg-color);
+	padding: 0.5em;
+	justify-content: end;
+	align-items:center;
+	gap:1.5em;
+	border:1px solid var(--border-color);
+	filter:var(--ut-icon-filter);
 }
-.standard_fields dt, .standard_fields dd {
-	background-color:var(--pri-bg-color);
-	border: 1px solid var(--border-color);
-	word-wrap:anywhere;
-	padding:0.3em;
+.profile_buttons img:hover {
+	filter:brightness(190%);
 }
-#profile_bottom {
-	display:grid;
-	grid-template-columns:20% 1fr;
-	grid-template-rows: 1fr;
+#profile_side {
+	grid-column: 1 / 1;
+	grid-row: 1;
+	background-color: var(--ter-bg-color);
+}
+#detailedinfo {
+	grid-area: detail;
 }
 
 #tracking dt {
@@ -4101,7 +4091,7 @@ h3.profile_hd::before,
 
 .dropmenu li ul, .top_menu, .dropmenu li li:hover, .button,
 .dropmenu li li:hover > a, .dropmenu li li a:focus, .dropmenu li li a:hover,
-#top_section, .quickbuttons > li, .menu_nav li,
+#top_section, .quickbuttons > li, .menu_nav li, .breezeTabs li,
 .quickbuttons li ul, .quickbuttons li ul li a:hover, .quickbuttons ul li a:focus,
 .inline_mod_check, .popup_window, .post_options ul,
 .post_options ul a:hover, .post_options ul a:focus, .notify_dropdown a:hover, .notify_dropdown a:focus {
