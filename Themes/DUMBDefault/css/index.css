@@ -2344,10 +2344,10 @@ tr.windowbg td, tr.bg td, .table_grid tr td {
 	display:flex;
 	flex-flow:row wrap;
 	background-color: var(--sec-bg-color);
-	padding: 0.5em;
+	padding: 6px;
 	justify-content: end;
 	align-items:center;
-	gap:1.5em;
+	gap:12px;
 	border:1px solid var(--border-color);
 	filter:var(--ut-icon-filter);
 }
