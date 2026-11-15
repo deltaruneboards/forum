@@ -180,7 +180,7 @@ class Log
 			], $this->_inventory);
 
 			// Discount stock
-			Database::Update('stshop_items', ['count' => 1, 'itemid' => $itemid], 'stock = stock - {int:count},', 'WHERE itemid = {int:itemid}');
+			Database::Update('stshop_items', ['count' => 1, 'itemid' => $itemid], 'stock = stock - {int:count},', 'WHERE itemid = {int:itemid} AND stock < 999');
 		}
 		// Purchasing at the trade center
 		else
