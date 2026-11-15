@@ -294,6 +294,21 @@ span.group-60, a.group-60, a.group-60:visited {
 	font-weight:700;
 }
 
+/* Princess */
+span.group-61, a.group-61, a.group-61:visited {
+	color: #FEE1F3;
+	-webkit-text-stroke: 3px #a03a6c;
+	paint-order: stroke fill;
+}
+
+/* His/Their Best Friend */
+span.group-62, a.group-62, a.group-62:visited,
+span.group-63, a.group-63, a.group-63:visited {
+	color: #E8A63B;
+  	-webkit-text-stroke: 3px #562e13;
+  	paint-order: stroke fill;
+}
+
 /* BLAZER, ICE BLAZER, SOUTH OF THE BORDER, The Youthful Days */
 span.group-27, span.group-32, span.group-41, span.group-59,
 a.group-27, a.group-32, a.group-41, a.group-59 {
