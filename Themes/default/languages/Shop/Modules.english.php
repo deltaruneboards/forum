@@ -135,7 +135,7 @@ $txt['alert_shop_module_steal_item'] = '{member_link} just robbed you the item "
 // DUMB Badge
 $txt['Shop_dumbb_name'] = 'Equip Badge';
 $txt['Shop_dumbb_desc'] = 'Equips a badge to your user profile';
-$txt['Shop_dumbb_success'] = 'You have successfully added %d!';
+$txt['Shop_dumbb_success'] = 'You have successfully equipped the %s badge!';
 $txt['Shop_dumbb_setting1'] = 'Badge order';
 $txt['Shop_dumbb_setting2'] = 'Hover text';
 $txt['Shop_dumbb_setting3'] = 'User can add this badge to another member';
@@ -157,6 +157,8 @@ $txt['Shop_dumbgroup_desc'] = 'Grants a specified title';
 $txt['Shop_dumbgroup_no_refund'] = 'No item found that grants your usergroup. You can still use the item to change your usergroup, but you will not get a refund for your existing group.';
 $txt['Shop_dumbgroup_refund_ex'] = 'Using this will also return the following items:';
 $txt['Shop_dumbgroup_admin_use'] = 'This item will deadmin you if used!';
+$txt['Shop_dumbgroup_success'] = 'You have successfully equipped the %s title!';
+$txt['Shop_dumbgroup_reset'] = 'You have successfully reset your title!';
 // DUMB Interest
 $txt['Shop_dumb_interest_name'] = 'Interest Modifier';
 $txt['Shop_dumb_interest_desc'] = 'Modifies your user Interest';

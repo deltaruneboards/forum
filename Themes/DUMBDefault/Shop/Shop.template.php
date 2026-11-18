@@ -217,10 +217,13 @@ function template_invused()
 	global $context, $txt;
 
 		echo '
-		<div class="windowbg">
-			', sprintf($txt['Shop_item_used_success'], $context['item']['name']), '<br /><br />
-			', $context['shop']['used']['input'], '<br />
-		</div>';
+		<div class="windowbg">';
+			if( !empty($context['shop']['used']['input']) ) {
+				echo '' . $context['shop']['used']['input'];
+			} else {
+				echo ''. sprintf($txt['Shop_item_used_success'], $context['item']['name']);
+			}
+		echo'</div>';
 }
 
 function template_invdel()
