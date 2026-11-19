@@ -100,6 +100,7 @@ $txt['Breeze_error_postComments'] = 'You aren\'t allowed to post comments';
 $txt['Breeze_error_no_valid_action'] = 'This is not a valid action';
 $txt['Breeze_error_no_property'] = '%s isn\'t a valid call';
 $txt['Breeze_error_no_access'] = 'I\'m sorry, you don\'t have access to this section';
+$txt['Breeze_error_user_is_banned'] = 'This user has been banned. Reason: %s';
 
 // Loading text.
 $txt['Breeze_profile_of_username'] = 'Profile of {name}';
