@@ -56,7 +56,7 @@ class WallController extends BaseController
 		if (empty($memberContext) || empty($memberContext[$profileId])) {
 			Error::show('no_valid_action');
 		}
-		if ($memberContext[$profileId]['is_banned']) {
+		if ($memberContext[$profileId]['is_banned'] && !$this->isAllowedTo(PermissionsEnum::DELETE_STATUS)) {
 			global $smcFunc;
 			$request = $smcFunc['db_query']('', '
 				SELECT reason
