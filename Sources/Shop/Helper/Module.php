@@ -185,7 +185,7 @@ abstract class Module
 	 * The input fields in the getUseInput() function are passed here in the $_POST array
 	 * The admin fields in the getAddInput() function are passed in the $item_info array
 	 *
-	 * @return void
+	 * @return string
 	 */
 	abstract function onUse();
 }

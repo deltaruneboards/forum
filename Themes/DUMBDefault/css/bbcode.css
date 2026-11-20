@@ -78,11 +78,10 @@ span[style="color: pink;"] {
 }
 /* Styling for BBC tags */
 .bbc_link, .mention {
-	border-bottom: 1px solid #a8b6cf;
+	text-decoration: underline var(--txt-color-off);
 }
 .bbc_link:hover, .mention:hover {
-	text-decoration: none;
-	border-bottom: 1px solid #346;
+	text-decoration: underline var(--pri-color);
 }
 .bbc_size {
 	line-height: 1.4em;
@@ -134,6 +133,9 @@ span[style="color: pink;"] {
 .bbc_float.floatright {
 	margin-left: 1em;
 	clear: right;
+}
+.bbc_hover {
+	text-decoration: underline dashed var(--txt-color-off);
 }
 
 /* Images */
