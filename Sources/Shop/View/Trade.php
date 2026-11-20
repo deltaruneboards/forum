@@ -337,7 +337,7 @@ class Trade
 		$context["prefillsearch"] = "";
 		// DUMBie extension: search for item
 		if(isset($_REQUEST["itemtarget"])) {
-		    $tsearch = $smcFunc["db_escape_wildcard_string"]("%" . $_REQUEST["itemtarget"] . "%");
+		    $tsearch = '%' . $smcFunc["db_escape_wildcard_string"]($_REQUEST["itemtarget"]) . '%';
 						
     		$listOptions['get_items']['params'][2] .= " AND s.name LIKE {string:itemtarget}";
     		$listOptions['get_items']['params'][5]["itemtarget"] = $tsearch;
@@ -346,7 +346,7 @@ class Trade
     		$listOptions['get_count']['params'][4]["itemtarget"] = $tsearch;
       
             $context["prefillsearch"] = $_REQUEST["itemtarget"];
-            $context["page_welcome"] .= " [query: " . htmlspecialchars($_REQUEST["itemtarget"]) . "]";
+            $context["page_welcome"] .= " [query: " . $_REQUEST["itemtarget"] . "]";
 		}
 		
 		// Change date
