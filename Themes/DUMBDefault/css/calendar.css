@@ -63,7 +63,7 @@ td.days:hover {
 	text-align: center;
 }
 #month_grid td.weeks {
-	font-size: large;
+	font-size: 1.44rem;
 	background: #e7eaef;
 	width: 5%;
 }
@@ -188,7 +188,7 @@ td.days:hover {
 }
 div.week_month_title {
 	font-weight: bold;
-	font-size: xx-large;
+	font-size: 2.4rem;
 	margin: 0.8em 0 0.4em 0.15em;
 	line-height: 1.2em;
 }
@@ -198,11 +198,7 @@ div.week_month_title a {
 td.week_post {
 	vertical-align: middle !important;
 }
-div.week_add_event {
-	/* text-align: center; */
-}
 div.week_add_event > a {
-	/* font-size: x-large; */
 	color: #999;
 }
 div.week_add_event > a:hover {
