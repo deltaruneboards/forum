@@ -443,6 +443,17 @@ function template_trade_below()
 				<input class="button floatright" type="submit" value="'. $txt['search']. '" />
 				<input type="hidden" name="'. $context['session_var']. '" value="'. $context['session_id']. '">
 			</form>
+			<form method="post" action="'. $scripturl.'?action=shop;sa=tradelist">
+				<dl class="settings">
+					<dt>
+					    ' . $txt["Shop_inventory_search_i"] . ' 
+					</dt>
+					<dd>
+					    <input type="text" name="itemtargetpre" id="itemtargetpre"></input>
+					</dd>
+				</dl>
+				<input class="button floatright" type="submit" value="'. $txt['search']. '" />
+			</form>
 		</div>
 		<script>
 			var oAddMemberSuggest = new smc_AutoSuggest({

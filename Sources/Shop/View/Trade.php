@@ -260,8 +260,14 @@ class Trade
 
 	public function list()
 	{
-		global $context, $sourcedir, $scripturl, $user_info, $memberContext, $boardurl;
+		global $context, $sourcedir, $scripturl, $user_info, $memberContext, $boardurl, $smcFunc;
 
+		if (isset($_REQUEST["itemtargetpre"]))
+            redirectexit($scripturl . "?action=shop;sa=tradelist;itemtarget=" . rawurlencode($_REQUEST["itemtargetpre"]));
+        
+        if (empty($_REQUEST["itemtarget"]))
+            unset($_REQUEST["itemtarget"]);
+            
 		// Specific member only?
 		if (isset($_REQUEST['u']) || isset($_REQUEST['user']))
 		{
@@ -327,6 +333,22 @@ class Trade
 		unset($listOptions['columns']['item_trade']);
 		unset($listOptions['additional_rows']['traded']);
 
+		
+		$context["prefillsearch"] = "";
+		// DUMBie extension: search for item
+		if(isset($_REQUEST["itemtarget"])) {
+		    $tsearch = '%' . $smcFunc["db_escape_wildcard_string"]($_REQUEST["itemtarget"]) . '%';
+						
+    		$listOptions['get_items']['params'][2] .= " AND s.name LIKE {string:itemtarget}";
+    		$listOptions['get_items']['params'][5]["itemtarget"] = $tsearch;
+    		
+    		$listOptions['get_count']['params'][2] .= " AND s.name LIKE {string:itemtarget}";
+    		$listOptions['get_count']['params'][4]["itemtarget"] = $tsearch;
+      
+            $context["prefillsearch"] = $_REQUEST["itemtarget"];
+            $context["page_welcome"] .= " [query: " . $_REQUEST["itemtarget"] . "]";
+		}
+		
 		// Change date
 		$listOptions['columns']['item_details'] = [
 			'header' => [
