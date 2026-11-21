@@ -78,10 +78,12 @@ span[style="color: pink;"] {
 }
 /* Styling for BBC tags */
 .bbc_link, .mention {
-	text-decoration: underline var(--txt-color-off);
+	text-decoration: solid underline var(--txt-color);
+	-webkit-text-decoration: solid underline var(--txt-color);
 }
 .bbc_link:hover, .mention:hover {
-	text-decoration: underline var(--pri-color);
+	text-decoration: solid underline var(--pri-color);
+	-webkit-text-decoration: solid underline var(--pri-color);
 }
 .bbc_size {
 	line-height: 1.4em;
@@ -135,7 +137,8 @@ span[style="color: pink;"] {
 	clear: right;
 }
 .bbc_hover {
-	text-decoration: underline dashed var(--txt-color-off);
+	text-decoration: dashed underline var(--txt-color-off);
+	-webkit-text-decoration: dashed underline var(--txt-color-off);
 }
 
 /* Images */
