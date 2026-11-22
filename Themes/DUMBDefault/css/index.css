@@ -1297,7 +1297,6 @@ ul li.greeting {
 /* The navigation list (i.e. linktree) */
 .navigate_section {
 	padding: 3px 0 0 0;
-	float: left;
 	width: 100%;
 }
 #main_content_section .navigate_section {
@@ -1485,12 +1484,25 @@ ul li.greeting {
 #display_jump_to {
 	padding: 5px 0;
 	margin: 4px 0;
-	float: right;
 	font-size: 1em;
 }
 #topic_icons #message_index_jump_to {
 	padding: 0;
 	float: right;
+}
+#dumbass_container {
+	display:flex;
+	flex-flow:row wrap;
+	justify-content:space-between;
+}
+/* ModerationButtons */
+#moderationbuttons_strip {
+	float: left;
+	margin: 4px 0 4px;
+}
+#moderationbuttons ul li {
+	padding: 0 6px 4px 0;
+	margin: 0;
 }
 
 /* The category separator string is 29 dashes */
@@ -3785,18 +3797,6 @@ ul.post_options li {
 .edit_event {
 	margin: 0 10px;
 	vertical-align: top;
-}
-/* ModerationButtons */
-#moderationbuttons {
-	float: left;
-}
-#moderationbuttons_strip {
-	float: left;
-	margin: 4px 0 4px;
-}
-#moderationbuttons ul li {
-	padding: 0 6px 4px 0;
-	margin: 0;
 }
 
 /* File error */

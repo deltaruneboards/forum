@@ -290,14 +290,15 @@ function template_main()
 	theme_linktree();
 
 	// Moderation buttons
-	echo '
+	echo '<div id="dumbass_container">
 		<div id="moderationbuttons">
 			', template_button_strip($context['mod_buttons'], 'bottom', array('id' => 'moderationbuttons_strip')), '
 		</div>';
 
 	// Show the jumpto box, or actually...let Javascript do it.
 	echo '
-		<div id="display_jump_to"></div>';
+		<div id="display_jump_to"></div>
+		</div>';
 
 	// Show quickreply
 	if ($context['can_reply'])
