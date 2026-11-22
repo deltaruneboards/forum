@@ -1019,8 +1019,7 @@ function template_quickreply()
 					</form>
 				</div><!-- .roundframe -->
 			</div><!-- #quickreply_options -->
-		</div><!-- #quickreply -->
-		<br class="clear">';
+		</div><!-- #quickreply -->';
 
 	// Draft autosave available and the user has it enabled?
 	if (!empty($context['drafts_autosave']))

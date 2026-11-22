@@ -1596,6 +1596,12 @@ function prepareDisplayContext($reset = false)
 			'icon' => 'quick_edit_button',
 			'show' => $output['can_modify']
 		),
+		'report' => array(
+			'label' => $txt['report'],
+			'href' => $scripturl.'?action=reporttm;topic='.$context['current_topic'].'.'.$output['counter'].';msg='.$output['id'],
+			'icon' => 'error',
+			'show' => $context['can_report_moderator']
+		),
 		'more' => array(
 			'modify' => array(
 				'label' => $txt['modify'],
@@ -1624,12 +1630,6 @@ function prepareDisplayContext($reset = false)
 				'href' => $scripturl.'?action=splittopics;topic='.$context['current_topic'].'.0;at='.$output['id'],
 				'icon' => 'split_button',
 				'show' => $context['can_split'] && !empty($context['real_num_replies'])
-			),
-			'report' => array(
-				'label' => $txt['report_to_mod'],
-				'href' => $scripturl.'?action=reporttm;topic='.$context['current_topic'].'.'.$output['counter'].';msg='.$output['id'],
-				'icon' => 'error',
-				'show' => $context['can_report_moderator']
 			),
 			'warn' => array(
 				'label' => $txt['issue_warning'],

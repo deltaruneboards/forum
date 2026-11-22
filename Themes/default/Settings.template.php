@@ -55,6 +55,11 @@ function template_options()
 			],
 			'default' => 'small',
 		],
+		[
+			'id' => 'banner_effects',
+			'label' => 'Enable banner effects?',
+			'default' => false,
+		],
 		$txt['theme_opt_display'],
 		array(
 			'id' => 'show_children',

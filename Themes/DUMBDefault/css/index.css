@@ -1209,6 +1209,20 @@ html[lang="el-GR"] .inline_mod_check {
 	display: flex;
 	justify-content: center;
 }
+#top {
+	position:relative;
+}
+section#banner_effects {
+	width:100%;
+    height:100%;
+    position:absolute;
+}
+#snow {
+	width:100%;
+	height:100%;
+	position:absolute;
+}
+
 /* Even guests need to be aligned */
 .welcome {
 	padding: 0 10px;
@@ -3519,14 +3533,11 @@ img.avatar {
 	clear: right;
 	display: block;
 }
-.keyinfo .postinfo a, .keyinfo .postinfo a strong {
-	color: var(--txt-color-off);
-}
 .keyinfo .postinfo .spacer {
 	flex: 1 1 auto;
 }
 .keyinfo .postinfo .smalltext, .keyinfo .postinfo .smalltext strong {
-	color: var(--txt-color);
+	color: var(--txt-color-off);
 }
 /* PMs postinfo */
 #personal_messages .keyinfo .postinfo {

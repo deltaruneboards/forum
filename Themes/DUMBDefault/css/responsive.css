@@ -414,13 +414,6 @@
 	.keyinfo .postinfo {
 		font-weight: normal;
 	}
-	.keyinfo .postinfo .smalltext,
-	.keyinfo .page_number {
-		opacity: 0.6;
-	}
-	.keyinfo .postinfo a.smalltext:hover {
-		opacity: 1;
-	}
 	img.icon, #forumposts .catbg img {
 		display: none;
 	}

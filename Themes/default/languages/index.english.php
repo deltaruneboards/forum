@@ -682,6 +682,7 @@ $txt['you_likes_n'] = 'You and <a href="%1$s">%2$s other people</a> like this.';
 
 $txt['report_to_mod'] = 'Report to moderator';
 $txt['report_profile'] = 'Report profile of %1$s';
+$txt['report'] = 'Report';
 
 $txt['unread_topics_visit'] = 'Recent Unread Topics';
 // argument(s): scripturl

@@ -202,11 +202,11 @@ function template_html_above()
 
 	echo '
 </head>
-<body id="', $context['browser_body_id'], '" class="action_', !empty($context['current_action']) ? $context['current_action'] : (!empty($context['current_board']) ?
+<body role="body" id="', $context['browser_body_id'], '" class="action_', !empty($context['current_action']) ? $context['current_action'] : (!empty($context['current_board']) ?
 		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '',
 		' color-scheme-', $options['color_scheme'] ?? 'dark',
 		' font-size-', $options['font_size'] ?? 'small',
-		'">';
+		'" tabindex="-1" aria-hidden="true">';
 }
 
 /**
@@ -231,14 +231,16 @@ function template_body_above()
 
 	// Wrapper div now echoes permanently for better layout options. h1 a is now target for "Go up" links.
 
-	echo '<div id="header">
+	echo '<div id="header" role="banner" aria-label="Banner">
 		<a id="top" href="', $scripturl, '">
+			<section id="banner_effects" aria-hidden="true" style="display:'. (isset($options['banner_effects']) ? ($options['banner_effects'] ? 'block' : 'none') : 'none') .'"></section>
+			<section id="snow" aria-hidden="true"></section>
 		', '<img id="banner" src="/assets/banners/' . ($options['banner'] ?? 'Beheeyemite.png') . '" alt="DELTARUNE Unofficial Message Boards" title="DELTARUNE Unofficial Message Boards">
 			<div class="randombanner"><img id="randomImage" aria-hidden="true" src="" alt=""></div>
 			 ', '</a></div>';
 
 			 echo '
-			 <div id="top_section">
+			 <div id="top_section" aria-label="Userlinks">
 				 <div class="inner_wrap">';
 		 
 			 // If the user is logged in, display some things that might be useful.
@@ -359,7 +361,7 @@ function template_body_above()
 			 {
 				 echo '
 					 <form id="search_form" action="', $scripturl, '?action=search2" method="post" accept-charset="', $context['character_set'], '">
-						 <input type="search" name="search" value=""> ';
+						 <input type="search" name="search" value="">';
 		 
 				 // Using the quick search dropdown?
 				 $selected = !empty($context['current_topic']) ? 'current_topic' : (!empty($context['current_board']) ? 'current_board' : 'all');
@@ -447,7 +449,7 @@ function template_body_above()
 					<span class="text_menu">', $txt['mobile_user_menu'], '</span>
 				</a>
 				<div id="main_menu">
-					<div id="mobile_user_menu" class="popup_container">
+					<div id="mobile_user_menu" class="popup_container" role="navigation">
 						<div class="popup_window description">
 							<div class="popup_heading">', $txt['mobile_user_menu'], '
 								<a href="javascript:void(0);" class="main_icons hide_popup"></a>
@@ -465,7 +467,7 @@ function template_body_above()
 
 	// The main content should go here.
 	echo '
-		<div id="content_section">
+		<main id="content_section">
 			<div id="main_content_section">';
 }
 
@@ -479,10 +481,11 @@ function template_body_below()
 
 	echo '
 			</div><!-- #main_content_section -->
-		</div><!-- #content_section -->';
+		</main><!-- #content_section -->';
 
   // Space above footer
   echo '
+  	<br class="clear">
 	  <section id="above_footer">
 		  <a href="', $scripturl,'">
 		  	<img src="/assets/ui/DUMB.gif" alt="Go Home" title="Go Home">

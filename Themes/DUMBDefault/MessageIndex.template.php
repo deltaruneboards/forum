@@ -182,7 +182,7 @@ function template_main()
 				$topic['first_post']['link'] = str_replace($oldSubject, $newSubject, $topic['first_post']['link']);
 			
 			echo '
-				<div class="topic_grid ', $topic['css_class'], '">
+				<div class="topic_grid ', $topic['css_class'], '" aria-label="Topic">
 					<div class="board_icon">
 						<img src="', $topic['first_post']['icon_url'], '" alt="">
 						', $topic['is_posted_in'] ? '<div class="main_icons profile_sm"></div>' : '', '

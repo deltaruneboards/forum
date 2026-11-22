@@ -69,7 +69,7 @@ function template_main()
 			continue;
 
 		echo '
-		<div class="main_container">
+		<div class="main_container" role="grid">
 			<div class="cat_bar ', $category['is_collapsed'] ? 'collapsed' : '', '" id="category_', $category['id'], '">
 				<h3 class="catbg">';
 
@@ -83,7 +83,7 @@ function template_main()
 				</h3>', !empty($category['description']) ? '
 				<div class="desc">' . $category['description'] . '</div>' : '', '
 			</div>
-			<div id="category_', $category['id'], '_boards" ', (!empty($category['css_class']) ? ('class="' . $category['css_class'] . '"') : ''), $category['is_collapsed'] ? ' style="display: none;"' : '', '>';
+			<div id="category_', $category['id'], '_boards" ', (!empty($category['css_class']) ? ('class="' . $category['css_class'] . '"') : ''), $category['is_collapsed'] ? ' style="display: none;"' : '', ' role="grid">';
 
 		/* Each board in each category's boards has:
 		new (is it new?), id, name, description, moderators (see below), link_moderators (just a list.),
@@ -376,7 +376,7 @@ function template_recent_activity()
 	foreach ($context['recent_topics'] as $topic)
 	{
 		echo '<div class="topic_grid windowbg_recent">',
-		'<div class="board_icon">', '<img src="', $settings['actual_images_url'], '/post/', htmlspecialchars($topic['icon']), '.png">', '</div>';
+		'<div class="board_icon">', '<img src="', $settings['actual_images_url'], '/post/', htmlspecialchars($topic['icon']), '.png" alt="">', '</div>';
 		$threadTags = makeThreadTags($topic['subject']);
 		$topic['subject'] = $threadTags[0] . ' ' . $threadTags[1];
 		echo '<div class="info info_block"><div class="message_index_title">',
