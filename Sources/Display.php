@@ -1600,7 +1600,7 @@ function prepareDisplayContext($reset = false)
 			'label' => $txt['report'],
 			'href' => $scripturl.'?action=reporttm;topic='.$context['current_topic'].'.'.$output['counter'].';msg='.$output['id'],
 			'icon' => 'error',
-			'show' => $context['can_report_moderator']
+			'show' => $context['can_report_moderator'] && !$output['is_message_author']
 		),
 		'more' => array(
 			'modify' => array(
@@ -1608,6 +1608,12 @@ function prepareDisplayContext($reset = false)
 				'href' => $scripturl.'?action=post;msg='.$output['id'].';topic='.$context['current_topic'].'.'.$context['start'],
 				'icon' => 'modify_button',
 				'show' => $output['can_modify']
+			),
+			'report' => array(
+				'label' => $txt['report'],
+				'href' => $scripturl.'?action=reporttm;topic='.$context['current_topic'].'.'.$output['counter'].';msg='.$output['id'],
+				'icon' => 'error',
+				'show' => $context['can_report_moderator'] && $output['is_message_author']
 			),
 			'remove_topic' => array(
 				'label' => $txt['remove_topic'],

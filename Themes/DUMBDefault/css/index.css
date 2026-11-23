@@ -1404,6 +1404,7 @@ ul li.greeting {
 /* The quick buttons */
 .quickbuttons {
 	display: flex;
+	margin-left:auto;
 }
 #recent .quickbuttons {
 	margin: 0;
