@@ -1163,7 +1163,7 @@ html[lang="el-GR"] .inline_mod_check {
 #wrapper, #header, #footer .inner_wrap, #top_section, #footer {
 	max-width: 1000px;
 	margin: 0 auto;
-	width: 90%;
+	width: 100%;
 }
 
 /* The framing graphics */
