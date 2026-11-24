@@ -44,6 +44,7 @@ DELETE FROM smf_arcade_rates;
 DELETE FROM smf_arcade_scores;
 DELETE FROM smf_attachments;
 DELETE FROM smf_awards;
+DELETE FROM smf_awards_overrides;
 DELETE FROM smf_background_tasks;
 DELETE FROM smf_ban_groups;
 DELETE FROM smf_ban_items;
