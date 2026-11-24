@@ -60,6 +60,11 @@ function template_options()
 			'label' => 'Enable banner effects?',
 			'default' => false,
 		],
+		[
+			'id' => 'show_no_badges',
+			'label' => 'Disable badges?',
+			'default' => false,
+		],
 		$txt['theme_opt_display'],
 		array(
 			'id' => 'show_children',
