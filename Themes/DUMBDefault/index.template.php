@@ -206,7 +206,7 @@ function template_html_above()
 		'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')), !empty($context['current_board']) ? ' board_' . $context['current_board'] : '',
 		' color-scheme-', $options['color_scheme'] ?? 'dark',
 		' font-size-', $options['font_size'] ?? 'small',
-		'" tabindex="-1" aria-hidden="true">';
+		'" tabindex="-1">';
 }
 
 /**
