@@ -57,6 +57,7 @@ class Buy
 
 		// Set all the page stuff
 		require_once($sourcedir . '/Subs-List.php');
+		require_once($sourcedir . '/Subs-Post.php');
 		$context['sub_template'] = 'show_list';
 		$context['default_list'] = 'itemslist';
 		$context['page_title'] = Shop::getText('main_button') . ' - ' . Shop::getText('main_buy');
@@ -88,7 +89,7 @@ class Buy
 			'default_sort_dir' => 'ASC',
 			'get_items' => [
 				'function' => 'Shop\Helper\Database::Get',
-				'params' => ['stshop_items AS s', array_merge(Database::$items, ['sc.name AS category']), 'WHERE s.status = 1 AND s.stock > 0'. (isset($_REQUEST['cat']) && $_REQUEST['cat'] >= 0 ? ' AND s.catid = {int:cat}' : ''), false, 'LEFT JOIN {db_prefix}stshop_categories AS sc ON (s.catid = sc.catid)', ['cat' => isset($_REQUEST['cat']) ? $_REQUEST['cat'] : 0]],
+				'params' => ['stshop_items AS s', array_merge(Database::$items, ['sc.name AS category', 's.info1 AS gid', 'md.file AS module_name']), 'WHERE s.status = 1 AND s.stock > 0'. (isset($_REQUEST['cat']) && $_REQUEST['cat'] >= 0 ? ' AND s.catid = {int:cat}' : ''), false, 'LEFT JOIN {db_prefix}stshop_categories sc ON s.catid = sc.catid LEFT JOIN {db_prefix}stshop_modules md ON s.module = md.id', ['cat' => isset($_REQUEST['cat']) ? $_REQUEST['cat'] : 0]],
 			],
 			'get_count' => [
 				'function' => 'Shop\Helper\Database::Count',
@@ -119,7 +120,15 @@ class Buy
 					'data' => [
 						'function' => function($row)
 						{
-							return '<span style="font-size:110%">'.$row['name'] .'</span>' . (!empty($row['description']) ? '<br/><span class="smalltext">' . $row['description'] . '</span>' : '');
+          					preparsecode($row["name"]);
+                  		    $retr = '<span style="font-size:110%">' . parse_bbc($row["name"]) . '</span>';
+							
+							if (!empty($row["description"])) {
+         						preparsecode($row["description"])	;
+                 			    $retr .= '<br><span class="smalltext">' . parse_bbc($row["description"]) . "</span>";
+							}
+							
+							return $retr;
 						},
 						'class' => 'lefttext',
 						'style' => 'width: 35%',
