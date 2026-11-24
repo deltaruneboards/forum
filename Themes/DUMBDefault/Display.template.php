@@ -290,14 +290,15 @@ function template_main()
 	theme_linktree();
 
 	// Moderation buttons
-	echo '
+	echo '<div id="dumbass_container">
 		<div id="moderationbuttons">
 			', template_button_strip($context['mod_buttons'], 'bottom', array('id' => 'moderationbuttons_strip')), '
 		</div>';
 
 	// Show the jumpto box, or actually...let Javascript do it.
 	echo '
-		<div id="display_jump_to"></div>';
+		<div id="display_jump_to"></div>
+		</div>';
 
 	// Show quickreply
 	if ($context['can_reply'])
@@ -560,20 +561,18 @@ function template_single_post($message)
 		echo '<li class="icons">', ($message['member']['is_banned'] ?
 			'<img src="/shop_items/items/BANNED.png" alt="Banned" title="Banned">' :
 			($postgroup . ' ' . $message['member']['group_icons'])), '</li>';
-
-		// Show the pronouns
-		if (!empty($message['custom_fields']['standard']))
-			foreach ($message['custom_fields']['standard'] as $custom)
-				if ($custom['col_name'] === 'cust_pronou')
-					echo '<li class="pronouns">', $custom['value'], '</li>';
 	}
 
 	// Are there any custom fields below the avatar?
 	if (!empty($message['custom_fields']['below_avatar']))
 		foreach ($message['custom_fields']['below_avatar'] as $custom)
+			if ($custom['col_name'] === 'cust_pronou') {
+				echo '<li class="pronouns">', $custom['value'], '</li>';
+			} else {
 			echo '
-								<li class="custom ', $custom['col_name'], '">', $custom['title'], ': ', $custom['value'], '</li>';
-
+				<li class="custom ', $custom['col_name'], '">', $custom['title'], ': ', $custom['value'], '</li>';
+			}
+			
 	// Don't show these things for guests.
 	if (!$message['member']['is_guest'])
 	{
@@ -1021,8 +1020,7 @@ function template_quickreply()
 					</form>
 				</div><!-- .roundframe -->
 			</div><!-- #quickreply_options -->
-		</div><!-- #quickreply -->
-		<br class="clear">';
+		</div><!-- #quickreply -->';
 
 	// Draft autosave available and the user has it enabled?
 	if (!empty($context['drafts_autosave']))

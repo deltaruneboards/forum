@@ -906,11 +906,6 @@ function RegisterCheckUsername()
 {
 	global $sourcedir, $context, $scripturl, $cookiename, $smcFunc;
 
-	// Who are you again?
-	if (empty($_COOKIE) || empty($_COOKIE[$cookiename]) || empty($_SERVER['HTTP_REFERER']) || stripos($_SERVER['HTTP_REFERER'], $scripturl) !== 0) {
-		send_http_status(403);
-	}
-
 	// This is XML!
 	loadTemplate('Xml');
 	$context['sub_template'] = 'check_username';

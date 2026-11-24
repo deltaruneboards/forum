@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'suki/breeze',
-        'pretty_version' => 'dev-develop',
-        'version' => 'dev-develop',
-        'reference' => '07cacfa37b68dc99ae6710b4364ed6e7c11a66d3',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'ce860f47becd7ff8e5d7cc232e1548884a487be7',
         'type' => 'smf-module',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -65,9 +65,9 @@
             ),
         ),
         'suki/breeze' => array(
-            'pretty_version' => 'dev-develop',
-            'version' => 'dev-develop',
-            'reference' => '07cacfa37b68dc99ae6710b4364ed6e7c11a66d3',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'ce860f47becd7ff8e5d7cc232e1548884a487be7',
             'type' => 'smf-module',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

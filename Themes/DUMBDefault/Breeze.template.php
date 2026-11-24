@@ -22,7 +22,6 @@ function template_profile(): void
 
 	$profileSettings = $context[Breeze::NAME]['profileSettings'];
 	$buddiesData = $context[Breeze::NAME]['buddiesData'];
-	$aboutMe = $profileSettings[UserSettingsEntity::ABOUT_ME] ?? '';
 	$enableBuddiesTab = $profileSettings[UserSettingsEntity::ENABLE_BUDDIES_TAB] ?? 0;
 
 	// DUMB change: display the summary above wall
@@ -36,13 +35,6 @@ function template_profile(): void
 		', display_content() ,'
 	</div>';
 
-	if (!empty($aboutMe)) {
-		echo '
-		<div id="tab-about" class="content" style="display: none;">
-			' . parse_bbc($aboutMe) . '
-		</div>';
-	}
-
 	if ($enableBuddiesTab)
 	{
 		echo '
@@ -53,22 +45,18 @@ function template_profile(): void
 				<ul class="reset buddyList">';
 
 			foreach ($buddiesData as $buddy) {
-				$buddyIcon = !empty($buddy['is_buddy']) ? 'delete' : 'plus';
-				$buddyText = !empty($buddy['is_buddy']) ? 'remove' : 'add';
 				echo '
 				<ul class="flow_auto">
     				<li class="avatar">
     					<a href="', $buddy['href'], '">
 			  				<img
 								src="', $buddy['avatar']['url'], '"
-								alt="', $buddy['username'], '"
+								alt="', $buddy['name'], '"
 								class="avatar" />
 						</a>
     				</li>
     				<li>
     					', $buddy['link_color'] ,'
-    					<a href="', $scripturl , '?action=buddy;u=', $buddy['id'], ';', $context['session_var'], '=', $context['session_id'], '">
-    						<span class="main_icons ', $buddyIcon , '" title="', $txt['buddy_' . $buddyText] ,'" /></a>
 					</li>
   				</ul>';
 			}

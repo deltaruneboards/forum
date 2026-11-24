@@ -115,7 +115,7 @@ class DUMBUsergroup extends Module
 
     function onUse()
     {
-		global $user_info, $sourcedir, $smcFunc;
+		global $user_info, $sourcedir, $smcFunc, $context;
 
 		// Required file just in case
 		require_once($sourcedir . '/Subs-Membergroups.php');
@@ -172,20 +172,18 @@ class DUMBUsergroup extends Module
         // overriding the existing primary group
         // dear god i really hope this doesnt break somehow
         // and deadmin someon
-        if ($this->item_info[1] > 0)
+        $txt = ''.sprintf(Shop::getText('dumbgroup_success'), $context['item']['name']);
+        if ($this->item_info[1] > 0) {
             addMembersToGroup($user_info['id'], $this->item_info[1], 'force_primary', true);
-        else
+        }
+        else {
             removeMembersFromGroups($user_info['id'], null, true);
-        // hopefully this doesnt break anything in the future??
-        // on the other hand idk how mad smf would get about having a member
-        // with no primary mgroup but also having subgroups
+            $txt = sprintf(Shop::getText('dumbgroup_reset'));
+        }
 
-
-		// Display message box
-        // idrc we cn probably get away with reusing the string from the other one
 		return '
 			<div class="infobox">
-				' . Shop::getText('pmg_success') . '
+				' . $txt . '
 			</div>';
     }
 }

@@ -235,7 +235,7 @@ class DUMBBadge extends Module
 
     function onUse()
     {
-		global $smcFunc, $user_info;
+		global $smcFunc, $user_info, $context;
 
         $requestDUMBthisisDUMB = $smcFunc['db_query']('', '
             SELECT nfo.itemid, nfo.name
@@ -314,7 +314,7 @@ class DUMBBadge extends Module
 
         return '
             <div class="infobox">
-                ' . sprintf(Shop::getText('Shop_dumbb_success'), $item_id[1]) .
+                ' . sprintf(Shop::getText('dumbb_success'), $context['item']['name']) .
             '</div>';
     }
 }

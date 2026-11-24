@@ -45,6 +45,21 @@ function template_options()
 			],
 			'default' => 'dark',
 		],
+		[
+			'id' => 'font_size',
+			'label' => 'Font size',
+			'options' => [
+				'small' => 'Small',
+				'medium' => 'Medium (Beta)',
+				'large' => 'Large (Beta)',
+			],
+			'default' => 'small',
+		],
+		[
+			'id' => 'banner_effects',
+			'label' => 'Enable banner effects?',
+			'default' => false,
+		],
 		$txt['theme_opt_display'],
 		array(
 			'id' => 'show_children',

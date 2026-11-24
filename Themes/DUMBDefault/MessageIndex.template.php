@@ -182,17 +182,17 @@ function template_main()
 				$topic['first_post']['link'] = str_replace($oldSubject, $newSubject, $topic['first_post']['link']);
 			
 			echo '
-				<div class="topic_grid ', $topic['css_class'], '">
+				<div class="topic_grid ', $topic['css_class'], '" aria-label="Topic">
 					<div class="board_icon">
 						<img src="', $topic['first_post']['icon_url'], '" alt="">
-						', $topic['is_posted_in'] ? '<span class="main_icons profile_sm"></span>' : '', '
+						', $topic['is_posted_in'] ? '<div class="main_icons profile_sm"></div>' : '', '
 					</div>
 					<div class="info', !empty($context['can_quick_mod']) ? '' : ' info_block', '">
 						<div class="topic_info_grid"', (!empty($topic['quick_mod']['modify']) ? 'id="topic_' . $topic['first_post']['id'] . '"  ondblclick="oQuickModifyTopic.modify_topic(\'' . $topic['id'] . '\', \'' . $topic['first_post']['id'] . '\');"' : ''), '>';
 
 			// Now we handle the icons
 			echo '
-							<div class="icons floatright">';
+							<div class="icons">';
 
 			if ($topic['is_watched'])
 				echo '
@@ -232,7 +232,7 @@ function template_main()
 									<span id="msg_', $topic['first_post']['id'], '">', $topic['first_post']['link'], (!$topic['approved'] ? '&nbsp;<em>(' . $txt['awaiting_approval'] . ')</em>' : ''), '</span>' . ($topicDescriptionWhere === 'right' ? $topicDescription : '') . '
 								</span>
 							</div>
-							<p class="floatleft">
+							<p class="topic_starter">
 								', $txt['started_by'], ' ', $topic['first_post']['member']['link'], '
 							</p>
 							', !empty($topic['pages']) ? '<span id="pages' . $topic['first_post']['id'] . '" class="topic_pages">' . $topic['pages'] . '</span>' : '', '' . ($topicDescriptionWhere === 'below' ? $topicDescription : '') . '

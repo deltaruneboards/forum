@@ -96,7 +96,6 @@ span.group-29, a.group-29, a.group-29:visited {
 /* Darkner */
 span.group-30, a.group-30, a.group-30:visited {
 	color: #3DAEEE;
-	text-shadow: 0 0 2px #0004FF;
 	-webkit-text-stroke: 3px #002d52;
 	paint-order: stroke fill;
 }
@@ -187,7 +186,6 @@ span.group-43, a.group-43, a.group-43:visited {
 /* Lightner */
 span.group-44, a.group-44, a.group-44:visited {
 	color: #FC3;
-	text-shadow: 0 0 2px #FF5400;
 	-webkit-text-stroke: 3px #cc5600;
 	paint-order: stroke fill;
 }
@@ -216,7 +214,6 @@ span.group-47, a.group-47, a.group-47:visited {
 /* Moss Finder */
 span.group-48, a.group-48, a.group-48:visited {
 	color: #55c621;
-	text-shadow: 0 0 2px #3e89ff;
 	-webkit-text-stroke: 3px #1e7969;
 	paint-order: stroke fill;
 }
@@ -292,6 +289,21 @@ span.group-60, a.group-60, a.group-60:visited {
 	paint-order:stroke fill;
 	text-shadow:0 0 5px #ff7f08;
 	font-weight:700;
+}
+
+/* Princess */
+span.group-61, a.group-61, a.group-61:visited {
+	color: #FEE1F3;
+	-webkit-text-stroke: 3px #a03a6c;
+	paint-order: stroke fill;
+}
+
+/* His/Their Best Friend */
+span.group-62, a.group-62, a.group-62:visited,
+span.group-63, a.group-63, a.group-63:visited {
+	color: #E8A63B;
+  	-webkit-text-stroke: 3px #562e13;
+  	paint-order: stroke fill;
 }
 
 /* BLAZER, ICE BLAZER, SOUTH OF THE BORDER, The Youthful Days */

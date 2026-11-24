@@ -2343,7 +2343,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'tag' => 'size',
 				'type' => 'unparsed_equals',
 				'test' => '([1-9][\d]?p[xt]|small(?:er)?|large[r]?|x[x]?-(?:small|large)|medium|(0\.[1-9]|[1-9](\.[\d][\d]?)?)?em)\]',
-				'before' => '<span style="font-size: max($1, 8px);" class="bbc_size">',
+				'before' => '<span style="font-size: max(min($1, 99px), 8px);" class="bbc_size">',
 				'after' => '</span>',
 			),
 			array(
@@ -2354,7 +2354,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'after' => '</span>',
 				'validate' => function(&$tag, &$data, $disabled)
 				{
-					$sizes = array(1 => 0.5, 2 => 0.7, 3 => 1, 4 => 1.05, 5 => 1.45, 6 => 1.9, 7 => 2.9);
+					$sizes = array(1 => 0.5, 2 => 0.8, 3 => 1.1, 4 => 1.4, 5 => 1.8, 6 => 2.3, 7 => 2.8);
 					$data = $sizes[$data] . 'rem';
 				},
 			),
@@ -2476,6 +2476,15 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 				'test' => '(\d+)\]',
 				'before' => '<span class="group-$1">',
 				'after' => '</span>',
+			],
+			[
+				'tag' => 'tag',
+				'type' => 'unparsed_content',
+				'validate' => function(&$tag, &$data, $disabled)
+				{
+					$unused = '';
+					$tag['content'] = makeThreadTag($data, $unused);
+				},
 			],
 		);
 
@@ -8753,53 +8762,37 @@ const CANONICAL_TAGS = [
 	'pipis',
 ];
 
-// Make tags from thread subject.
-function makeThreadTags($title)
+function makeThreadTag($tag, &$extraTags)
 {
 	global $scripturl;
-	static $canSearch = null;
-	$tagged = [];
-	$extraTags = '';
+	$tag = htmlspecialchars(strtolower($tag));
+	if (in_array($tag, CANONICAL_TAGS)) {
+		$extraTags = "tag-$tag";
+	}
+	return '<a class="threadTag tag ' . $extraTags . '" href="' . $scripturl . '?action=search2;search=' . htmlspecialchars('[' . $tag . ']') . '" title="' . $tag . '">' . $tag . '</a>';
+}
 
-	if (str_contains($title, 'class="threadTag')){
-		return array(trim($title), '');
+function makeThreadTags($title)
+{
+	if (str_contains($title, 'class="threadTag')) {
+		return [trim($title), ''];
 	}
 
-	// Save the search permission to avoid adding more queries to the db.
-	// It saves lives (and servers) when there are too many tags to parse.
-	if ($canSearch === null)
-		$canSearch = allowedTo('search_posts');
-
+	$tags = [];
+	$tagged = [];
+	$extraTags = '';
 	preg_match_all('/\[(.*?)\]/', $title, $matches);
-
-	$tags = '';
-	foreach ($matches[1] as $tag)
-	{
-		if (!in_array($tag, $tagged))
-		{
-			array_push($tagged, $tag);
+	foreach ($matches[1] as $tag) {
+		if (!isset($tagged[$tag])) {
+			$tagged[$tag] = true;
 			$title = str_replace('[' . $tag . ']', '', $title);
-			$tag = htmlspecialchars(strtolower($tag));
-
-			// Start at a hue that makes "18" red.
-			$hash = -105;
-			for($i = 0; $i < strlen($tag); $i++)
-				$hash += ord($tag[$i]);
-
-			if (in_array($tag, CANONICAL_TAGS))
-				$extraTags = "tag-$tag";
-
-			if ($canSearch)
-				$tags .= '<a class="threadTag tag ' . $extraTags . '" href="' . $scripturl . '?action=search2;search=' . htmlspecialchars('[' . $tag . ']') . '" title="' . $tag . '">' . $tag . '</a>';
-			else
-				$tags .= '<span class="threadTag tag ' . $extraTags . '">' . $tag . '</span>';
+			$tags[] = makeThreadTag($tag, $extraTags);
 		}
 	}
 
-	return [htmlspecialchars(string: trim($title), double_encode: false), $tags];
+	return [htmlspecialchars(string: trim($title), double_encode: false), implode($tags)];
 }
 
-// Strip tags from title.
 function stripThreadTags($title)
 {
 	$title = makeThreadTags($title);

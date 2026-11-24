@@ -240,6 +240,7 @@
 	.up_contain {
 		width: 100%;
 		grid-template-columns: min-content 1fr 16%;
+		grid-template-areas: "icon info stats";
 	}
 	.up_contain .lastpost {
 		border-top: 1px solid var(--border-color);
@@ -268,8 +269,11 @@
 	}
 	#messageindex .lastpost {
 		display: inline-block;
+		grid-area:lastpost;
 	}
-	#messageindex .info {
+	#messageindex .info,
+	#topic_header .board_stats,
+	#topic_header .lastpost {
 		padding: 8px 10px;
 	}
 	.info_block {
@@ -311,14 +315,11 @@
 	#topic_container .topic_grid, #topic_container .windowbg {
 		display: grid;
 		grid-template-columns: 1fr max-content;
+		grid-template-areas: "title" "desc" "name" "stats" "lastpost" "pages";
 		padding: 0.5em;
 	}
-	#topic_header > .board_icon {
+	#topic_header > .board_icon, #topic_header {
 		display: block;
-	}
-	.message_index_title {
-		grid-column: 1;
-		grid-row: 1;
 	}
 	.info_block div:not(:has(> .icons)) .message_index_title {
 		grid-column: 1 / span 2;
@@ -343,11 +344,10 @@
 		font-size: 1em;
 		padding-left: 20px;
 		text-align: left;
+		grid-area:stats;
 	}
 	.topic_grid .lastpost {
 		font-size: 1em;
-		grid-column: 1 / span 2;
-		grid-row: 5;
 		min-height: initial;
 		padding-left: 20px;
 	}
@@ -362,10 +362,9 @@
 		padding-right: 0.5em;
 	}
 	.info_block div .floatleft {
-		grid-row: 3;
-		grid-column: 1 / span 2;
 		padding-left: 20px;
 		text-align: left;
+		margin:0;
 	}
 	/* Unread */
 	#unread .board_icon, #unread .lastpost, #unreadreplies .board_icon, #unreadreplies .lastpost {
@@ -414,13 +413,6 @@
 	}
 	.keyinfo .postinfo {
 		font-weight: normal;
-	}
-	.keyinfo .postinfo .smalltext,
-	.keyinfo .page_number {
-		opacity: 0.6;
-	}
-	.keyinfo .postinfo a.smalltext:hover {
-		opacity: 1;
 	}
 	img.icon, #forumposts .catbg img {
 		display: none;
@@ -482,12 +474,23 @@
 	#creator dd {
 		width: 65%;
 	}
-	#basicinfo, #detailedinfo {
-		width: 100%;
+
+	#profileview {
+		display:flex;
+		flex-flow:column wrap;
 	}
-	#basicinfo {
-		margin: 0 0 5px 0; /* For UX */
+	#profile_main {
+		grid-template-columns: 1fr;
+		grid-template-areas: "avatar" "info" "buttons" "detail";
 	}
+	#profile_main .username {
+		text-align: center;
+	}
+	#profile_main img.avatar, .cust_person img {
+		max-width:200px;
+		max-height: 200px;
+	}
+
 	/* Buddies & Ignore List */
 	#edit_buddies .buddy_custom_fields {
 		display: none;
@@ -735,11 +738,6 @@
 
 /* Entry level phones */
 @media (max-width: 480px) {
-	h1.forumtitle a, h1.forumtitle {
-		padding: 5px 0 0 4px;
-		max-width: 300px;
-		margin: 10px 0;
-	}
 	.board_moderators {
 		display: none;
 	}

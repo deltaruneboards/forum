@@ -1087,44 +1087,6 @@ function arcade_custom_profile($memID, $area)
 		}
 		$smcFunc['db_free_result']($request);
 		$memberReports = rtrim($memberReports, ',');
-
-		if ((!empty($memberData) || !empty($memberReports)) && !empty($arcadeModSettings['arcadeProfileView'])) {
-			$custom_fields = !empty($context['custom_fields']) ? $context['custom_fields'] : array();
-			$key = count($custom_fields) > 0 ? count($custom_fields) - 1 : 0;
-			$hr = !empty($custom_fields[$key]) ? '<hr />' : '';
-			$viewOption = (int)$arcadeModSettings['arcadeProfileView'];
-			$new_fields = [
-				'name' => $hr . arcadeTokenTxtReplace($txt['arcade_profile_info']),
-				'desc' => arcadeTokenTxtReplace($txt['arcade_profile_desc']),
-				'title' => arcadeTokenTxtReplace($txt['arcade_profile_desc']),
-				'type' => 'html',
-				'order' => count($custom_fields)+2,
-				'input_html' => '',
-				'placement' => 0,
-				'output_html' => $hr . '
-					<p>
-						<div style="line-height: 2em;display: flex;align-items: center;">
-							<img title="' . $txt['arcade_profile_downloads'] . '" src="' . $settings['default_images_url'] . '/arc_icons/profile_download.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;border: 0px;" /> ' . ($viewOption == 1 ? $txt['arcade_profile_downloads'] . ': ' : '') . strval($memberData['dcount']) . '
-						</div>
-						<div style="line-height: 2em;display: flex;align-items: center;">' . (!empty($memberData['arcade_online_time']) ? '
-							<img title="' . $txt['arcade_profile_arcade_online'] . '" src="' . $settings['default_images_url'] . '/arc_icons/profile_online.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;border: 0px;" /> ' . ($viewOption == 1 ? $txt['arcade_profile_arcade_online'] . ': ' : '') . $memberData['arcade_online_time'] : '
-							<img title="' . $txt['arcade_profile_online'] . '" src="' . $settings['default_images_url'] . '/arc_icons/profile_online.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;border: 0px;" /> ' . ($viewOption == 1 ? $txt['arcade_profile_online'] . ': ' : '') . $memberData['online_time']) . '
-						</div>
-						<hr />
-						<div style="line-height: 2em;display: flex;align-items: center;">
-							<img title="' . $txt['arcade_profile_num_reports'] . '" src="' . $settings['default_images_url'] . '/arc_icons/profile_reported.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;border: 0px;" /> ' . ($viewOption == 1 ? $txt['arcade_profile_num_reports'] . ': ' : '') . strval($count) . '
-						</div>' . ($count > 0 ? '
-						<div style="line-height: 2em;display: flex;align-items: center;">
-							<img title="' . $txt['arcade_profile_reports'] . '" src="' . $settings['default_images_url'] . '/arc_icons/profile_rlist.png" alt="" style="vertical-align: middle;width: 20px;height: 20px;border: 0px;" /> ' . ($viewOption == 1 ? $txt['arcade_profile_reports'] . ': ' : '') . '<div style="overflow-wrap: break-word;display: inline;">' . $memberReports . '</div>
-						</div>' : '') . '
-					</p>',
-				'colname' => 'cust_arcade',
-				'value' => '',
-				'show_reg' => 1,
-				'first_item' => 'hr',
-			];
-			$context['custom_fields'] = array_merge_recursive($custom_fields, array($new_fields));
-		}
 	}
 }
 

@@ -46,11 +46,30 @@ class WallController extends BaseController
 
 	public function profile(): void
 	{
-		$profileId = $this->getRequest('u', 0);
+		$profileId = intval($this->getRequest('u', 0));
 		$buddiesData = [];
 
 		if (empty($profileId)) {
 			Error::show('no_valid_action');
+		}
+		$memberContext = $this->profileService->loadUsersInfo([$profileId]);
+		if (empty($memberContext) || empty($memberContext[$profileId])) {
+			Error::show('no_valid_action');
+		}
+		if ($memberContext[$profileId]['is_banned'] && !$this->isAllowedTo(PermissionsEnum::DELETE_STATUS)) {
+			global $smcFunc;
+			$request = $smcFunc['db_query']('', '
+				SELECT reason
+				FROM {db_prefix}ban_groups
+				WHERE name = {string:username}
+				',
+				[
+					'username' => $memberContext[$profileId]['name']
+				],
+			);
+			$row = $smcFunc['db_fetch_assoc']($request);
+			$smcFunc['db_free_result']($request);
+			fatal_lang_error('Breeze_error_user_is_banned', false, [$row['reason']]);
 		}
 
 		$profileSettings = $this->profileService->getUserSettings($profileId);
