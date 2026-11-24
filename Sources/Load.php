@@ -1874,35 +1874,34 @@ function loadMemberContext($user, $display_custom_fields = false)
 		));
 
 		if (!empty($avatarData['image']))
-			
-            $memberContext[$user]['avatar'] = $avatarData;
+			$memberContext[$user]['avatar'] = $avatarData;
 
-        // DUMBie extension: loading badge data
-       $requestDUMBIE = $smcFunc['db_query']('', '
-        SELECT a.ID_AWARD, a.ITEM_ID, nfo.name, nfo.description, 
-                COALESCE(ovr.image, ext.badge_sprite, nfo.image) AS image, COALESCE(ovr.hover_text, ext.hover_text) AS hover_text
-        FROM {db_prefix}awards AS a
-        INNER JOIN {db_prefix}stshop_items nfo ON a.ITEM_ID = nfo.itemid
-        LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID
-        LEFT JOIN {db_prefix}awards_overrides ovr ON a.ID_AWARD = ovr.ID_AWARD
-        WHERE a.ID_AWARDED_MEMBER = {int:userid}
-        ORDER BY ext.sort_order DESC, a.sortorder DESC, nfo.name',
-        array(
-            'userid' => $profile['id_member'],
-        ));
+		// DUMBie extension: loading badge data
+	   $requestDUMBIE = $smcFunc['db_query']('', '
+		SELECT a.ID_AWARD, a.ITEM_ID, nfo.name, nfo.description, 
+				COALESCE(ovr.image, ext.badge_sprite, nfo.image) AS image, COALESCE(ovr.hover_text, ext.hover_text) AS hover_text
+		FROM {db_prefix}awards AS a
+		INNER JOIN {db_prefix}stshop_items nfo ON a.ITEM_ID = nfo.itemid
+		LEFT JOIN {db_prefix}awards_extinfo ext ON a.ITEM_ID = ext.ITEM_ID
+		LEFT JOIN {db_prefix}awards_overrides ovr ON a.ID_AWARD = ovr.ID_AWARD
+		WHERE a.ID_AWARDED_MEMBER = {int:userid}
+		ORDER BY ext.sort_order DESC, a.sortorder DESC, nfo.name',
+		array(
+			'userid' => $profile['id_member'],
+		));
 
-        $badgelist = $smcFunc['db_fetch_all']($requestDUMBIE);
-        $memberContext[$user]['DUMB_Badge'] = $badgelist;
+		$badgelist = $smcFunc['db_fetch_all']($requestDUMBIE);
+		$memberContext[$user]['DUMB_Badge'] = $badgelist;
 
-        $printlist = "";
-        foreach ($badgelist as $b) {
-            list($width, $height) = getimagesize('shop_items/items/' . $b["image"]);
-            $printlist = $printlist . '<img width=' . $width .' height=' . $height . ' src="/shop_items/items/' . $b["image"] .
-                '" title="' . htmlspecialchars($b["hover_text"]) . '" loading=lazy ">';
-        }
-        $memberContext[$user]['DUMB_Badge_render'] = $printlist;
+		$printlist = "";
+		foreach ($badgelist as $b) {
+			list($width, $height) = getimagesize('shop_items/items/' . $b["image"]);
+			$printlist = $printlist . '<img width=' . $width .' height=' . $height . ' src="/shop_items/items/' . $b["image"] .
+				'" title="' . htmlspecialchars($b["hover_text"]) . '" loading=lazy ">';
+		}
+		$memberContext[$user]['DUMB_Badge_render'] = $printlist;
 
-        $smcFunc['db_free_result']($requestDUMBIE);
+		$smcFunc['db_free_result']($requestDUMBIE);
 	}
 
 	// Are we also loading the members custom fields into context?
