@@ -112,6 +112,15 @@ body {
 	text-size-adjust: none;
 	-webkit-text-size-adjust: 100%;
 }
+html.font-size-smallererer {
+	font-size: 0.2rem;
+}
+html.font-size-smallerer {
+	font-size: 0.4rem;
+}
+html.font-size-smaller {
+	font-size: 0.6rem;
+}
 html.font-size-small {
 	font-size: 0.83333rem;
 }
@@ -120,6 +129,15 @@ html.font-size-medium {
 }
 html.font-size-large {
 	font-size: 1.2rem;
+}
+html.font-size-larger {
+	font-size: 1.4rem;
+}
+html.font-size-largerer {
+	font-size: 1.6rem;
+}
+html.font-size-largererer {
+	font-size: 1.8rem;
 }
 /* General reset */
 * {
@@ -1164,6 +1182,27 @@ html[lang="el-GR"] .inline_mod_check {
 	max-width: 1000px;
 	margin: 0 auto;
 	width: 100%;
+}
+body.page-width-narrow #wrapper,
+body.page-width-narrow #header,
+body.page-width-narrow #footer .inner_wrap,
+body.page-width-narrow #top_section,
+body.page-width-narrow #footer {
+	max-width: 800px;
+}
+body.page-width-wide #wrapper,
+body.page-width-wide #header,
+body.page-width-wide #footer .inner_wrap,
+body.page-width-wide #top_section,
+body.page-width-wide #footer {
+	max-width: 1280px;
+}
+body.page-width-full #wrapper,
+body.page-width-full #header,
+body.page-width-full #footer .inner_wrap,
+body.page-width-full #top_section,
+body.page-width-full #footer {
+	max-width: 100%;
 }
 
 /* The framing graphics */
