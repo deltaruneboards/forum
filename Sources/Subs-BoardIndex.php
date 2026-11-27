@@ -399,7 +399,7 @@ function getBoardIndex($board_index_options)
 		// Prepare the subject, and make sure it's not too long.
 		censorText($row_board['subject']);
 		$threadTags = makeThreadTags($row_board['subject']);
-		$row_board['short_subject'] = htmlspecialchars(shorten_subject(htmlspecialchars_decode($threadTags[0]), 24)) . ' ' . $threadTags[1];
+		$row_board['short_subject'] = $threadTags[1] . ' ' . htmlspecialchars(shorten_subject(htmlspecialchars_decode($threadTags[0]), 24));
 		$isLastPosterMember = !empty($row_board['id_member']);
 		$isLastPosterIgnored = $isLastPosterMember && $user_info['ignoreusers_hide_posts'] && in_array($row_board['id_member'], $user_info['ignoreusers']);
 		$isFirstPosterIgnored = $user_info['ignoreusers_hide_topics'] && in_array($row_board['id_member_started'] ?? 0, $user_info['ignoreusers']);

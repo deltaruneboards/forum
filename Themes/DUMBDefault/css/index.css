@@ -385,7 +385,8 @@ div.topic_info_grid {
 	margin: 10px 0 0 0;
 }
 
-.message_index_title {
+.message_index_title,
+.recent_title {
 	justify-self: start;
 	grid-area: title;
 }

@@ -502,7 +502,7 @@ function Display()
 	// Build the link tree.
 	$context['linktree'][] = array(
 		'url' => $scripturl . '?topic=' . $topic . '.0',
-		'name' => $context['topicinfo']['subject'] . ' ' . $threadTags,
+		'name' => $threadTags . ' ' .$context['topicinfo']['subject'],
 	);
 
 	// Build a list of this board's moderators.

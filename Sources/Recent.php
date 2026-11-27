@@ -60,7 +60,7 @@ function getLastPost()
 	// Tags are hard...
 	$threadTags = makeThreadTags($row['subject']);
 
-	$row['subject'] = $threadTags[0] . ' ' . $threadTags[1];
+	$row['subject'] = $threadTags[1] . ' ' . $threadTags[0];
 
 	// Send the data.
 	return array(
@@ -384,7 +384,7 @@ function RecentPosts()
 			),
 			'topic' => $row['id_topic'],
 			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'],
-			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow" title="' . $row['subject'] . '">' . $threadTags[0] . ' ' . $threadTags[1] . '</a>',
+			'link' => $threadTags[1] . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow" title="' . $row['subject'] . '">' . $threadTags[0] . '</a>',
 			'start' => $row['num_replies'],
 			'subject' => $row['subject'],
 			'shorten_subject' => shorten_subject($row['subject'], 30),
@@ -1344,11 +1344,11 @@ function UnreadTopics()
 
 		// And build the array.
 		$threadTags = makeThreadTags($row['last_subject']);
-		$lastPostLink = '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . ($row['num_replies'] == 0 ? '.0' : '.msg' . $row['id_last_msg']) . ';topicseen#msg' . $row['id_last_msg'] . '" rel="nofollow">' . $threadTags[0] . '</a>' . $threadTags[1];
+		$lastPostLink = $threadTags[1] . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . ($row['num_replies'] == 0 ? '.0' : '.msg' . $row['id_last_msg']) . ';topicseen#msg' . $row['id_last_msg'] . '" rel="nofollow">' . $threadTags[0] . '</a>';
 		$isLastPosterMember = !empty($row['id_last_member']);
 		$isLastPosterIgnored = $isLastPosterMember && $user_info['ignoreusers_hide_posts'] && in_array($row['id_last_member'], $user_info['ignoreusers']);
 		$threadTagsFirst = makeThreadTags($row['first_subject']);
-		$firstPostLink = '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0;topicseen">' . $threadTagsFirst[0] . '</a>' . $threadTagsFirst[1];
+		$firstPostLink = $threadTagsFirst[1]. '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0;topicseen">' . $threadTagsFirst[0] . '</a>';
 		$context['topics'][$row['id_topic']] = array(
 			'id' => $row['id_topic'],
 			'first_post' => array(
@@ -1357,7 +1357,7 @@ function UnreadTopics()
 					'name' => $row['first_poster_name'],
 					'id' => $row['id_first_member'],
 					'href' => $scripturl . '?action=profile;u=' . $row['id_first_member'],
-					'link' => !empty($row['id_first_member']) ? '<a class="preview" href="' . $scripturl . '?action=profile;u=' . $row['id_first_member'] . '" title="' . sprintf($txt['view_profile_of_username'], $row['first_poster_name']) . '" class="group-' . $row['first_poster_group'] . '">' . $row['first_poster_name'] . '</a>' : $row['first_poster_name']
+					'link' => !empty($row['id_first_member']) ? '<a class="preview group-' . $row['first_poster_group'] . '" href="' . $scripturl . '?action=profile;u=' . $row['id_first_member'] . '" title="' . sprintf($txt['view_profile_of_username'], $row['first_poster_name']) . '" class="group-' . $row['first_poster_group'] . '">' . $row['first_poster_name'] . '</a>' : $row['first_poster_name']
 				),
 				'time' => timeformat($row['first_poster_time']),
 				'timestamp' => $row['first_poster_time'],
@@ -1377,7 +1377,7 @@ function UnreadTopics()
 					'link' => $isLastPosterMember ?
 						$isLastPosterIgnored ?
 							'[Ignored user]' :
-							'<a href="' . $scripturl . '?action=profile;u=' . $row['id_last_member'] . '" class="group' . $row['last_poster_group'] . '">' . $row['last_poster_name'] . '</a>' :
+							'<a href="' . $scripturl . '?action=profile;u=' . $row['id_last_member'] . '" class="group-' . $row['last_poster_group'] . '">' . $row['last_poster_name'] . '</a>' :
 						$row['last_poster_name']
 				),
 				'time' => timeformat($row['last_poster_time']),

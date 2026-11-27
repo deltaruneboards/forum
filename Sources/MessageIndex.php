@@ -404,8 +404,8 @@ function MessageIndex()
 			// Make our thread tags.
 			$threadTags = makeThreadTags($row['first_subject']);
 
-			$row['first_subject'] = $threadTags[0] . ' ' . $threadTags[1];
-censorText($row['first_subject']);
+			$row['first_subject'] = $threadTags[1] . ' ' . $threadTags[0];
+			censorText($row['first_subject']);
 			censorText($row['first_body']);
 
 			// Don't censor them twice!
@@ -482,11 +482,11 @@ censorText($row['first_subject']);
 			$colorClass .= ' locked';
 
 		$threadTags = makeThreadTags($row['last_subject']);
-		$lastPostLink = '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . ($user_info['is_guest'] ? ('.' . (!empty($options['view_newest_first']) ? 0 : ((int) (($row['num_replies']) / $context['pageindex_multiplier'])) * $context['pageindex_multiplier']) . '#msg' . $row['id_last_msg']) : (($row['num_replies'] == 0 ? '.0' : '.msg' . $row['id_last_msg']) . '#new')) . '" ' . ($row['num_replies'] == 0 ? '' : 'rel="nofollow"') . '>' . $threadTags[0] . '</a>' . $threadTags[1];
+		$lastPostLink = $threadTags[1] . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . ($user_info['is_guest'] ? ('.' . (!empty($options['view_newest_first']) ? 0 : ((int) (($row['num_replies']) / $context['pageindex_multiplier'])) * $context['pageindex_multiplier']) . '#msg' . $row['id_last_msg']) : (($row['num_replies'] == 0 ? '.0' : '.msg' . $row['id_last_msg']) . '#new')) . '" ' . ($row['num_replies'] == 0 ? '' : 'rel="nofollow"') . '>' . $threadTags[0] . '</a>';
 		$isLastPosterMember = !empty($row['last_id_member']);
 		$isLastPosterIgnored = $isLastPosterMember && $user_info['ignoreusers_hide_posts'] && in_array($row['last_id_member'], $user_info['ignoreusers']);
 		$threadTagsFirst = makeThreadTags($row['first_subject']);
-		$firstPostLink = '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $threadTagsFirst[0] . '</a>' . $threadTagsFirst[1];
+		$firstPostLink = $threadTagsFirst[1] . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $threadTagsFirst[0] . '</a>';
 		$context['topics'][$row['id_topic']] = array_merge($row, array(
 			'id' => $row['id_topic'],
 			'first_post' => array(

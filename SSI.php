@@ -525,7 +525,7 @@ function ssi_queryPosts($query_where = '', $query_where_params = array(), $query
 
 		// Make our tags for SSI.
 		$threadTags = makeThreadTags($row['subject']);
-		$row['subject'] = $threadTags[0] . ' ' . $threadTags[1];
+		$row['subject'] = $threadTags[1] . ' ' . $threadTags[0];
 		// Censor it!
 		censorText($row['subject']);
 		censorText($row['body']);
@@ -555,7 +555,7 @@ function ssi_queryPosts($query_where = '', $query_where_params = array(), $query
 			'time' => timeformat($row['poster_time']),
 			'timestamp' => $row['poster_time'],
 			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . ';topicseen#new',
-			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>' . $threadTags,
+			'link' => $threadTags . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>',
 			// Make a clean version of the link, for those people who want it.
 			'link_clean' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>',
 			'tags' => $threadTags,
@@ -738,7 +738,7 @@ function ssi_recentTopics($num_recent = 8, $exclude_boards = null, $include_boar
 			'time' => timeformat($row['poster_time']),
 			'timestamp' => $row['poster_time'],
 			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . ';topicseen#new',
-			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#new" rel="nofollow">' . $row['subject'] . '</a>' . $threadTags,
+			'link' => $threadTags . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#new" rel="nofollow">' . $row['subject'] . '</a>',
 			// Make a clean version of the link, for those people who want it.
 			'link_clean' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#new" rel="nofollow">' . $row['subject'] . '</a>',
 			'tags' => $threadTags,
@@ -960,7 +960,7 @@ function ssi_topTopics($type = 'replies', $num_topics = 10, $output_method = 'ec
 			'num_replies' => $row['num_replies'],
 			'num_views' => $row['num_views'],
 			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.0',
-			'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['subject'] . '</a>' . $threadTags,
+			'link' => $threadTags . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['subject'] . '</a>',
 			'link_clean' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.0">' . $row['subject'] . '</a>',
 			'tags' => $threadTags,
 		);
