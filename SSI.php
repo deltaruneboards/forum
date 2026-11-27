@@ -525,10 +525,10 @@ function ssi_queryPosts($query_where = '', $query_where_params = array(), $query
 
 		// Make our tags for SSI.
 		$threadTags = makeThreadTags($row['subject']);
-		$row['subject'] = $threadTags[1] . ' ' . $threadTags[0];
 		// Censor it!
 		censorText($row['subject']);
 		censorText($row['body']);
+		censorText($threadTags[1]);
 
 		$preview = strip_tags(strtr($row['body'], array('<br>' => '&#10;')));
 
@@ -555,7 +555,7 @@ function ssi_queryPosts($query_where = '', $query_where_params = array(), $query
 			'time' => timeformat($row['poster_time']),
 			'timestamp' => $row['poster_time'],
 			'href' => $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . ';topicseen#new',
-			'link' => $threadTags . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>',
+			'link' => $threadTags[1] . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>',
 			// Make a clean version of the link, for those people who want it.
 			'link_clean' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.msg' . $row['id_msg'] . '#msg' . $row['id_msg'] . '" rel="nofollow">' . $row['subject'] . '</a>',
 			'tags' => $threadTags,

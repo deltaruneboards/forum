@@ -404,7 +404,7 @@ function MessageIndex()
 			// Make our thread tags.
 			$threadTags = makeThreadTags($row['first_subject']);
 
-			$row['first_subject'] = $threadTags[1] . ' ' . $threadTags[0];
+			$row['first_subject'] = $threadTags[0] . ' ' . $threadTags[1];
 			censorText($row['first_subject']);
 			censorText($row['first_body']);
 

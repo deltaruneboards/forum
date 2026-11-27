@@ -399,7 +399,7 @@ function getBoardIndex($board_index_options)
 		// Prepare the subject, and make sure it's not too long.
 		censorText($row_board['subject']);
 		$threadTags = makeThreadTags($row_board['subject']);
-		$row_board['short_subject'] = $threadTags[1] . ' ' . htmlspecialchars(shorten_subject(htmlspecialchars_decode($threadTags[0]), 24));
+		$row_board['short_subject'] = htmlspecialchars(shorten_subject(htmlspecialchars_decode($threadTags[0]), 24));
 		$isLastPosterMember = !empty($row_board['id_member']);
 		$isLastPosterIgnored = $isLastPosterMember && $user_info['ignoreusers_hide_posts'] && in_array($row_board['id_member'], $user_info['ignoreusers']);
 		$isFirstPosterIgnored = $user_info['ignoreusers_hide_topics'] && in_array($row_board['id_member_started'] ?? 0, $user_info['ignoreusers']);
@@ -439,7 +439,7 @@ function getBoardIndex($board_index_options)
 		if ($row_board['subject'] != '' && !$isFirstPosterIgnored)
 		{
 			$this_last_post['href'] = $scripturl . '?topic=' . $row_board['id_topic'] . '.msg' . ($user_info['is_guest'] ? $row_board['id_msg'] : $row_board['new_from']) . (empty($row_board['is_read']) ? ';boardseen' : '') . '#new';
-			$this_last_post['link'] = '<a href="' . $this_last_post['href'] . '" title="' . $row_board['subject'] . '">' . $row_board['short_subject'] . '</a>';
+			$this_last_post['link'] =  $threadTags[1] . '<a href="' . $this_last_post['href'] . '" title="' . $row_board['subject'] . '">' . $row_board['short_subject'] . '</a>';
 		}
 		elseif ($isFirstPosterIgnored)
 		{

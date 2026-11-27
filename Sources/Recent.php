@@ -60,8 +60,6 @@ function getLastPost()
 	// Tags are hard...
 	$threadTags = makeThreadTags($row['subject']);
 
-	$row['subject'] = $threadTags[1] . ' ' . $threadTags[0];
-
 	// Send the data.
 	return array(
 		'topic' => $row['id_topic'],
@@ -71,7 +69,7 @@ function getLastPost()
 		'time' => timeformat($row['poster_time']),
 		'timestamp' => $row['poster_time'],
 		'href' => $scripturl . '?topic=' . $row['id_topic'] . '.new;topicseen#new',
-		'link' => '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.new;topicseen#new">' . $row['subject'] . '</a>'
+		'link' => $threadTags[1] . '<a href="' . $scripturl . '?topic=' . $row['id_topic'] . '.new;topicseen#new">' . $row['subject'] . '</a>'
 	);
 }
 

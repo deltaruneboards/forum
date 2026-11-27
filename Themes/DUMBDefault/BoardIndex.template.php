@@ -378,8 +378,9 @@ function template_recent_activity()
 		echo '<div class="topic_grid windowbg_recent">',
 		'<div class="board_icon">', '<img src="', $settings['actual_images_url'], '/post/', htmlspecialchars($topic['icon']), '.png" alt="">', '</div>';
 		$threadTags = makeThreadTags($topic['subject']);
-		$topic['subject'] = $threadTags[1] . ' ' . $threadTags[0];
+		$topic['subject'] = $threadTags[0];
 		echo '<div class="info info_block"><div class="message_index_title">',
+		$threadTags[1] .
 		'<a href="', $scripturl, '?topic=', $topic['id_topic'], '.msg', $topic['id_msg'], '#new">',
 		$topic['subject'],
 		'</a> - by ',

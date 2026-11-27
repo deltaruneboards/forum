@@ -577,10 +577,13 @@ function theme_linktree($force_show = false)
 		if (isset($tree['extra_before']))
 			echo $tree['extra_before'], ' ';
 
+		if (isset($tree['tags'])) {
+			echo $tree['tags'] . ' ';
+		}
+
 		// Show the link, including a URL if it should have one.
 		if (isset($tree['url']))
-			echo '
-							<a href="' . $tree['url'] . '"><span>' . $tree['name'] . '</span></a>';
+			echo '<a href="' . $tree['url'] . '"><span>' . $tree['name'] . '</span></a>';
 		else
 			echo '
 							<span>' . $tree['name'] . '</span>';
