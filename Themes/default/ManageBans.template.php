@@ -56,7 +56,7 @@ function template_ban_edit()
 						<strong>', $txt['ban_name'], ':</strong>
 					</dt>
 					<dd>
-						<input type="text" id="ban_name" name="ban_name" value="', $context['ban']['name'], '" size="20" maxlength="20">
+						<input type="text" id="ban_name" name="ban_name" value="', $context['ban']['name'], '" size="32" maxlength="32">
 					</dd>';
 
 	if (isset($context['ban']['reason']))
