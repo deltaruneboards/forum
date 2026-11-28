@@ -559,7 +559,7 @@ function template_single_post($message)
 
 		// Show the level and title
 		echo '<li class="icons">', ($message['member']['is_banned'] ?
-			'<img src="/shop_items/items/BANNED.png" alt="Banned" title="Banned">' :
+			'<b style="color: red"> (BANNED)</b>' :
 			($postgroup . ' ' . $message['member']['group_icons'])), '</li>';
 	}
 
